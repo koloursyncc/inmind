@@ -47,249 +47,14 @@
 						  <div class="ms-auto"><a href="javascript:;" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New Order</a></div>
 						</div>
 						<div class="table-responsive">
-							<table class="table mb-0">
+							<table class="table mb-0"  id="dataTable">
 								<thead class="table-light">
 									<tr>
 										<th>Order#</th>
-										<th>Company Name</th>
-										<th>Status</th>
-										<th>Total</th>
-										<th>Date</th>
-										<th>View Details</th>
-										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000354</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"><i class='bx bxs-circle me-1'></i>FulFilled</div></td>
-										<td>$485.20</td>
-										<td>June 10, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000986</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Confirmed</div></td>
-										<td>$650.30</td>
-										<td>June 12, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000536</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-warning bg-light-warning p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Partially shipped</div></td>
-										<td>$159.45</td>
-										<td>June 14, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000678</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>FulFilled</div></td>
-										<td>$968.40</td>
-										<td>June 16, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000457</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Confirmed</div></td>
-										<td>$689.50</td>
-										<td>June 18, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000685</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Confirmed</div></td>
-										<td>$478.60</td>
-										<td>June 20, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000356</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-warning bg-light-warning p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Partially shipped</div></td>
-										<td>$523.30</td>
-										<td>June 21, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000875</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>FulFilled</div></td>
-										<td>$960.20</td>
-										<td>June 24, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000658</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>FulFilled</div></td>
-										<td>$428.10</td>
-										<td>June 25, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#OS-000689</h6>
-												</div>
-											</div>
-										</td>
-										<td>Gaspur Antunes</td>
-										<td><div class="badge rounded-pill text-warning bg-light-warning p-2 text-uppercase px-3"><i class='bx bxs-circle align-middle me-1'></i>Partially shipped</div></td>
-										<td>$876.60</td>
-										<td>June 26, 2020</td>
-										<td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-										<td>
-											<div class="d-flex order-actions">
-												<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-												<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-											</div>
-										</td>
-									</tr>
+									
 								</tbody>
 							</table>
 						</div>
@@ -301,6 +66,24 @@
 		@include('layout.footer')
 	<!-- Bootstrap JS -->
 	@include('layout.jsfile')
+
+
+
+
+<script>
+$(document).ready(function() {
+
+var table = $('#dataTable').DataTable({
+				processing: true,
+				serverSide: true,
+				ajax: "{{url('productlistajax')}}",
+				columns: [
+					{ data: 'id', orderable: false}
+				],
+
+			});
+		});
+		</script>
 </body>
 
 </html>

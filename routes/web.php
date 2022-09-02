@@ -20,7 +20,8 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [UserController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/productadd', [ProductController::class, 'index']);
-Route::get('/produclist', [ProductController::class, 'list']);
+Route::get('/productlist', [ProductController::class, 'list']);
 Route::get('/productdetail', [ProductController::class, 'detail']);
 Route::get('/productadd', [ProductController::class, 'index']);
+Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
 
