@@ -9,7 +9,9 @@
 .pace-inactive {
   display: none;
 }
-
+.mt-10{
+	margin-top: 10px;
+}
 .pace .pace-progress {
   background: #0d6efd;
   position: fixed;
