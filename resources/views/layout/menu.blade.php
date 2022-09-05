@@ -210,8 +210,7 @@
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('productlist')}}"><i class="bx bx-right-arrow-alt"></i>Products</a>
 						</li>
-						<li> <a class="dropdown-item" href="{{asset('productdetail')}}"><i class="bx bx-right-arrow-alt"></i>Product Details</a>
-						</li>
+						
 						</ul>
 					  </li>
 					 <li class="nav-item dropdown">

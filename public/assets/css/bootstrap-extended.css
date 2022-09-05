@@ -4,7 +4,7 @@
 }
 
 a {
-	color: #008cff;
+	color: #821721;
 }
 
 .table-responsive {
@@ -12,8 +12,8 @@ a {
 }
 
 .form-check-input:checked {
-	background-color: #008cff;
-	border-color: #008cff
+	background-color: #821721;
+	border-color: #821721
 }
 
 .form-check-input[type=checkbox]:indeterminate {
@@ -84,8 +84,8 @@ a {
 
 .btn-primary {
 	color: #fff;
-	background-color: #008cff;
-	border-color: #008cff
+	background-color: #821721 !important;
+	border-color: #821721 !important;
 }
 .btn-primary:hover {
 	color: #fff;

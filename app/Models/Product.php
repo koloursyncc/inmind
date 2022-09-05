@@ -16,6 +16,5 @@ class Product extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'id', 'product_name', 'product_code','supplier','xz','cd','se','vf'
-    ];
+        'id', 'product_name', 'product_code','color','bar_code','dimension_width','dimension_depth','dimension_height','package_width','package_depth','package_height'];
 }

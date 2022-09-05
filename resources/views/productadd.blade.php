@@ -2,7 +2,11 @@
 <html lang="en">
 
 @include('layout.header')
-
+<style>
+.mt-10{
+	margin-top: 10px;
+}	
+</style>
 <body>
 	<!--wrapper-->
 	<div class="wrapper">
@@ -32,7 +36,7 @@
 					  <hr/>
                        <div class="form-body mt-4">
 					    <div class="row">
-						<div class="col-lg-4">
+						<div class="col-lg-5">
 							<div class="border border-3 p-4 rounded">
 									<div class="mb-3">
 										<label class="form-label">Brand Name</label>
@@ -66,73 +70,125 @@
 									  <div class="d-grid">
                                         <img class="img-thumbnail" src="{{asset('assets/images/barcode-png.webp')}}">
 									  </div>
-								  </div> <div class="col-12">
+								  </div> 
+								  <div class="col-12">
 									  <div class="d-grid">
                                          <button type="button" class="btn btn-primary">Download </button>
 									  </div>
 								  </div>
 							  </div> 
 		                    </div>
-						  </div><div class="col-lg-8">
+						  </div><div class="col-lg-7">
                            <div class="border border-3 p-4 rounded">
 												 <div class="row">
-													<h6>Dimension</h6>
-													<div class="col-md-4">	
-													<label for="inputPrice" class="form-label">Width</label>
-													<input type="text" class="form-control" id="inputPrice" placeholder="Enter product name">
-												</div>
-												<div class="col-md-4">
-													<label for="inputCostPerPrice" class="form-label">Depth</label>
-													<input type="text" class="form-control" id="inputCostPerPrice" placeholder="">
-												</div>
-												<div class="col-md-4">
-													<label for="inputStarPoints" class="form-label">Height</label>
-													<input type="text" class="form-control" id="inputStarPoints" placeholder="">
-												</div>
-								 </div>
-								  <div class="row mt-10">
-													<h6>Package</h6>
-													<div class="col-md-4">	
-													<label for="inputPrice" class="form-label">Width</label>
-													<input type="text" class="form-control" id="inputPrice" placeholder="Enter product name">
-												</div>
-												<div class="col-md-4">
-													<label for="inputCostPerPrice" class="form-label">Depth</label>
-													<input type="text" class="form-control" id="inputCostPerPrice" placeholder="">
-												</div>
-												<div class="col-md-4">
-													<label for="inputStarPoints" class="form-label">Height</label>
-													<input type="text" class="form-control" id="inputStarPoints" placeholder="">
-												</div>
-								 </div>
-								 <div class="row mt-10 ">
-													<h6>Gross Weight</h6>
-													<div class="col-md-4">	
-													<label for="inputPrice" class="form-label">Width</label>
-													<input type="text" class="form-control" id="inputPrice" placeholder="Enter product name">
-												</div>
-												<div class="col-md-4">
-													<label for="inputCostPerPrice" class="form-label">Depth</label>
-													<input type="text" class="form-control" id="inputCostPerPrice" placeholder="">
-												</div>
+														<h6>Dimension</h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">Width(MM)</label>
+														<input type="text" class="form-control" id="inputPrice" placeholder="Enter Width">
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">Depth(MM)</label>
+														<input type="text" class="form-control" id="inputCostPerPrice" placeholder="Enter Depth">
+													</div>
+													<div class="col-md-4">
+														<label for="inputStarPoints" class="form-label">Height(MM)</label>
+														<input type="text" class="form-control" id="inputStarPoints" placeholder="Enter Height">
+													</div>
+								                </div>
+												<div class="row">
+														<h6 class="mt-10 ">Package</h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">Width(MM)</label>
+														<input type="text" class="form-control" id="inputPrice" placeholder="Enter Width">
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">Depth(MM)</label>
+														<input type="text" class="form-control" id="inputCostPerPrice" placeholder="Enter Depth">
+													</div>
+													<div class="col-md-4">
+														<label for="inputStarPoints" class="form-label">Height(MM)</label>
+														<input type="text" class="form-control" id="inputStarPoints" placeholder="Enter Height">
+													</div>
+								                </div>
+								             <div class="row ">
+														<h6 class="mt-10 ">Gross Weight</h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">kg/set</label>
+														<input type="text" class="form-control" id="inputPrice" placeholder="weight">
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">CBM</label>
+														<input type="text" class="form-control" id="inputCostPerPrice" placeholder="">
+													</div>
 												
-								 </div> 
-								 <div class="row mt-10" >
-													<h6>Net Weight</h6>
+								            </div> 
+																			 <div class="row " >
+													<h6 class="mt-10 ">Net Weight</h6>
 													<div class="col-md-4">	
-													<label for="inputPrice" class="form-label">Width</label>
-													<input type="text" class="form-control" id="inputPrice" placeholder="Enter product name">kg/set
+													<label for="inputPrice" class="form-label">kg/set</label>
+													<input type="text" class="form-control" id="inputPrice" placeholder="Enter weight">
 												</div>
 												
 												
 								 </div>
 
+								 <div class="row">
+														<h6></h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">1*20' contain</label>
+														<input type="text" class="form-control" id="inputPrice" value="300" disabled >
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
+														<input type="text" class="form-control" id="inputCostPerPrice"value="300"  disabled>
+													</div>
+													<div class="col-md-4">
+														<label for="inputStarPoints" class="form-label">Gross Weight</label>
+														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+													</div>
+								                </div>
 
+												<div class="row">
+														<h6></h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">1*40' contain</label>
+														<input type="text" class="form-control" id="inputPrice" value="300"  disabled >
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
+														<input type="text" class="form-control" id="inputCostPerPrice"value="300" disabled >
+													</div>
+													<div class="col-md-4">
+														<label for="inputStarPoints" class="form-label">Gross Weight</label>
+														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+													</div>
+								                </div>
+												
+												<div class="row">
+														<h6></h6>
+														<div class="col-md-4">	
+														<label for="inputPrice" class="form-label">1*40' HQ contain</label>
+														<input type="text" class="form-control" id="inputPrice" value="300" disabled>
+													</div>
+													<div class="col-md-4">
+														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
+														<input type="text" class="form-control" id="inputCostPerPrice"value="300" disabled>
+													</div>
+													<div class="col-md-4">
+														<label for="inputStarPoints" class="form-label">Gross Weight</label>
+														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+													</div>
+								                </div>	
 							
-							  <div class="mb-3">
+							  <div class="mb-3 mt-10 " >
 								<label for="inputProductDescription" class="form-label">Product Images</label>
 								<input id="image-uploadify" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
 							  </div>
+							  <div class="col-12">
+									  <div class="d-grid">
+                                         <button type="button" class="btn btn-primary">Creae Product </button>
+									  </div>
+								  </div>
                             </div>
 						   </div>
 						   

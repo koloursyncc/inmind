@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         return view('productlist');
     }
-    public function deatil()
+    public function detail()
     {
         return view('productdetail');
     }
@@ -43,7 +43,8 @@ class ProductController extends Controller
 		 $countData = Product::select('count(*) as allcount');
 		 
 		if($searchValue != null) {
-			$countData->where('Description', 'like', '%' .$searchValue . '%');
+			$countData->where('product_name', 'like', '%' .$searchValue . '%');
+			$countData->where('supplier', 'like', '%' .$searchValue . '%');
 		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
@@ -55,7 +56,8 @@ class ProductController extends Controller
 			   $records->orderBy($columnName,$columnSortOrder);
 			}
 			if($searchValue != null) {
-				$records->where('Description', 'like', '%' .$searchValue . '%');
+				$records->where('product_name', 'like', '%' .$searchValue . '%');
+				$records->where('supplier', 'like', '%' .$searchValue . '%');
 			}
 		
 		$list = $records->get();
@@ -63,10 +65,27 @@ class ProductController extends Controller
 		 $data_arr = array();
 		 
 		 foreach($list as $sno => $record){
+
+
+$action = '<div class="d-flex order-actions">
+<a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
+<a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
+</div>';
+$detail = '<a href=""><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
+$main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
+
+
 			$id = $record->id;
 			
 			$data_arr[] = array(
 			  "id" => $id,
+			  "main_img" => $main_img,
+			  "product_name" => $record->product_name,
+			  "product_code" => $record->product_code,
+			  'detail' => $detail,
+			  'action' => $action,
+			  "supplier" => $record->supplier,
+			 
 			);
 		 }
 
