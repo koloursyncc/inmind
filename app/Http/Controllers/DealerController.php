@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Supplier;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class SupplierController extends Controller
+class DealerController extends Controller
 {
     public function index()
     {
-     return view('supplierregister');
+     return view('dealeradd');
     }
 
     public function list()
     {
-     return view('supplierlist');
+     return view('dealerlist');
     }
 
 
