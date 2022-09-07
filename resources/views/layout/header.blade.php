@@ -8,8 +8,10 @@
 	<link href="{{asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/vectormap/jquer y-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
 	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
+	<link href="{{asset('assets/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
+	<link href="{{asset('assets/plugins/smart-wizard/css/smart_wizard_all.min.css')}}" rel="stylesheet" type="text/css" />
 	<!-- loader-->	
 	<link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
 	<script src="{{asset('assets/js/pace.min.js')}}"></script>

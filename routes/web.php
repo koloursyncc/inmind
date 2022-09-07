@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,5 @@ Route::get('/productlist', [ProductController::class, 'list']);
 Route::get('/productdetail', [ProductController::class, 'detail']);
 Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
+Route::get('/supplierregister', [SupplierController::class, 'index']);
 
