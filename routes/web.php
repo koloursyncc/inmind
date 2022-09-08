@@ -27,3 +27,11 @@ Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
 Route::get('/supplierregister', [SupplierController::class, 'index']);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
