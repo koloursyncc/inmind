@@ -219,7 +219,7 @@
 						<div class="menu-title">Supplier</div>
 					 </a>
 					  <ul class="dropdown-menu">
-						<li> <a class="dropdown-item" href="{{asset('supplieradd')}}"><i class="bx bx-right-arrow-alt"></i>Add Suppliers</a>
+						<li> <a class="dropdown-item" href="{{asset('supplierregister')}}"><i class="bx bx-right-arrow-alt"></i>Add Suppliers</a>
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('supplierlist')}}"><i class="bx bx-right-arrow-alt"></i>Suppliers List</a>
 						</li>
@@ -234,7 +234,7 @@
 					  <ul class="dropdown-menu">
 						<li> <a class="dropdown-item" href="{{asset('dealeradd')}}"><i class="bx bx-right-arrow-alt"></i>Add Dealer</a>
 						</li>
-						<li> <a class="dropdown-item" href="{{asset('dealerlist')}}"><i class="bx bx-right-arrow-alt"></i>Dearler List</a>
+						<li> <a class="dropdown-item" href="{{asset('dealerlist')}}"><i class="bx bx-right-arrow-alt"></i>Dealer List</a>
 						</li>
 					  </ul>
 					</li>

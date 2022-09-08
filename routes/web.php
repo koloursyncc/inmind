@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DealerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,13 @@ Route::get('/productdetail', [ProductController::class, 'detail']);
 Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
 Route::get('/supplierregister', [SupplierController::class, 'index']);
+Route::get('/supplierlist', [SupplierController::class, 'list']);
+Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
+Route::get('/dealeradd', [DealerController::class, 'index']);
+Route::get('/dealerlist', [DealerController::class, 'list']);
+Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
+
+
 
 
 Auth::routes();
