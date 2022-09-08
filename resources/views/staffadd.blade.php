@@ -39,8 +39,12 @@
 											<a class="nav-link" href="#step-1">	<strong>Step 1</strong> 
 												<br>Staff Personal Detail</a>
 										</li>
-										<li class="nav-item">
+                                        <li class="nav-item">
 											<a class="nav-link" href="#step-2">	<strong>Step 2</strong> 
+												<br>Address Detail</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#step-3">	<strong>Step 2</strong> 
 												<br>Contact Person</a>
 										</li>
 										<li class="nav-item">
@@ -288,7 +292,12 @@
                                                             <input id="image-uploadify1" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
                                                            </div>
 														</form>
+										
+										</div>
+										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
 										<form class="row g-3">
+
+                                        <form class="row g-3">
                                         <h6>Contact Person 1</h6>
 															<div class="col-sm-6">
 																<label for="inputFirstName" class="form-label">Name</label>
@@ -362,35 +371,8 @@
 																<label for="inputEmailAddress" class="form-label">  Remark</label>
 																<textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
-														</form>
-										</div>
-										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
-										<form class="row g-3">
-                                       
-															<div class="col-sm-6">
-																<label for="inputFirstName" class="form-label">Bank Name</label>
-																<input type="text" class="form-control" id="inputFirstName" placeholder=" ">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputLastName" class="form-label">Bank Address</label>
-																<input type="text" class="form-control" id="inputLastName" placeholder=" ">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">SWIFT</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label"> A/C No.</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
-																<textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
-															</div> 
+														</form> 
+															 
 														</form>
 										</div>
 										 
