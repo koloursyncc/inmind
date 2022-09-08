@@ -15,6 +15,9 @@
 		$(document).ready(function () {
 			$('#image-uploadify').imageuploadify();
 		})
+		$(document).ready(function () {
+			$('#image-uploadify1').imageuploadify();
+		})
 	</script>
 	<script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 	<script>

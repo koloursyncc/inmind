@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DealerController;
+use App\Http\Controllers\StaffController;
 
 
 /*
@@ -33,10 +34,18 @@ Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
 Route::get('/dealeradd', [DealerController::class, 'index']);
 Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
+Route::get('/staffadd', [StaffController::class, 'index']);
+Route::get('/stafflist', [StaffController::class, 'list']);
 
 
 
-
+Route::group(['middleware' => ['auth']], function() {
+    /**
+    * Logout Route
+    */
+    Route::get('/logout', [App\Http\Controllers\UserController::class, 'perform'])->name('logout.perform');
+ });
+  
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
