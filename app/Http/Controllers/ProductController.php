@@ -12,6 +12,10 @@ class ProductController extends Controller
     {
         return view('productadd');
     }
+	public function child()
+    {
+        return view('childproductadd');
+    }
     public function list()
     {
         return view('productlist');

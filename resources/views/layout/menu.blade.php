@@ -223,12 +223,12 @@
 					<li class="nav-item dropdown">
 					  <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
 						
-						<div class="menu-title">Dearler</div>
+						<div class="menu-title">Customer</div>
 					  </a>
 					  <ul class="dropdown-menu">
-						<li> <a class="dropdown-item" href="{{asset('dealeradd')}}"><i class="bx bx-right-arrow-alt"></i>Add Dealer</a>
+						<li> <a class="dropdown-item" href="{{asset('dealeradd')}}"><i class="bx bx-right-arrow-alt"></i>Add Customer</a>
 						</li>
-						<li> <a class="dropdown-item" href="{{asset('dealerlist')}}"><i class="bx bx-right-arrow-alt"></i>Dealer List</a>
+						<li> <a class="dropdown-item" href="{{asset('dealerlist')}}"><i class="bx bx-right-arrow-alt"></i>Customer List</a>
 						</li>
 					  </ul>
 					</li>

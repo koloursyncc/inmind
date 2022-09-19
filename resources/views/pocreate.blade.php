@@ -11,13 +11,13 @@
       <div class="page-content">
          <!--breadcrumb-->
          <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Customer</div>
+            <div class="breadcrumb-title pe-3">PO</div>
             <div class="ps-3">
                <nav aria-label="breadcrumb">
                   <ol class="breadcrumb mb-0 p-0">
                      <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                      </li>
-                     <li class="breadcrumb-item active" aria-current="page">Registration</li>
+                     <li class="breadcrumb-item active" aria-current="page">Create PO</li>
                   </ol>
                </nav>
             </div>
@@ -32,18 +32,14 @@
                         <ul class="nav">
                            <li class="nav-item">
                               <a class="nav-link" href="#step-1">	<strong>Step 1</strong> 
-                              <br>Customer Details</a>
+                              <br>PO Details</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="#step-2">	<strong>Step 2</strong> 
                               <br>Contact Person</a>
                            </li>
-                           <li class="nav-item">
+                           <li class="nav-item"> 
                               <a class="nav-link" href="#step-3">	<strong>Step 3</strong> 
-                              <br>Payment Term</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#step-4">	<strong>Step 4</strong> 
                               <br>Bank Details</a>
                            </li>
                         </ul>
@@ -91,14 +87,14 @@
                               <div style="clear:both"></div>
                               <form class="row g-3">
                                  <div class="col-sm-6">
-                                    <label for="formFile" class="form-label">Customer Name</label>
-                                    <input class="form-control mb-3" type="text" placeholder="enter dealer name" aria-label="default input example">
+                                    <label for="inputFirstName" class="form-label">Customer Name</label>
+                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
                                  <div class="col-sm-6">
-                                    <label for="formFile" class="form-label">Family Name</label>
-                                    <input class="form-control mb-3" type="text" placeholder="enter dealer name" aria-label="default input example">
+                                    <label for="inputFirstName" class="form-label">Family Name</label>
+                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
-                                 <h6>Head office address by certified document</h6>
+                                 <h6>Home/Head office address  </h6>
                                  <div class="col-sm-6">
                                     <label for="inputFirstName" class="form-label">Address no.</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
@@ -143,7 +139,7 @@
                               </form>
                               <h6>
                                  <div class="form-check">
-                                    <label class="form-check-label" for="flexCheckChecked">Conact address same as certified document address</label>
+                                    <label class="form-check-label" for="flexCheckChecked">Delivery address same as home address</label>
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked> 
                                  </div>
                               </h6>
@@ -192,167 +188,25 @@
                               </form>
                            </div>
                            <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                              <form class="row g-3">
-                                 <h6>Contact Person 1</h6>
-                                 <div class="col-sm-6">
-                                    <label for="inputFirstName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputLastName" class="form-label">Family Name</label>
-                                    <input type="text" class="form-control" id="inputLastName" placeholder=" ">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Position</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">  Mobile</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <div class="mb-3">
-                                       <label class="form-label">Date of Birth:</label>
-                                       <input type="date" class="form-control">
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Line</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">  Remark</label>
-                                    <textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
-                                 </div>
-                              </form>
-                              <form class="row g-3">
-                                 <h6>Contact Person 2</h6>
-                                 <div class="col-sm-6">
-                                    <label for="inputFirstName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputLastName" class="form-label">Family Name</label>
-                                    <input type="text" class="form-control" id="inputLastName" placeholder=" ">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Position</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">  Mobile</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <div class="mb-3">
-                                       <label class="form-label">Date of Birth:</label>
-                                       <input type="date" class="form-control">
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Line</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">  Remark</label>
-                                    <textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
-                                 </div>
-                              </form>
+                              
+						   <div style="clear:both"></div>
+                              <label for="formFile" class="form-label">Title</label>
+                              <div style="clear:both"></div>
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <label class="form-check-label" for="inlineRadio1">Purchasing order</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <label class="form-check-label" for="inlineRadio1">Deposit Reciept</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <label class="form-check-label" for="inlineRadio1">Delivery Note</label>
+                              </div>
+                              <div style="clear:both"></div>
                            </div>
                            <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                              <label for="inputFirstName" class="form-label">Invoice</label><br>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                 <label class="form-check-label" for="inlineRadio1">Sale</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                 <label class="form-check-label" for="inlineRadio1">Consignment</label>
-                              </div>
-                              <form class="row g-3">
-                                 <div class="col-sm-4">
-                                    <label for="inputFirstName" class="form-label">Currency</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">USD</option>
-                                       <option value="1">THB</option>
-                                       <option value="2">EUR</option>
-                                       <option value="3">JPY</option>
-                                       <option value="3">INR</option>
-                                       <option value="3">RMB</option>
-                                    </select>
-                                 </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputLastName" class="form-label">Incoterm</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">EXW</option>
-                                       <option value="1">CFR</option>
-                                       <option value="2">CIF</option>
-                                       <option value="3">FOB</option>
-                                       <option value="3">DDP</option>
-                                    </select>
-                                 </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputEmailAddress" class="form-label">Place of Delivery/Destination</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputEmailAddress" class="form-label">Credit Terms(days)</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputFirstName" class="form-label">From</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">Delivery Day</option>
-                                       <option value="1">Goods received at Customer W/H </option>
-                                       <option value="2">Goods Sold</option>
-                                    </select>
-                                 </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputLastName" class="form-label">Incoterm</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">Post </option>
-                                       <option value="1">Email</option>
-                                       <option value="2">Post & Email</option>
-                                    </select>
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label"> Contact Person</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">Select option </option>
-                                       <option value="1">Email</option>
-                                       <option value="2">Post & Email</option>
-                                    </select>
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label"> Installment 1</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <label for="inputEmailAddress" class="form-label"> Installment 1</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">PO Confirmed by Payment</option>
-                                       <option value="1">Sample Piece ready</option>
-                                       <option value="2">Work Progress 50%</option>
-                                       <option value="2">Work Progress 80%</option>
-                                       <option value="2">Work Progress 100%</option>
-                                       <option value="2">Original B/L is shown</option>
-                                    </select>
-                                 </div>
-                              </form>
-                           </div>
-                           <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
                               <form class="row g-3">
                                  <div class="col-sm-6">
                                     <label for="inputFirstName" class="form-label">Bank Name</label>

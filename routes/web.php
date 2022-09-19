@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PoController;
 
 
 /*
@@ -27,6 +28,7 @@ Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/productlist', [ProductController::class, 'list']);
 Route::get('/productdetail', [ProductController::class, 'detail']);
 Route::get('/productadd', [ProductController::class, 'index']);
+Route::get('/childproductadd', [ProductController::class, 'child']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
 Route::get('/supplierregister', [SupplierController::class, 'index']);
 Route::get('/supplierlist', [SupplierController::class, 'list']);
@@ -36,6 +38,7 @@ Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
 Route::get('/staffadd', [StaffController::class, 'index']);
 Route::get('/stafflist', [StaffController::class, 'list']);
+Route::get('/pocreate', [PoController::class, 'index']);
 
 
 
