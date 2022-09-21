@@ -8,6 +8,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PoController;
+use App\Http\Controllers\RegionController;
 
 
 /*
@@ -39,6 +40,7 @@ Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
 Route::get('/staffadd', [StaffController::class, 'index']);
 Route::get('/stafflist', [StaffController::class, 'list']);
 Route::get('/pocreate', [PoController::class, 'index']);
+Route::get('/getregionaldata', [RegionController::class, 'getregionaldata']);
 
 
 

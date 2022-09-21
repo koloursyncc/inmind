@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use App\Models\Product;
+use App\Components\SupplierManager;
+use App\Components\RegionManager;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
     public function index()
     {
-     return view('supplierregister');
+		
+		$regionManager = RegionManager::getInstance();
+		$countries = $regionManager->countryList();
+		
+		return view('supplierregister', ['countries' => $countries]);
     }
 
     public function list()

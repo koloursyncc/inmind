@@ -52,9 +52,9 @@
 									<div class="tab-content">
 										<div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
 												<label for="formFile" class="form-label">Supplier Name</label>
-												<input class="form-control mb-3" type="text" placeholder="enter supplier name" aria-label="default input example">
-												<label for="formFile" class="form-label">Supplier Type</label>
-													<select class="form-select mb-3" aria-label="Default select example">
+												<input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="enter supplier name" aria-label="default input example">
+												<label for="formFile" class="form-label ">Supplier Type</label>
+													<select class="form-select mb-3 supplier_type" name="supplier_type" aria-label="Default select example">
 														<option selected>Select Supplier Type </option>
 														<option value="1">Manufacturer</option>
 														<option value="2">Agent</option>
@@ -90,7 +90,9 @@
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">State</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<select class="form-select state_id" name="state_id" id="inputSelectCountry" aria-label="Default select example">
+																	<option value="">Select State</option>
+																</select>
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  Zip Code</label>
@@ -99,11 +101,16 @@
 															
 															<div class="col-12">
 																<label for="inputSelectCountry" class="form-label">Country</label>
-																<select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-																	<option selected="">India</option>
-																	<option value="1">United Kingdom</option>
-																	<option value="2">America</option>
-																	<option value="3">Dubai</option>
+																<select class="form-select country_id" name="country_id" id="inputSelectCountry" aria-label="Default select example">
+																	<option value="">Select Country</option>
+																	<?php foreach($countries as $countryObj) { 
+																			$selected = '';
+																			if($countryObj->id == 237) {
+																				$selected = 'selected';
+																			}
+																	?>
+																		<option value="{{ $countryObj->id }}" <?php echo $selected; ?>>{{ $countryObj->name }}</option>
+																	<?php } ?>
 																</select>
 															</div> 
 														</form>
@@ -185,7 +192,36 @@
 
 
 <script>
+
+function dependdropdown(val, target, name) {
+	var url = $("meta[name=url]").attr("content");
+	$.ajax({
+		url: "{{url('getregionaldata')}}",
+		dataType : "json",
+		type: "get",
+		data : {'value':val, 'name':name},
+		success : function(response) {
+			
+			var list = $(target); 
+			list.empty();
+			list.append(new Option('Select '+name, ''));
+			$.each(response, function(index, item) {
+				list.append(new Option(item.name, item.id));
+			});
+				
+		},
+	});
+}
+
 $(document).ready(function() {
+	
+	var country = $('.country_id').val();
+	dependdropdown(country, '.state_id', 'State');
+	
+	$('body').on('change', '.country_id', function() {
+		var val = $(this).val();
+		dependdropdown(val, '.state_id', 'State');
+	});
 
 var table = $('#dataTable').DataTable({
 				processing: true,
