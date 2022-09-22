@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Components\SupplierManager;
 use App\Components\RegionManager;
 use Illuminate\Http\Request;
-
+use Validator, Redirect, Auth;
 class SupplierController extends Controller
 {
     public function index()
@@ -22,9 +22,59 @@ class SupplierController extends Controller
 
     public function list()
     {
-     return view('supplierlist');
+		return view('supplierlist');
     }
 
+	public function save(Request $request)
+	{
+		if($request->isMethod('post'))
+		{
+			//try
+			//{
+				$data = $request->all();
+				
+				$message = array('city_id.required' => 'The city field is required');
+				
+				$rules = array(
+							'supplier_name' => 'required',
+							'supplier_type' => 'required',
+							'country_id' => 'required',
+							'zipcode' => 'required',
+							'state_id' => 'required',
+							'city_id' => 'required',
+							'name' => 'required',
+							'mobile' => 'required',
+						);
+				
+				$validator = Validator::make($data, $rules, $message);
+				
+				if ($validator->fails())
+				{
+					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+				
+				$data = $request->except(['_token']);
+				
+				$supplierManager = SupplierManager::getInstance();
+				
+				$status = $supplierManager->save($data);
+				
+				if($status)
+				{
+					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
+				}
+				
+				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
+				
+			/* }
+			catch (\Throwable $e)
+			{
+				$error = $e->getMessage().', File Path = '.$e->getFile().', Line Number = '.$e->getLine();
+				//$this->exceptionHandling($error);
+				return response()->json(array('status'=>'exceptionError'));
+			} */
+		}
+	}
 
     public function ajaxcall(Request $request)
 	{
@@ -44,16 +94,16 @@ class SupplierController extends Controller
 		 $searchValue = $search_arr['value']; // Search value
 
 		 // Total records
-		 $totalRecords = Product::select('count(*) as allcount')->count();
-		 $countData = Product::select('count(*) as allcount');
+		 $totalRecords = Supplier::select('count(*) as allcount')->count();
+		 $countData = Supplier::select('count(*) as allcount');
 		 
 		if($searchValue != null) {
-			$countData->where('product_name', 'like', '%' .$searchValue . '%');
-			$countData->where('supplier', 'like', '%' .$searchValue . '%');
+			//$countData->where('product_name', 'like', '%' .$searchValue . '%');
+			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
 		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
-		 $records = Product::select('*') //orderBy($columnName,$columnSortOrder)
+		 $records = Supplier::select('*') //orderBy($columnName,$columnSortOrder)
 		 //  ->orderBy('id', 'Desc')
 		   ->skip($start)
 		   ->take($rowperpage);
@@ -61,8 +111,8 @@ class SupplierController extends Controller
 			   $records->orderBy($columnName,$columnSortOrder);
 			}
 			if($searchValue != null) {
-				$records->where('product_name', 'like', '%' .$searchValue . '%');
-				$records->where('supplier', 'like', '%' .$searchValue . '%');
+				//$records->where('product_name', 'like', '%' .$searchValue . '%');
+				//$records->where('supplier', 'like', '%' .$searchValue . '%');
 			}
 		
 		$list = $records->get();
@@ -88,13 +138,8 @@ class SupplierController extends Controller
 			
 			$data_arr[] = array(
 			  "id" => $id,
-			  //"main_img" => $main_img,
-			  "product_name" => $record->product_name,
-			  "product_code" => $record->product_code,
-			  'detail' => $detail,
+			  "supplier" => $record->supplier_name,
 			  'action' => $action,
-			  //"supplier" => $record->supplier,
-			 
 			);
 		 }
 

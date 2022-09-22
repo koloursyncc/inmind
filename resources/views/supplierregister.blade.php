@@ -50,13 +50,14 @@
 										 
 									</ul>
 									<div class="tab-content">
-										<form>
+										<form id="supplier-form">
+											@csrf
 										<div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
 												<label for="formFile" class="form-label">Supplier Name <span>*</span></label>
 												<input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="enter supplier name" aria-label="default input example">
 												<label for="formFile" class="form-label ">Supplier Type <span>*</span></label>
 													<select class="form-select mb-3 supplier_type" name="supplier_type" aria-label="Default select example">
-														<option selected>Select Supplier Type </option>
+														<option value="">Select Supplier Type </option>
 														<option value="1">Manufacturer</option>
 														<option value="2">Agent</option>
 														<option value="3">Shipping</option>
@@ -115,7 +116,7 @@
 															
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  Zip Code <span>*</span></label>
-																<input type="text" class="form-control" name="" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control zipcode" name="zipcode" id="inputEmailAddress" placeholder="">
 															</div>
 															
 															
@@ -175,6 +176,43 @@
 																<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
 																<textarea type="text" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
+															<div class="col-sm-4">
+																<label for="inputFirstName" class="form-label">Currency</label>
+																<select class="form-select currency" name="currency" id="inputSelectCountry" aria-label="Default select example">
+																	<?php foreach($countries as $countryObj) { ?>
+																		 <option value="{{ $countryObj->currency }}">{{ $countryObj->currency }}</option>
+																	<?php } ?>
+																</select>
+															 </div>
+															 <div class="col-sm-4">
+																<label for="inputLastName" class="form-label">Incoterm</label>
+																<select class="form-select incoterm" name="incoterm" id="inputSelectCountry" aria-label="Default select example">
+																   <option value="1">EXW</option>
+																   <option value="2">CFR</option>
+																   <option value="3">CIF</option>
+																   <option value="4">FOB</option>
+																   <option value="5">DDP</option>
+																</select>
+															 </div>
+															 <div class="col-sm-4">
+																<label for="inputEmailAddress" class="form-label">Place of Delivery/Destination</label>
+																<input type="text" class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
+															 </div>
+															 <div class="col-sm-6">
+																<label for="inputEmailAddress" class="form-label"> Installment 1</label>
+																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+															 </div>
+															 <div class="col-sm-6">
+																<label for="inputEmailAddress" class="form-label"> Installment 1</label>
+																<select class="form-select" id="inputSelectCountry" aria-label="Default select example">
+																   <option value="1">PO Confirmed by Payment</option>
+																   <option value="2">Sample Piece ready</option>
+																   <option value="3">Work Progress 50%</option>
+																   <option value="4">Work Progress 80%</option>
+																   <option value="5">Work Progress 100%</option>
+																   <option value="6">Original B/L is shown</option>
+																</select>
+															 </div>
 														</div>
 										</div>
 									</form>	 

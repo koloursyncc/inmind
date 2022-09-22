@@ -13,5 +13,8 @@ class SupplierManager
         return self::$_instance;
     }
 	
-	
+	public function save($params)
+	{
+		return Supplier::create($params);
+	}
 }

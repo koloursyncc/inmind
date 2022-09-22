@@ -45,7 +45,34 @@
 		$(document).ready(function () {
 			// Toolbar extra buttons
 			var btnFinish = $('<button></button>').text('Finish').addClass('btn btn-info').on('click', function () {
-				alert('Finish Clicked');
+				//alert('Finish Clicked');
+				var url = $("meta[name=url]").attr("content");
+				$('.err_msg').remove();
+				$.ajax({
+					url: "{{url('savesupplier')}}",
+					dataType : "json",
+					type: "post",
+					data : $('#supplier-form').serialize(),
+					success : function(response) {
+						
+						if(response.status == 'success') {
+							
+							alert(response.msg);
+							window.location.href = "{{url('supplierlist')}}";
+							
+						} else if(response.status == 'errors') {
+							$.each(response.errors, function(key, msg) {
+								$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+							});
+						} else if(response.status == 'error') {
+							
+							alert(response.error);
+							
+						} else if(response.status == 'exceptionError') {
+							
+						}
+					},
+				});
 			});
 			var btnCancel = $('<button></button>').text('Cancel').addClass('btn btn-danger').on('click', function () {
 				$('#smartwizard').smartWizard("reset");

@@ -40,8 +40,6 @@
 									<tr>
 										<th>Sr. No.</th> 
 										<th>Supplier Name</th>
-										<th>Conact  Person</th>
-										<th>Details</th>
 										<th>Action</th>
 										 
 									</tr>
@@ -72,9 +70,7 @@ var table = $('#dataTable').DataTable({
 				ajax: "{{url('supplierlistajax')}}",
 				columns: [
 					{ data: 'id', orderable: false}, 
-					{ data: 'product_name', orderable: false},
-					{ data: 'product_code', orderable: false},
-					{ data: 'detail', orderable: false},
+					{ data: 'supplier_name', orderable: false},
 					{ data: 'action', orderable: false} 
 					  
 					
