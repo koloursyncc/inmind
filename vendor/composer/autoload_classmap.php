@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Components\\RegionManager' => $baseDir . '/app/Components/RegionManager.php',
+    'App\\Components\\SupplierManager' => $baseDir . '/app/Components/SupplierManager.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -20,6 +22,7 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\PoController' => $baseDir . '/app/Http/Controllers/PoController.php',
     'App\\Http\\Controllers\\ProductController' => $baseDir . '/app/Http/Controllers/ProductController.php',
+    'App\\Http\\Controllers\\RegionController' => $baseDir . '/app/Http/Controllers/RegionController.php',
     'App\\Http\\Controllers\\StaffController' => $baseDir . '/app/Http/Controllers/StaffController.php',
     'App\\Http\\Controllers\\SupplierController' => $baseDir . '/app/Http/Controllers/SupplierController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

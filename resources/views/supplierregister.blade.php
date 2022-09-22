@@ -50,10 +50,11 @@
 										 
 									</ul>
 									<div class="tab-content">
+										<form>
 										<div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-												<label for="formFile" class="form-label">Supplier Name</label>
+												<label for="formFile" class="form-label">Supplier Name <span>*</span></label>
 												<input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="enter supplier name" aria-label="default input example">
-												<label for="formFile" class="form-label ">Supplier Type</label>
+												<label for="formFile" class="form-label ">Supplier Type <span>*</span></label>
 													<select class="form-select mb-3 supplier_type" name="supplier_type" aria-label="Default select example">
 														<option selected>Select Supplier Type </option>
 														<option value="1">Manufacturer</option>
@@ -63,44 +64,30 @@
 														<option value="3">W/H and Lessor</option>
 														<option value="3">Packaging</option>
 													</select>
-													  <form class="row g-3">
+													  <div class="row g-3">
 															<div class="col-sm-6">
 																<label for="inputFirstName" class="form-label">Address no.</label>
-																<input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+																<input type="text" class="form-control address" name="address" id="inputFirstName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputLastName" class="form-label">Building / Village</label>
-																<input type="text" class="form-control" id="inputLastName" placeholder=" ">
+																<input type="text" class="form-control building" name="building" id="inputLastName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Sub District</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control sub_district" name="sub_district" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  District</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control district" name="district" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Road</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  City</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">State</label>
-																<select class="form-select state_id" name="state_id" id="inputSelectCountry" aria-label="Default select example">
-																	<option value="">Select State</option>
-																</select>
-															</div>
-															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Zip Code</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control road" name="road" id="inputEmailAddress" placeholder="">
 															</div>
 															
-															<div class="col-12">
-																<label for="inputSelectCountry" class="form-label">Country</label>
+															<div class="col-sm-6">
+																<label for="inputSelectCountry" class="form-label">Country <span>*</span></label>
 																<select class="form-select country_id" name="country_id" id="inputSelectCountry" aria-label="Default select example">
 																	<option value="">Select Country</option>
 																	<?php foreach($countries as $countryObj) { 
@@ -113,65 +100,84 @@
 																	<?php } ?>
 																</select>
 															</div> 
-														</form>
+															
+															<div class="col-sm-6">
+																<label for="inputEmailAddress" class="form-label">State <span>*</span></label>
+																<select class="form-select state_id" name="state_id" id="inputSelectCountry" aria-label="Default select example">
+																	<option value="">Select State</option>
+																</select>
+															</div>
+															
+															<div class="col-sm-6">
+																<label for="inputEmailAddress" class="form-label">City <span>*</span></label>
+																<input type="text" class="form-control city_id" name="city_id" id="inputEmailAddress" placeholder="">
+															</div>
+															
+															<div class="col-sm-6">
+																<label for="inputEmailAddress" class="form-label">  Zip Code <span>*</span></label>
+																<input type="text" class="form-control" name="" id="inputEmailAddress" placeholder="">
+															</div>
+															
+															
+														</div>
 										 </div>
 										<div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-										<form class="row g-3">
+										<div class="row g-3">
 															<div class="col-sm-6">
-																<label for="inputFirstName" class="form-label">Name</label>
-																<input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+																<label for="inputFirstName" class="form-label">Name <span>*</span></label>
+																<input type="text" class="form-control name" name="name" id="inputFirstName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputLastName" class="form-label">Family Name</label>
-																<input type="text" class="form-control" id="inputLastName" placeholder=" ">
+																<input type="text" class="form-control family_name" name="family_name" id="inputLastName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Position</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control position" name="position" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Mobile</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" class="form-label">  Mobile <span>*</span></label>
+																<input type="text" class="form-control mobile" name="mobile" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Email</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control email" name="email" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  Remark</label>
-																<textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
+																<textarea type="text" class="form-control remark" name="remark" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
-														</form>
+														</div>
 										</div>
 										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
-										<form class="row g-3">
+										<div class="row g-3">
 															<div class="col-sm-6">
 																<label for="inputFirstName" class="form-label">Bank Name</label>
-																<input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+																<input type="text" class="form-control bank_name" name="bank_name" id="inputFirstName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputLastName" class="form-label">Bank Address</label>
-																<input type="text" class="form-control" id="inputLastName" placeholder=" ">
+																<input type="text" class="form-control bank_address" name="bank_address" id="inputLastName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">SWIFT</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control swift" name="swift" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label"> A/C No.</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control ac_no" name="ac_no" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+																<input type="text" class="form-control beneficiary_name" name="beneficiary_name" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
-																<textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
+																<textarea type="text" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
-														</form>
+														</div>
 										</div>
-										 
+									</form>	 
 								</div>
 							</div>
 						</div>

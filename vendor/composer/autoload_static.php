@@ -511,6 +511,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
     );
 
     public static $classMap = array (
+        'App\\Components\\RegionManager' => __DIR__ . '/../..' . '/app/Components/RegionManager.php',
+        'App\\Components\\SupplierManager' => __DIR__ . '/../..' . '/app/Components/SupplierManager.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -525,6 +527,7 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\PoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PoController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
+        'App\\Http\\Controllers\\RegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegionController.php',
         'App\\Http\\Controllers\\StaffController' => __DIR__ . '/../..' . '/app/Http/Controllers/StaffController.php',
         'App\\Http\\Controllers\\SupplierController' => __DIR__ . '/../..' . '/app/Http/Controllers/SupplierController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
