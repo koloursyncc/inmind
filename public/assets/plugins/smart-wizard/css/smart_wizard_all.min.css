@@ -212,15 +212,15 @@
 	background: #d9534f
 }
 .sw-theme-arrows {
-	border: 1px solid #eee
+	border: 1px solid rgb(255 255 255 / 16%);
 }
 .sw-theme-arrows>.tab-content>.tab-pane {
 	padding: 10px
 }
 .sw-theme-arrows .toolbar>.btn {
 	color: #fff;
-	background-color: #17a2b8;
-	border: 1px solid #17a2b8;
+	background-color: #131d1e;
+    border: 1px solid #131d1e;
 	padding: .375rem .75rem;
 	border-radius: .25rem;
 	font-weight: 400
@@ -274,28 +274,28 @@
 	z-index: 1
 }
 .sw-theme-arrows>.nav .nav-link.inactive {
-	color: #999;
-	border-color: #f8f8f8;
-	background: #f8f8f8;
+	color: #fff;
+    border-color: rgb(255 255 255 / 21%);
+    background: rgb(255 255 255 / 22%);
 	cursor: not-allowed
 }
 .sw-theme-arrows>.nav .nav-link.active {
 	color: #fff!important;
-	border-color: #0d6efd!important;
-	background: #0d6efd!important;
+	border-color: rgb(255 255 255 / 31%)!important;
+    background: rgb(255 255 255 / 22%)!important;
 	cursor: pointer
 }
 .sw-theme-arrows>.nav .nav-link.active::after {
-	border-left-color: #0d6efd!important
+	border-left-color: rgb(255 255 255 / 22%)!important;
 }
 .sw-theme-arrows>.nav .nav-link.done {
 	color: #fff;
-	border-color: #32ab13;
-	background: #32ab13;
+	border-color: #1d2135;
+    background: #1d2135;
 	cursor: pointer
 }
 .sw-theme-arrows>.nav .nav-link.done::after {
-	border-left-color: #32ab13
+	border-left-color: #1d2135;
 }
 .sw-theme-arrows>.nav .nav-link.disabled {
 	color: #eee;
@@ -385,11 +385,11 @@
 	background-color: #999
 }
 .sw-theme-dots>.nav .nav-link.active {
-	color: #0d6efd!important;
+	color: #673ab7!important;
 	cursor: pointer
 }
 .sw-theme-dots>.nav .nav-link.active::after {
-	background-color: #0d6efd!important
+	background-color: #673ab7!important
 }
 .sw-theme-dots>.nav .nav-link.done {
 	color: #32ab13;

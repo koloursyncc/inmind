@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/header-colors.css')}}" />
 	<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 	<link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
-	<link href="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css" rel="stylesheet" />
+	<link href="{{asset('assets/plugins/drag-and-drop/dist/imageuploadify.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/select2/css/select2-bootstrap4.css')}}" rel="stylesheet" />
 	<title>Inmind </title>
 

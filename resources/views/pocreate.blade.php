@@ -24,7 +24,7 @@
          </div>
          <!--end breadcrumb-->
          <div class="row">
-            <div class="col-xl-8 mx-auto">
+            <div class="col-xl-12 ">
                <div class="card">
                   <div class="card-body">
                      <!-- SmartWizard html -->
@@ -40,7 +40,7 @@
                            </li>
                            <li class="nav-item"> 
                               <a class="nav-link" href="#step-3">	<strong>Step 3</strong> 
-                              <br>Bank Details</a>
+                              <br>Bank Detailsv</a>
                            </li>
                         </ul>
                         <div class="tab-content">
@@ -86,44 +86,44 @@
                               </div>
                               <div style="clear:both"></div>
                               <form class="row g-3">
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Customer Name</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Family Name</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
                                  <h6>Home/Head office address  </h6>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Address no.</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputLastName" class="form-label">Building / Village</label>
                                     <input type="text" class="form-control" id="inputLastName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Sub District</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  District</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Road</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  City</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">State</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
@@ -144,35 +144,35 @@
                                  </div>
                               </h6>
                               <form class="row g-3">
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Address no.</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputLastName" class="form-label">Building / Village</label>
                                     <input type="text" class="form-control" id="inputLastName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Sub District</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  District</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Road</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  City</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">State</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
@@ -208,27 +208,27 @@
                            </div>
                            <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                               <form class="row g-3">
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Bank Name</label>
                                     <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputLastName" class="form-label">Bank Address</label>
                                     <input type="text" class="form-control" id="inputLastName" placeholder=" ">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">SWIFT</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label"> A/C No.</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
                                     <textarea type="text" class="form-control" id="inputEmailAddress" placeholder=""></textarea>
                                  </div>
