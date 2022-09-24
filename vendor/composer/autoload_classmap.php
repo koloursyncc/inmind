@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Components\\ImageManager' => $baseDir . '/app/Components/ImageManager.php',
+    'App\\Components\\ProductManager' => $baseDir . '/app/Components/ProductManager.php',
     'App\\Components\\RegionManager' => $baseDir . '/app/Components/RegionManager.php',
     'App\\Components\\SupplierManager' => $baseDir . '/app/Components/SupplierManager.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -38,6 +40,7 @@ return array(
     'App\\Models\\City' => $baseDir . '/app/Models/City.php',
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
     'App\\Models\\Dealer' => $baseDir . '/app/Models/Dealer.php',
+    'App\\Models\\Image' => $baseDir . '/app/Models/Image.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Models\\State' => $baseDir . '/app/Models/State.php',
     'App\\Models\\Supplier' => $baseDir . '/app/Models/Supplier.php',

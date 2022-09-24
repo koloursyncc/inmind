@@ -61,3 +61,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  */
  
 Route::post('/savesupplier', [SupplierController::class, 'save']);
+Route::post('/save/product', [ProductController::class, 'save']);

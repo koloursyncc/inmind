@@ -511,6 +511,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
     );
 
     public static $classMap = array (
+        'App\\Components\\ImageManager' => __DIR__ . '/../..' . '/app/Components/ImageManager.php',
+        'App\\Components\\ProductManager' => __DIR__ . '/../..' . '/app/Components/ProductManager.php',
         'App\\Components\\RegionManager' => __DIR__ . '/../..' . '/app/Components/RegionManager.php',
         'App\\Components\\SupplierManager' => __DIR__ . '/../..' . '/app/Components/SupplierManager.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -543,6 +545,7 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Models\\City' => __DIR__ . '/../..' . '/app/Models/City.php',
         'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
         'App\\Models\\Dealer' => __DIR__ . '/../..' . '/app/Models/Dealer.php',
+        'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\State' => __DIR__ . '/../..' . '/app/Models/State.php',
         'App\\Models\\Supplier' => __DIR__ . '/../..' . '/app/Models/Supplier.php',
