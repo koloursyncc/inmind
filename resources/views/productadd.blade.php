@@ -95,12 +95,21 @@
 								  
 								  <div class="col-12">
 									  <div class="d-grid">
-                                         <button type="button" class="btn btn-primary">Generate </button>
+                                         <button type="button" class="btn btn-primary generatecode">Generate </button>
 									  </div>
 								  </div>
 								  <div class="col-12">
-									  <div class="d-grid">
-                                        <img class="img-thumbnail" src="{{asset('assets/images/barcode-png.webp')}}">
+									  <div class="d-grid generatecodecontainer">
+											<?php //$generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+													//$generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
+												/* 
+											{!! $generator->getBarcode('0001245259636', $generator::TYPE_CODE_128) !!}
+											$generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
+											<img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode('005263635', $generatorPNG::TYPE_CODE_128)) }}">
+											*/
+											?>
+				
+									    
 									  </div>
 								  </div> 
 								  <div class="col-12">
@@ -125,14 +134,14 @@
 													</div>
 													<div class="col-md-4">
 														<label for="inputStarPoints" class="form-label">Height(MM)</label>
-														<input type="text" class="form-control dimension_depth" name="dimension_depth" id="inputStarPoints" placeholder="Enter Height">
+														<input type="text" class="form-control dimension_height" name="dimension_height" id="inputStarPoints" placeholder="Enter Height">
 													</div>
 								                </div>
 												<div class="row">
 														<h6 class="mt-10 ">Package</h6>
 														<div class="col-md-4">	
 														<label for="inputPrice" class="form-label">Width(MM)</label>
-														<input type="text" class="form-control dimension_depth" name="dimension_depth" id="inputPrice" placeholder="Enter Width">
+														<input type="text" class="form-control package_width" name="package_width" id="inputPrice" placeholder="Enter Width">
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">Depth(MM)</label>
@@ -169,15 +178,15 @@
 														<h6></h6>
 														<div class="col-md-4">	
 														<label for="inputPrice" class="form-label">1*20' contain</label>
-														<input type="text" class="form-control" name="" id="inputPrice" value="300" disabled >
+														<input type="text" class="form-control 1_20_contain" name="1_20_contain" id="inputPrice" value="" readonly >
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
-														<input type="text" class="form-control" id="inputCostPerPrice"value="300"  disabled>
+														<input type="text" class="form-control 1_20_contain_net_weight" name="1_20_contain_net_weight" id="inputCostPerPrice"value=""  readonly>
 													</div>
 													<div class="col-md-4">
 														<label for="inputStarPoints" class="form-label">Gross Weight</label>
-														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+														<input type="text" class="form-control 1_20_contain_net_gross_weight" name="1_20_contain_net_gross_weight" id="inputStarPoints" value="" readonly >
 													</div>
 								                </div>
 
@@ -185,15 +194,15 @@
 														<h6></h6>
 														<div class="col-md-4">	
 														<label for="inputPrice" class="form-label">1*40' contain</label>
-														<input type="text" class="form-control" id="inputPrice" value="300"  disabled >
+														<input type="text" class="form-control 1_40_contain" name="1_40_contain" id="inputPrice" value=""  readonly >
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
-														<input type="text" class="form-control" id="inputCostPerPrice"value="300" disabled >
+														<input type="text" class="form-control 1_40_contain_net_weight" name="1_40_contain_net_weight" id="inputCostPerPrice"value="" readonly >
 													</div>
 													<div class="col-md-4">
 														<label for="inputStarPoints" class="form-label">Gross Weight</label>
-														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+														<input type="text" class="form-control 1_40_contain_net_gross_weight" name="1_40_contain_net_gross_weight" id="inputStarPoints" value="" readonly >
 													</div>
 								                </div>
 												
@@ -201,15 +210,15 @@
 														<h6></h6>
 														<div class="col-md-4">	
 														<label for="inputPrice" class="form-label">1*40' HQ contain</label>
-														<input type="text" class="form-control" id="inputPrice" value="300" disabled>
+														<input type="text" class="form-control 1_40_hq_contain" name="1_40_hq_contain" id="inputPrice" value="" readonly>
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">Net Weight</label>
-														<input type="text" class="form-control" id="inputCostPerPrice"value="300" disabled>
+														<input type="text" class="form-control 1_40_hq_net_weight" name="1_40_hq_net_weight" id="inputCostPerPrice"value="" readonly>
 													</div>
 													<div class="col-md-4">
 														<label for="inputStarPoints" class="form-label">Gross Weight</label>
-														<input type="text" class="form-control" id="inputStarPoints" value="300" disabled >
+														<input type="text" class="form-control 1_40_hq_net_gross_weight" name="1_40_hq_net_gross_weight" id="inputStarPoints" value="" readonly >
 													</div>
 								                </div>	
 							
@@ -303,7 +312,142 @@ function kindproduct(num) {
 	}
 }
 
+function calulation(cbmval, grossweight, netweight) {
+	var cbm20 = 27;
+	var cbm54 = 54;
+	var cbm72 = 72;	
+	var contain20 = $('.1_20_contain');
+	var contain40 = $('.1_40_contain');
+	var contain40hq = $('.1_40_hq_contain');
+	
+	contain20.val(Math.ceil(cbm20*cbmval));
+	contain40.val(Math.ceil(cbm54*cbmval));
+	contain40hq.val(Math.ceil(cbm72*cbmval));
+	
+	if($('.1_20_contain').val() != '') {
+		
+		if(netweight > 0) {
+			
+			$('.1_20_contain_net_weight').val(Math.ceil(netweight*$('.1_20_contain').val()));
+			
+		} else {
+			
+			$('.1_20_contain_net_weight').val(0);
+			
+		}
+		
+		if(grossweight > 0) {
+			
+			$('.1_20_contain_net_gross_weight').val(Math.ceil(grossweight*$('.1_20_contain').val()));
+			
+		} else {
+			
+			$('.1_20_contain_net_gross_weight').val(0);
+			
+		}
+		
+		
+	} else {
+		
+		$('.1_20_contain_net_weight').val(0);
+		$('.1_20_contain_net_gross_weight').val(0);
+		
+	}
+	
+	if($('.1_40_contain').val() != '') {
+		
+		if(netweight > 0) {
+			
+			$('.1_40_contain_net_weight').val(Math.ceil(netweight*$('.1_40_contain').val()));
+			
+		} else {
+			
+			$('.1_40_contain_net_weight').val(0);
+			
+		}
+		
+		if(grossweight > 0) {
+			
+			$('.1_40_contain_net_gross_weight').val(Math.ceil(grossweight*$('.1_40_contain').val()));
+			
+		} else {
+			
+			$('.1_40_contain_net_gross_weight').val(0);
+			
+		}
+		
+	} else {
+		
+		$('.1_40_contain_net_weight').val(0);
+		$('.1_40_contain_net_gross_weight').val(0);
+		
+	}
+	
+	if($('.1_40_hq_contain').val() != '') {
+		
+		if(netweight > 0) {
+			
+			$('.1_40_hq_net_weight').val(Math.ceil(netweight*$('.1_40_hq_contain').val()));
+			
+		} else {
+			
+			$('.1_40_hq_net_weight').val(0);
+			
+		}
+		
+		if(grossweight > 0) {
+			
+			$('.1_40_hq_net_gross_weight').val(Math.ceil(grossweight*$('.1_40_hq_contain').val()));
+			
+		} else {
+			
+			$('.1_40_hq_net_gross_weight').val(0);
+			
+		}
+		
+	} else {
+		
+		$('.1_40_hq_net_weight').val(0);
+		$('.1_40_hq_net_gross_weight').val(0);
+		
+	}
+	
+}
+
 	$(document).ready(function() {
+		$('body').on('keypress', '.cbm', function(event) {
+			
+			if(validPrice(event, this) == true) {
+				setTimeout(function() {
+					
+					calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
+				}, 10);
+				
+			}
+		});
+		
+		$('body').on('keypress', '.gross_kg', function(event) {
+			
+			if(validPrice(event, this) == true) {
+				setTimeout(function() {
+					
+					calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
+				}, 10);
+				
+			}
+		});
+		
+		$('body').on('keypress', '.net_height', function(event) {
+			
+			if(validPrice(event, this) == true) {
+				setTimeout(function() {
+					
+					calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
+				}, 10);
+				
+			}
+		});
+		
 		$('body').on('change', '.typeval', function() {
 			var value = $(this).val();
 			$('.product_in_set_input').addClass('d-none');
@@ -316,20 +460,78 @@ function kindproduct(num) {
 			}
 		});
 		
-		$('body').on('keypress', '.kind_of_product_qty', function(event) {
-			validPrice(event, this);
-		});
-		
 		$('body').on('keypress', '.product_in_set', function(event) {
 			
 			if(validPrice(event, this) == true) {
 				setTimeout(function() {
-					
 					var num = $('.product_in_set').val();
 					kindproduct(num);
 				}, 1500);
-				
 			}
+		});
+		
+		$('body').on('keypress', '.dimension_width', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.dimension_depth', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.dimension_height', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.package_width', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.package_depth', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.package_height', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('keypress', '.kind_of_product_qty', function(event) {
+			validPrice(event, this);
+		});
+		
+		$('body').on('click', '.generatecode', function() {
+			$.ajax({
+				url: "{{url('product/generatecode')}}",
+				dataType : "json",
+				type: "get",
+				data : $('#prodctsave').serialize(),
+				processData: false,
+				contentType: false,
+				cache: false,
+				success : function(response) {
+					if(response.status == 'success') {
+						$('.generatecodecontainer').html('<a href="'+response.generate+'" target="_blank"><img src="'+response.generate+'" download="output.png" /></a><input type="hidden" name="barcode" value="'+response.generate+'" />');
+					}
+					/* $('.saveproduct').removeAttr('disabled');
+					$('.saveproduct').html('Create Product');
+			
+					if(response.status == 'success') {
+						
+						alert(response.msg);
+						window.location.href = "{{url('productlist')}}";
+						
+					} else if(response.status == 'errors') {
+						$.each(response.errors, function(key, msg) {
+							$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+						});
+					} else if(response.status == 'error') {
+						
+						alert(response.error);
+						
+					} else if(response.status == 'exceptionError') {
+						
+					} */
+				},
+			});
 		});
 		
 		$('body').on('click', '.saveproduct', function() {

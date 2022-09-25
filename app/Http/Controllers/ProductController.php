@@ -11,6 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
+		
         return view('productadd');
     }
 	public function child()
@@ -25,6 +26,32 @@ class ProductController extends Controller
     {
         return view('productdetail');
     }
+	
+	public function generatecode(Request $request)
+	{
+		$data = $request->all();
+		$rules = array(
+			'name' => 'required',
+			'code' => 'required',
+			'brand_id' => 'required'
+		);
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->fails())
+		{
+			return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+		}
+		
+		//$generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
+		$barCode = new \Picqer\Barcode\BarcodeGeneratorPNG();
+		$barCode = $barCode->getBarcode($request->name.$request->code.$request->brand_id, $barCode::TYPE_CODE_128);
+		
+		//print_r(base64_encode($barCode)); die;
+		$generate = ''; //json_encode('<img src="data:image/png;base64,{{ base64_encode('.$barCode.')) }}">');
+		$base64 = 'data:image/png;base64,' . base64_encode($barCode);
+		
+		return response()->json(array('status'=>'success', 'generate' => $base64, 'data' => base64_encode($barCode)));
+	}
 	
 	public function save(Request $request)
 	{
@@ -52,7 +79,7 @@ class ProductController extends Controller
 				}
 
 				$data = $request->except(['_token']);
-				
+				//print_r($data); die;
 				$productManager = ProductManager::getInstance();
 				
 				$lastInsertId = $productManager->save($data, true);
@@ -95,7 +122,7 @@ class ProductController extends Controller
 							}
 						}
 					}
-					
+					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
 				
