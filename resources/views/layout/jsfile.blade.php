@@ -49,7 +49,7 @@
 				var url = $("meta[name=url]").attr("content");
 				$('.err_msg').remove();
 				$.ajax({
-					url: "{{url('savesupplier')}}",
+					url: $('#supplier-form').attr('data-url'),
 					dataType : "json",
 					type: "post",
 					data : $('#supplier-form').serialize(),

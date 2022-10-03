@@ -26,23 +26,34 @@ use App\Http\Controllers\RegionController;
 Route::get('/', [UserController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/productadd', [ProductController::class, 'index']);
+Route::get('/productedit/{id}', [ProductController::class, 'edit']);
+Route::get('/productdetail/{id}', [ProductController::class, 'view']);
 Route::get('/productlist', [ProductController::class, 'list']);
-Route::get('/productdetail', [ProductController::class, 'detail']);
-Route::get('/productadd', [ProductController::class, 'index']);
+//Route::get('/productdetail', [ProductController::class, 'detail']);
+//Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/childproductadd', [ProductController::class, 'child']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
 Route::get('/supplierregister', [SupplierController::class, 'index']);
+Route::get('/supplieredit/{id}', [SupplierController::class, 'edit']);
+Route::get('/supplierdetail/{id}', [SupplierController::class, 'detail']);
 Route::get('/supplierlist', [SupplierController::class, 'list']);
 Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
 Route::get('/dealeradd', [DealerController::class, 'index']);
 Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
+
 Route::get('/staffadd', [StaffController::class, 'index']);
+Route::get('/staffedit/{id}', [StaffController::class, 'edit']);
+Route::get('/staffview/{id}', [StaffController::class, 'view']);
 Route::get('/stafflist', [StaffController::class, 'list']);
+Route::post('/save/staff', [StaffController::class, 'save']);
+Route::post('/update/staff', [StaffController::class, 'update']);
+
 Route::get('/pocreate', [PoController::class, 'index']);
 Route::get('/getregionaldata', [RegionController::class, 'getregionaldata']);
 
-
+Route::get('/dealeredit/{id}', [DealerController::class, 'edit']);
+Route::get('/dealerdetail/{id}', [DealerController::class, 'detail']);
 
 Route::group(['middleware' => ['auth']], function() {
     /**
@@ -62,4 +73,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  
 Route::post('/savesupplier', [SupplierController::class, 'save']);
 Route::post('/save/product', [ProductController::class, 'save']);
+Route::post('/update/product', [ProductController::class, 'update']);
+Route::post('/update/supplier', [SupplierController::class, 'update']);
 Route::get('/product/generatecode', [ProductController::class, 'generatecode']);
+
+Route::post('/save/customer', [DealerController::class, 'save']);
+Route::post('/update/customer', [DealerController::class, 'update']);

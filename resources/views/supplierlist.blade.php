@@ -70,7 +70,7 @@ var table = $('#dataTable').DataTable({
 				ajax: "{{url('supplierlistajax')}}",
 				columns: [
 					{ data: 'id', orderable: false}, 
-					{ data: 'supplier_name', orderable: false},
+					{ data: 'supplier', orderable: false},
 					{ data: 'action', orderable: false} 
 					  
 					

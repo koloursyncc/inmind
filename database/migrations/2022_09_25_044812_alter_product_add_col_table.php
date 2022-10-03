@@ -14,17 +14,17 @@ class AlterProductAddColTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-			$table->string('1_20_contain', 100)->after('package_height')->nullable();
-			$table->string('1_20_contain_net_weight', 100)->after('1_20_contain')->nullable();
-			$table->string('1_20_contain_net_gross_weight', 100)->after('1_20_contain_net_weight')->nullable();
+			$table->string('contain_1_20', 100)->after('package_height')->nullable();
+			$table->string('contain_1_20_net_weight', 100)->after('contain_1_20')->nullable();
+			$table->string('contain_1_20_net_gross_weight', 100)->after('contain_1_20_net_weight')->nullable();
 			
-			$table->string('1_40_contain', 100)->after('1_20_contain_net_gross_weight')->nullable();
-			$table->string('1_40_contain_net_weight', 100)->after('1_40_contain')->nullable();
-			$table->string('1_40_contain_net_gross_weight', 100)->after('1_40_contain_net_weight')->nullable();
+			$table->string('contain_1_40', 100)->after('contain_1_20_net_gross_weight')->nullable();
+			$table->string('contain_1_40_net_weight', 100)->after('contain_1_40')->nullable();
+			$table->string('contain_1_40_net_gross_weight', 100)->after('contain_1_40_net_weight')->nullable();
 			
-			$table->string('1_40_hq_contain', 100)->after('1_40_contain_net_gross_weight')->nullable();
-			$table->string('1_40_hq_net_weight', 100)->after('1_40_hq_contain')->nullable();
-			$table->string('1_40_hq_net_gross_weight', 100)->after('1_40_hq_net_weight')->nullable();
+			$table->string('hq_1_40_contain', 100)->after('contain_1_40_net_gross_weight')->nullable();
+			$table->string('hq_1_40_net_weight', 100)->after('hq_1_40_contain')->nullable();
+			$table->string('hq_1_40_net_gross_weight', 100)->after('hq_1_40_net_weight')->nullable();
 			
 		});
     }

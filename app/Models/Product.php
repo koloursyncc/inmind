@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Components\SupplierManager;
 class Product extends Model
 {
     use HasFactory;
@@ -17,23 +17,31 @@ class Product extends Model
 		'color',
 		'barcode',
 		'type',
+		'product_in_set',
 		'dimension_width',
 		'dimension_depth',
 		'dimension_height',
 		'package_width',
 		'package_depth',
 		'package_height',
-		'1_20_contain',
-		'1_20_contain_net_weight',
-		'1_20_contain_net_gross_weight',
-		'1_40_contain',
-		'1_40_contain_net_weight',
-		'1_40_contain_net_gross_weight',
-		'1_40_hq_contain',
-		'1_40_hq_net_weight',
-		'1_40_hq_net_weight',
+		'contain_1_20',
+		'contain_1_20_net_weight',
+		'contain_1_20_net_gross_weight',
+		'contain_1_40',
+		'contain_1_40_net_weight',
+		'contain_1_40_net_gross_weight',
+		'hq_1_40_contain',
+		'hq_1_40_net_weight',
+		'hq_1_40_net_gross_weight',
 		'gross_kg',
 		'cbm',
 		'net_height'
 	];
+	
+	public function getProductSupplierBySupplierId($product_id, $id)
+	{
+		//return $product_id.' '.$id;
+		$supplierManagerObj = SupplierManager::getInstance();
+		return $supplierManagerObj->getProductSupplierBySupplierId($product_id, $id);
+	}
 }

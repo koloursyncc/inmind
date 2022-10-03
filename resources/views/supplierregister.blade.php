@@ -3,6 +3,100 @@
 
 @include('layout.header')
 
+<?php
+
+$installment = array(
+	1 => 'PO Confirmed by Payment',
+	2 => 'Sample Piece ready',
+	3 => 'Work Progress 50%',
+	4 => 'Work Progress 80%',
+	5 => 'Work Progress 100%',
+	6 => 'Original B/L is shown',
+);
+
+$suppliertype = array(
+	1 => 'Manufacturer',
+	2 => 'Agent',
+	3 => 'Shipping',
+	4 => 'Transport',
+	5 => 'W/H and Lessor',
+	6 => 'Packaging<',
+);
+$disabledfield = '';
+$supplier_name = '';
+$supplier_type = '';
+$address = '';
+$building = '';
+$sub_district = '';
+$district = '';
+$road = '';
+$city_id = '';
+$state_id = '';
+$country_id = '';
+$zipcode = '';
+$name = '';
+$family_name = '';
+$position = '';
+$mobile = '';
+$email = '';
+$remark = '';
+$bank_name = '';
+$bank_address = '';
+$swift = '';
+$ac_no = '';
+$beneficiary_name = '';
+$beneficiary_address = '';
+$currency = '';
+$incoterm = '';
+$delivery_destination = '';
+$id ='';
+$url = '';
+if($type == 'save')
+{
+	$url = url('savesupplier');
+} else if($type == 'edit')
+{
+	$url = url('update/supplier');
+}
+if($type != 'save')
+{
+	if($obj != null) {
+		$id = $obj->id;
+		$supplier_name = $obj->supplier_name;
+		$supplier_type = $obj->supplier_type;
+		$address = $obj->address;
+		$building = $obj->building;
+		$sub_district = $obj->sub_district;
+		$district = $obj->district;
+		$road = $obj->road;
+		$city_id = $obj->city_id;
+		$state_id = $obj->state_id;
+		$country_id = $obj->country_id;
+		$zipcode = $obj->zipcode;
+		$name = $obj->name;
+		$family_name = $obj->family_name;
+		$position = $obj->position;
+		$mobile = $obj->mobile;
+		$email = $obj->email;
+		$remark = $obj->remark;
+		$bank_name = $obj->bank_name;
+		$bank_address = $obj->bank_address;
+		$swift = $obj->swift;
+		$ac_no = $obj->ac_no;
+		$beneficiary_name = $obj->beneficiary_name;
+		$beneficiary_address = $obj->beneficiary_address;
+		$currency = $obj->currency;
+		$incoterm = $obj->incoterm;
+		$delivery_destination = $obj->delivery_destination;
+	}
+}
+
+if($type == 'view')
+{
+	$disabledfield = 'disabled';
+}
+?>
+
 <body>
 	<!--wrapper-->
 	<div class="wrapper">
@@ -50,46 +144,48 @@
 										 
 									</ul>
 									<div class="tab-content">
-										<form id="supplier-form">
+										<form id="supplier-form" data-url="{{ $url }}">
 											@csrf
+											
+											<?php if($type == 'edit') { ?>
+												<input type="hidden" name="id" value="{{$id}}" />
+											<?php } ?>
+											
 										<div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
 												<label for="formFile" class="form-label">Supplier Name <span>*</span></label>
-												<input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="enter supplier name" aria-label="default input example">
+												<input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="enter supplier name" aria-label="default input example" value="{{ $supplier_name }}" {{ $disabledfield }}>
 												<label for="formFile" class="form-label ">Supplier Type <span>*</span></label>
-													<select class="form-select mb-3 supplier_type" name="supplier_type" aria-label="Default select example">
+													<select class="form-select mb-3 supplier_type" name="supplier_type" aria-label="Default select example" {{ $disabledfield }}>
 														<option value="">Select Supplier Type </option>
-														<option value="1">Manufacturer</option>
-														<option value="2">Agent</option>
-														<option value="3">Shipping</option>
-														<option value="3">Transport</option>
-														<option value="3">W/H and Lessor</option>
-														<option value="3">Packaging</option>
+														<?php foreach($suppliertype as $suppliertypekey => $suppliertypeval) { ?>
+														<option value="{{ $suppliertypekey }}" <?php if($suppliertypekey == $supplier_type) { echo 'selected'; } ?>>{{ $suppliertypeval }}</option>
+														<?php } ?>
 													</select>
 													  <div class="row g-3">
 															<div class="col-sm-6">
 																<label for="inputFirstName" class="form-label">Address no.</label>
-																<input type="text" class="form-control address" name="address" id="inputFirstName" placeholder=" ">
+																<input type="text"value="{{ $supplier_name }}" class="form-control address" name="address" id="inputFirstName"  {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-6">
 																<label for="inputLastName" class="form-label">Building / Village</label>
-																<input type="text" class="form-control building" name="building" id="inputLastName" placeholder=" ">
+																<input type="text"value="{{ $building }}" class="form-control building" name="building" id="inputLastName"  {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Sub District</label>
-																<input type="text" class="form-control sub_district" name="sub_district" id="inputEmailAddress" placeholder="">
+																<input type="text"value="{{ $sub_district }}" class="form-control sub_district" name="sub_district" id="inputEmailAddress" {{ $disabledfield }} placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  District</label>
-																<input type="text" class="form-control district" name="district" id="inputEmailAddress" placeholder="">
+																<input type="text"value="{{ $district }}" class="form-control district" name="district" id="inputEmailAddress" {{ $disabledfield }} placeholder="">
 															</div>
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">Road</label>
-																<input type="text" class="form-control road" name="road" id="inputEmailAddress" placeholder="">
+																<input type="text"value="{{ $road }}" class="form-control road" name="road" id="inputEmailAddress" {{ $disabledfield }} placeholder="">
 															</div>
 															
 															<div class="col-sm-6">
 																<label for="inputSelectCountry" class="form-label">Country <span>*</span></label>
-																<select class="form-select country_id" name="country_id" id="inputSelectCountry" aria-label="Default select example">
+																<select class="form-select country_id" name="country_id" id="inputSelectCountry" {{ $disabledfield }} aria-label="Default select example">
 																	<option value="">Select Country</option>
 																	<?php foreach($countries as $countryObj) { 
 																			$selected = '';
@@ -104,114 +200,117 @@
 															
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">State <span>*</span></label>
-																<select class="form-select state_id" name="state_id" id="inputSelectCountry" aria-label="Default select example">
+																<select class="form-select state_id" name="state_id" id="inputSelectCountry" {{ $disabledfield }} aria-label="Default select example">
 																	<option value="">Select State</option>
 																</select>
 															</div>
 															
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">City <span>*</span></label>
-																<input type="text" class="form-control city_id" name="city_id" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $city_id }}" class="form-control city_id" {{ $disabledfield }} name="city_id" id="inputEmailAddress" placeholder="">
 															</div>
 															
 															<div class="col-sm-6">
 																<label for="inputEmailAddress" class="form-label">  Zip Code <span>*</span></label>
-																<input type="text" class="form-control zipcode" name="zipcode" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $zipcode }}" class="form-control zipcode" {{ $disabledfield }} name="zipcode" id="inputEmailAddress" placeholder="">
 															</div>
-															
+															<div class="col-sm-6">
+																<select {{ $disabledfield }} class="form-control product_id " name="product_id[]" multiple>
+																	<?php foreach($products as $productObj) {
+																			$proched = '';
+																			if($type != 'save') {
+																				$isProductSupplier = $productObj->getProductSupplierBySupplierId($productObj->id, $id);
+																				if($isProductSupplier)
+																				{
+																					$proched = 'selected';
+																				}
+																			}
+																		?>
+																		<option value="{{ $productObj->id }}" {{ $proched }}>{{ $productObj->name }} </option>
+																	<?php } ?>
+																</select>
+															</div>
 															
 														</div>
 										 </div>
 										<div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
 										<div class="row g-3">
 															<div class="col-sm-6">
-																<label for="inputFirstName" class="form-label">Name <span>*</span></label>
-																<input type="text" class="form-control name" name="name" id="inputFirstName" placeholder=" ">
+																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
+																<input type="text" value="{{ $name }}" class="form-control name" name="name" id="inputFirstName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputLastName" class="form-label">Family Name</label>
-																<input type="text" class="form-control family_name" name="family_name" id="inputLastName" placeholder=" ">
+																<label for="inputLastName" {{ $disabledfield }} class="form-label">Family Name</label>
+																<input type="text" value="{{ $family_name }}" class="form-control family_name" name="family_name" id="inputLastName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">Position</label>
-																<input type="text" class="form-control position" name="position" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
+																<input type="text" value="{{ $position }}" class="form-control position" name="position" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Mobile <span>*</span></label>
-																<input type="text" class="form-control mobile" name="mobile" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
+																<input type="text" value="{{ $mobile }}" class="form-control mobile" name="mobile" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">Email</label>
-																<input type="text" class="form-control email" name="email" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
+																<input type="text" value="{{ $email }}" class="form-control email" name="email" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Remark</label>
-																<textarea type="text" class="form-control remark" name="remark" id="inputEmailAddress" placeholder=""></textarea>
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
+																<textarea type="text" value="{{ $remark }}" class="form-control remark" name="remark" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
 														</div>
 										</div>
 										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
 										<div class="row g-3">
 															<div class="col-sm-6">
-																<label for="inputFirstName" class="form-label">Bank Name</label>
-																<input type="text" class="form-control bank_name" name="bank_name" id="inputFirstName" placeholder=" ">
+																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Bank Name</label>
+																<input type="text" value="{{ $bank_name }}" class="form-control bank_name" name="bank_name" id="inputFirstName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputLastName" class="form-label">Bank Address</label>
-																<input type="text" class="form-control bank_address" name="bank_address" id="inputLastName" placeholder=" ">
+																<label for="inputLastName" {{ $disabledfield }} class="form-label">Bank Address</label>
+																<input type="text" value="{{ $bank_address }}" class="form-control bank_address" name="bank_address" id="inputLastName" placeholder=" ">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">SWIFT</label>
-																<input type="text" class="form-control swift" name="swift" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">SWIFT</label>
+																<input type="text" value="{{ $swift }}" {{ $disabledfield }} class="form-control swift" name="swift" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label"> A/C No.</label>
-																<input type="text" class="form-control ac_no" name="ac_no" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label"> A/C No.</label>
+																<input type="text" value="{{ $ac_no }}" class="form-control ac_no" name="ac_no" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
-																<input type="text" class="form-control beneficiary_name" name="beneficiary_name" id="inputEmailAddress" placeholder="">
+																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Beneficiary Name</label>
+																<input type="text" value="{{ $beneficiary_name }}" class="form-control beneficiary_name" name="beneficiary_name" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
-																<textarea type="text" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" placeholder=""></textarea>
+																<label for="inputEmailAddress"  {{ $disabledfield }} class="form-label">  Beneficiary Address</label>
+																<textarea type="text" value="{{ $beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" placeholder=""></textarea>
 															</div> 
 															<div class="col-sm-4">
 																<label for="inputFirstName" class="form-label">Currency</label>
-																<select class="form-select currency" name="currency" id="inputSelectCountry" aria-label="Default select example">
+																<select class="form-select currency" {{ $disabledfield }} name="currency" id="inputSelectCountry" aria-label="Default select example">
 																	<?php foreach($countries as $countryObj) { ?>
-																		 <option value="{{ $countryObj->currency }}">{{ $countryObj->currency }}</option>
+																		 <option value="{{ $countryObj->currency }}" <?php if($countryObj->currency == $currency) { echo 'selected'; } ?>>{{ $countryObj->currency }}</option>
+																	<?php } ?>
+																</select>
+															 </div>
+															 <?php $Incotermarr = array(1 => 'EXW',2 => 'CFR',3 => 'CIF',4 => 'FOB',5 => 'DDP'); ?>
+															 <div class="col-sm-4">
+																<label for="inputLastName" {{ $disabledfield }} class="form-label">Incoterm</label>
+																<select class="form-select incoterm" name="incoterm" id="inputSelectCountry" aria-label="Default select example">
+																	<?php foreach($Incotermarr as $Incotermk => $Incotermv) { ?>
+																		<option value="{{ $Incotermk }}" <?php if($Incotermk == $incoterm) { echo 'selected'; } ?>>{{ $Incotermv }}</option>
 																	<?php } ?>
 																</select>
 															 </div>
 															 <div class="col-sm-4">
-																<label for="inputLastName" class="form-label">Incoterm</label>
-																<select class="form-select incoterm" name="incoterm" id="inputSelectCountry" aria-label="Default select example">
-																   <option value="1">EXW</option>
-																   <option value="2">CFR</option>
-																   <option value="3">CIF</option>
-																   <option value="4">FOB</option>
-																   <option value="5">DDP</option>
-																</select>
-															 </div>
-															 <div class="col-sm-4">
 																<label for="inputEmailAddress" class="form-label">Place of Delivery/Destination</label>
-																<input type="text" class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $delivery_destination }}" {{ $disabledfield }} class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
 															 </div>
-															 <div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label"> Installment 1</label>
-																<input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-															 </div>
-															 <div class="col-sm-6">
-																<label for="inputEmailAddress" class="form-label"> Installment 1</label>
-																<select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-																   <option value="1">PO Confirmed by Payment</option>
-																   <option value="2">Sample Piece ready</option>
-																   <option value="3">Work Progress 50%</option>
-																   <option value="4">Work Progress 80%</option>
-																   <option value="5">Work Progress 100%</option>
-																   <option value="6">Original B/L is shown</option>
-																</select>
+															 <a href="#" id="addoninstall">Add More</a>
+															 <div class="row installment_container"> 
+															 
 															 </div>
 														</div>
 										</div>
@@ -232,8 +331,23 @@
 	<!-- Bootstrap JS -->
 	@include('layout.jsfile')
 
-
-
+<div class="installment_container_d_none" style="display:none" data-counter="0"> 
+	<div class="row installment_container_clone">
+		<div class="col-sm-6">
+			<label for="inputEmailAddress" class="form-label installment_lavel_1"></label>
+			<input type="text" {{ $disabledfield }} class="form-control installment_1" id="inputEmailAddress" placeholder="">
+		</div>
+		
+		<div class="col-sm-6">
+			<label for="inputEmailAddress" class="form-label installment_lavel_2"></label>
+			<select class="installment_2 form-select" {{ $disabledfield }} id="inputSelectCountry" aria-label="Default select example">
+				<?php foreach($installment as $installmentValueKey => $installmentValue) { ?>
+				<option value="{{ $installmentValueKey }}">{{ $installmentValue }}</option>
+				<?php } ?>
+			</select>
+		</div>
+	</div>
+</div>
 
 <script>
 
@@ -250,14 +364,41 @@ function dependdropdown(val, target, name) {
 			list.empty();
 			list.append(new Option('Select '+name, ''));
 			$.each(response, function(index, item) {
-				list.append(new Option(item.name, item.id));
+				list.append(new Option(item.name, item.id, true));
 			});
-				
+			
+			<?php if($type != 'save') { ?>
+				setTimeout(function() {
+					
+				//alert(<?php echo $state_id; ?>);
+				$('.state_id option[value="<?php echo $state_id; ?>"]').prop('selected', true);
+				}, 500);
+			<?php } ?>
 		},
 	});
 }
 
 $(document).ready(function() {
+	<?php if($type != 'view') { ?>
+		$('body').on('click', '#addoninstall', function() {
+			var clone = $('.installment_container_clone', $('.installment_container_d_none')).clone();
+			
+			var no = $('.installment_container_d_none').attr('data-counter');
+			var total = parseInt(no) - 1;
+			
+			var length = $('.installment_container_clone', $('.installment_container')).length;
+			var html = parseInt(length) + 1;
+			
+			$('.installment_1').attr('name', 'installment_1['+total+']');
+			$('.installment_lavel_1').html('installment_'+html);
+			
+			$('.installment_2').attr('name', 'installment_2['+total+']');
+			$('.installment_lavel_2').html('installment_'+html);
+			
+			$('.installment_container').append(clone);
+			$('.installment_container_d_none').attr('data-counter', total);
+		});
+	<?php } ?>
 	
 	var country = $('.country_id').val();
 	dependdropdown(country, '.state_id', 'State');

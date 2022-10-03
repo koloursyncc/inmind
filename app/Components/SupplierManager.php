@@ -2,6 +2,9 @@
 
 namespace App\Components;
 use App\Models\Supplier;
+use App\Models\SupplierProduct;
+//use App\Models\Installment;
+use App\Components\ProductManager;
 class SupplierManager
 {
 	public static $_instance;
@@ -13,8 +16,39 @@ class SupplierManager
         return self::$_instance;
     }
 	
-	public function save($params)
+	public function save($params, $lastInsertId = false)
 	{
-		return Supplier::create($params);
+		$obj = Supplier::create($params);
+		
+		if($lastInsertId === true)
+		{
+			return $obj->id;
+		}
+		return $obj;
+	}
+	
+	public function getProductSupplierBySupplierId($product_id, $supplier_id)
+	{
+		return SupplierProduct::where('product_id', $product_id)->where('supplier_id', $supplier_id)->first();
+	}
+	
+	public function update($id, $params)
+	{
+		return Supplier::where('id', $id)->update($params);
+	}
+	
+	public function deleteProductSupplierBySupplierId($supplier_id)
+	{
+		return SupplierProduct::where('supplier_id', $supplier_id)->delete();
+	}
+	
+	public function getSupplierById($id)
+	{
+		return Supplier::find($id);
+	}
+	
+	public function saveProductSupplier($params)
+	{
+		return SupplierProduct::create($params);
 	}
 }

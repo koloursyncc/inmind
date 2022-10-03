@@ -18,4 +18,9 @@ class ImageManager
 	{
 		return Image::create($params);
 	}
+	
+	public function getImageByProductId($product_id)
+	{
+		return Image::where('product_id', $product_id)->get();
+	}
 }

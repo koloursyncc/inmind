@@ -11,9 +11,30 @@ class ProductController extends Controller
 {
     public function index()
     {
+		$productManagerObj = ProductManager::getInstance();
+		$data = $productManagerObj->productHandleById(null, 'save', 'Add New Product');
 		
-        return view('productadd');
+        return view('productadd', $data);
     }
+	
+	public function edit($id)
+	{
+		$productManagerObj = ProductManager::getInstance();
+		$data = $productManagerObj->productHandleById($id, 'edit', 'Edit Product');
+		//dd($data);
+		
+		return view('productadd', $data);
+	}
+	
+	public function view($id) 
+	{
+		
+		$productManagerObj = ProductManager::getInstance();
+		$data = $productManagerObj->productHandleById($id, 'view', 'Product Detail');
+		
+		return view('productadd', $data);
+	}
+	
 	public function child()
     {
         return view('childproductadd');
@@ -138,6 +159,122 @@ class ProductController extends Controller
 		}
 	}
 	
+	public function update(Request $request)
+	{
+		if($request->isMethod('post'))
+		{
+			//try
+			//{
+				$data = $request->all();
+				
+				$message = []; //array('city_id.required' => 'The city field is required');
+
+				$rules = array(
+					'name' => 'required',
+					'code' => 'required',
+					'brand_id' => 'required',
+					'color' => 'required',
+					'type'=> 'required',
+				);
+
+				$validator = Validator::make($data, $rules);
+
+				if ($validator->fails())
+				{
+					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+
+				//$data = $request->except(['_token', 'product_id']);
+				//print_r($data); die;
+				$productManager = ProductManager::getInstance();
+				
+				$lastInsertId = $request->product_id;
+				
+				$data = [
+					'name' => $request->name,
+					'code' => $request->code,
+					'brand_id' => $request->brand_id,
+					'color' => $request->color,
+					'barcode' => $request->barcode,
+					'type' => $request->type,
+					'product_in_set' => $request->product_in_set,
+					'dimension_width' => $request->dimension_width,
+					'dimension_depth' => $request->dimension_depth,
+					'dimension_depth' => $request->dimension_depth,
+					'package_width' => $request->package_width,
+					'package_depth' => $request->package_depth,
+					'package_height' => $request->package_height,
+					'package_height' => $request->package_height,
+					'contain_1_20_net_weight' => $request->contain_1_20_net_weight,
+					'contain_1_20_net_gross_weight' => $request->contain_1_20_net_gross_weight,
+					'contain_1_40' => $request->contain_1_40,
+					'contain_1_40_net_weight' => $request->contain_1_40_net_weight,
+					'contain_1_40_net_gross_weight' => $request->contain_1_40_net_gross_weight,
+					'hq_1_40_contain' => $request->hq_1_40_contain,
+					'hq_1_40_net_weight' => $request->hq_1_40_net_weight,
+					'hq_1_40_net_gross_weight' => $request->hq_1_40_net_gross_weight,
+					'gross_kg' => $request->gross_kg,
+					'cbm' => $request->cbm,
+					'net_height' => $request->net_height
+				];
+				
+				$status = $productManager->update($lastInsertId, $data);
+				
+				if($status)
+				{
+					if($request->type == 2) {
+						
+						if(isset($request->kind_of_product))
+						{
+							$productManager->deleteProductSetByProductId($lastInsertId);
+							$this->handleProductSet($lastInsertId, $request->kind_of_product, $request->kind_of_product_qty);
+						}
+					}
+					
+					if($request->hasFile('images')) 
+					{
+						$images = $request->file('images');
+						
+						$imageManagerObj = \App\Components\ImageManager::getInstance();
+						$path = public_path('images/products/'.$lastInsertId);
+						foreach($images as $fileindex => $file)
+						{
+							$filename = $file->getClientOriginalName();
+							$extension = $file->getClientOriginalExtension();
+							
+							if($file->move($path,$filename))
+							{
+								$mainimage = 0;
+								if($fileindex == 0) {
+									$mainimage = 1;
+								}
+								
+								$imageManagerObj->save(
+									[
+										'product_id' => $lastInsertId,
+										'main_image' => $mainimage,
+										'name' => $filename,
+									]
+								);
+							}
+						}
+					}
+					//die;
+					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
+				}
+				
+				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
+				
+			/* }
+			catch (\Throwable $e)
+			{
+				$error = $e->getMessage().', File Path = '.$e->getFile().', Line Number = '.$e->getLine();
+				//$this->exceptionHandling($error);
+				return response()->json(array('status'=>'exceptionError'));
+			} */
+		}
+	}
+	
 	private function productSet($productId, $kind_of_product, $kind_of_product_qty)
 	{
 		$productManager = ProductManager::getInstance();
@@ -203,13 +340,14 @@ class ProductController extends Controller
 		 
 		 foreach($list as $sno => $record){
 
-
-$action = '<div class="d-flex order-actions">
-<a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
-<a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
-</div>';
-$detail = '<a href=""><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
-$main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
+			$view = url('productdetail/'.$record->id);
+			$edit = url('productedit/'.$record->id);
+			$action = '<div class="d-flex order-actions">
+				<a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a>
+				<a href="#" class="ms-3"><i class="bx bxs-trash"></i></a>
+			</div>';
+			$detail = '<a href=""><a href="'.$view.'" type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</a></a>';
+			$main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
 
 
 			$id = $record->id;
