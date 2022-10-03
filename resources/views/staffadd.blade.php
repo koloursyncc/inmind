@@ -77,7 +77,7 @@ if($type == 'view')
       </div>
       <!--end breadcrumb-->
       <div class="row">
-         <div class="col-xl-8 mx-auto">
+         <div class="col-xl-12">
             <div class="card">
                <div class="card-body">
                   <!-- SmartWizard html --> 
@@ -129,39 +129,39 @@ if($type == 'view')
                               <label class="form-check-label" for="inlineRadio2">Other</label>
                            </div>
                            <div class="row g-3">
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Name(Thai) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control name_thai" name="name_thai"  value="{{ @$obj->name_thai }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Name(English) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control name_eng" name="name_eng"  value="{{ @$obj->name_eng }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Family Name(Thai) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control famly_name_thai" name="famly_name_thai"  value="{{ @$obj->famly_name_thai }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Family Name(English) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control famly_name_eng" name="famly_name_eng"  value="{{ @$obj->famly_name_eng }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Nick Name</label>
                                  <input type="text" class="form-control" name="nick" value="{{ @$obj->nick }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Current Job Position</label>
                                  <input type="text" class="form-control" name="current_job" value="{{ @$obj->current_job }}"  {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Mobile no.</label>
                                  <input type="text" class="form-control" name="mobile_no" value="{{ @$obj->mobile_no }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Current Salary/ Wages</label>
                                  <input type="text" class="form-control" name="current_salary" value="{{ @$obj->current_salary }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Date of Birth:</label>
                                     <input type="date" class="form-control" name="dob" value="{{ @$obj->dob }}" {{ $disabledfield }}>
@@ -221,21 +221,21 @@ if($type == 'view')
 										<option value="{{ $highestEducationk }}" <?php if($staff_higest_education == $highestEducationk) { echo 'selected'; } ?>>{{ $highestEducationv }}</option>
 									<?php } ?>
                               </select>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">School / Univercity Name</label>
                                  <input type="text" class="form-control" name="school_univercity_name"  value="{{ @$obj->school_univercity_name }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Educational Year</label>
                                     <input type="date" class="form-control" name="education_year" value="{{ @$obj->education_year }}" {{ $disabledfield }}>
                                  </div>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Faculty / School of</label>
                                  <input type="text" class="form-control" name="school_faculty" value="{{ @$obj->school_faculty }}"  {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Department</label>
                                  <input type="text" class="form-control" name="department" value="{{ @$obj->department }}"  {{ $disabledfield }}>
                               </div>
@@ -257,32 +257,32 @@ if($type == 'view')
 											  </div>
 										   </h6>
 										   <div class="row g-3">
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputFirstName" class="form-label">Address no.</label>
 												 <input type="text" value="{{ $addressdocument->address }}" class="form-control contact_address" name="contact_address[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputLastName" class="form-label">Building / Village</label>
 												 <input type="text" value="{{ $addressdocument->building }}" class="form-control contact_address_building" name="contact_address_building[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">Sub District</label>
 												 <input type="text" value="{{ $addressdocument->sub_district }}" class="form-control contact_sub_district" name="contact_sub_district[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">  District</label>
 												 <input type="text" value="{{ $addressdocument->district }}" class="form-control contact_district" name="contact_district[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">Road</label>
 												 <input type="text" value="{{ $addressdocument->road }}" class="form-control contact_road" name="contact_road[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">  City</label>
 												 <input type="text" value="{{ $addressdocument->city }}" class="form-control contact_city" name="contact_city[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
 											  </div>
 											  <?php $addrstates = $addressdocument->getStateByCountryId($addressdocument->country_id); ?>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">State</label>
 												 <select class="form-select contact_state contact_state_id{{ $addressdocumentid }}" name="contact_state[{{ $addressdocument->id }}]" {{ $disabledfield }}>
 													<option value="">Select State</option>
@@ -291,7 +291,7 @@ if($type == 'view')
 													<?php } ?>
 												 </select>
 											  </div>
-											  <div class="col-sm-6">
+											  <div class="col-sm-4">
 												 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
 												 <input type="text" value="{{ $addressdocument->zip }}" class="form-control contact_zip_code" name="contact_zip_code[{{ $addressdocumentid }}]" {{ $disabledfield }}>
 											  </div>
@@ -344,15 +344,15 @@ if($type == 'view')
                                  </div>
                               </div>
                               <div style="clear:both"></div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Social Fund ID</label>
                                  <input type="text" class="form-control" name="social_fund_id" value="{{ @$obj->social_fund_id }}" placeholder=" " {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Hospital in charges</label>
                                  <input type="text" class="form-control" name="hospital_in_charges"  value="{{ @$obj->hospital_in_charges }}" placeholder=" " {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputSelectCountry" class="form-label">Pay Social fund by </label>
                                  <select class="form-select" id="" aria-label="Default select example"  name="pay_social_fund_by" {{ $disabledfield }}>
                                     <option value="1">na</option>
@@ -361,7 +361,7 @@ if($type == 'view')
                                     <option value="4">na</option>
                                  </select>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Will apply in </label>
                                     <input type="date" class="form-control" name="will_apply_in"  value="{{ @$obj->will_apply_in }}" {{ $disabledfield }}>
@@ -411,13 +411,13 @@ if($type == 'view')
 									<?php } ?>
                                  </select>
                               </div>
-							  <div class="col-sm-6">
+							  <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Effective Period Start date</label>
                                     <input type="date" class="form-control effective_period_start_date" name="effective_period_start_date" value="{{ @$obj->effective_period_start_date }}" {{ $disabledfield }}>
                                  </div>
                                </div>
-							   <div class="col-sm-6">
+							   <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Effective Period End date</label>
                                     <input type="date" class="form-control" name="effective_period_end_date" value="{{ @$obj->effective_period_end_date }}" {{ $disabledfield }}>
@@ -439,7 +439,7 @@ if($type == 'view')
 								];
 							  ?>
 							   
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Position</label>
 								 <select class="form-select" value="{{ @$obj->position }}" name="position" aria-label="Default select example" {{ $disabledfield }}>
 									<?php foreach($positionData as $positionDatak => $positionDatav) { ?>
@@ -463,7 +463,7 @@ if($type == 'view')
 								];
 							  ?>
 							  
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputSelectCountry" class="form-label">Department </label>
                                  <select class="form-select" value="{{ @$obj->labour_department }}" name="labour_department" {{ $disabledfield }}>
                                     <?php foreach($departmentData as $departmentDatak => $departmentDatav) { ?>
@@ -471,7 +471,7 @@ if($type == 'view')
 									<?php } ?>
                                  </select>
                               </div>
-							  <div class="col-sm-6">
+							  <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Salary Wages in contract (THB)</label>
                                  <input type="text" class="form-control" value="{{ @$obj->salary_wages_in_contract }}" name="salary_wages_in_contract">
                               </div>
@@ -483,7 +483,7 @@ if($type == 'view')
 								];
 							  ?>
 							  
-							  <div class="col-sm-6">
+							  <div class="col-sm-4">
                                  <label for="inputSelectCountry" class="form-label">Increase salary be considered when </label>
                                  <select class="form-select" name="increase_salary_be_considered_when" value="{{ @$obj->increase_salary_be_considered_when }}">
                                     <?php foreach($increaseSalaryBeConsideredWhen as $increaseSalaryBeConsideredWhenk => $increaseSalaryBeConsideredWhenv) { ?>
@@ -491,7 +491,7 @@ if($type == 'view')
 									<?php } ?>
                                  </select>
                               </div>
-							  <div class="col-sm-6">
+							  <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Salary Promised (THB)</label>
                                  <input type="text" class="form-control" name="salary_promised" value="{{ @$obj->salary_promised }}">
                               </div>
@@ -581,53 +581,53 @@ if($type == 'view')
                               <label class="form-check-label" for="inlineRadio2">Other</label>
                            </div>
                            <div class="row g-3">
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Name(Thai)</label>
                                  <input type="text" class="form-control" name="gaurantor_name_thi" value="{{ @$obj->gaurantor_name_thi }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Name(English)</label>
                                  <input type="text" class="form-control" name="gaurantor_name_eng" value="{{ @$obj->gaurantor_name_eng }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Family Name(Thai)</label>
                                  <input type="text" class="form-control" name="gaurantor_family_name_thai" value="{{ @$obj->gaurantor_family_name_thai }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Family Name(English)</label>
                                  <input type="text" class="form-control" name="gaurantor_family_name_end" value="{{ @$obj->gaurantor_family_name_end }}">
                               </div>
 							  <?php /* ?>
 							  <h6>Home address as registered document</h6> 
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Address no.</label>
                                  <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Building / Village</label>
                                  <input type="text" class="form-control" id="inputLastName" placeholder=" ">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Sub District</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  District</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Road</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  City</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">State</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
@@ -647,35 +647,35 @@ if($type == 'view')
                               </div>
                            </h6>
                           
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Address no.</label>
                                  <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Building / Village</label>
                                  <input type="text" class="form-control" id="inputLastName" placeholder=" ">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Sub District</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  District</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Road</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  City</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">State</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                  <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                               </div>
@@ -693,31 +693,31 @@ if($type == 'view')
                                  <label for="inputFirstName" class="form-label">Guarantor's office name</label>
                                  <input type="text" class="form-control" name="guarantor_office_name" value="{{ @$obj->guarantor_office_name }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Address no.</label>
                                  <input type="text" class="form-control" name="guarantor_address" value="{{ @$obj->guarantor_address }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Building / Village</label>
                                  <input type="text" class="form-control" name="guarantor_building" value="{{ @$obj->guarantor_building }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Sub District</label>
                                  <input type="text" class="form-control" name="guarantor_sub_district" value="{{ @$obj->guarantor_sub_district }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  District</label>
                                  <input type="text" class="form-control" name="guarantor_district" value="{{ @$obj->guarantor_district }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Road</label>
                                  <input type="text" class="form-control" name="guarantor_road" value="{{ @$obj->guarantor_road }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  City</label>
                                  <input type="text" class="form-control" name="guarantor_city" value="{{ @$obj->guarantor_city }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">State</label>
                                  
 								 <select class="form-select"  name="guarantor_state_id" value="{{ @$obj->guarantor_state_id }}">
@@ -727,7 +727,7 @@ if($type == 'view')
                                     <option value="3">Dubai</option>
                                  </select>
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                  <input type="text" class="form-control" name="guarantor_zip" value="{{ @$obj->guarantor_zip }}">
                               </div>
@@ -740,11 +740,11 @@ if($type == 'view')
                                     <option value="3">Dubai</option>
                                  </select>
                               </div>
-							  <div class="col-sm-6">
+							  <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Guarantor Salary(THB)</label>
                                  <input type="text" class="form-control" name="guarantor_salary" value="{{ @$obj->guarantor_salary }}">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Guarantor Amount(THB)</label>
                                  <input type="text" class="form-control" name="guarantor_amount" value="{{ @$obj->guarantor_amount }}">
                               </div>
@@ -774,37 +774,37 @@ if($type == 'view')
 				  </div>
 			   </h6>
 			   <div class="row g-3">
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputFirstName" class="form-label">Address no.</label>
 					 <input type="text" class="form-control contact_address" name=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputLastName" class="form-label">Building / Village</label>
 					 <input type="text" class="form-control contact_address_building" id=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">Sub District</label>
 					 <input type="text" class="form-control contact_sub_district" id=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">  District</label>
 					 <input type="text" class="form-control contact_district" id=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">Road</label>
 					 <input type="text" class="form-control contact_road" id=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">  City</label>
 					 <input type="text" class="form-control contact_city" id=""  {{ $disabledfield }}>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">State</label>
 					 <select class="form-select contact_state" aria-label="Default select example" {{ $disabledfield }}>
 						<option value="">Select State</option>
 					 </select>
 				  </div>
-				  <div class="col-sm-6">
+				  <div class="col-sm-4">
 					 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
 					 <input type="text" class="form-control contact_zip_code" id=""  {{ $disabledfield }}>
 				  </div>
