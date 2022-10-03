@@ -18,6 +18,10 @@ class SupplierController extends Controller
 		
 		return view('supplierregister', $data);
     }
+	public function supplierpo()
+    {
+		return view('supplierpo');
+    }
 	
 	private function getSupplier($type, $obj)
 	{

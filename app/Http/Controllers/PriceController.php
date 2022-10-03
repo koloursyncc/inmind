@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PoController extends Controller
+class PriceController extends Controller
 {
     public function index()
     {
-        return view('pocreate');
+        return view('pricecreate');
     }
-    public function polist()
+    public function pricelist()
     {
-        return view('polist');
+        return view('pricelist');
     }
 }

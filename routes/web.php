@@ -38,6 +38,7 @@ Route::get('/supplieredit/{id}', [SupplierController::class, 'edit']);
 Route::get('/supplierdetail/{id}', [SupplierController::class, 'detail']);
 Route::get('/supplierlist', [SupplierController::class, 'list']);
 Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
+Route::get('/supplierpo', [SupplierController::class, 'supplierpo']);
 Route::get('/dealeradd', [DealerController::class, 'index']);
 Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
@@ -50,10 +51,14 @@ Route::post('/save/staff', [StaffController::class, 'save']);
 Route::post('/update/staff', [StaffController::class, 'update']);
 
 Route::get('/pocreate', [PoController::class, 'index']);
+Route::get('/polist', [PoController::class, 'polist']);
 Route::get('/getregionaldata', [RegionController::class, 'getregionaldata']);
 
 Route::get('/dealeredit/{id}', [DealerController::class, 'edit']);
 Route::get('/dealerdetail/{id}', [DealerController::class, 'detail']);
+
+Route::get('/pricecreate', [PriceController::class, 'index']);
+Route::get('/pricelist', [PriceController::class, 'pricelist']);
 
 Route::group(['middleware' => ['auth']], function() {
     /**
