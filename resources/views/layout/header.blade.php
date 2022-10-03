@@ -5,7 +5,6 @@
 	<!--favicon-->
 	<link rel="icon" href="`assets/images/favicon-32x32.png`" type="image/png" />
 	<!--plugins-->
-	<link href="{{asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/vectormap/jquer y-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
 	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />

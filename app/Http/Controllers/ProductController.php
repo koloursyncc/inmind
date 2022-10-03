@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Image;
 use App\Components\ProductManager;
 use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
@@ -16,6 +17,21 @@ class ProductController extends Controller
 		
         return view('productadd', $data);
     }
+	
+	public function removeimagebyid(Request $request)
+	{
+		$id = $request->image_id;
+		$obj = Image::find($id);
+		if($obj)
+		{
+			if($obj->delete())
+			{
+				echo json_encode(['status' => 'success']); die;
+			}
+		}
+		
+		echo json_encode(['status' => 'error', 'msg' => 'something wrong']); die;
+	}
 	
 	public function edit($id)
 	{
@@ -344,10 +360,18 @@ class ProductController extends Controller
 			$edit = url('productedit/'.$record->id);
 			$action = '<div class="d-flex order-actions">
 				<a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a>
-				<a href="#" class="ms-3"><i class="bx bxs-trash"></i></a>
+				
 			</div>';
 			$detail = '<a href=""><a href="'.$view.'" type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</a></a>';
+			
+			$img = Image::where('product_id', $record->id)->first();
+			
 			$main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
+			if($img)
+			{
+				$ig = asset("images/products/".$record->id."/".$img->name."");
+				$main_img = '<img src="'.$ig.'" height="30">';
+			}
 
 
 			$id = $record->id;
@@ -358,8 +382,7 @@ class ProductController extends Controller
 			  "product_name" => $record->name,
 			  "product_code" => $record->code,
 			  'detail' => $detail,
-			  'action' => $action,
-			  "supplier" => $record->supplier,
+			  'action' => $action
 			 
 			);
 		 }

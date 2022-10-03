@@ -96,36 +96,15 @@ class DealerController extends Controller
 
 				$customerManager = CustomerManager::getInstance();
 				
-				$params = 
-				[
-					'brand_id' => $request->brand_id,
-					'name' => $request->name,
-					'family' => $request->family,
-					'title' => $request->title,
-					'currency' => $request->currency,
-					'incoterm' => $request->incoterm,
-					'place_of_delivery_destination' => $request->place_of_delivery_destination,
-					'credit_term_days' => $request->credit_term_days,
-					'from' => $request->from,
-					'incoterm_type' => $request->incoterm_type,
-					'contact_person' => $request->contact_person,
-					'email' => $request->email,
-					'bank_name' => $request->bank_name,
-					'bank_address' => $request->bank_address,
-					'swift' => $request->swift,
-					'account_number' => $request->account_number,
-					'beneficiary_name' => $request->beneficiary_name,
-					'beneficiary_address' => $request->beneficiary_address,
-					'type' => $request->type,
-					'invoice' => $request->invoice
-				];
+				
+				$params = $this->request_params();
 				
 				$lastInsertId = $customerManager->save($params, true);
 				
 				if($lastInsertId)
 				{
 					
-					$this->headDocumant($lastInsertId, $request);
+					//$this->headDocumant($lastInsertId, $request);
 					$this->contactperson($lastInsertId, $request);
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
@@ -141,6 +120,35 @@ class DealerController extends Controller
 				return response()->json(array('status'=>'exceptionError'));
 			} */
 		}
+	}
+	
+	private function request_params($request)
+	{
+		$params = 
+		[
+			'brand_id' => $request->brand_id,
+			'name' => $request->name,
+			'family' => $request->family,
+			'title' => $request->title,
+			'currency' => $request->currency,
+			'incoterm' => $request->incoterm,
+			'place_of_delivery_destination' => $request->place_of_delivery_destination,
+			'credit_term_days' => $request->credit_term_days,
+			'from' => $request->from,
+			'incoterm_type' => $request->incoterm_type,
+			'contact_person' => $request->contact_person,
+			'email' => $request->email,
+			'bank_name' => $request->bank_name,
+			'bank_address' => $request->bank_address,
+			'swift' => $request->swift,
+			'account_number' => $request->account_number,
+			'beneficiary_name' => $request->beneficiary_name,
+			'beneficiary_address' => $request->beneficiary_address,
+			'type' => $request->type,
+			'invoice' => $request->invoice
+		];
+		
+		return $params;
 	}
 	
 	private function contactperson($lastinsertid, $request)

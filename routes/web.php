@@ -33,6 +33,7 @@ Route::get('/productlist', [ProductController::class, 'list']);
 //Route::get('/productadd', [ProductController::class, 'index']);
 Route::get('/childproductadd', [ProductController::class, 'child']);
 Route::get('/productlistajax', [ProductController::class, 'ajaxcall']);
+Route::post('/product/removeimagebyid', [ProductController::class, 'removeimagebyid']);
 Route::get('/supplierregister', [SupplierController::class, 'index']);
 Route::get('/supplieredit/{id}', [SupplierController::class, 'edit']);
 Route::get('/supplierdetail/{id}', [SupplierController::class, 'detail']);

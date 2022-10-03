@@ -209,16 +209,17 @@ if($type == 'view') {
 											</div>
 										<?php } ?>
 									</div>
-								  
+								  <?php if($type != 'view') { ?>
 								  <div class="col-12">
 									  <div class="d-grid">
                                          <button type="button" class="btn btn-primary generatecode">Generate </button>
 									  </div>
 								  </div>
+								  <?php } ?>
 								  <div class="col-12">
 									  <div class="d-grid generatecodecontainer">
 											<?php if($product_barcode) {
-												echo '<img src="'.$product_barcode.'">';
+												echo '<a id="download_barcode" download="barcode.png" href="'.$product_barcode.'" target="_blank"><img style="width:407px;" src="'.$product_barcode.'"></a>';
 												echo '<input type="hidden" name="barcode" value="'.$product_barcode.'" />';
 											} ?>
 											<?php //$generator = new Picqer\Barcode\BarcodeGeneratorHTML();
@@ -235,7 +236,7 @@ if($type == 'view') {
 								  </div> 
 								  <div class="col-12">
 									  <div class="d-grid">
-                                         <button type="button" class="btn btn-primary">Download </button>
+                                         <button type="button" class="btn btn-primary download_barcode_trigger" onclick="document.getElementById('download_barcode').click()">Download </button>
 									  </div>
 								  </div>
 							  </div> 
@@ -344,14 +345,17 @@ if($type == 'view') {
 								                </div>	
 							
 								<?php foreach($images as $imageObj) { ?>
-									<img src="{{ asset('images/products/'.$imageObj->product_id.'/'.$imageObj->name) }}" width="40" />
+									<div id="image_row_{{ $imageObj->id }}">
+									<img  src="{{ asset('images/products/'.$imageObj->product_id.'/'.$imageObj->name) }}" width="140" />
+									<a href="#" class="removeimg" data-id="{{ $imageObj->id }}">Remove</a>
+									</div>
 								<?php } ?>
-							
+							<?php if($type != 'view')  { ?>
 							  <div class="mb-3 mt-10 " >
 								<label for="inputProductDescription" class="form-label">Product Images</label>
 								<input {{ $disabledrow }} id="image-uploadify" type="file" name="images[]" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
 							  </div>
-							  
+							<?php } ?>
 							  <?php if($type !='view') { ?>
 								<div class="col-12">
 									<div class="d-grid">
@@ -598,6 +602,25 @@ function calulation(cbmval, grossweight, netweight) {
 			}
 		});
 		
+		$('body').on('click', '.removeimg', function(event) {
+			var id = $(this).attr('data-id');
+			if (confirm('Are you sure you want remove this image?')) {
+				$.ajax({
+					url: "{{url('product/removeimagebyid')}}",
+					dataType : "json",
+					type: "post",
+					data : {'image_id': id, "_token": "{{ csrf_token() }}"},
+					success : function(response) {
+						if(response.status == 'success') {
+							$('#image_row_'+id).remove();
+						}
+					},
+				});
+			} 
+			
+			return false;
+		});
+		
 		$('body').on('keypress', '.dimension_width', function(event) {
 			validPrice(event, this);
 		});
@@ -642,7 +665,7 @@ function calulation(cbmval, grossweight, netweight) {
 				cache: false,
 				success : function(response) {
 					if(response.status == 'success') {
-						$('.generatecodecontainer').html('<a href="'+response.generate+'" target="_blank"><img src="'+response.generate+'" download="output.png" /></a><input type="hidden" name="barcode" value="'+response.generate+'" />');
+						$('.generatecodecontainer').html('<a id="download_barcode" download="barcode.png" href="'+response.generate+'" target="_blank"><img style="width:407px" src="'+response.generate+'" download="output.png" /></a><input type="hidden" name="barcode" value="'+response.generate+'" />');
 					}
 					/* $('.saveproduct').removeAttr('disabled');
 					$('.saveproduct').html('Create Product');

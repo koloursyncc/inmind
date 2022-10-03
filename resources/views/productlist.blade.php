@@ -44,7 +44,6 @@
 										<th>Product Code</th>
 										<th>Details</th>
 										<th>Action</th>
-										<th>Supplier Name</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -77,8 +76,7 @@ var table = $('#dataTable').DataTable({
 					{ data: 'product_name', orderable: false},
 					{ data: 'product_code', orderable: false},
 					{ data: 'detail', orderable: false},
-					{ data: 'action', orderable: false},
-					{ data: 'supplier', orderable: false}
+					{ data: 'action', orderable: false}
 					
 				],
 
