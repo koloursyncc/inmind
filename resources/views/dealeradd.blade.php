@@ -219,33 +219,33 @@ if($type == 'view')
 										  <h6>Head office address by certified document</h6>
 										 <div class="col-sm-4">
 											<label for="inputFirstName" class="form-label">Address no.</label>
-											<input type="text" class="form-control address" name="head_office_address" value="{{ @$documentObj->head_office_address }}" {{ $disabledfield }}>
+											<input type="text" class="form-control address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputLastName" class="form-label">Building / Village</label>
-											<input type="text" class="form-control building" name="head_office_building" value="{{ @$documentObj->head_office_building }}" {{ $disabledfield }}>
+											<input type="text" class="form-control building" name="head_office_building" value="{{ @$obj->head_office_building }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">Sub District</label>
-											<input type="text" class="form-control sub_district"  name="head_office_sub_district" value="{{ @$documentObj->head_office_sub_district }}" {{ $disabledfield }}>
+											<input type="text" class="form-control sub_district"  name="head_office_sub_district" value="{{ @$obj->head_office_sub_district }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  District</label>
-											<input type="text" class="form-control district_id"  name="head_office_district" value="{{ @$documentObj->head_office_district }}" {{ $disabledfield }}>
+											<input type="text" class="form-control district_id"  name="head_office_district" value="{{ @$obj->head_office_district }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">Road</label>
-											<input type="text" class="form-control head_office_road"  name="head_office_road" value="{{ @$documentObj->head_office_road }}" {{ $disabledfield }}>
+											<input type="text" class="form-control head_office_road"  name="head_office_road" value="{{ @$obj->head_office_road }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  City</label>
-											<input type="text" class="form-control city"  name="head_office_city" value="{{ @$documentObj->head_office_city }}" {{ $disabledfield }}>
+											<input type="text" class="form-control city"  name="head_office_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
 										 </div>
 										 <?php //$stateslist = $documentObj->getStateByCountryId($documentObj->country_id); ?>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">State</label>
-											<select name="head_office_state_id" class="form-select state_id state_id{{  @$documentObj->head_office_country_id }}" {{ $disabledfield }}>
-												
+											<select name="head_office_state_id" class="form-select state_id state_id_head" {{ $disabledfield }}>
+												<option value="">Select State</option>
 												<?php /* foreach($stateslist as $stateObj) { ?>
 													<option value="{{ $stateObj->id }}">{{ $stateObj->name }}</option>
 												<?php } */ ?>
@@ -254,7 +254,7 @@ if($type == 'view')
 										 
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  Zip Code</label>
-											<input name="head_office_zipcode" type="text" class="form-control zipcode" value="{{ @$documentObj->head_office_zipcode }}" {{ $disabledfield }}>
+											<input name="head_office_zipcode" type="text" class="form-control zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-12 mb-3">
 											<label for="inputSelectCountry" class="form-label ">Country</label>
@@ -268,37 +268,37 @@ if($type == 'view')
 										</div>
 									
 										<div class="row g-3">
-										  <h6><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> Delivery address same as home address</h6>
+										  <h6><input name="delivery_check" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> Delivery address same as home address</h6>
 										  
 										 <div class="col-sm-4">
 											<label for="inputFirstName" class="form-label">Address no.</label>
-											<input type="text" class="form-control address" name="delivery_address" value="{{ @$documentObj->head_office_address }}" {{ $disabledfield }}>
+											<input type="text" class="form-control address" name="delivery_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputLastName" class="form-label">Building / Village</label>
-											<input type="text" class="form-control building" name="delivery_building" value="{{ @$documentObj->head_office_building }}" {{ $disabledfield }}>
+											<input type="text" class="form-control building" name="delivery_building" value="{{ @$obj->head_office_building }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">Sub District</label>
-											<input type="text" class="form-control sub_district"  name="delivery_sub_district" value="{{ @$documentObj->head_office_sub_district }}" {{ $disabledfield }}>
+											<input type="text" class="form-control sub_district"  name="delivery_sub_district" value="{{ @$obj->head_office_sub_district }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  District</label>
-											<input type="text" class="form-control district_id"  name="delivery_district_id" value="{{ @$documentObj->head_office_district_id }}" {{ $disabledfield }}>
+											<input type="text" class="form-control district_id"  name="delivery_district_id" value="{{ @$obj->head_office_district_id }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">Road</label>
-											<input type="text" class="form-control head_office_road"  name="delivery_road" value="{{ @$documentObj->head_office_road }}" {{ $disabledfield }}>
+											<input type="text" class="form-control head_office_road"  name="delivery_road" value="{{ @$obj->head_office_road }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  City</label>
-											<input type="text" class="form-control city"  name="delivery_city" value="{{ @$documentObj->head_office_city }}" {{ $disabledfield }}>
+											<input type="text" class="form-control city"  name="delivery_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
 										 </div>
 										 <?php //$stateslist = $documentObj->getStateByCountryId($documentObj->country_id); ?>
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">State</label>
-											<select name="delivery_state_id" class="form-select state_id state_id{{  @$documentObj->head_office_country_id }}" {{ $disabledfield }}>
-												
+											<select name="delivery_state_id" class="form-select state_id state_id_delivery" {{ $disabledfield }}>
+												<option value="">Select State</option>
 												<?php /* foreach($stateslist as $stateObj) { ?>
 													<option value="{{ $stateObj->id }}">{{ $stateObj->name }}</option>
 												<?php } */ ?>
@@ -307,14 +307,14 @@ if($type == 'view')
 										 
 										 <div class="col-sm-4">
 											<label for="inputEmailAddress" class="form-label">  Zip Code</label>
-											<input name="delivery_zipcode" type="text" class="form-control zipcode" value="{{ @$documentObj->head_office_zipcode }}" {{ $disabledfield }}>
+											<input name="delivery_zipcode" type="text" class="form-control zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }}>
 										 </div>
 										 <div class="col-12 mb-3">
 											<label for="inputSelectCountry" class="form-label ">Country</label>
-											<select  name="delivery_country_id" class="form-select head_office_country_id" {{ $disabledfield }}>
+											<select  name="delivery_country_id" class="form-select delivery_country_id" {{ $disabledfield }}>
 												<option value="">Select Country</option>
 												<?php foreach($countries as $country) { ?>
-													<option  value="{{ $country->id }}" <?php //if($country->id == $documentObj->country_id) { echo 'selected'; } ?>>{{ $country->name }}</option>
+													<option  value="{{ $country->id }}" <?php //if($country->id == @$obj->country_id) { echo 'selected'; } ?>>{{ $country->name }}</option>
 												<?php } ?>
 											</select>
 										 </div>
@@ -322,49 +322,47 @@ if($type == 'view')
 								  </div>
 							   </div>
 							   <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-									<div class="row g-3">
-									<a href="#" id="add_contactperson">Add Contact Person</a>
-									</div>
-									<div id="contactperson">
-										<?php foreach($persons as $personK => $personObj) { ?>
+									
+									<div id="">
+										<?php //foreach($persons as $personK => $personObj) { ?>
 										<div class="row g-3">
 											 <h6>Contact Person 1</h6>
 											 <div class="col-sm-4">
 												<label for="inputFirstName" class="form-label">Name</label>
-												<input type="text" class="form-control name" name="namearr[{{ $personObj->id }}]" value="{{ $personObj->name }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_name" name="contact_name" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputLastName" class="form-label">Family Name</label>
-												<input type="text" class="form-control family_name" name="family_name[{{ $personObj->id }}]" value="{{ $personObj->family_name }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_family_name" name="contact_family_name" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Position</label>
-												<input type="text" class="form-control position" name="position[{{ $personObj->id }}]" value="{{ $personObj->position }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_position" name="contact_position" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">  Mobile</label>
-												<input type="text" class="form-control mobile" name="mobile[{{ $personObj->id }}]" value="{{ $personObj->mobile }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_mobile" name="contact_mobile" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Email</label>
-												<input type="text" class="form-control email" name="email[{{ $personObj->id }}]" value="{{ $personObj->email }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_email" name="contact_email" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<div class="mb-3">
 												   <label class="form-label">Date of Birth:</label>
-												   <input type="date" class="form-control dob" name="dob[{{ $personObj->id }}]" value="{{ $personObj->dob }}" {{ $disabledfield }}>
+												   <input type="date" class="form-control contact_dob" name="contact_dob" value="" {{ $disabledfield }}>
 												</div>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Line</label>
-												<input type="text" class="form-control line" name="line[{{ $personObj->id }}]" value="{{ $personObj->line }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_line" name="contact_line" value="" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">  Remark</label>
-												<textarea type="text" class="form-control remark" name="remark[{{ $personObj->id }}]" value="{{ $personObj->remark }}" {{ $disabledfield }}></textarea>
+												<textarea type="text" class="form-control contact_remark" name="contact_remark" value="" {{ $disabledfield }}></textarea>
 											 </div>
 										  </div>
-										<?php } ?>
+										<?php //} ?>
 									</div>
 								  
 							   </div>
@@ -675,6 +673,22 @@ function addContactPerson()
 				}, 1000);
 				
 			<?php } */ ?>
+			
+			$('body').on('change', '.head_office_country_id', function() {
+				var country = $(this).val();
+				
+				var target = '.state_id';
+				
+				dependdropdown(country, target, '_head', 'State');
+			});
+			
+			$('body').on('change', '.delivery_country_id', function() {
+				var country = $(this).val();
+				
+				var target = '.state_id';
+				
+				dependdropdown(country, target, '_delivery', 'State');
+			});
 			
 			$('body').on('change', '.country_id', function() {
 				var country = $(this).val();

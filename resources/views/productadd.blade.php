@@ -547,7 +547,7 @@ function calulation(cbmval, grossweight, netweight) {
 }
 
 	$(document).ready(function() {
-		$('body').on('keypress', '.cbm', function(event) {
+		$('body').on('keyup', '.cbm', function(event) {
 			
 			if(validPrice(event, this) == true) {
 				setTimeout(function() {
@@ -558,7 +558,7 @@ function calulation(cbmval, grossweight, netweight) {
 			}
 		});
 		
-		$('body').on('keypress', '.gross_kg', function(event) {
+		$('body').on('keyup', '.gross_kg', function(event) {
 			
 			if(validPrice(event, this) == true) {
 				setTimeout(function() {
@@ -569,7 +569,7 @@ function calulation(cbmval, grossweight, netweight) {
 			}
 		});
 		
-		$('body').on('keypress', '.net_height', function(event) {
+		$('body').on('keyup', '.net_height', function(event) {
 			
 			if(validPrice(event, this) == true) {
 				setTimeout(function() {

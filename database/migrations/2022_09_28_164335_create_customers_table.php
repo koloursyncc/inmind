@@ -45,15 +45,16 @@ class CreateCustomersTable extends Migration
 			$table->integer('head_office_state_id')->nullable();
 			$table->integer('head_office_country_id')->nullable();
 			
+			$table->tinyInteger('delivery_check')->default(0);
 			$table->string('delivery_address')->nullable();
 			$table->string('delivery_building')->nullable();
 			$table->string('delivery_sub_district')->nullable();
 			$table->string('delivery_district_id')->nullable();
 			$table->string('delivery_road')->nullable();
-			$table->string('head_office_city')->nullable();
-			$table->string('head_office_zipcode')->nullable();
-			$table->integer('head_office_state_id')->nullable();
-			$table->integer('head_office_country_id')->nullable();
+			$table->string('delivery_city')->nullable();
+			$table->string('delivery_zipcode')->nullable();
+			$table->integer('delivery_state_id')->nullable();
+			$table->integer('delivery_country_id')->nullable();
 			
 			$table->tinyInteger('type')->comment('1=Wholesale, 2=Retail, 3=Online Shopping');
 			$table->tinyInteger('invoice')->comment('1=Sale, 2=Consignment');

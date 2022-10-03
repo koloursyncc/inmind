@@ -97,7 +97,7 @@ class DealerController extends Controller
 				$customerManager = CustomerManager::getInstance();
 				
 				
-				$params = $this->request_params();
+				$params = $this->request_params($request);
 				
 				$lastInsertId = $customerManager->save($params, true);
 				
@@ -105,7 +105,7 @@ class DealerController extends Controller
 				{
 					
 					//$this->headDocumant($lastInsertId, $request);
-					$this->contactperson($lastInsertId, $request);
+					//$this->contactperson($lastInsertId, $request);
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
@@ -124,6 +124,7 @@ class DealerController extends Controller
 	
 	private function request_params($request)
 	{
+		//echo '<pre>'; print_r($request->all()); die;
 		$params = 
 		[
 			'brand_id' => $request->brand_id,
@@ -145,7 +146,26 @@ class DealerController extends Controller
 			'beneficiary_name' => $request->beneficiary_name,
 			'beneficiary_address' => $request->beneficiary_address,
 			'type' => $request->type,
-			'invoice' => $request->invoice
+			'invoice' => $request->invoice,
+			'head_office_address' => $request->head_office_address,
+			'head_office_building' => $request->head_office_building,
+			'head_office_sub_district' => $request->head_office_sub_district,
+			'head_office_district' => $request->head_office_district,
+			'head_office_road' => $request->head_office_road,
+			'head_office_city' => $request->head_office_city,
+			'head_office_zipcode' => $request->head_office_zipcode,
+			'head_office_state_id' => $request->head_office_state_id,
+			'head_office_country_id' => $request->head_office_country_id,
+			'delivery_check' => ($request->delivery_check > 0) ? 1 : 0,
+			'delivery_address' => $request->delivery_address,
+			'delivery_building' => $request->delivery_building,
+			'delivery_sub_district' => $request->delivery_sub_district,
+			'delivery_district_id' => $request->delivery_district_id,
+			'delivery_road' => $request->delivery_road,
+			'delivery_city' => $request->delivery_city,
+			'delivery_zipcode' => $request->delivery_zipcode,
+			'delivery_state_id' => $request->delivery_state_id,
+			'delivery_country_id' => $request->delivery_country_id
 		];
 		
 		return $params;
@@ -289,7 +309,7 @@ class DealerController extends Controller
 
 				$customerManager = CustomerManager::getInstance();
 				
-				$params = 
+				/* $params = 
 				[
 					'brand_id' => $request->brand_id,
 					'name' => $request->name,
@@ -311,7 +331,10 @@ class DealerController extends Controller
 					'beneficiary_address' => $request->beneficiary_address,
 					'type' => $request->type,
 					'invoice' => $request->invoice
-				];
+				]; */
+				
+				$params = $this->request_params($request);
+				
 				//echo '<pre>'; print_r($request->all()); die;
 				$lastInsertId =  $request->id;
 				$status = $customerManager->update($lastInsertId, $params);
@@ -320,7 +343,7 @@ class DealerController extends Controller
 				{
 					
 					//$this->headDocumant($lastInsertId, $request);
-					$this->contactperson($lastInsertId, $request);
+					//$this->contactperson($lastInsertId, $request);
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
