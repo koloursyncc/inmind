@@ -319,7 +319,7 @@ class DealerController extends Controller
 				if($status)
 				{
 					
-					$this->headDocumant($lastInsertId, $request);
+					//$this->headDocumant($lastInsertId, $request);
 					$this->contactperson($lastInsertId, $request);
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
