@@ -9,7 +9,7 @@ use App\Http\Controllers\DealerController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PoController;
 use App\Http\Controllers\RegionController;
-
+use App\Http\Controllers\PriceController;
 
 /*
 |--------------------------------------------------------------------------

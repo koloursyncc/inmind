@@ -212,10 +212,12 @@
 						
 						<div class="menu-title">Supplier</div>
 					 </a>
-					  <ul class="dropdown-menu">
+					   <ul class="dropdown-menu">
 						<li> <a class="dropdown-item" href="{{asset('supplierregister')}}"><i class="bx bx-right-arrow-alt"></i>Add Suppliers</a>
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('supplierlist')}}"><i class="bx bx-right-arrow-alt"></i>Suppliers List</a>
+						</li>
+						<li> <a class="dropdown-item" href="{{asset('supplierpo')}}"><i class="bx bx-right-arrow-alt"></i>Suppliers PO</a>
 						</li>
 						
 					  </ul>
@@ -230,6 +232,18 @@
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('dealerlist')}}"><i class="bx bx-right-arrow-alt"></i>Customer List</a>
 						</li>
+					  </ul>
+					</li>
+					<li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+						
+						<div class="menu-title">Price</div>
+					  </a>
+					  <ul class="dropdown-menu">
+						<li> <a class="dropdown-item" href="{{asset('pricecreate')}}"><i class="bx bx-right-arrow-alt"></i>Add Price</a>
+						</li>
+						<li> <a class="dropdown-item" href="{{asset('pricelist')}}"><i class="bx bx-right-arrow-alt"></i>Price List</a> </li>
+						<li> <a class="dropdown-item" href="{{asset('exchangerate')}}"><i class="bx bx-right-arrow-alt"></i>Exchnage  Rate</a> </li>
 					  </ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -251,9 +265,9 @@
 						<div class="menu-title">PO</div>
 					  </a>
 					  <ul class="dropdown-menu">
-						<li> <a class="dropdown-item" href="authentication-signin.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>Create PO</a>
+						<li> <a class="dropdown-item" href="{{asset('pocreate')}}" ><i class="bx bx-right-arrow-alt"></i>Create PO</a>
 						</li>
-						<li> <a class="dropdown-item" href="authentication-signup.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>PO List</a>
+						<li> <a class="dropdown-item" href="{{asset('polist')}}"  ><i class="bx bx-right-arrow-alt"></i>PO List</a>
 						</li>
 						
 					  </ul>
