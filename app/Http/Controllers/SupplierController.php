@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use App\Models\Product;
+use App\Models\Installment;
 use App\Components\SupplierManager;
 use App\Components\RegionManager;
 use Illuminate\Http\Request;
@@ -28,8 +29,13 @@ class SupplierController extends Controller
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
 		$products = Product::select('products.id', 'products.name')->get();
+		$installments = [];
+		if($obj)
+		{
+			$installments = Installment::where('type_id', $obj->id)->where('type', 1)->get();
+		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'products' => $products, 'type' => $type];
+		return ['obj' => $obj, 'countries' => $countries, 'products' => $products, 'type' => $type, 'installments' => $installments];
 	}
 	
 	public function edit($id)
@@ -101,14 +107,17 @@ class SupplierController extends Controller
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
 				
-				$data = $request->except(['_token']);
+				//$data = $request->except(['_token']);
 				
 				$supplierManager = SupplierManager::getInstance();
 				
-				$lastInsertId = $supplierManager->save($data, true);
+				$params = $this->request_params($request);
+				
+				$lastInsertId = $supplierManager->save($params, true);
 				
 				if($lastInsertId > 0)
 				{
+					$this->installments($lastInsertId, $request);
 					
 					foreach($request->product_id as $productid)
 					{
@@ -130,6 +139,37 @@ class SupplierController extends Controller
 				//$this->exceptionHandling($error);
 				return response()->json(array('status'=>'exceptionError'));
 			} */
+		}
+	}
+	
+	private function installments($lastInsertId, $request)
+	{
+		if(isset($request->installment_1))
+		{ 
+			foreach($request->installment_1 as $installment_clone_key => $installment_clone_val)
+			{
+				
+				
+				$params['installment_1'] = $installment_clone_val;
+				$params['type'] = 1;
+				$params['type_id'] = $lastInsertId;
+				if(isset($request->installment_2[$installment_clone_key]))
+				{
+					
+					$params['installment_2'] = $request->installment_2[$installment_clone_key];
+					
+					if($installment_clone_key > 0)
+					{ 
+						Installment::where('type_id', $installment_clone_key)->where('type', 1)->update($params);
+						
+					}
+					else
+					{
+						Installment::create($params);
+					}
+					
+				}
+			}
 		}
 	}
 	
@@ -168,15 +208,19 @@ class SupplierController extends Controller
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
 				$products = $request->product_id;
-				$data = $request->except(['_token', 'product_id']);
+				//$data = $request->except(['_token', 'product_id']);
 				
 				$supplierManager = SupplierManager::getInstance();
 				
+				$params = $this->request_params($request);
 				
-				$lastInsertId = $supplierManager->update($request->id, $data);
+				$lastInsertId = $supplierManager->update($request->id, $params);
 				
 				if($lastInsertId > 0)
 				{
+					
+					$this->installments($lastInsertId, $request);
+					
 					$supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
 					foreach($request->product_id as $productid)
 					{
@@ -199,6 +243,38 @@ class SupplierController extends Controller
 				return response()->json(array('status'=>'exceptionError'));
 			} */
 		}
+	}
+	
+	private function request_params($request)
+	{
+		return [
+			'supplier_name' => $request->supplier_name,
+			'supplier_type' => $request->supplier_type,
+			'address' => $request->address,
+			'building' => $request->building,
+			'sub_district' => $request->sub_district,
+			'district' => $request->district,
+			'road' => $request->road,
+			'city_id' => $request->city_id,
+			'state_id' => $request->state_id,
+			'country_id' => $request->country_id,
+			'zipcode' => $request->zipcode,
+			'name' => $request->name,
+			'family_name' => $request->family_name,
+			'position' => $request->position,
+			'mobile' => $request->mobile,
+			'email' => $request->email,
+			'remark' => $request->remark,
+			'bank_name' => $request->bank_name,
+			'bank_address' => $request->bank_address,
+			'swift' => $request->swift,
+			'ac_no' => $request->ac_no,
+			'beneficiary_name' => $request->beneficiary_name,
+			'beneficiary_address' => $request->beneficiary_address,
+			'currency' => $request->currency,
+			'incoterm' => $request->incoterm,
+			'delivery_destination' => $request->delivery_destination
+		];
 	}
 
     public function ajaxcall(Request $request)
@@ -247,6 +323,7 @@ class SupplierController extends Controller
 		 foreach($list as $sno => $record){
 			$id = $record->id;
 			$edit = url('supplieredit/'.$id);
+			$view = url('supplierdetail/'.$id);
             $action = '<div class="d-flex order-actions">
             <a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a> 
             </div>
@@ -255,7 +332,7 @@ class SupplierController extends Controller
 									<label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
 								</div>
             ';
-            $detail = '<a href=""><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
+            $detail = '<a href="'.$view.'"><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
             $main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
 
 
@@ -264,6 +341,7 @@ class SupplierController extends Controller
 			$data_arr[] = array(
 			  "id" => $id,
 			  "supplier" => $record->supplier_name,
+			  "detail" => $detail,
 			  'action' => $action,
 			);
 		 }

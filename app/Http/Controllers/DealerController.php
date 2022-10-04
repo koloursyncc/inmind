@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Installment;
 use App\Components\RegionManager;
 use App\Components\CustomerManager;
 use Validator;
@@ -29,14 +30,16 @@ class DealerController extends Controller
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
 		$documents = $persons = [];
+		$installments = [];
 		if($type != 'save')
 		{
-			$customerManager = CustomerManager::getInstance();
+			$installments = Installment::where('type_id', $obj->id)->where('type', 2)->get();
+			/* $customerManager = CustomerManager::getInstance();
 			$documents = $customerManager->getCustomerAddressDocumentByCustId($obj->id);
-			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id);
+			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id); */
 		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'documents' => $documents, 'persons' => $persons];
+		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons];
 	}
 	
 	public function edit($id)
@@ -103,10 +106,8 @@ class DealerController extends Controller
 				
 				if($lastInsertId)
 				{
+					$this->installments($lastInsertId, $request);
 					
-					//$this->headDocumant($lastInsertId, $request);
-					//$this->contactperson($lastInsertId, $request);
-					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
 				
@@ -119,6 +120,34 @@ class DealerController extends Controller
 				//$this->exceptionHandling($error);
 				return response()->json(array('status'=>'exceptionError'));
 			} */
+		}
+	}
+	
+	private function installments($lastInsertId, $request)
+	{
+		if(isset($request->installment_clone))
+		{
+			//echo '<pre>'; print_r($request->installment_clone); die;
+			foreach($request->installment_clone as $installment_clone_key => $installment_clone_val)
+			{
+				$params['installment_1'] = $installment_clone_val;
+				$params['type'] = 2;
+				$params['type_id'] = $lastInsertId;
+				if(isset($request->installment_clone_option[$installment_clone_key]))
+				{
+					$params['installment_2'] = $request->installment_clone_option[$installment_clone_key];
+					
+					if($installment_clone_key > 0)
+					{
+						Installment::where('type_id', $installment_clone_key)->where('type', 2)->update($params);
+					}
+					else
+					{
+						Installment::create($params);
+					}
+					
+				}
+			}
 		}
 	}
 	
@@ -165,7 +194,15 @@ class DealerController extends Controller
 			'delivery_city' => $request->delivery_city,
 			'delivery_zipcode' => $request->delivery_zipcode,
 			'delivery_state_id' => $request->delivery_state_id,
-			'delivery_country_id' => $request->delivery_country_id
+			'delivery_country_id' => $request->delivery_country_id,
+			'contact_name' => $request->contact_name,
+			'contact_family_name' => $request->contact_family_name,
+			'contact_position' => $request->contact_position,
+			'contact_mobile' => $request->contact_mobile,
+			'contact_email' => $request->contact_email,
+			'contact_dob' => $request->contact_dob,
+			'contact_line' => $request->contact_line,
+			'contact_remark' => $request->contact_remark,
 		];
 		
 		return $params;
@@ -335,13 +372,13 @@ class DealerController extends Controller
 				
 				$params = $this->request_params($request);
 				
-				//echo '<pre>'; print_r($request->all()); die;
+				//echo '<pre>'; print_r($params); die;
 				$lastInsertId =  $request->id;
 				$status = $customerManager->update($lastInsertId, $params);
 				
 				if($status)
 				{
-					
+					$this->installments($lastInsertId, $request);
 					//$this->headDocumant($lastInsertId, $request);
 					//$this->contactperson($lastInsertId, $request);
 					//die;
@@ -378,16 +415,16 @@ class DealerController extends Controller
 		 $searchValue = $search_arr['value']; // Search value
 
 		 // Total records
-		 $totalRecords = Product::select('count(*) as allcount')->count();
-		 $countData = Product::select('count(*) as allcount');
+		 $totalRecords = Customer::select('count(*) as allcount')->count();
+		 $countData = Customer::select('count(*) as allcount');
 		 
 		if($searchValue != null) {
-			$countData->where('product_name', 'like', '%' .$searchValue . '%');
-			$countData->where('supplier', 'like', '%' .$searchValue . '%');
+			$countData->where('name', 'like', '%' .$searchValue . '%');
+			$countData->where('contact_name', 'like', '%' .$searchValue . '%');
 		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
-		 $records = Product::select('*') //orderBy($columnName,$columnSortOrder)
+		 $records = Customer::select('*') //orderBy($columnName,$columnSortOrder)
 		 //  ->orderBy('id', 'Desc')
 		   ->skip($start)
 		   ->take($rowperpage);
@@ -395,8 +432,8 @@ class DealerController extends Controller
 			   $records->orderBy($columnName,$columnSortOrder);
 			}
 			if($searchValue != null) {
-				$records->where('product_name', 'like', '%' .$searchValue . '%');
-				$records->where('supplier', 'like', '%' .$searchValue . '%');
+				$records->where('name', 'like', '%' .$searchValue . '%');
+				$records->where('contact_name', 'like', '%' .$searchValue . '%');
 			}
 		
 		$list = $records->get();
@@ -404,17 +441,18 @@ class DealerController extends Controller
 		 $data_arr = array();
 		 
 		 foreach($list as $sno => $record){
-
-
+			$id = $record->id;
+			$edit = url('dealeredit/'.$id);
+			$view = url('dealerdetail/'.$id);
             $action = '<div class="d-flex order-actions">
-            <a href="javascript:;" class=""><i class="bx bxs-edit"></i></a> 
+            <a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a> 
             </div>
             <div class="form-check form-switch">
 									<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
 									<label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
 								</div>
             ';
-            $detail = '<a href=""><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
+            $detail = '<a href="'.$view.'"><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
             $main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
 
 
@@ -423,8 +461,8 @@ class DealerController extends Controller
 			$data_arr[] = array(
 			  "id" => $id,
 			  //"main_img" => $main_img,
-			  "product_name" => $record->product_name,
-			  "product_code" => $record->product_code,
+			  "product_name" => $record->name,
+			  "product_code" => $record->contact_name,
 			  'detail' => $detail,
 			  'action' => $action,
 			  //"supplier" => $record->supplier,

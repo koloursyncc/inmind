@@ -40,6 +40,7 @@
 									<tr>
 										<th>Sr. No.</th> 
 										<th>Supplier Name</th>
+										<th>Detail</th>
 										<th>Action</th>
 										 
 									</tr>
@@ -71,6 +72,7 @@ var table = $('#dataTable').DataTable({
 				columns: [
 					{ data: 'id', orderable: false}, 
 					{ data: 'supplier', orderable: false},
+					{ data: 'detail', orderable: false},
 					{ data: 'action', orderable: false} 
 					  
 					

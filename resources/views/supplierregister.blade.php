@@ -215,6 +215,7 @@ if($type == 'view')
 																<input type="text" value="{{ $zipcode }}" class="form-control zipcode" {{ $disabledfield }} name="zipcode" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-4">
+															<label for="inputEmailAddress" class="form-label">  Select Product <span>*</span></label>
 																<select {{ $disabledfield }} class="form-control product_id " name="product_id[]" multiple>
 																	<?php foreach($products as $productObj) {
 																			$proched = '';
@@ -237,27 +238,27 @@ if($type == 'view')
 										<div class="row g-3">
 															<div class="col-sm-4">
 																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
-																<input type="text" value="{{ $name }}" class="form-control name" name="name" id="inputFirstName" placeholder=" ">
+																<input type="text" value="{{ $name }}" class="form-control name" name="name" id="inputFirstName" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputLastName" {{ $disabledfield }} class="form-label">Family Name</label>
-																<input type="text" value="{{ $family_name }}" class="form-control family_name" name="family_name" id="inputLastName" placeholder=" ">
+																<input type="text" value="{{ $family_name }}" class="form-control family_name" name="family_name" id="inputLastName" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
-																<input type="text" value="{{ $position }}" class="form-control position" name="position" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $position }}" class="form-control position" name="position" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
-																<input type="text" value="{{ $mobile }}" class="form-control mobile" name="mobile" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $mobile }}" class="form-control mobile" name="mobile" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
-																<input type="text" value="{{ $email }}" class="form-control email" name="email" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $email }}" class="form-control email" name="email" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
-																<textarea type="text" value="{{ $remark }}" class="form-control remark" name="remark" id="inputEmailAddress" placeholder=""></textarea>
+																<textarea type="text" value="{{ $remark }}" class="form-control remark" name="remark" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea>
 															</div> 
 														</div>
 										</div>
@@ -265,27 +266,27 @@ if($type == 'view')
 										<div class="row g-3">
 															<div class="col-sm-4">
 																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Bank Name</label>
-																<input type="text" value="{{ $bank_name }}" class="form-control bank_name" name="bank_name" id="inputFirstName" placeholder=" ">
+																<input type="text" value="{{ $bank_name }}" class="form-control bank_name" name="bank_name" id="inputFirstName" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputLastName" {{ $disabledfield }} class="form-label">Bank Address</label>
-																<input type="text" value="{{ $bank_address }}" class="form-control bank_address" name="bank_address" id="inputLastName" placeholder=" ">
+																<input type="text" value="{{ $bank_address }}" class="form-control bank_address" name="bank_address" id="inputLastName" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">SWIFT</label>
-																<input type="text" value="{{ $swift }}" {{ $disabledfield }} class="form-control swift" name="swift" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $swift }}" {{ $disabledfield }} class="form-control swift" name="swift" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label"> A/C No.</label>
-																<input type="text" value="{{ $ac_no }}" class="form-control ac_no" name="ac_no" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $ac_no }}" class="form-control ac_no" name="ac_no" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Beneficiary Name</label>
-																<input type="text" value="{{ $beneficiary_name }}" class="form-control beneficiary_name" name="beneficiary_name" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $beneficiary_name }}" class="form-control beneficiary_name" name="beneficiary_name" id="inputEmailAddress" {{ $disabledfield }}>
 															</div>
 															<div class="col-sm-4">
 																<label for="inputEmailAddress"  {{ $disabledfield }} class="form-label">  Beneficiary Address</label>
-																<textarea type="text" value="{{ $beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" placeholder=""></textarea>
+																<textarea type="text" value="{{ $beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" {{ $disabledfield }}>{{ $beneficiary_address }}</textarea>
 															</div> 
 															<div class="col-sm-4">
 																<label for="inputFirstName" class="form-label">Currency</label>
@@ -298,7 +299,7 @@ if($type == 'view')
 															 <?php $Incotermarr = array(1 => 'EXW',2 => 'CFR',3 => 'CIF',4 => 'FOB',5 => 'DDP'); ?>
 															 <div class="col-sm-4">
 																<label for="inputLastName" {{ $disabledfield }} class="form-label">Incoterm</label>
-																<select class="form-select incoterm" name="incoterm" id="inputSelectCountry" aria-label="Default select example">
+																<select class="form-select incoterm" name="incoterm" id="inputSelectCountry" aria-label="Default select example" {{ $disabledfield }}>
 																	<?php foreach($Incotermarr as $Incotermk => $Incotermv) { ?>
 																		<option value="{{ $Incotermk }}" <?php if($Incotermk == $incoterm) { echo 'selected'; } ?>>{{ $Incotermv }}</option>
 																	<?php } ?>
@@ -306,11 +307,29 @@ if($type == 'view')
 															 </div>
 															 <div class="col-sm-4">
 																<label for="inputEmailAddress" class="form-label">Place of Delivery/Destination</label>
-																<input type="text" value="{{ $delivery_destination }}" {{ $disabledfield }} class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
+																<input {{ $disabledfield }} type="text" value="{{ $delivery_destination }}" {{ $disabledfield }} class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
 															 </div>
 															 <a href="#" id="addoninstall">Add More</a>
 															 <div class="row installment_container"> 
-															 
+															 <?php foreach($installments as $installmentK => $installmentObj) { ?>
+																<div class="row installment_container_clone">
+																	<div class="col-sm-4">
+																		<label for="inputEmailAddress" class="form-label installment_lavel_1"> 
+																			installment {{ ++$installmentK }}
+																		</label>
+																		<input type="text" {{ $disabledfield }} class="form-control installment_1" name="installment_1[{{ $installmentObj->id }}]" value="{{ $installmentObj->installment_1 }}">
+																	</div>
+																	
+																	<div class="col-sm-4">
+																		<label for="inputEmailAddress" class="form-label installment_lavel_2"></label>
+																		<select class="installment_2 form-select" {{ $disabledfield }} name="installment_2[{{ $installmentObj->id }}]" aria-label="Default select example">
+																			<?php foreach($installment as $installmentValueKey => $installmentValue) { ?>
+																			<option value="{{ $installmentValueKey }}"  <?php if($installmentObj->installment_2 == $installmentValueKey) { echo 'selected'; } ?>>{{ $installmentValue }}</option>
+																			<?php } ?>
+																		</select>
+																	</div>
+																</div>
+															<?php } ?>
 															 </div>
 														</div>
 										</div>
@@ -378,27 +397,34 @@ function dependdropdown(val, target, name) {
 	});
 }
 
+function addinstall()
+{
+	var clone = $('.installment_container_clone', $('.installment_container_d_none')).clone();
+			
+	var no = $('.installment_container_d_none').attr('data-counter');
+	var total = parseInt(no) - 1;
+	
+	var length = $('.installment_container_clone', $('.installment_container')).length;
+	var html = parseInt(length) + 1;
+	
+	$('.installment_1', clone).attr('name', 'installment_1['+total+']');
+	$('.installment_lavel_1', clone).html('Installment '+html);
+	
+	$('.installment_2', clone).attr('name', 'installment_2['+total+']');
+	$('.installment_lavel_2', clone).html('Installment '+html);
+	
+	$('.installment_container').append(clone);
+	$('.installment_container_d_none').attr('data-counter', total);
+}
+
 $(document).ready(function() {
 	<?php if($type != 'view') { ?>
+		addinstall();
+		<?php } ?>
 		$('body').on('click', '#addoninstall', function() {
-			var clone = $('.installment_container_clone', $('.installment_container_d_none')).clone();
-			
-			var no = $('.installment_container_d_none').attr('data-counter');
-			var total = parseInt(no) - 1;
-			
-			var length = $('.installment_container_clone', $('.installment_container')).length;
-			var html = parseInt(length) + 1;
-			
-			$('.installment_1').attr('name', 'installment_1['+total+']');
-			$('.installment_lavel_1').html('installment_'+html);
-			
-			$('.installment_2').attr('name', 'installment_2['+total+']');
-			$('.installment_lavel_2').html('installment_'+html);
-			
-			$('.installment_container').append(clone);
-			$('.installment_container_d_none').attr('data-counter', total);
+			addinstall();
 		});
-	<?php } ?>
+	
 	
 	var country = $('.country_id').val();
 	dependdropdown(country, '.state_id', 'State');

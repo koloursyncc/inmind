@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Components\RegionManager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +30,21 @@ class Customer extends Model
 		'delivery_city',
 		'delivery_zipcode',
 		'delivery_state_id',
-		'delivery_country_id'
+		'delivery_country_id',
+		'contact_name',
+		'contact_family_name',
+		'contact_position',
+		'contact_mobile',
+		'contact_email',
+		'contact_dob',
+		'contact_line',
+		'contact_remark'
 		
 		];
+		
+		public function getStateByCountryId($country_id)
+		{
+			$regionManager = RegionManager::getInstance();
+			return $regionManager->getStateByCountryId($country_id);
+		}
 }

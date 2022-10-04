@@ -14,6 +14,6 @@ class Installment extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'type_id', 'installment_1', 'installment_2'
+        'type_id', 'type', 'installment_1', 'installment_2'
 	];
 }

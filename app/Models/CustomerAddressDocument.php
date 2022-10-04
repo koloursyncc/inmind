@@ -24,7 +24,11 @@ class CustomerAddressDocument extends Model
 	
 	public function getStateByCountryId($country_id)
 	{
-		$regionManager = RegionManager::getInstance();
-		return $regionManager->getStateByCountryId($country_id);
+		if($country_id > 0)
+		{
+			$regionManager = RegionManager::getInstance();
+			return $regionManager->getStateByCountryId($country_id);
+		}
+		return [];
 	}
 }

@@ -56,6 +56,15 @@ class CreateCustomersTable extends Migration
 			$table->integer('delivery_state_id')->nullable();
 			$table->integer('delivery_country_id')->nullable();
 			
+			$table->string('contact_name')->nullable();
+			$table->string('contact_family_name')->nullable();
+			$table->string('contact_position')->nullable();
+			$table->string('contact_mobile')->nullable();
+			$table->string('contact_email')->nullable();
+			$table->string('contact_dob')->nullable();
+			$table->string('contact_line')->nullable();
+			$table->string('contact_remark')->nullable();
+			
 			$table->tinyInteger('type')->comment('1=Wholesale, 2=Retail, 3=Online Shopping');
 			$table->tinyInteger('invoice')->comment('1=Sale, 2=Consignment');
             $table->timestamps();
