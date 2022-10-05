@@ -234,7 +234,13 @@ if($type == 'view') {
 									    
 									  </div>
 								  </div> 
-								  <div class="col-12">
+								  <?php
+									$downloaddisabled = '';
+									if($type == 'save') {
+										$downloaddisabled = 'd-none';
+									}
+								  ?>
+								  <div class="download-barcode-btn col-12 {{ $downloaddisabled }}" {{ $downloaddisabled }}>
 									  <div class="d-grid">
                                          <button type="button" class="btn btn-primary download_barcode_trigger" onclick="document.getElementById('download_barcode').click()">Download </button>
 									  </div>
@@ -359,7 +365,13 @@ if($type == 'view') {
 							  <?php if($type !='view') { ?>
 								<div class="col-12">
 									<div class="d-grid">
-										<button type="button" class="btn btn-primary <?php if($type =='edit') { echo 'updateproduct'; } else { echo 'saveproduct'; } ?>">Create Product </button>
+										<button type="button" class="btn btn-primary <?php if($type =='edit') { echo 'updateproduct'; } else { echo 'saveproduct'; } ?>">
+											<?php if($type =='edit') {?>
+												Update Product
+											<?php } else { ?>
+												Create Product
+											<?php } ?>
+										 </button>
 									</div>
 								</div>
 							  <?php } ?>
@@ -666,26 +678,11 @@ function calulation(cbmval, grossweight, netweight) {
 				success : function(response) {
 					if(response.status == 'success') {
 						$('.generatecodecontainer').html('<a id="download_barcode" download="barcode.png" href="'+response.generate+'" target="_blank"><img style="width:407px" src="'+response.generate+'" download="output.png" /></a><input type="hidden" name="barcode" value="'+response.generate+'" />');
+						
+						$('.download-barcode-btn').removeAttr('d-none');
+						
 					}
-					/* $('.saveproduct').removeAttr('disabled');
-					$('.saveproduct').html('Create Product');
-			
-					if(response.status == 'success') {
-						
-						alert(response.msg);
-						window.location.href = "{{url('productlist')}}";
-						
-					} else if(response.status == 'errors') {
-						$.each(response.errors, function(key, msg) {
-							$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
-						});
-					} else if(response.status == 'error') {
-						
-						alert(response.error);
-						
-					} else if(response.status == 'exceptionError') {
-						
-					} */
+					
 				},
 			});
 		});

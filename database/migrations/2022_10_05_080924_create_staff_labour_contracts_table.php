@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStaffTable extends Migration
+class CreateStaffLabourContractsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,65 +13,12 @@ class CreateStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('staff_labour_contracts', function (Blueprint $table) {
 			$table->engine = 'MyISAM';
-            $table->id(); 
-			$table->string('staff_rand_id')->nullable();
-			$table->tinyInteger('active_staff')->nullable();
-			$table->tinyInteger('title')->nullable();
-			$table->string('name_thai');
-			$table->string('name_eng');
-			$table->string('famly_name_thai');
-			$table->string('famly_name_eng');
-			$table->string('nick')->nullable();
-			$table->string('current_job')->nullable();
-			$table->string('mobile_no')->nullable();
-			$table->string('current_salary')->nullable();
-			$table->string('dob')->nullable();
-			$table->tinyInteger('card_type')->nullable();
-			$table->string('card_no')->nullable();
-			$table->string('issue_date')->nullable();
-			$table->string('issue_by')->nullable();
-			$table->string('passport_no')->nullable();
-			$table->string('exp_date')->nullable();
-			$table->integer('country_id')->nullable();
-			$table->tinyInteger('higest_education')->nullable();
-			$table->string('school_univercity_name')->nullable();
-			$table->string('education_year')->nullable();
-			$table->string('school_faculty')->nullable();
-			$table->string('department')->nullable();
-			$table->tinyInteger('social_fund')->nullable();
-			$table->tinyInteger('social_fund_included_in_salary')->nullable();
-			$table->string('social_fund_id')->nullable();
-			$table->string('hospital_in_charges')->nullable();
-			$table->tinyInteger('pay_social_fund_by')->nullable();
-			$table->string('will_apply_in')->nullable();
+            $table->id();
+			$table->integer('staff_id');
 			
-			$table->string('home_address')->nullable();
-			$table->string('home_building')->nullable();
-			$table->string('home_sub_district')->nullable();
-			$table->string('home_district')->nullable();
-			$table->string('home_road')->nullable();
-			$table->string('home_city')->nullable();
-			$table->string('home_state_id')->nullable();
-			$table->string('home_zip')->nullable();
-            $table->integer('home_country_id')->nullable();
-			$table->text('home_document')->nullable();
-			
-			$table->string('conact_address_check')->nullable();
-			$table->string('conact_address')->nullable();
-			$table->string('conact_building')->nullable();
-			$table->string('conact_sub_district')->nullable();
-			$table->string('conact_district')->nullable();
-			$table->string('conact_road')->nullable();
-			$table->string('conact_city')->nullable();
-			$table->string('conact_state_id')->nullable();
-			$table->string('conact_zip')->nullable();
-            $table->integer('conact_country_id')->nullable();
-			$table->text('conact_document')->nullable();
-			
-			
-			/* $table->tinyInteger('working_pay')->nullable();
+			$table->tinyInteger('working_pay')->nullable();
 			$table->tinyInteger('type_of_labour')->nullable();
 			$table->string('effective_period_start_date')->nullable();
 			$table->string('effective_period_end_date')->nullable();
@@ -96,6 +43,28 @@ class CreateStaffTable extends Migration
 			$table->string('vocation_leave')->nullable();
 			$table->tinyInteger('maternity_leave_chk')->default(0)->nullable();
 			$table->string('maternity_leave')->nullable();
+			
+			$table->string('contract_home_address')->nullable();
+			$table->string('contract_home_building')->nullable();
+			$table->string('contract_home_sub_distric')->nullable();
+			$table->string('contract_home_district')->nullable();
+			$table->string('contract_home_road')->nullable();
+			$table->string('contract_home_city')->nullable();
+			$table->integer('contract_home_state')->nullable();
+			$table->string('contract_home_zip')->nullable();
+			$table->integer('contract_home_country')->nullable();
+			
+			$table->string('contract_home_address_check')->nullable();
+			$table->string('contract_address')->nullable();
+			$table->string('contract_building')->nullable();
+			$table->string('contract_sub_district')->nullable();
+			$table->string('contract_district')->nullable();
+			$table->string('contract_road')->nullable();
+			$table->string('contract_city')->nullable();
+			$table->integer('contract_state')->nullable();
+			$table->string('contract_zip_code')->nullable();
+			$table->integer('contract_country')->nullable();
+			
 			$table->tinyInteger('gaurantor_type')->nullable();
 			$table->tinyInteger('gaurantor_title')->nullable();
 			$table->string('gaurantor_name_thi')->nullable();
@@ -114,12 +83,7 @@ class CreateStaffTable extends Migration
 			$table->string('guarantor_amount')->nullable();
 			$table->integer('guarantor_state_id')->nullable();
 			$table->integer('guarantor_country_id')->nullable();
-			$table->string('guarantor_document')->nullable(); */
-			
-			
-			
-			
-            $table->timestamps();
+			$table->text('guarantor_document')->nullable();
         });
     }
 
@@ -130,6 +94,6 @@ class CreateStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('staff_labour_contracts');
     }
 }

@@ -4,66 +4,18 @@ namespace App\Models;
 use App\Components\RegionManager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Staff extends Model
+use App\Components\StaffManager;
+class StaffLabourContracts extends Model
 {
     use HasFactory;
 	
+	protected $table = 'staff_labour_contracts';
+	
+	public $timestamps = false;
+	
 	protected $fillable = [
-		'staff_rand_id',
-        'active_staff',
-        'title',
-        'name_thai',
-		'name_eng',
-        'famly_name_thai',
-        'famly_name_eng',
-		'nick',
-        'current_job',
-		'mobile_no',
-        'current_salary',
-        'dob',
-		'card_type',
-        'card_no',
-        'issue_date',
-		'issue_by',
-        'passport_no',
-		'exp_date',
-        'country_id',
-        'higest_education',
-		'school_univercity_name',
-        'education_year',
-        'school_faculty',
-		'department',
-        'social_fund',
-		'social_fund_included_in_salary',
-        'social_fund_id',
-        'hospital_in_charges',
-		'pay_social_fund_by',
-        'will_apply_in',
-		
-		'home_address',
-		'home_building',
-		'home_sub_district',
-		'home_district',
-		'home_road',
-		'home_city',
-		'home_state_id',
-		'home_zip',
-		'home_country_id',
-		'home_document',
-		'conact_address_check',
-		'conact_address',
-		'conact_building',
-		'conact_sub_district',
-		'conact_district',
-		'conact_road',
-		'conact_city',
-		'conact_state_id',
-		'conact_zip',
-		'conact_country_id',
-		'conact_document'
-		
-		/* 'working_pay',
+		'staff_id',
+        'working_pay',
 		'type_of_labour',
 		'effective_period_start_date',
 		'effective_period_end_date',
@@ -88,6 +40,27 @@ class Staff extends Model
 		'vocation_leave',
 		'maternity_leave_chk',
 		'maternity_leave',
+		
+		'contract_home_address',
+		'contract_home_building',
+		'contract_home_sub_distric',
+		'contract_home_district',
+		'contract_home_road',
+		'contract_home_city',
+		'contract_home_state',
+		'contract_home_zip',
+		'contract_home_country',
+		'contract_home_address_check',
+		'contract_address',
+		'contract_building',
+		'contract_sub_district',
+		'contract_district',
+		'contract_road',
+		'contract_city',
+		'contract_state',
+		'contract_zip_code',
+		'contract_country',
+		
 		'gaurantor_type',
 		'gaurantor_title',
 		'gaurantor_name_thi',
@@ -106,14 +79,19 @@ class Staff extends Model
 		'guarantor_amount',
 		'guarantor_state_id',
 		'guarantor_country_id',
-		'guarantor_document' */
-		
-		
+		'guarantor_document'
     ];
 	
 	public function getStateByCountryId($country_id)
 	{
 		$regionManager = RegionManager::getInstance();
 		return $regionManager->getStateByCountryId($country_id);
+	}
+	
+	public function getStaffLabourContactImage($staff_labour_contract_id)
+	{
+		
+		$StaffManager = StaffManager::getInstance();
+		return $StaffManager->getStaffLabourContactImage($staff_labour_contract_id);
 	}
 }

@@ -39,9 +39,8 @@
 								<thead class="table-light">
 									<tr>
 										<th>Sr. No.</th> 
-										<th>Staff Name</th>
-										<th>Nick name</th>
-                                        <th>Position</th>
+										<th>Name</th>
+										<th>Family name</th>
 										<th>Details</th>
 										<th>Action</th>
 										 
@@ -70,12 +69,11 @@ $(document).ready(function() {
 var table = $('#dataTable').DataTable({
 				processing: true,
 				serverSide: true,
-				ajax: "{{url('supplierlistajax')}}",
+				ajax: "{{url('stafflistajax')}}",
 				columns: [
 					{ data: 'id', orderable: false}, 
-					{ data: 'product_name', orderable: false},
-					{ data: 'product_code', orderable: false},
-                    { data: 'product_code', orderable: false},
+					{ data: 'name_thai', orderable: false},
+					{ data: 'famly_name_thai', orderable: false},
 					{ data: 'detail', orderable: false},
 					{ data: 'action', orderable: false} 
 					  

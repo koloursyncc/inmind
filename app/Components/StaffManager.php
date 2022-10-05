@@ -3,7 +3,8 @@
 namespace App\Components;
 use App\Models\Staff;
 use App\Models\StaffImage;
-use App\Models\StaffAddressDocument;
+use App\Models\StaffLabourContracts;
+use App\Models\StaffLabourContractImage;
 class StaffManager
 {
 	public static $_instance;
@@ -41,19 +42,83 @@ class StaffManager
 		return StaffImage::create($params);
 	}
 	
-	public function saveStaffContactAddress($params)
+	public function getStaffDocByStaffIdTypeId($staff_id, $type)
 	{
-		return StaffAddressDocument::create($params);
+		return StaffImage::where('staff_id', $staff_id)->where('type', $type)->get();
 	}
 	
-	public function updateStaffContactAddress($id, $params)
+	public function saveStaffContactAddress($params, $lastInsertId)
 	{
-		return StaffAddressDocument::where('id', $id)->update($params);
+		$obj = StaffLabourContracts::create($params);
+		
+		if($lastInsertId === true)
+		{
+			return $obj->id;
+		}
+		return $obj;
 	}
 	
-	public function getAddressDocumentByStaffId($staffid)
+	public function updateStaffContactAddressById($id, $params)
 	{
-		return StaffAddressDocument::where('staff_id', $staffid)->get();
+		return StaffLabourContracts::where('id', $id)->update($params);
 	}
 	
+	public function getStaffContactAddressById($id)
+	{
+		return StaffLabourContracts::find($id);
+	}
+	
+	public function getStaffContactAddressByStaffId($staff_id)
+	{
+		return StaffLabourContracts::where('staff_id', $staff_id)->get();
+	}
+	
+	public function saveStaffLabourImage($params)
+	{
+		return StaffLabourContractImage::create($params);
+	}
+	
+	public function getStaffLabourContactImage($staff_labour_contract_id)
+	{
+		return StaffLabourContractImage::where('staff_labour_contract_id', $staff_labour_contract_id)->get();
+	}
+	
+	/* 
+	
+	public function updateStaffContactAddressById($id, $params)
+	{
+		return StaffAddress::where('id', $id)->update($params);
+	} */
+	
+	/* public function handleStaffAddress($staff_id, $params)
+	{
+		$obj = $this->getStaffContactAddressByStaffId($staff_id);
+		if($obj)
+		{
+			$this->updateStaffContactAddressById($obj->id, $params);
+		}
+		else
+		{
+			$this->saveStaffContactAddress($params);
+		}
+	} */
+	
+	public function getStaffImageById($id)
+	{
+		return StaffImage::find($id);
+	}
+	
+	public function deleteImageById($id)
+	{
+		$obj = $this->getStaffImageById($id);
+		if($obj)
+		{
+			if($obj->delete())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

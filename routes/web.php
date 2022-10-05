@@ -47,7 +47,10 @@ Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
 Route::get('/staffadd', [StaffController::class, 'index']);
 Route::get('/staffedit/{id}', [StaffController::class, 'edit']);
 Route::get('/staffview/{id}', [StaffController::class, 'view']);
+Route::post('/staff/removeimagebyid', [StaffController::class, 'removeimagebyid']);
+Route::post('/staff/removelabourimagebyid', [StaffController::class, 'removelabourimagebyid']);
 Route::get('/stafflist', [StaffController::class, 'list']);
+Route::get('/stafflistajax', [StaffController::class, 'ajaxcall']);
 Route::post('/save/staff', [StaffController::class, 'save']);
 Route::post('/update/staff', [StaffController::class, 'update']);
 

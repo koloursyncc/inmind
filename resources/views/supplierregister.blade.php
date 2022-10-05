@@ -309,7 +309,9 @@ if($type == 'view')
 																<label for="inputEmailAddress" class="form-label">Place of Delivery/Destination</label>
 																<input {{ $disabledfield }} type="text" value="{{ $delivery_destination }}" {{ $disabledfield }} class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
 															 </div>
-															 <a href="#" id="addoninstall">Add More</a>
+															<?php if($type != 'view') { ?>
+																<a href="#" id="addoninstall">Add More</a>
+															 <?php } ?>
 															 <div class="row installment_container"> 
 															 <?php foreach($installments as $installmentK => $installmentObj) { ?>
 																<div class="row installment_container_clone">

@@ -18,6 +18,43 @@ $highestEducation = [
 	5 => 'Graduate'
 ];
 
+$typeoflabour =[
+	1 => 'Contract Limited time pay by wage',
+	2 => 'Contract Limited time 120 days',
+	3 => 'Contract Limited time not over 2 years',
+	4 => 'Permanant'
+];
+$positionData =[
+	1 => 'Manager',
+	2 => 'Supervisor',
+	3 => 'Officer',
+	4 => 'Manufacturing Staff',
+	5 => 'Warehouse',
+	6 => 'Driver',
+	7 => 'Foreign Labour',
+	8 => 'Sale Manager',
+	9 => 'Sale Staff',
+	10 => 'Sale Supervisorr',
+];
+
+$departmentData =[
+	1 => 'Manager',
+	2 => 'Supervisor',
+	3 => 'Officer',
+	4 => 'Manufacturing Staff',
+	5 => 'Warehouse',
+	6 => 'Driver',
+	7 => 'Foreign Labour',
+	8 => 'Sale Manager',
+	9 => 'Sale Staff',
+	10 => 'Sale Supervisorr',
+];
+	
+$increaseSalaryBeConsideredWhen =[
+	1 => 'Probation passed',
+	2 => 'Company evaluate annually',
+];
+	
 $disabledfield = $url = '';
 $id = null;
 
@@ -114,7 +151,7 @@ if($type == 'view')
                               </div>
                            </h6>
                            <label for="formFile" class="form-label">Staff ID</label>
-                           <input class="form-control mb-3" type="text" value="1234" disabled aria-label="default input example">
+                           <input class="form-control mb-3" type="text" value="{{ @$obj->staff_rand_id }}" disabled aria-label="default input example">
                            <label for="formFile" class="form-label">Title</label>  <br>
                            <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="title" value="1" <?php if($staff_title == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
@@ -169,51 +206,69 @@ if($type == 'view')
                               </div>
                               <div class="row">
                                  <div class="form-check form-check-inline col-sm-3">
-                                    <input class="form-check-input" type="radio" name="card_type" value="1" <?php if($staff_card_type == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
+                                    <input class="form-check-input card_type" type="radio" name="card_type" value="1" <?php if($staff_card_type == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
                                     <label class="form-check-label" for="inlineRadio1">ID Card</label>
                                  </div>
                                  <div class="form-check form-check-inline col-sm-3">
-                                    <input class="form-check-input" type="radio" name="card_type" value="2" <?php if($staff_card_type == 2) { echo 'checked'; } ?> {{ $disabledfield }}>
+                                    <input class="form-check-input card_type" type="radio" name="card_type" value="2" <?php if($staff_card_type == 2) { echo 'checked'; } ?> {{ $disabledfield }}>
                                     <label class="form-check-label" for="inlineRadio1">Passport</label>
                                  </div>
                               </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  ID Card no.</label>
-                                 <input type="text" class="form-control" name="card_no" value="{{ @$obj->card_no }}" {{ $disabledfield }}>
-                              </div>
-                              <div class="col-sm-4">
-                                 <div class="mb-3">
-                                    <label class="form-label">Issue   Date</label>
-                                    <input type="date" class="form-control" name="issue_date" value="{{ @$obj->issue_date }}" {{ $disabledfield }}>
-                                 </div>
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label"> Issue by</label>
-                                 <input type="text" class="form-control" name="issue_by"  value="{{ @$obj->issue_by }}" {{ $disabledfield }}>
-                              </div>
+							  <div class="row card_type_div">
+								  <div class="col-sm-4">
+									 <label for="inputEmailAddress" class="form-label">  ID Card no.</label>
+									 <input type="text" class="form-control" name="card_no" value="{{ @$obj->card_no }}" {{ $disabledfield }}>
+								  </div>
+								  <div class="col-sm-4">
+									 <div class="mb-3">
+										<label class="form-label">Issue   Date</label>
+										<input type="date" class="form-control" name="issue_date" value="{{ @$obj->issue_date }}" {{ $disabledfield }}>
+									 </div>
+								  </div>
+								  <div class="col-sm-4">
+									 <label for="inputEmailAddress" class="form-label"> Issue by</label>
+									 <input type="text" class="form-control" name="issue_by"  value="{{ @$obj->issue_by }}" {{ $disabledfield }}>
+								  </div>
+							  </div>
+							  
+							  <div class="row passport_type">
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label"> Passport No. </label>
                                  <input type="text" class="form-control" name="passport_no" value="{{ @$obj->passport_no }}"  {{ $disabledfield }}>
                               </div>
                               <div class="col-sm-4">
                                  <div class="mb-3">
-                                    <label class="form-label">Expire   Date</label>
+                                    <label class="form-label">Expire Date</label>
                                     <input type="date" class="form-control" name="exp_date" value="{{ @$obj->exp_date }}" {{ $disabledfield }}>
                                  </div>
                               </div>
                               <div class="col-sm-4">
                                  <label for="inputSelectCountry" class="form-label">Country</label>
-                                 <select class="form-select" id="country_id" aria-label="Default select example"  {{ $disabledfield }}>
+                                 <select class="form-select country_id" id="country_id" aria-label="Default select example "  {{ $disabledfield }}>
 									<option value="">Select Country</option>
 									<?php foreach($countries as $countryObj) { ?>
-										<option value="{{ $countryObj->id }}" <?php if($staff_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
+										<option value="{{ $countryObj->id }}" <?php if($default_country_id == $countryObj->id || @$obj->default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
 									<?php } ?>
                                  </select>
                               </div>
+							  </div>
                               <div class="mb-3 mt-10 col-md-12 " >
                                  <label for="inputProductDescription" class="form-label">Upload Staff Photo & ID Card  </label>
                                  <input id="image-uploadify" type="file" name="upload_staff_photo[]" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
                               </div>
+							  
+							  <div class="mb-3 mt-10 col-md-12" >
+								<?php foreach($staffPhotos as $staffPhoto) {
+									$imgpath = "images/staff/".$staffPhoto->staff_id."/".$staffPhoto->document;
+										$img = asset($imgpath);
+									?>
+									<div id="document_{{ $staffPhoto->id }}">
+										<img src="{{ $img }}" height="100" width="50">
+										<a href="#" class="remove_document" data-id="{{ $staffPhoto->id }}">Remove</a>
+									</div>
+								<?php } ?>
+							  </div>
+							 
                               <label for="formFile" class="form-label">Highest Education</label>
                               <select class="form-select mb-3" aria-label="Default select example" name="higest_education" {{ $disabledfield }}>
 									<option value="">Select Option</option>
@@ -243,74 +298,151 @@ if($type == 'view')
                         </div>
 						
                         <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-							<a href="#" id="add_address">Add Address</a>
+							
 							<div id="home_address_as_registered_document">
-								<?php if($type != 'save') { ?>
-									<?php foreach($addressdocuments as $addressdocument) {
-											$addressdocumentid = $addressdocument->id;
-										?>
 									<div class="">
-										   <h6>
-											  <div class="form-check">
-												 <label class="form-check-label" for="flexCheckChecked">Conact address same as Home address</label>
-												 <input class="form-check-input contact_address_check" <?php //if($addressdocument->address == ) { echo 'checked'; } ?> type="checkbox"  {{ $disabledfield }}> 
-											  </div>
-										   </h6>
-										   <div class="row g-3">
-											  <div class="col-sm-4">
-												 <label for="inputFirstName" class="form-label">Address no.</label>
-												 <input type="text" value="{{ $addressdocument->address }}" class="form-control contact_address" name="contact_address[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputLastName" class="form-label">Building / Village</label>
-												 <input type="text" value="{{ $addressdocument->building }}" class="form-control contact_address_building" name="contact_address_building[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">Sub District</label>
-												 <input type="text" value="{{ $addressdocument->sub_district }}" class="form-control contact_sub_district" name="contact_sub_district[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">  District</label>
-												 <input type="text" value="{{ $addressdocument->district }}" class="form-control contact_district" name="contact_district[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">Road</label>
-												 <input type="text" value="{{ $addressdocument->road }}" class="form-control contact_road" name="contact_road[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">  City</label>
-												 <input type="text" value="{{ $addressdocument->city }}" class="form-control contact_city" name="contact_city[{{ $addressdocumentid }}]"  {{ $disabledfield }}>
-											  </div>
-											  <?php $addrstates = $addressdocument->getStateByCountryId($addressdocument->country_id); ?>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">State</label>
-												 <select class="form-select contact_state contact_state_id{{ $addressdocumentid }}" name="contact_state[{{ $addressdocument->id }}]" {{ $disabledfield }}>
-													<option value="">Select State</option>
-													<?php foreach($addrstates as $addrstateobj) { ?>
-														<option value="{{ $addrstateobj->id }}" <?php if($addrstateobj->id == $addressdocument->state_id) { echo 'selected'; } ?>>{{ $addrstateobj->name }}</option>
-													<?php } ?>
-												 </select>
-											  </div>
-											  <div class="col-sm-4">
-												 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
-												 <input type="text" value="{{ $addressdocument->zip }}" class="form-control contact_zip_code" name="contact_zip_code[{{ $addressdocumentid }}]" {{ $disabledfield }}>
-											  </div>
-											  <div class="col-12">
-												 <label for="inputSelectCountry" class="form-label">Country</label>
-												 <select data-country-id="{{ $addressdocument->id }}" class="form-select contact_country" name="contact_country[{{ $addressdocumentid }}]" aria-label="Default select example" {{ $disabledfield }}>
-													<?php foreach($countries as $countryObj) { ?>
-														<option value="{{ $countryObj->id }}" <?php if($countryObj->id == $addressdocument->country_id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
-													<?php } ?>
-												 </select>
-											  </div>
-											  <div class="mb-3 mt-10 col-md-12 " >
-												 <label for="inputProductDescription" class="form-label">Upload Home Registration </label>
-												 <input class="image_upload_doc" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
-											  </div>
-										</div>
+									   <h6>
+										  <div class="form-check">
+											 <label class="form-check-label" for="flexCheckChecked">Home address as register</label>
+											 
+										  </div>
+									   </h6>
+									   <div class="row g-3">
+										  <div class="col-sm-4">
+											 <label for="inputFirstName" class="form-label">Address no.</label>
+											 <input type="text" value="{{ @$obj->home_address }}" class="form-control home_address" name="home_address"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputLastName" class="form-label">Building / Village</label>
+											 <input type="text" value="{{ @$obj->home_building }}" class="form-control contact_address_building" name="home_building"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Sub District</label>
+											 <input type="text" value="{{ @$obj->home_sub_district }}" class="form-control home_sub_district" name="home_sub_district"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  District</label>
+											 <input type="text" value="{{ @$obj->home_district }}" class="form-control home_district" name="home_district"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Road</label>
+											 <input type="text" value="{{ @$obj->home_road }}" class="form-control home_road" name="home_road"  {{ $disabledfield }}>
+										  </div>
+										   <div class="col-12">
+											 <label for="inputSelectCountry" class="form-label">Country</label>
+											 <select data-country-id="" class="form-select home_country_id" name="home_country_id" aria-label="Default select example" {{ $disabledfield }}>
+												<?php foreach($countries as $countryObj) { ?>
+													<option value="{{ $countryObj->id }}" <?php if($countryObj->id == @$obj->country_id || $default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
+												<?php } ?>
+											 </select>
+										  </div>
+										  
+										  <?php 
+
+												if($type != 'save') {
+													$addrstates = $obj->getStateByCountryId($obj->country_id);
+												} else {
+													$addrstates = $states;
+												}
+										  ?>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">State</label>
+											 <select class="form-select home_state_id " name="home_state_id" {{ $disabledfield }}>
+												<option value="">Select State</option>
+												<?php foreach($addrstates as $addrstateobj) { ?>
+													<option value="{{ $addrstateobj->id }}" <?php if($addrstateobj->id == @$obj->state_id) { echo 'selected'; } ?>>{{ $addrstateobj->name }}</option>
+												<?php } ?>
+											 </select>
+										  </div>
+										  
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  City</label>
+											 <input type="text" value="{{ @$obj->home_city }}" class="form-control home_city" name="home_city"  {{ $disabledfield }}>
+										  </div>
+										  
+										  <?php ?>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
+											 <input type="text" value="{{ @$obj->home_zip }}" class="form-control home_zip" name="home_zip" {{ $disabledfield }}>
+										  </div>
+										 
+										  <div class="mb-3 mt-10 col-md-12 " >
+											 <label for="inputProductDescription" class="form-label">Upload Home Registration </label>
+											 <input class="image_upload_doc" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
+										  </div>
 									</div>
-								<?php } ?>
-								<?php } ?>
+								</div>
+								
+								
+									<div class="">
+									   <h6>
+										  <div class="form-check">
+											 <label class="form-check-label" for="flexCheckChecked">Conact address same as Home address</label>
+											 <input class="form-check-input conact_address_check" <?php //if($addressdocument->address == ) { echo 'checked'; } ?> type="checkbox"  {{ $disabledfield }}> 
+										  </div>
+									   </h6>
+									   <div class="row g-3">
+										  <div class="col-sm-4">
+											 <label for="inputFirstName" class="form-label">Address no.</label>
+											 <input type="text" value="{{ @$obj->conact_address }}" class="form-control conact_address" name="conact_address"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputLastName" class="form-label">Building / Village</label>
+											 <input type="text" value="{{ @$obj->conact_building }}" class="form-control conact_building" name="conact_building"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Sub District</label>
+											 <input type="text" value="{{ @$obj->conact_sub_district }}" class="form-control conact_sub_district" name="conact_sub_district"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  District</label>
+											 <input type="text" value="{{ @$obj->conact_district }}" class="form-control conact_district" name="conact_district"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Road</label>
+											 <input type="text" value="{{ @$obj->conact_road }}" class="form-control conact_road" name="conact_road"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  City</label>
+											 <input type="text" value="{{ @$obj->conact_city }}" class="form-control conact_city" name="conact_city"  {{ $disabledfield }}>
+										  </div>
+										  <?php $addrstates = []; 
+												if($type != 'save') {
+													$addrstates = $obj->getStateByCountryId($obj->conact_country_id);
+												} else {
+													$addrstates = $states;
+												}
+										  ?>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">State</label>
+											 <select class="form-select conact_state_id" name="conact_state_id" {{ $disabledfield }}>
+												<option value="">Select State</option>
+												<?php foreach($addrstates as $addrstateobj) { ?>
+													<option value="{{ $addrstateobj->id }}" 
+													<?php if($addrstateobj->id == @$obj->state_id || $default_country_id == $addrstateobj->id) { echo 'selected'; } ?>>{{ $addrstateobj->name }}</option>
+												<?php } ?>
+											 </select>
+										  </div>
+										  <?php ?>
+										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
+											 <input type="text" value="{{ @$obj->conact_zip }}" class="form-control conact_zip" name="conact_zip" {{ $disabledfield }}>
+										  </div>
+										  <div class="col-12">
+											 <label for="inputSelectCountry" class="form-label">Country</label>
+											 <select name="conact_country_id" class="form-select conact_country_id" name="" aria-label="Default select example" {{ $disabledfield }}>
+												<?php foreach($countries as $countryObj) { ?>
+													<option value="{{ $countryObj->id }}" <?php if($countryObj->id == @$obj->conact_country_id || $default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
+												<?php } ?>
+											 </select>
+										  </div>
+										  <div class="mb-3 mt-10 col-md-12 " >
+											 <label for="inputProductDescription" class="form-label">Upload Home Registration </label>
+											 <input class="image_upload_doc" type="file" name="conact_document" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
+										  </div>
+									</div>
+								</div>
+									
 							</div>
                            
                         </div>
@@ -370,390 +502,33 @@ if($type == 'view')
 							  <div class="mb-3 mt-10 col-md-12 " >
                                  <label for="inputProductDescription" class="form-label">Upload Social fund ID Card  </label>
                                  <input id="image-uploadify2" name="upload_social_fund_id_card[]" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
-                              </div>	 
+                              </div>	
+
+								<div class="mb-3 mt-10 col-md-12 " >
+								<?php foreach($staffDocumentss as $staffDocumentObj) {
+									
+									$imgpath = "images/staff/".$staffDocumentObj->staff_id."/".$staffDocumentObj->document;
+										$img = asset($imgpath);
+									?>
+									<div id="document_{{ $staffDocumentObj->id }}">
+										<img src="{{ $img }}" height="90" width="50">
+										<a href="#" class="remove_document" data-id="{{ $staffDocumentObj->id }}">Remove</a>
+									</div>
+								<?php } ?>
+							  </div>
+							  
                            </div> 
                         </div>
 						<div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                           <div class="row g-3">
-						   <div class="col-sm-10 flux">
-                                <h6> Labour Contract</h6>
+							<div class=" col-sm-2 flux-right">
+							    <button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_more_labour">Add more</button>
                               </div>
-                              <div class=" col-sm-2 flux-right">
-							    <button type="button" class="btn btn-sm btn-primary px-2 radius-30">Add more</button>
-                              </div>
-                              <label for="inputFirstName" class="form-label">Working pay as</label>
-                              <div class="col-sm-2">
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="working_pay" id="" value="1" {{ $disabledfield }}>
-                                    <label class="form-check-label" for="inlineRadio7">Salary</label>
-                                 </div>
-                              </div>
-                              <div class="col-sm-2">
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="working_pay" id="" value="2"  {{ $disabledfield }}>
-                                    <label class="form-check-label" for="inlineRadio7">Wages</label>
-                                 </div>
-                              </div>  
-							  <?php
-								$typeoflabour =[
-									1 => 'Contract Limited time pay by wage',
-									2 => 'Contract Limited time 120 days',
-									3 => 'Contract Limited time not over 2 years',
-									4 => 'Permanant'
-								];
-							  ?>
-                              <div style="clear:both"></div>
-							  <div class="col-sm-12">
-                                 <label for="inputSelectCountry" class="form-label">Type of labour contract1</label>
-                                 <select class="form-select" name="type_of_labour" aria-label="Default select example">
-									<?php foreach($typeoflabour as $typeoflabourk => $typeoflabourv) { ?>
-										<option value="{{ $typeoflabourk }}">{{ $typeoflabourv }}</option>
-									<?php } ?>
-                                 </select>
-                              </div>
-							  <div class="col-sm-4">
-                                 <div class="mb-3">
-                                    <label class="form-label">Effective Period Start date</label>
-                                    <input type="date" class="form-control effective_period_start_date" name="effective_period_start_date" value="{{ @$obj->effective_period_start_date }}" {{ $disabledfield }}>
-                                 </div>
-                               </div>
-							   <div class="col-sm-4">
-                                 <div class="mb-3">
-                                    <label class="form-label">Effective Period End date</label>
-                                    <input type="date" class="form-control" name="effective_period_end_date" value="{{ @$obj->effective_period_end_date }}" {{ $disabledfield }}>
-                                 </div>
-                               </div>
-							   
-							   <?php
-								$positionData =[
-									1 => 'Manager',
-									2 => 'Supervisor',
-									3 => 'Officer',
-									4 => 'Manufacturing Staff',
-									5 => 'Warehouse',
-									6 => 'Driver',
-									7 => 'Foreign Labour',
-									8 => 'Sale Manager',
-									9 => 'Sale Staff',
-									10 => 'Sale Supervisorr',
-								];
-							  ?>
-							   
-                              <div class="col-sm-4">
-                                 <label for="inputFirstName" class="form-label">Position</label>
-								 <select class="form-select" value="{{ @$obj->position }}" name="position" aria-label="Default select example" {{ $disabledfield }}>
-									<?php foreach($positionData as $positionDatak => $positionDatav) { ?>
-										<option value="{{ $positionDatak }}">{{ $positionDatav }}</option>
-									<?php } ?>
-                                 </select>
-                              </div> 
-							  
-							  <?php
-								$departmentData =[
-									1 => 'Manager',
-									2 => 'Supervisor',
-									3 => 'Officer',
-									4 => 'Manufacturing Staff',
-									5 => 'Warehouse',
-									6 => 'Driver',
-									7 => 'Foreign Labour',
-									8 => 'Sale Manager',
-									9 => 'Sale Staff',
-									10 => 'Sale Supervisorr',
-								];
-							  ?>
-							  
-                              <div class="col-sm-4">
-                                 <label for="inputSelectCountry" class="form-label">Department </label>
-                                 <select class="form-select" value="{{ @$obj->labour_department }}" name="labour_department" {{ $disabledfield }}>
-                                    <?php foreach($departmentData as $departmentDatak => $departmentDatav) { ?>
-										<option value="{{ $departmentDatak }}">{{ $departmentDatav }}</option>
-									<?php } ?>
-                                 </select>
-                              </div>
-							  <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Salary Wages in contract (THB)</label>
-                                 <input type="text" class="form-control" value="{{ @$obj->salary_wages_in_contract }}" name="salary_wages_in_contract">
-                              </div>
-							  
-							  <?php
-								$increaseSalaryBeConsideredWhen =[
-									1 => 'Probation passed',
-									2 => 'Company evaluate annually',
-								];
-							  ?>
-							  
-							  <div class="col-sm-4">
-                                 <label for="inputSelectCountry" class="form-label">Increase salary be considered when </label>
-                                 <select class="form-select" name="increase_salary_be_considered_when" value="{{ @$obj->increase_salary_be_considered_when }}">
-                                    <?php foreach($increaseSalaryBeConsideredWhen as $increaseSalaryBeConsideredWhenk => $increaseSalaryBeConsideredWhenv) { ?>
-										<option value="{{ $increaseSalaryBeConsideredWhenk }}">{{ $increaseSalaryBeConsideredWhenv }}</option>
-									<?php } ?>
-                                 </select>
-                              </div>
-							  <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Salary Promised (THB)</label>
-                                 <input type="text" class="form-control" name="salary_promised" value="{{ @$obj->salary_promised }}">
-                              </div>
-							  <div style="clear:both"></div>
-							  <h5>Benefit</h5>
-							  <div class="col-sm-4">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Hotel (THB / Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="hotel_thb_day" value="{{ @$obj->hotel_thb_day }}">
-                              </div>
-							  <div class="col-sm-3">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Allowance (THB / Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="allowance_thb_day" value="{{ @$obj->allowance_thb_day }}">
-                              </div>
-							  <div class="col-sm-4">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Travel Expense (THB / Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="travel_expense_thb_day" value="{{ @$obj->travel_expense_thb_day }}">
-                              </div>
-							  <div class="col-sm-4">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> O T (THB / Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="ot_thb_day" value="{{ @$obj->ot_thb_day }}">
-                              </div>
-							  <div class="col-sm-3">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Food (THB / Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="food_thb_day" value="{{ @$obj->food_thb_day }}">
-                              </div>
-							  <h6>Leaves</h6>
-							  <div class="col-sm-3">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked">Sick Leave (Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="sick_leave" value="{{ @$obj->sick_leave }}">
-                              </div>
-							  <div class="col-sm-3">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Vocation Leave (Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control" name="vocation_leave" value="{{ @$obj->vocation_leave }}">
-                              </div>
-							  <div class="col-sm-3">
-							  <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked"> Maternity Leave (Day)</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked=""> 
-                              </div>
-                                 <input type="text" class="form-control"  name="maternity_leave" value="{{ @$obj->maternity_leave }}">
-                              </div>
-							  <h6>Gaurantor</h6>
-                              <div class="col-sm-2">
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gaurantor_type" id="" value="1" checked>
-                                    <label class="form-check-label" for="inlineRadio7">Yes</label>
-                                 </div>
-                              </div>
-                              <div class="col-sm-2">
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gaurantor_type" id="" value="2" >
-                                    <label class="form-check-label" for="inlineRadio7">No</label>
-                                 </div>
-                              </div> 
-							   <label for="formFile" class="form-label">Title</label>  <br>
-                           <div class="form-check form-check-inline col-sm-2">
-                              <input class="form-check-input" type="radio" name="gaurantor_title" id="" value="1">
-                              <label class="form-check-label" for="inlineRadio1">Mr.</label>
-                           </div>
-                           <div class="form-check form-check-inline col-sm-2">
-                              <input class="form-check-input" type="radio" name="gaurantor_title" id="" value="2">
-                              <label class="form-check-label" for="inlineRadio2">Ms.</label>
-                           </div>
-                           <div class="form-check form-check-inline col-sm-2">
-                              <input class="form-check-input" type="radio" name="gaurantor_title" id="" value="3">
-                              <label class="form-check-label" for="inlineRadio2">Other</label>
-                           </div>
-                           <div class="row g-3">
-                              <div class="col-sm-4">
-                                 <label for="inputFirstName" class="form-label">Name(Thai)</label>
-                                 <input type="text" class="form-control" name="gaurantor_name_thi" value="{{ @$obj->gaurantor_name_thi }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Name(English)</label>
-                                 <input type="text" class="form-control" name="gaurantor_name_eng" value="{{ @$obj->gaurantor_name_eng }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Family Name(Thai)</label>
-                                 <input type="text" class="form-control" name="gaurantor_family_name_thai" value="{{ @$obj->gaurantor_family_name_thai }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Family Name(English)</label>
-                                 <input type="text" class="form-control" name="gaurantor_family_name_end" value="{{ @$obj->gaurantor_family_name_end }}">
-                              </div>
-							  <?php /* ?>
-							  <h6>Home address as registered document</h6> 
-                              <div class="col-sm-4">
-                                 <label for="inputFirstName" class="form-label">Address no.</label>
-                                 <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Building / Village</label>
-                                 <input type="text" class="form-control" id="inputLastName" placeholder=" ">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Sub District</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  District</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Road</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  City</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">State</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-12 mb-3">
-                                 <label for="inputSelectCountry" class="form-label">Country</label>
-                                 <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                    <option selected="">India</option>
-                                    <option value="1">United Kingdom</option>
-                                    <option value="2">America</option>
-                                    <option value="3">Dubai</option>
-                                 </select>
-                              </div> 
-                           <h6>
-                              <div class="form-check">
-                                 <label class="form-check-label" for="flexCheckChecked">Conact address same as Home address</label>
-                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked> 
-                              </div>
-                           </h6>
-                          
-                              <div class="col-sm-4">
-                                 <label for="inputFirstName" class="form-label">Address no.</label>
-                                 <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Building / Village</label>
-                                 <input type="text" class="form-control" id="inputLastName" placeholder=" ">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Sub District</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  District</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Road</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  City</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">State</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
-                                 <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                              </div>
-                              <div class="col-12">
-                                 <label for="inputSelectCountry" class="form-label">Country</label>
-                                 <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                    <option selected="">India</option>
-                                    <option value="1">United Kingdom</option>
-                                    <option value="2">America</option>
-                                    <option value="3">Dubai</option>
-                                 </select>
-                              </div>  
-							  <?php */ ?>
-							  <div class="col-sm-12">
-                                 <label for="inputFirstName" class="form-label">Guarantor's office name</label>
-                                 <input type="text" class="form-control" name="guarantor_office_name" value="{{ @$obj->guarantor_office_name }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputFirstName" class="form-label">Address no.</label>
-                                 <input type="text" class="form-control" name="guarantor_address" value="{{ @$obj->guarantor_address }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputLastName" class="form-label">Building / Village</label>
-                                 <input type="text" class="form-control" name="guarantor_building" value="{{ @$obj->guarantor_building }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Sub District</label>
-                                 <input type="text" class="form-control" name="guarantor_sub_district" value="{{ @$obj->guarantor_sub_district }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  District</label>
-                                 <input type="text" class="form-control" name="guarantor_district" value="{{ @$obj->guarantor_district }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Road</label>
-                                 <input type="text" class="form-control" name="guarantor_road" value="{{ @$obj->guarantor_road }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  City</label>
-                                 <input type="text" class="form-control" name="guarantor_city" value="{{ @$obj->guarantor_city }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">State</label>
-                                 
-								 <select class="form-select"  name="guarantor_state_id" value="{{ @$obj->guarantor_state_id }}">
-                                    <option value="">India</option>
-                                    <option value="1">United Kingdom</option>
-                                    <option value="2">America</option>
-                                    <option value="3">Dubai</option>
-                                 </select>
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
-                                 <input type="text" class="form-control" name="guarantor_zip" value="{{ @$obj->guarantor_zip }}">
-                              </div>
-                              <div class="col-12 mb-3">
-                                 <label for="inputSelectCountry" class="form-label">Country</label>
-                                 <select class="form-select" name="guarantor_country_id" aria-label="Default select example">
-                                    <option value="">India</option>
-                                    <option value="1">United Kingdom</option>
-                                    <option value="2">America</option>
-                                    <option value="3">Dubai</option>
-                                 </select>
-                              </div>
-							  <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Guarantor Salary(THB)</label>
-                                 <input type="text" class="form-control" name="guarantor_salary" value="{{ @$obj->guarantor_salary }}">
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Guarantor Amount(THB)</label>
-                                 <input type="text" class="form-control" name="guarantor_amount" value="{{ @$obj->guarantor_amount }}">
-                              </div>
-							  <div class="mb-3 mt-10 col-md-12 " >
-                                 <label for="inputProductDescription" class="form-label">Upload Contract no.1 signed and Guarantor no.1 signed</label>
-                                 <input id="image-uploadify3" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
-                              </div>	 
-                           </div> 
-                        </div>
+							<div id="labour_contract_container">
+								<?php foreach($staffLabourContracts as $staffLabourContractObj) { ?>
+									@include('staff.staffupdatelabour')
+								<?php } ?>
+							</div>
+                           
                      </div>
                   </div>
 				  </form>
@@ -762,7 +537,6 @@ if($type == 'view')
             <!--end row-->
          </div>
       </div>
-	  
 	  
 	  
 	  <div class="address_group" style="display:none" data-pos="125000" data-counter="0">
@@ -824,11 +598,104 @@ if($type == 'view')
 		</div>
 	  </div>
 	  
+	   <div class="labour_contract_group_clone" style="display:none" data-pos="125000" data-counter="0">
+			<div class="labour_contract_group_cl updatelabour ">
+				@include('staff.stafflabour')
+			</div>
+		</div>
+	  
       <!--end page wrapper -->
       @include('layout.footer')
       <!-- Bootstrap JS -->
       @include('layout.staff')
       <script>
+	  
+		function labour_contract_group() {
+			
+			var clone = $('.labour_contract_group_cl', $('.labour_contract_group_clone'));
+			
+			var no = $('.labour_contract_group_clone').attr('data-counter');
+			var cnt = parseInt(no) - 1;
+			
+			var posno = parseInt($('.labour_contract_group_cl', $('#labour_contract_container')).length)+1;
+			$('.labour_contract', clone).html('Labour Contract '+posno);
+			
+			
+			$('.working_pay_1', clone).attr('name', 'working_pay['+cnt+']');
+			$('.working_pay_2', clone).attr('name', 'working_pay['+cnt+']');
+			$('.type_of_labour', clone).attr('name', 'type_of_labour['+cnt+']');
+			$('.effective_period_start_date', clone).attr('name', 'effective_period_start_date['+cnt+']');
+			$('.effective_period_end_date', clone).attr('name', 'effective_period_end_date['+cnt+']');
+			$('.position', clone).attr('name', 'position['+cnt+']');
+			$('.labour_department', clone).attr('name', 'labour_department['+cnt+']');
+			$('.salary_wages_in_contract', clone).attr('name', 'salary_wages_in_contract['+cnt+']');
+			$('.increase_salary_be_considered_when', clone).attr('name', 'increase_salary_be_considered_when['+cnt+']');
+			$('.salary_promised', clone).attr('name', 'salary_promised['+cnt+']');
+			$('.hotel_thb_day_chk', clone).attr('name', 'hotel_thb_day_chk['+cnt+']');
+			$('.allowance_thb_day_chk', clone).attr('name', 'allowance_thb_day_chk['+cnt+']');
+			$('.allowance_thb_day', clone).attr('name', 'allowance_thb_day['+cnt+']');
+			$('.travel_expense_thb_day_chk', clone).attr('name', 'travel_expense_thb_day_chk['+cnt+']');
+			$('.travel_expense_thb_day', clone).attr('name', 'travel_expense_thb_day['+cnt+']');
+			$('.ot_thb_day_chk', clone).attr('name', 'ot_thb_day_chk['+cnt+']');
+			$('.ot_thb_day', clone).attr('name', 'ot_thb_day['+cnt+']');
+			$('.food_thb_day', clone).attr('name', 'food_thb_day['+cnt+']');
+			$('.sick_leave_chk', clone).attr('name', 'sick_leave_chk['+cnt+']');
+			$('.sick_leave', clone).attr('name', 'sick_leave['+cnt+']');
+			$('.vocation_leave_chk', clone).attr('name', 'vocation_leave_chk['+cnt+']');
+			$('.vocation_leave', clone).attr('name', 'vocation_leave['+cnt+']');
+			
+			$('.maternity_leave_chk', clone).attr('name', 'maternity_leave_chk['+cnt+']');
+			$('.maternity_leave', clone).attr('name', 'maternity_leave['+cnt+']');
+			$('.gaurantor_type_chk_1', clone).attr('name', 'gaurantor_type['+cnt+']');
+			$('.gaurantor_type_chk_2', clone).attr('name', 'gaurantor_type['+cnt+']');
+			$('.gaurantor_title_1', clone).attr('name', 'gaurantor_title['+cnt+']');
+			$('.gaurantor_title_2', clone).attr('name', 'gaurantor_title['+cnt+']');
+			$('.gaurantor_title_3', clone).attr('name', 'gaurantor_title['+cnt+']');
+			$('.gaurantor_name_thi', clone).attr('name', 'gaurantor_name_thi['+cnt+']');
+			$('.gaurantor_name_eng', clone).attr('name', 'gaurantor_name_eng['+cnt+']');
+			$('.gaurantor_family_name_thai', clone).attr('name', 'gaurantor_family_name_thai['+cnt+']');
+			$('.gaurantor_family_name_end', clone).attr('name', 'gaurantor_family_name_end['+cnt+']');
+			
+			$('.contract_home_address', clone).attr('name', 'contract_home_address['+cnt+']');
+			$('.contract_home_building', clone).attr('name', 'contract_home_building['+cnt+']');
+			$('.contract_home_sub_distric', clone).attr('name', 'contract_home_sub_distric['+cnt+']');
+			$('.contract_home_district', clone).attr('name', 'contract_home_district['+cnt+']');
+			$('.contract_home_road', clone).attr('name', 'contract_home_road['+cnt+']');
+			$('.contract_home_city', clone).attr('name', 'contract_home_city['+cnt+']');
+			$('.contract_home_state', clone).attr('name', 'contract_home_state['+cnt+']');
+			$('.contract_home_zip', clone).attr('name', 'contract_home_zip['+cnt+']');
+			$('.contract_home_country', clone).attr('name', 'contract_home_country['+cnt+']');
+			$('.contract_home_address_check', clone).attr('name', 'contract_home_address_check['+cnt+']');
+			$('.contract_address', clone).attr('name', 'contract_address['+cnt+']');
+			$('.contract_building', clone).attr('name', 'contract_building['+cnt+']');
+			$('.contract_sub_district', clone).attr('name', 'contract_sub_district['+cnt+']');
+			$('.contract_district', clone).attr('name', 'contract_district['+cnt+']');
+			$('.contract_road', clone).attr('name', 'contract_road['+cnt+']');
+			$('.contract_city', clone).attr('name', 'contract_city['+cnt+']');
+			$('.contract_state', clone).attr('name', 'contract_state['+cnt+']');
+			$('.contract_zip_code', clone).attr('name', 'contract_zip_code['+cnt+']');
+			$('.contract_country', clone).attr('name', 'contract_country['+cnt+']');
+			
+			$('.guarantor_office_name', clone).attr('name', 'guarantor_office_name['+cnt+']');
+			$('.guarantor_address', clone).attr('name', 'guarantor_address['+cnt+']');
+			$('.guarantor_building', clone).attr('name', 'guarantor_building['+cnt+']');
+			$('.guarantor_sub_district', clone).attr('name', 'guarantor_sub_district['+cnt+']');
+			$('.guarantor_district', clone).attr('name', 'guarantor_district['+cnt+']');
+			$('.guarantor_road', clone).attr('name', 'guarantor_road['+cnt+']');
+			$('.guarantor_city', clone).attr('name', 'guarantor_city['+cnt+']');
+			$('.guarantor_state_id', clone).attr('name', 'guarantor_state_id['+cnt+']');
+			$('.guarantor_zip', clone).attr('name', 'guarantor_zip['+cnt+']');
+			$('.guarantor_country_id', clone).attr('name', 'guarantor_country_id['+cnt+']');
+			$('.guarantor_salary', clone).attr('name', 'guarantor_salary['+cnt+']');
+			$('.guarantor_amount', clone).attr('name', 'guarantor_amount['+cnt+']');
+			$('.upload_contact_sign_doc', clone).attr('name', 'upload_contact_sign_doc['+cnt+'][]');
+
+			$('#labour_contract_container').append(clone);
+			
+			$('.labour_contract_group_clone').attr('data-counter', cnt);
+			
+		}
+	  
 	  function dependdropdown(val, target, cnt, name) {
 			var url = $("meta[name=url]").attr("content");
 			$.ajax({
@@ -845,75 +712,206 @@ if($type == 'view')
 						list.append(new Option(item.name, item.id, true));
 					});
 					
-					<?php /* if($type != 'save') { ?>
-						setTimeout(function() {
-							
-						//alert(<?php echo $state_id; ?>);
-						$('.state_id'+cnt+' option[value="<?php echo $state_id; ?>"]').prop('selected', true);
-						}, 500);
-					<?php } */ ?>
 				},
 			});
 		}
 		
-		function addaddress()
-		{
-			var clone = $('.address_group_clone', $('.address_group')).clone();
-						
-			var no = $('.address_group').attr('data-counter');
-			var posno = $('.address_group').attr('data-pos');
-			
-			var total = parseInt(no) - 1;
-			var postotal = parseInt(posno) + 1;
-			
-			$('.contact_address_check', clone).attr('name', 'contact_address_check['+total+']');
-			$('.contact_address', clone).attr('name', 'contact_address['+total+']');
-			$('.contact_address_building', clone).attr('name', 'contact_address_building['+total+']');
-			$('.contact_sub_district', clone).attr('name', 'contact_sub_district['+total+']');
-			$('.contact_district', clone).attr('name', 'contact_district['+total+']');
-			$('.contact_road', clone).attr('name', 'contact_road['+total+']');
-			$('.contact_city', clone).attr('name', 'contact_city['+total+']');
-			$('.contact_state', clone).attr('name', 'contact_state['+total+']');
-			$('.contact_zip_code', clone).attr('name', 'contact_zip_code['+total+']');
-			$('.contact_country', clone).attr('name', 'contact_country['+total+']');
-			$('.image_upload_doc', clone).attr('name', 'image_upload_doc['+total+'][]');
-			$
-			('.contact_country', clone).attr('data-country-id', postotal);
-			$('.contact_state', clone).addClass('contact_state_id'+postotal);
-			
-			$('#home_address_as_registered_document').append(clone);
-			
-			$('.address_group').attr('data-counter', total);
-			$('.address_group').attr('data-pos', postotal);
+		function dependdropdownclone(val, target, name) {
+			var url = $("meta[name=url]").attr("content");
+			$.ajax({
+				url: "{{url('getregionaldata')}}",
+				dataType : "json",
+				type: "get",
+				data : {'value':val, 'name':name},
+				success : function(response) {
+					//alert(target+cnt);
+					var list = target; 
+					list.empty();
+					list.append(new Option('Select '+name, ''));
+					$.each(response, function(index, item) {
+						list.append(new Option(item.name, item.id, true));
+					});
+					
+				},
+			});
 		}
+		
 
          $(document).ready(function() {
 			 
+				$('body').on('click', '.add_more_labour', function() {
+					
+					labour_contract_group();
+					return false;
+				});
+			 
+				<?php if($type == 'save') { ?>
+				
+					labour_contract_group();
+				<?php } else { ?>
+					var clonecon = $('.updatelabour').length;
+					if(clonecon == 0) {
+						labour_contract_group();
+					}
+				<?php } ?>
+			
+			$('body').on('click', '.removelabourimg', function() {
+				 var id = $(this).attr('data-id');
+				if (confirm('Are you sure you want remove this image?')) {
+					$.ajax({
+						url: "{{url('staff/removelabourimagebyid')}}",
+						dataType : "json",
+						type: "post",
+						data : {'id': id, "_token": "{{ csrf_token() }}"},
+						success : function(response) {
+							if(response.status == 'success') {
+								$('.labour_image_'+id).remove();
+							}
+						},
+					});
+				} 
+				
+				return false;
+			 });
+			
+			 $('body').on('click', '.remove_document', function() {
+				 var id = $(this).attr('data-id');
+				if (confirm('Are you sure you want remove this image?')) {
+					$.ajax({
+						url: "{{url('staff/removeimagebyid')}}",
+						dataType : "json",
+						type: "post",
+						data : {'id': id, "_token": "{{ csrf_token() }}"},
+						success : function(response) {
+							if(response.status == 'success') {
+								$('#document_'+id).remove();
+							}
+						},
+					});
+				} 
+				
+				return false;
+			 });
+			 
+			$('body').on('change', '.card_type', function() {
+				var val = $(this).val();
+				$('.card_type_div').addClass('d-none');
+				$('.passport_type').addClass('d-none');
+				if(val == 1)
+				{
+					$('.card_type_div').removeClass('d-none');
+				} else if(val == 2)
+				{
+					$('.passport_type').removeClass('d-none');
+				}
+			});
+			 
+			 $('body').on('change', '.conact_address_check', function() {
+				 
+				 $("input[name=head_office_country_id]").val();
+				 $("input[name=head_office_state_id]").val();
+				 
+				 
+				 $('.conact_address').val('');
+				$('.conact_building').val('');
+				$('.conact_sub_district').val('');
+				$('.conact_district').val('');
+				$('.conact_road').val('');
+				$('.conact_city').val('');
+				$('.conact_state_id').val('');
+				$('.conact_zip').val('');
+				$('.conact_country_id').val('');
+				 if($(this).prop('checked')) {
+					/*  var head_office_country_id = $('.head_office_country_id').val();
+					 
+					 $('.delivery_country_id option[value="'+head_office_country_id+'"]').prop('selected', true);
+					 
+					 //alert($("input[name=head_office_country_id]").val());
+					 $('.delivery_address').val($("input[name=head_office_address]").val());
+					 $('.delivery_building').val($("input[name=head_office_building]").val());
+					  */
+					
+					$('.conact_address').val($('.home_address').val());
+					$('.conact_building').val($('.contact_address_building').val());
+					$('.conact_sub_district').val($('.home_sub_district').val());
+					$('.conact_district').val($('.home_district').val());
+					$('.conact_road').val($('.home_road').val());
+					$('.conact_city').val($('.home_city').val());
+					$('.conact_state_id').val($('.home_state_id').val());
+					$('.conact_zip').val($('.home_zip').val());
+					$('.conact_country_id').val($('.home_country_id').val());
+					
+				 } else {
+					 
+				 }
+			});
+			 
 			<?php if($type == 'save') { ?>
-				var country = $('.contact_country').val();
-				var target = '.contact_state_id';
-				addaddress();
+				var country = 237;
+				/* $('.contact_country option[value="'+country+'"]').prop('selected', true);
+				$('.contact_country option[value="'+country+'"]').prop('selected', true);
+				$('.conact_country_id option[value="'+country+'"]').prop('selected', true);
+				$('.country_id option[value="'+country+'"]').prop('selected', true); */
 				
 				setTimeout(function() {
+					//dependdropdown(country, '.home_state_id ', '', 'State');
+					//dependdropdown(country, '.conact_state_id ', '', 'State');
 					
-					dependdropdown(country, target, $('.contact_country').attr('data-country-id'), 'State');
 				}, 1000);
 				
 			<?php } ?>
 			
-			$('body').on('click', '#add_address', function() {
-				addaddress();
-			});
 			 
-			 $('body').on('change', '.contact_country', function() {
+			 
+			 $('body').on('change', '.home_country_id', function() {
 				var country = $(this).val();
 				
-				var target = '.contact_state_id';
+				var target = '.home_state_id';
 				
-				dependdropdown(country, target, $(this).attr('data-country-id'), 'State');
+				dependdropdown(country, target, '', 'State');
 			});
 			 
-         
+			 $('body').on('change', '.contract_country', function() {
+				var country = $(this).val();
+				
+				var target = $('.contract_state',$(this).parent().parent());
+				
+				dependdropdownclone(country, target, 'State');
+			});
+			
+			 $('body').on('change', '.conact_country_id', function() {
+				var country = $(this).val();
+				
+				var target = '.conact_state_id';
+				
+				dependdropdown(country, target, '', 'State');
+			});
+			
+			$('body').on('change', '.guarantor_country_id', function() {
+				var country = $(this).val();
+				
+				var target = $('.guarantor_state_id',$(this).parent().parent());
+				
+				dependdropdownclone(country, target, 'State');
+			});
+			 
+         //contract_home_country
+			$('body').on('change', '.contract_home_country', function() {
+				var country = $(this).val();
+				
+				var target = $('.contract_home_state',$(this).parent().parent());
+				
+				dependdropdownclone(country, target, 'State');
+			});
+			
+			/* $('body').on('change', '.contract_home_country', function() {
+				var country = $(this).val();
+				
+				var target = $('.contract_home_state',$(this).parent().parent());
+				
+				dependdropdownclone(country, target, 'State');
+			}); */
+			
          var table = $('#dataTable').DataTable({
          				processing: true,
          				serverSide: true,

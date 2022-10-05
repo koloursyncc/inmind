@@ -418,8 +418,8 @@ if($type == 'view')
 									 <div class="col-sm-4">
 										<label for="inputFirstName" class="form-label">Currency</label>
 										<select class="form-select currency" name="currency" aria-label="Default select example" {{ $disabledfield }}>
-											<?php foreach($currencydata as $currencykey => $currencyval) { ?>
-												<option value="{{ $currencykey }}" <?php if(@$obj->currency == $currencykey) { echo 'selected'; } ?>>{{ $currencyval }}</option>
+											<?php foreach($countries as $currencykey => $currencyval) { ?>
+												<option value="{{ $currencyval->id }}" <?php if(@$obj->currency == $currencyval->id) { echo 'selected'; } ?>>{{ $currencyval->currency }}</option>
 											<?php } ?>
 										</select>
 									 </div>
@@ -630,13 +630,13 @@ function dependdropdown(val, target, cnt, name) {
 				list.append(new Option(item.name, item.id, true));
 			});
 			
-			<?php /* if($type != 'save') { ?>
-				setTimeout(function() {
+			<?php if($type == 'save') { ?>
+				
+				/* setTimeout(function() {
 					
-				//alert(<?php echo $state_id; ?>);
-				$('.state_id'+cnt+' option[value="<?php echo $state_id; ?>"]').prop('selected', true);
-				}, 500);
-			<?php } */ ?>
+				
+				}, 500); */
+			<?php } ?>
 		},
 	});
 }
@@ -696,12 +696,6 @@ function installment()
 			 
 			 $('body').on('change', '.delivery_check', function() {
 				 
-				 
-				
-				 
-				 
-				 
-				 
 				 $("input[name=head_office_country_id]").val();
 				 $("input[name=head_office_state_id]").val();
 				 
@@ -709,7 +703,6 @@ function installment()
 				 $('.delivery_address').val('');
 				$('.delivery_building').val('');
 				$('.delivery_sub_district').val('');
-				
 				$('.delivery_district_id').val('');
 				$('.delivery_road').val('');
 				$('.delivery_country_id').val('');
@@ -717,6 +710,10 @@ function installment()
 				$('.delivery_city').val('');
 				$('.delivery_zipcode').val('');
 				 if($(this).prop('checked')) {
+					 var head_office_country_id = $('.head_office_country_id').val();
+					 
+					 $('.delivery_country_id option[value="'+head_office_country_id+'"]').prop('selected', true);
+					 
 					 //alert($("input[name=head_office_country_id]").val());
 					 $('.delivery_address').val($("input[name=head_office_address]").val());
 					 $('.delivery_building').val($("input[name=head_office_building]").val());
@@ -730,7 +727,6 @@ function installment()
 					$('.delivery_city').val($("input[name=head_office_city]").val());
 					$('.delivery_zipcode').val($("input[name=head_office_zipcode]").val());
 					
-					//$(".delivery_country_id option[value="+$("input[name=head_office_country_id]").val()+"]").attr('selected', 'selected');
 					
 				 } else {
 					 
@@ -738,9 +734,15 @@ function installment()
 			 });
 			 
 			<?php if($type == 'save') { ?>
-				
+				$('.head_office_country_id option[value="237"]').prop('selected', true);
+				$('.delivery_country_id option[value="237"]').prop('selected', true);
 				setTimeout(function() {
-					//alert($('.country_id').attr('data-pos'));
+					var country = 237;
+					
+					dependdropdown(country, '.state_id_head', '', 'State');
+					
+					dependdropdown(country, '.state_id_delivery', '', 'State');
+					
 					installment();
 				}, 1000);
 				
