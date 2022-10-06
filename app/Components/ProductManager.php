@@ -37,9 +37,9 @@ class ProductManager
 		return ProductSet::create($params);
 	}
 	
-	public function getProductById($id)
+	public function getProductById($id, $status = 1)
 	{
-		return Product::find($id);
+		return Product::where('status', $status)->find($id);
 	}
 	
 	public function getProductSetByProductId($product_id)
@@ -60,7 +60,7 @@ class ProductManager
 			return $response;
 		}
 		
-		$productObj = $this->getProductById($id);
+		$productObj = $this->getProductById($id, 1);
 		
 		if($productObj == null)
 		{

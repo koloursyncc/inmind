@@ -396,6 +396,31 @@ class DealerController extends Controller
 			} */
 		}
 	}
+	
+	public function updatestatusbyid(Request $request)
+	{
+		
+		if($request->isMethod('post'))
+		{
+			
+			$id = $request->id;
+			$status = $request->status;
+			$statusval = ($status == 1) ? 2 : 1;
+			
+			$customerObj = CustomerManager::getInstance();
+			$isStatus = $customerObj->update($id, ['status' => $statusval]);
+			if($isStatus)
+			{
+				
+				
+				$statustext = ($status == 1) ? 'InActive' : 'Active';
+				
+				return response()->json(array('status'=>'success', 'id' => $id, 'statustext' => $statustext, 'statusval' => $statusval));
+			}
+			
+			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
+		}
+	}
 
     public function ajaxcall(Request $request)
 	{
@@ -442,16 +467,29 @@ class DealerController extends Controller
 		 
 		 foreach($list as $sno => $record){
 			$id = $record->id;
+			
+			$status = $record->status;
+			$statustext = 'Active';
+			$statuschecked = 'checked';
+			if($status == 2)
+			{
+				$statustext = 'InActive';
+				$statuschecked = '';
+			}
+			
 			$edit = url('dealeredit/'.$id);
 			$view = url('dealerdetail/'.$id);
             $action = '<div class="d-flex order-actions">
             <a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a> 
             </div>
-            <div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-									<label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
-								</div>
             ';
+			
+			
+			$action .= '<div class="form-check form-switch">
+				<input class="form-check-input checktrigger" id="checktrigger_'.$id.'" data-id="'.$id.'" data-status="'.$status.'" type="checkbox" '.$statuschecked.'>
+				<label class="form-check-label" id="check_label_'.$id.'" for="">'.$statustext.'</label>
+			</div>';
+			
             $detail = '<a href="'.$view.'"><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
             $main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
 

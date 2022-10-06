@@ -61,7 +61,8 @@ class Staff extends Model
 		'conact_state_id',
 		'conact_zip',
 		'conact_country_id',
-		'conact_document'
+		'conact_document',
+		'status',
 		
 		/* 'working_pay',
 		'type_of_labour',

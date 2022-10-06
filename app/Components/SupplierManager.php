@@ -42,9 +42,9 @@ class SupplierManager
 		return SupplierProduct::where('supplier_id', $supplier_id)->delete();
 	}
 	
-	public function getSupplierById($id)
+	public function getSupplierById($id, $status = 1)
 	{
-		return Supplier::find($id);
+		return Supplier::where('status', $status)->find($id);
 	}
 	
 	public function saveProductSupplier($params)

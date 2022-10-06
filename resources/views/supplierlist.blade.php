@@ -64,22 +64,42 @@
 
 <script>
 $(document).ready(function() {
-
-var table = $('#dataTable').DataTable({
-				processing: true,
-				serverSide: true,
-				ajax: "{{url('supplierlistajax')}}",
-				columns: [
-					{ data: 'id', orderable: false}, 
-					{ data: 'supplier', orderable: false},
-					{ data: 'detail', orderable: false},
-					{ data: 'action', orderable: false} 
-					  
-					
-				],
-
+	
+	$('body').on('change', '.checktrigger', function() {
+		var id = $(this).attr('data-id');
+		var status = $(this).attr('data-status');
+		//if (confirm('Are you sure you want remove this image?')) {
+			$.ajax({
+				url: "{{url('supplier/updatestatusbyid')}}",
+				dataType : "json",
+				type: "post",
+				data : {'id': id, 'status': status, "_token": "{{ csrf_token() }}"},
+				success : function(response) {
+					if(response.status == 'success') {
+						$('#checktrigger_'+response.id).attr('data-status', response.statusval);
+						$('#check_label_'+response.id).html(response.statustext);
+					}
+				},
 			});
-		});
+		//} 
+		//return false;
+	});
+
+	var table = $('#dataTable').DataTable({
+		processing: true,
+		serverSide: true,
+		ajax: "{{url('supplierlistajax')}}",
+		columns: [
+			{ data: 'id', orderable: false}, 
+			{ data: 'supplier', orderable: false},
+			{ data: 'detail', orderable: false},
+			{ data: 'action', orderable: false} 
+			  
+			
+		],
+
+	});
+});
 		</script>
 </body>
 

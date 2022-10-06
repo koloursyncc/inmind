@@ -1,3 +1,11 @@
+ <?php
+	$updatedisablecheck = '';
+	if($type != 'save')
+	{
+		$updatedisablecheck = 'disabled';
+	}
+	
+ ?>
 <?php foreach($staffLabourContracts as $staffLabourContractIndex => $staffLabourContractObj) {
 	$sno = ++$staffLabourContractIndex;
 	?>
@@ -83,35 +91,35 @@
 			 <label class="form-check-label" for="flexCheckChecked"> Hotel (THB / Day)</label>
 			 <input class="form-check-input hotel_thb_day_chk" type="checkbox" value="{{ @$staffLabourContractObj->hotel_thb_day_chk }}" name="hotel_thb_day_chk[{{ $sno }}]"  value="1"> 
 		  </div>
-			 <input type="text" class="form-control hotel_thb_day" name="hotel_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->hotel_thb_day }}">
+			 <input type="text" class="form-control hotel_thb_day" {{ $updatedisablecheck }} name="hotel_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->hotel_thb_day }}">
 		  </div>
 		  <div class="col-sm-3">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Allowance (THB / Day)</label>
 			 <input class="form-check-input allowance_thb_day_chk" type="checkbox"  value="1" name="allowance_thb_day_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control allowance_thb_day" name="allowance_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->allowance_thb_day }}">
+			 <input type="text" class="form-control allowance_thb_day" {{ $updatedisablecheck }} name="allowance_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->allowance_thb_day }}">
 		  </div>
 		  <div class="col-sm-4">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Travel Expense (THB / Day)</label>
 			 <input class="form-check-input travel_expense_thb_day_chk" type="checkbox"  value="1" name="travel_expense_thb_day_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control travel_expense_thb_day" name="travel_expense_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->travel_expense_thb_day }}">
+			 <input type="text" class="form-control travel_expense_thb_day" {{ $updatedisablecheck }} name="travel_expense_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->travel_expense_thb_day }}">
 		  </div>
 		  <div class="col-sm-4">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> O T (THB / Day)</label>
 			 <input class="form-check-input ot_thb_day_chk" type="checkbox"  value="1" name="ot_thb_day_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control ot_thb_day" name="ot_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->ot_thb_day }}">
+			 <input type="text" class="form-control ot_thb_day" {{ $updatedisablecheck }} name="ot_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->ot_thb_day }}">
 		  </div>
 		  <div class="col-sm-3">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Food (THB / Day)</label>
 			 <input class="form-check-input food_thb_day_chk" type="checkbox"  value="1" name="food_thb_day_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control food_thb_day" name="food_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->food_thb_day }}">
+			 <input type="text" class="form-control food_thb_day" {{ $updatedisablecheck }} name="food_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->food_thb_day }}">
 		  </div>
 		  <h6>Leaves</h6>
 		  <div class="col-sm-3">
@@ -119,21 +127,21 @@
 			 <label class="form-check-label" for="flexCheckChecked">Sick Leave (Day)</label>
 			 <input class="form-check-input sick_leave_chk" type="checkbox" value="1" name="sick_leave_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control sick_leave" name="sick_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->sick_leave }}">
+			 <input type="text" class="form-control sick_leave" {{ $updatedisablecheck }} name="sick_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->sick_leave }}">
 		  </div>
 		  <div class="col-sm-3">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Vocation Leave (Day)</label>
 			 <input class="form-check-input vocation_leave_chk" name="vocation_leave_chk[{{ $sno }}]" type="checkbox" value="" id="flexCheckChecked" > 
 		  </div>
-			 <input type="text" class="form-control vocation_leave" name="vocation_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->vocation_leave }}">
+			 <input type="text" class="form-control vocation_leave" {{ $updatedisablecheck }} name="vocation_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->vocation_leave }}">
 		  </div>
 		  <div class="col-sm-3">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Maternity Leave (Day)</label>
 			 <input class="form-check-input maternity_leave_chk" type="checkbox"  value="1" name="maternity_leave_chk[{{ $sno }}]" > 
 		  </div>
-			 <input type="text" class="form-control maternity_leave"  name="maternity_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->maternity_leave }}">
+			 <input type="text" class="form-control maternity_leave"  {{ $updatedisablecheck }} name="maternity_leave[{{ $sno }}]" value="{{ @$staffLabourContractObj->maternity_leave }}">
 		  </div>
 		  <h6>Gaurantor</h6>
 		  <div class="col-sm-2">

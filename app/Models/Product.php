@@ -35,7 +35,8 @@ class Product extends Model
 		'hq_1_40_net_gross_weight',
 		'gross_kg',
 		'cbm',
-		'net_height'
+		'net_height',
+		'status',
 	];
 	
 	public function getProductSupplierBySupplierId($product_id, $id)

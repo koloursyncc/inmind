@@ -579,6 +579,7 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Models\\StaffAddress' => __DIR__ . '/../..' . '/app/Models/StaffAddress.php',
         'App\\Models\\StaffAddressDocument' => __DIR__ . '/../..' . '/app/Models/StaffAddressDocument.php',
         'App\\Models\\StaffImage' => __DIR__ . '/../..' . '/app/Models/StaffImage.php',
+        'App\\Models\\StaffLabourContractImage' => __DIR__ . '/../..' . '/app/Models/StaffLabourContractImage.php',
         'App\\Models\\StaffLabourContracts' => __DIR__ . '/../..' . '/app/Models/StaffLabourContracts.php',
         'App\\Models\\State' => __DIR__ . '/../..' . '/app/Models/State.php',
         'App\\Models\\Supplier' => __DIR__ . '/../..' . '/app/Models/Supplier.php',

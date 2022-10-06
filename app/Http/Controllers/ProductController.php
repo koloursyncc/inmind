@@ -310,6 +310,31 @@ class ProductController extends Controller
 			}
 		}
 	}
+	
+	public function updatestatusbyid(Request $request)
+	{
+		
+		if($request->isMethod('post'))
+		{
+			
+			$id = $request->id;
+			$status = $request->status;
+			$statusval = ($status == 1) ? 2 : 1;
+			
+			$productObj = ProductManager::getInstance();
+			$isStatus = $productObj->update($id, ['status' => $statusval]);
+			if($isStatus)
+			{
+				
+				
+				$statustext = ($status == 1) ? 'InActive' : 'Active';
+				
+				return response()->json(array('status'=>'success', 'id' => $id, 'statustext' => $statustext, 'statusval' => $statusval));
+			}
+			
+			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
+		}
+	}
     
     public function ajaxcall(Request $request)
 	{
@@ -355,13 +380,29 @@ class ProductController extends Controller
 		 $data_arr = array();
 		 
 		 foreach($list as $sno => $record){
-
+			 $id = $record->id;
+			$status = $record->status;
+			$statustext = 'Active';
+			$statuschecked = 'checked';
+			if($status == 2)
+			{
+				$statustext = 'InActive';
+				$statuschecked = '';
+			}
 			$view = url('productdetail/'.$record->id);
 			$edit = url('productedit/'.$record->id);
 			$action = '<div class="d-flex order-actions">
 				<a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a>
 				
 			</div>';
+			
+			
+			$action .= '<div class="form-check form-switch">
+				<input class="form-check-input checktrigger" id="checktrigger_'.$id.'" data-id="'.$id.'" data-status="'.$status.'" type="checkbox" '.$statuschecked.'>
+				<label class="form-check-label" id="check_label_'.$id.'" for="">'.$statustext.'</label>
+			</div>
+            ';
+			
 			$detail = '<a href=""><a href="'.$view.'" type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</a></a>';
 			
 			$img = Image::where('product_id', $record->id)->first();

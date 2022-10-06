@@ -52,9 +52,9 @@ class CustomerManager
 		return Customer::where('id', $id)->update($params);
 	}
 
-	public function getCustomerById($id)
+	public function getCustomerById($id, $status = 1)
 	{
-		return Customer::find($id);
+		return Customer::where('status', $status)->find($id);
 	}
 	
 	

@@ -38,8 +38,8 @@ class Customer extends Model
 		'contact_email',
 		'contact_dob',
 		'contact_line',
-		'contact_remark'
-		
+		'contact_remark',
+		'status',
 		];
 		
 		public function getStateByCountryId($country_id)

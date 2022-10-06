@@ -214,7 +214,24 @@ if($type == 'view')
                                     <label class="form-check-label" for="inlineRadio1">Passport</label>
                                  </div>
                               </div>
-							  <div class="row card_type_div">
+							  
+							  <?php  
+								$id_card_radio = 'd-none';
+								$id_passport_radio = 'd-none';
+								if($type != 'save')
+								{
+									if($staff_card_type == 1) {
+										$id_passport_radio = 'd-none';
+										$id_card_radio = '';
+									} else if($staff_card_type == 2) {
+										$id_passport_radio = '';
+										$id_card_radio = 'd-none';
+									}
+								}
+								
+							  ?>
+							  
+							  <div class="row card_type_div {{ $id_card_radio }}">
 								  <div class="col-sm-4">
 									 <label for="inputEmailAddress" class="form-label">  ID Card no.</label>
 									 <input type="text" class="form-control" name="card_no" value="{{ @$obj->card_no }}" {{ $disabledfield }}>
@@ -231,7 +248,7 @@ if($type == 'view')
 								  </div>
 							  </div>
 							  
-							  <div class="row passport_type">
+							  <div class="row passport_type {{ $id_passport_radio }}">
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label"> Passport No. </label>
                                  <input type="text" class="form-control" name="passport_no" value="{{ @$obj->passport_no }}"  {{ $disabledfield }}>
@@ -452,26 +469,26 @@ if($type == 'view')
                               <label for="inputFirstName" class="form-label">Social Fund</label>
                               <div class="col-sm-2">
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="social_fund" value="1" {{ $disabledfield }} >
+                                    <input class="form-check-input" type="radio" name="social_fund" <?php if(@$obj->social_fund == 1) { echo 'checked'; } ?> value="1" {{ $disabledfield }} >
                                     <label class="form-check-label" for="inlineRadio7">Yes</label>
                                  </div>
                               </div>
                               <div class="col-sm-2">
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="social_fund" value="2"  {{ $disabledfield }}>
+                                    <input class="form-check-input" type="radio" name="social_fund" <?php if(@$obj->social_fund == 2) { echo 'checked'; } ?> value="2"  {{ $disabledfield }}>
                                     <label class="form-check-label" for="inlineRadio7">No</label>
                                  </div>
                               </div>
                               <label for="inputFirstName" class="form-label">Social Fund included in salary</label>
                               <div class="col-sm-2">
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="social_fund_included_in_salary" value="1" {{ $disabledfield }} checked>
+                                    <input class="form-check-input" type="radio" <?php if(@$obj->social_fund_included_in_salary == 1) { echo 'checked'; } ?> name="social_fund_included_in_salary" value="1" {{ $disabledfield }} checked>
                                     <label class="form-check-label" for="inlineRadio9">Yes</label>
                                  </div>
                               </div>
                               <div class="col-sm-2">
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="social_fund_included_in_salary" {{ $disabledfield }} value="2">
+                                    <input class="form-check-input" <?php if(@$obj->social_fund_included_in_salary == 2) { echo 'checked'; } ?> type="radio" name="social_fund_included_in_salary" {{ $disabledfield }} value="2">
                                     <label class="form-check-label" for="inlineRadio9">No</label>
                                  </div>
                               </div>
@@ -738,6 +755,71 @@ if($type == 'view')
 		
 
          $(document).ready(function() {
+			 
+				
+				$('body').on('change', '.hotel_thb_day_chk', function() {
+					var target = $('.hotel_thb_day',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.allowance_thb_day_chk', function() {
+					var target = $('.allowance_thb_day',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.travel_expense_thb_day_chk', function() {
+					var target = $('.travel_expense_thb_day',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.ot_thb_day_chk', function() {
+					var target = $('.ot_thb_day',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.food_thb_day_chk', function() {
+					var target = $('.food_thb_day',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.sick_leave_chk', function() {
+					var target = $('.sick_leave',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.vocation_leave_chk', function() {
+					var target = $('.vocation_leave',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
+				
+				$('body').on('change', '.maternity_leave_chk', function() {
+					var target = $('.maternity_leave',$(this).parent().parent());
+					target.attr('disabled', 'disabled');
+					if($(this).prop('checked')) {
+						target.removeAttr('disabled');
+					}
+				});
 			 
 				$('body').on('click', '.add_more_labour', function() {
 					

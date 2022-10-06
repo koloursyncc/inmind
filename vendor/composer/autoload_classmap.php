@@ -54,6 +54,7 @@ return array(
     'App\\Models\\StaffAddress' => $baseDir . '/app/Models/StaffAddress.php',
     'App\\Models\\StaffAddressDocument' => $baseDir . '/app/Models/StaffAddressDocument.php',
     'App\\Models\\StaffImage' => $baseDir . '/app/Models/StaffImage.php',
+    'App\\Models\\StaffLabourContractImage' => $baseDir . '/app/Models/StaffLabourContractImage.php',
     'App\\Models\\StaffLabourContracts' => $baseDir . '/app/Models/StaffLabourContracts.php',
     'App\\Models\\State' => $baseDir . '/app/Models/State.php',
     'App\\Models\\Supplier' => $baseDir . '/app/Models/Supplier.php',

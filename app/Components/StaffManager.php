@@ -16,9 +16,9 @@ class StaffManager
         return self::$_instance;
     }
 	
-	public function getStaffById($id)
+	public function getStaffById($id, $status = 1)
 	{
-		return Staff::find($id);
+		return Staff::where('status', $status)->find($id);
 	}
 	
 	public function save($params, $lastInsertId = false)

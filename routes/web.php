@@ -79,7 +79,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
  */
- 
+Route::post('supplier/updatestatusbyid', [SupplierController::class, 'updatestatusbyid']);
+Route::post('product/updatestatusbyid', [ProductController::class, 'updatestatusbyid']);
+Route::post('customer/updatestatusbyid', [DealerController::class, 'updatestatusbyid']);
+Route::post('staff/updatestatusbyid', [StaffController::class, 'updatestatusbyid']);
 Route::post('/savesupplier', [SupplierController::class, 'save']);
 Route::post('/save/product', [ProductController::class, 'save']);
 Route::post('/update/product', [ProductController::class, 'update']);

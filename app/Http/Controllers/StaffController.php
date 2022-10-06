@@ -814,6 +814,31 @@ class StaffController extends Controller
 		return $params;
 	}
 	
+	public function updatestatusbyid(Request $request)
+	{
+		
+		if($request->isMethod('post'))
+		{
+			
+			$id = $request->id;
+			$status = $request->status;
+			$statusval = ($status == 1) ? 2 : 1;
+			
+			$staffObj = StaffManager::getInstance();
+			$isStatus = $staffObj->update($id, ['status' => $statusval]);
+			if($isStatus)
+			{
+				
+				
+				$statustext = ($status == 1) ? 'InActive' : 'Active';
+				
+				return response()->json(array('status'=>'success', 'id' => $id, 'statustext' => $statustext, 'statusval' => $statusval));
+			}
+			
+			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
+		}
+	}
+	
 	public function ajaxcall(Request $request)
 	{
 		## Read value
@@ -858,6 +883,15 @@ class StaffController extends Controller
 		 $data_arr = array();
 		 
 		 foreach($list as $sno => $record){
+			$id = $record->id;
+			$status = $record->status;
+			$statustext = 'Active';
+			$statuschecked = 'checked';
+			if($status == 2)
+			{
+				$statustext = 'InActive';
+				$statuschecked = '';
+			}
 
 			$view = url('staffview/'.$record->id);
 			$edit = url('staffedit/'.$record->id);
@@ -867,7 +901,10 @@ class StaffController extends Controller
 			</div>';
 			$detail = '<a href=""><a href="'.$view.'" type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</a></a>';
 			
-
+			$action .= '<div class="form-check form-switch">
+				<input class="form-check-input checktrigger" id="checktrigger_'.$id.'" data-id="'.$id.'" data-status="'.$status.'" type="checkbox" '.$statuschecked.'>
+				<label class="form-check-label" id="check_label_'.$id.'" for="">'.$statustext.'</label>
+			</div>';
 
 			$id = $record->id;
 			

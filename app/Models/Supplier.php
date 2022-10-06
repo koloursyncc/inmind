@@ -11,6 +11,7 @@ class Supplier extends Model
 
     protected $fillable = [
         'id', 'supplier_name', 'supplier_type', 'supplier_type','building','sub_district','district','road','city_id','state_id','country_id','package_height', 'zipcode', 'name','family_name','position','mobile','email','remark','bank_name','bank_address', 
-		'swift', 'ac_no', 'beneficiary_name', 'beneficiary_address', 'currency', 'incoterm', 'delivery_destination', 'currency', 'delivery_destination'
+		'swift', 'ac_no', 'beneficiary_name', 'beneficiary_address', 'currency', 'incoterm', 'delivery_destination', 'currency', 'delivery_destination',
+		'status',
 		];
 }

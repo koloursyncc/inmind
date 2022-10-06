@@ -41,7 +41,7 @@ class SupplierController extends Controller
 	public function edit($id)
 	{
 		$supplierObj = SupplierManager::getInstance();
-		$obj = $supplierObj->getSupplierById($id);
+		$obj = $supplierObj->getSupplierById($id, 2);
 		$type = 'edit';
 		if($obj == null)
 		{
@@ -56,7 +56,7 @@ class SupplierController extends Controller
 	public function detail($id)
 	{
 		$supplierObj = SupplierManager::getInstance();
-		$obj = $supplierObj->getSupplierById($id);
+		$obj = $supplierObj->getSupplierById($id, 2);
 		$type = 'view';
 		if($obj == null)
 		{
@@ -276,6 +276,30 @@ class SupplierController extends Controller
 			'delivery_destination' => $request->delivery_destination
 		];
 	}
+	
+	public function updatestatusbyid(Request $request)
+	{
+		
+		if($request->isMethod('post'))
+		{
+			$id = $request->id;
+			$status = $request->status;
+			$statusval = ($status == 1) ? 2 : 1;
+			
+			$supplierObj = SupplierManager::getInstance();
+			$isStatus = $supplierObj->update($id, ['status' => $statusval]);
+			if($isStatus)
+			{
+				
+				
+				$statustext = ($status == 1) ? 'InActive' : 'Active';
+				
+				return response()->json(array('status'=>'success', 'id' => $id, 'statustext' => $statustext, 'statusval' => $statusval));
+			}
+			
+			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
+		}
+	}
 
     public function ajaxcall(Request $request)
 	{
@@ -322,16 +346,27 @@ class SupplierController extends Controller
 		 
 		 foreach($list as $sno => $record){
 			$id = $record->id;
+			$status = $record->status;
+			$statustext = 'Active';
+			$statuschecked = 'checked';
+			if($status == 2)
+			{
+				$statustext = 'InActive';
+				$statuschecked = '';
+			}
 			$edit = url('supplieredit/'.$id);
 			$view = url('supplierdetail/'.$id);
-            $action = '<div class="d-flex order-actions">
-            <a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a> 
-            </div>
+            $action = '<div class="d-flex order-actions"><a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a></div>
+			
             <div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-									<label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
-								</div>
+				<input class="form-check-input checktrigger" id="checktrigger_'.$id.'" data-id="'.$id.'" data-status="'.$status.'" type="checkbox" '.$statuschecked.'>
+				<label class="form-check-label" id="check_label_'.$id.'" for="">'.$statustext.'</label>
+			</div>
             ';
+			
+			
+			$action .= '';
+			
             $detail = '<a href="'.$view.'"><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
             $main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
 
