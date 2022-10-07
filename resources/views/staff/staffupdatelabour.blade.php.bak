@@ -4,7 +4,7 @@
 	{
 		$updatedisablecheck = 'disabled';
 	}
-	
+	dd($staffLabourContracts);
  ?>
 <?php foreach($staffLabourContracts as $staffLabourContractIndex => $staffLabourContractObj) {
 	$sno = ++$staffLabourContractIndex;
@@ -103,7 +103,7 @@
 		  <div class="col-sm-4">
 		  <div class="form-check">
 			 <label class="form-check-label" for="flexCheckChecked"> Travel Expense (THB / Day)</label>
-			 <input class="form-check-input travel_expense_thb_day_chk" {{ $updatedisablecheck }} type="checkbox"  value="1" name="travel_expense_thb_day_chk[{{ $sno }}]" > 
+			 <input class="form-check-input travel_expense_thb_day_chk" type="checkbox"  value="1" name="travel_expense_thb_day_chk[{{ $sno }}]" > 
 		  </div>
 			 <input type="text" class="form-control travel_expense_thb_day" {{ $updatedisablecheck }} name="travel_expense_thb_day[{{ $sno }}]" value="{{ @$staffLabourContractObj->travel_expense_thb_day }}">
 		  </div>

@@ -541,9 +541,9 @@ if($type == 'view')
 							    <button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_more_labour">Add more</button>
                               </div>
 							<div id="labour_contract_container">
-								<?php foreach($staffLabourContracts as $staffLabourContractObj) { ?>
+								<?php //foreach($staffLabourContracts as $staffLabourContractObj) { ?>
 									@include('staff.staffupdatelabour')
-								<?php } ?>
+								<?php //} ?>
 							</div>
                            
                      </div>
@@ -629,7 +629,7 @@ if($type == 'view')
 	  
 		function labour_contract_group() {
 			
-			var clone = $('.labour_contract_group_cl', $('.labour_contract_group_clone'));
+			var clone = $('.labour_contract_group_cl', $('.labour_contract_group_clone')).clone();
 			
 			var no = $('.labour_contract_group_clone').attr('data-counter');
 			var cnt = parseInt(no) - 1;

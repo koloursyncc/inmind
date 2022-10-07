@@ -3,7 +3,8 @@
 namespace App\Components;
 use App\Models\Supplier;
 use App\Models\SupplierProduct;
-//use App\Models\Installment;
+use App\Models\SupplierPo;
+use App\Models\SupplierPoProduct;
 use App\Components\ProductManager;
 class SupplierManager
 {
@@ -50,5 +51,27 @@ class SupplierManager
 	public function saveProductSupplier($params)
 	{
 		return SupplierProduct::create($params);
+	}
+	
+	public function saveSupplierPo($params, $lastInsertId = false)
+	{
+		$obj = SupplierPo::create($params);
+		
+		if($lastInsertId === true)
+		{
+			return $obj->id;
+		}
+		return $obj;
+	}
+	
+	public function saveSupplierPoProduct($params, $lastInsertId = false)
+	{
+		$obj = SupplierPoProduct::create($params);
+		
+		if($lastInsertId === true)
+		{
+			return $obj->id;
+		}
+		return $obj;
 	}
 }

@@ -40,6 +40,7 @@ Route::get('/supplierdetail/{id}', [SupplierController::class, 'detail']);
 Route::get('/supplierlist', [SupplierController::class, 'list']);
 Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
 Route::get('/supplierpo', [SupplierController::class, 'supplierpo']);
+Route::post('/supplierpo/save', [SupplierController::class, 'supplierposave']);
 Route::get('/dealeradd', [DealerController::class, 'index']);
 Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);

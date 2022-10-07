@@ -21,7 +21,9 @@ class SupplierController extends Controller
     }
 	public function supplierpo()
     {
-		return view('supplierpo');
+		$products = Product::select('id', 'name', 'code')->get();
+		$suppliers = Supplier::select('id', 'supplier_name')->get();
+		return view('supplierpo', ['products' => $products, 'suppliers' => $suppliers]);
     }
 	
 	private function getSupplier($type, $obj)
@@ -390,5 +392,118 @@ class SupplierController extends Controller
 
 		 echo json_encode($response);
 		 exit;
+	}
+	
+	
+	public function supplierposave(Request $request)
+	{
+		if($request->isMethod('post'))
+		{
+			//try
+			//{
+				$data = $request->all();
+				//
+				/* foreach($request->product_id as $product_id)
+					{
+						echo $product_id;
+					}
+				 */
+				$message = array('city_id.required' => 'The city field is required');
+				
+				$rules = array(
+							'brand_id' => 'required',
+							'supplier_id' => 'required',
+							'date' => 'required'
+						);
+				
+				$validator = Validator::make($data, $rules);
+				
+				if ($validator->fails())
+				{
+					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+				
+				//$data = $request->except(['_token']);
+				
+				$supplierManager = SupplierManager::getInstance();
+				
+				$params = $this->supplierpo_param($request);
+				
+				
+				$check = $request->has('product_id');
+				if($check == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => 'Please select product'));
+				}
+				
+				
+				$lastInsertId = $supplierManager->saveSupplierPo($params, true);
+				
+				if($lastInsertId > 0)
+				{
+					$this->handleSupplierPoProduct($lastInsertId, $request);
+					
+					
+					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
+				}
+				
+				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
+				
+			/* }
+			catch (\Throwable $e)
+			{
+				$error = $e->getMessage().', File Path = '.$e->getFile().', Line Number = '.$e->getLine();
+				//$this->exceptionHandling($error);
+				return response()->json(array('status'=>'exceptionError'));
+			} */
+		}
+	}
+	
+	private function handleSupplierPoProduct($lastInsertId, $request)
+	{
+		$product_ids = $request->product_id;
+		foreach($product_ids as $key => $product_id)
+		{
+			$params = [];
+			$params['supplier_po_id'] = $lastInsertId;
+			$params['product_id'] = $product_id;
+			$params['unit_price'] = 0;
+			$params['qty'] = 0;
+			$params['price'] = 0;
+			
+			if(isset($request->unit_price[$key]))
+			{
+				$params['unit_price'] = $request->unit_price[$key];
+			}
+			
+			if(isset($request->quantity[$key]))
+			{
+				$params['qty'] = $request->quantity[$key];
+			}
+			
+			if(isset($request->price[$key]))
+			{
+				$params['price'] = $request->price[$key];
+			}
+			
+			if($key > 0)
+			{
+				
+			}
+			else
+			{
+				$supplierManager = SupplierManager::getInstance();
+				$supplierManager->saveSupplierPoProduct($params);
+			}
+		}
+	}
+	
+	private function supplierpo_param($request)
+	{
+		return [
+			'brand_id' => $request->brand_id,
+			'supplier_id' => $request->supplier_id,
+			'date' => $request->date
+		];
 	}
 }

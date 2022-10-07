@@ -170,7 +170,7 @@ class StaffController extends Controller
 					
 					$this->updateStaffData($lastInsertId, $request);
 					
-					return response()->json(array('status'=>'success', 'msg' => 'Successfully Update'));
+					return response()->json(array('status'=>'false', 'msg' => 'Successfully Update'));
 				}
 				
 				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
@@ -519,42 +519,57 @@ class StaffController extends Controller
 				
 				if($key > 0)
 				{
+					//echo 'Update '.$key;
 					$staffManager->updateStaffContactAddressById($key, $params);
-					$this->uploadStaffLabourImage($key, $request);
+					$this->uploadStaffLabourImage($key, $request, $key, false);
 					
 				} else {
 					$lastid = $staffManager->saveStaffContactAddress($params, true);
 					if($lastid > 0)
 					{
-						$this->uploadStaffLabourImage($lastid, $request);
+						//echo ' Insert '.$key;
+						$this->uploadStaffLabourImage($lastid, $request, $key, true);
 					}
 				}
 			}
 		}
 	}
 	
-	private function uploadStaffLabourImage($id, $request)
+	private function uploadStaffLabourImage($id, $request, $key, $flag)
 	{
-		$staffManager = StaffManager::getInstance();
-		$images = $request->file('upload_contact_sign_doc');
-		foreach($images as $k => $file) {
-			foreach($file as $k => $fileobj) {
-				
-				$path = public_path('images/stafflabour/'.$id);
-				
-				$filename = $fileobj->getClientOriginalName();
-				$extension = $fileobj->getClientOriginalExtension();
-				if($fileobj->move($path,$filename))
-				{
-					$staffManager->saveStaffLabourImage(
-						[
-							'staff_labour_contract_id' => $id,
-							'image' => $filename
-						]
-					);
+		//if($request->hasFile('upload_contact_sign_doc'))  {
+			$staffManager = StaffManager::getInstance();
+			$images = $request->file('upload_contact_sign_doc');
+			$index = $id;
+			if($flag == true)
+			{
+				$index = $key;
+			}
+			//echo $index.' ';
+			if(isset($images[$index]))
+			{
+				//print_r($images[$id]);
+				foreach($images[$index] as $k => $fileobj) {
+					//print_r($file); die;
+					//foreach($file as $k => $fileobj) {
+						
+						$path = public_path('images/stafflabour/'.$id);
+						
+						$filename = $fileobj->getClientOriginalName();
+						$extension = $fileobj->getClientOriginalExtension();
+						if($fileobj->move($path,$filename))
+						{
+							$staffManager->saveStaffLabourImage(
+								[
+									'staff_labour_contract_id' => $id,
+									'image' => $filename
+								]
+							);
+						}
+					//}
 				}
 			}
-		}
+		//}
 	}
 	
 	private function handleAddress($lastInsertId, $request)
