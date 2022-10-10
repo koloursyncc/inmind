@@ -51,96 +51,103 @@
                         <div class="tab-content">
                            <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                               <label for="formFile" class="form-label">Brand</label>
-                              <select class="form-select mb-3" aria-label="Default select example">
-                                 <option selected>Select Brand </option>
-                                 <option value="1">Meha</option>
-                                 <option value="2">Inmind</option>
+                              <select class="form-select mb-3" name="brand_id" aria-label="Default select example">
+                                 <option value="">Select Brand </option>
+                                 <option value="1" <?php if(@$obj->brand_id == 1) { echo 'selected'; } ?>>Meha</option>
+                                 <option value="2" <?php if(@$obj->brand_id == 2) { echo 'selected'; } ?>>Inmind</option>
                               </select>
                               <label for="formFile" class="form-label">Type of Customer</label>
                               <div style="clear:both"></div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="type_of_customer" <?php if(@$obj->type_of_customer == 1) { echo 'selected'; } ?> type="radio" value="1">
                                  <label class="form-check-label" for="inlineRadio1">Wholesale</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="type_of_customer" <?php if(@$obj->type_of_customer == 2) { echo 'selected'; } ?> type="radio" value="2">
                                  <label class="form-check-label" for="inlineRadio1">Retail</label>
                               </div>
                               <div style="clear:both"></div>
                               <label for="formFile" class="form-label">Title</label>
                               <div style="clear:both"></div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" type="radio" name="title_option" value="1" <?php if(@$obj->title_option == 1) { echo 'selected'; } ?>>
                                  <label class="form-check-label" for="inlineRadio1">Mr.</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="title_option" value="2" <?php if(@$obj->title_option == 2) { echo 'selected'; } ?>>
                                  <label class="form-check-label" for="inlineRadio1">Ms.</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="title_option" value="3" <?php if(@$obj->title_option == 3) { echo 'selected'; } ?>>
                                  <label class="form-check-label" for="inlineRadio1">Co. Ltd</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="title_option" value="4" <?php if(@$obj->title_option == 4) { echo 'selected'; } ?>>
                                  <label class="form-check-label" for="inlineRadio1">Plc</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                 <input class="form-check-input" name="title_option" value="5" <?php if(@$obj->title_option == 5) { echo 'selected'; } ?>>
                                  <label class="form-check-label" for="inlineRadio1">Part Ltd.</label>
                               </div>
                               <div style="clear:both"></div>
                               <form class="row g-3">
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Customer Name</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+                                    <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?php echo @$obj->customer_name; ?>">
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Family Name</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+                                    <input type="text" class="form-control" id="family_name" name="family_name" value="<?php echo @$obj->family_name; ?>">
                                  </div>
                                  <h6>Home/Head office address  </h6>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Address no.</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder=" ">
+                                    <input type="text" class="form-control" id="head_office_address" name="head_office_address" value="<?php echo @$obj->head_office_address; ?>">
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputLastName" class="form-label">Building / Village</label>
-                                    <input type="text" class="form-control" id="inputLastName" placeholder=" ">
+                                    <input type="text" class="form-control" id="head_office_building" name="head_office_building" value="<?php echo @$obj->head_office_building; ?>">
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Sub District</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+                                    <input type="text" class="form-control" id="head_office_sub_district" name="head_office_sub_district" value="<?php echo @$obj->head_office_sub_district; ?>">
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  District</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+                                    <input type="text" class="form-control" id="head_office_district" name="head_office_district" value="<?php echo @$obj->head_office_district; ?>">
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">Road</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+                                    <input type="text" class="form-control" id="head_office_road" name="head_office_road" value="<?php echo @$obj->head_office_road; ?>">
                                  </div>
+								 
+								 <div class="col-sm-4">
+                                    <label for="inputSelectCountry" class="form-label">Country</label>
+                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
+                                       <option value="">Select Country</option>
+									   <?php foreach($countries as $country) { ?>
+											<option value="{{ $country->id }}">{{ $country->name }}</option>
+									   <?php } ?>
+                                    </select>
+                                 </div>
+								 
+								  <div class="col-sm-4">
+                                    <label for="inputEmailAddress" class="form-label">State</label>
+									<select class="form-select" id="head_office_state" name="head_office_state" aria-label="Default select example">
+                                       <option value="">Select State</option>
+                                    </select>
+                                 </div>
+								 
                                  <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  City</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
+                                    <input type="text" class="form-control" id="head_office_country" name="head_office_country">
                                  </div>
-                                 <div class="col-sm-4">
-                                    <label for="inputEmailAddress" class="form-label">State</label>
-                                    <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
-                                 </div>
+                                
                                  <div class="col-sm-4">
                                     <label for="inputEmailAddress" class="form-label">  Zip Code</label>
                                     <input type="text" class="form-control" id="inputEmailAddress" placeholder="">
                                  </div>
-                                 <div class="col-12 mb-3">
-                                    <label for="inputSelectCountry" class="form-label">Country</label>
-                                    <select class="form-select" id="inputSelectCountry" aria-label="Default select example">
-                                       <option selected="">India</option>
-                                       <option value="1">United Kingdom</option>
-                                       <option value="2">America</option>
-                                       <option value="3">Dubai</option>
-                                    </select>
-                                 </div>
+                                 
                               </form>
                               <h6>
                                  <div class="form-check">

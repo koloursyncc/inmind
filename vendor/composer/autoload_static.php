@@ -583,6 +583,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Models\\StaffLabourContracts' => __DIR__ . '/../..' . '/app/Models/StaffLabourContracts.php',
         'App\\Models\\State' => __DIR__ . '/../..' . '/app/Models/State.php',
         'App\\Models\\Supplier' => __DIR__ . '/../..' . '/app/Models/Supplier.php',
+        'App\\Models\\SupplierPo' => __DIR__ . '/../..' . '/app/Models/SupplierPo.php',
+        'App\\Models\\SupplierPoProduct' => __DIR__ . '/../..' . '/app/Models/SupplierPoProduct.php',
         'App\\Models\\SupplierProduct' => __DIR__ . '/../..' . '/app/Models/SupplierProduct.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

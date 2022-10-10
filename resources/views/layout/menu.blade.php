@@ -219,7 +219,8 @@
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('supplierpo')}}"><i class="bx bx-right-arrow-alt"></i>Suppliers PO</a>
 						</li>
-						
+						<li> <a class="dropdown-item" href="{{asset('supplierpolist')}}"><i class="bx bx-right-arrow-alt"></i>Suppliers PO List</a>
+						</li>
 					  </ul>
 					</li>
 					<li class="nav-item dropdown">

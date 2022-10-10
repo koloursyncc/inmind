@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
+use App\Models\SupplierPo;
 use App\Models\Product;
 use App\Models\Installment;
 use App\Components\SupplierManager;
@@ -19,12 +20,60 @@ class SupplierController extends Controller
 		
 		return view('supplierregister', $data);
     }
+	
+	public function supplierpolist()
+	{
+		return view('supplier/supplierpolist');
+	}
+	
 	public function supplierpo()
     {
+		$data = $this->getSupplierpoData(null, 'save');
+		
+		return view('supplierpo', $data);
+    }
+	
+	public function supplierpoview($id)
+	{
+		$data = $this->getSupplierpoData($id, 'view');
+		
+		return view('supplierpo', $data);
+	}
+	
+	private function getSupplierpoData($id, $type)
+	{
 		$products = Product::select('id', 'name', 'code')->get();
 		$suppliers = Supplier::select('id', 'supplier_name')->get();
-		return view('supplierpo', ['products' => $products, 'suppliers' => $suppliers]);
-    }
+		
+		$obj = null;
+		$supplierProductPo = [];
+		if($id != null)
+		{
+			$supplierObj = SupplierManager::getInstance();
+			$obj = $supplierObj->getSupplierPoById($id, 1);
+			if($obj == null)
+			{
+				$type = 'save';
+			} else {
+				$supplierProductPo = $supplierObj->getSupplierProductPoByAttrId($id);
+			}
+		}
+		
+		return [
+			'products' => $products,
+			'suppliers' => $suppliers,
+			'type' => $type,
+			'obj' => $obj,
+			'supplierProductPo' => $supplierProductPo
+		];
+	}
+	
+	public function supplierpoedit($id)
+	{
+		$data = $this->getSupplierpoData($id, 'edit');
+		
+		return view('supplierpo', $data);
+	}
 	
 	private function getSupplier($type, $obj)
 	{
@@ -43,7 +92,7 @@ class SupplierController extends Controller
 	public function edit($id)
 	{
 		$supplierObj = SupplierManager::getInstance();
-		$obj = $supplierObj->getSupplierById($id, 2);
+		$obj = $supplierObj->getSupplierById($id, 1);
 		$type = 'edit';
 		if($obj == null)
 		{
@@ -58,7 +107,7 @@ class SupplierController extends Controller
 	public function detail($id)
 	{
 		$supplierObj = SupplierManager::getInstance();
-		$obj = $supplierObj->getSupplierById($id, 2);
+		$obj = $supplierObj->getSupplierById($id, 1);
 		$type = 'view';
 		if($obj == null)
 		{
@@ -462,6 +511,9 @@ class SupplierController extends Controller
 	private function handleSupplierPoProduct($lastInsertId, $request)
 	{
 		$product_ids = $request->product_id;
+		$supplierManager = SupplierManager::getInstance();
+		$supplierManager->deleteSupplierPoProductByAttr($lastInsertId);
+		
 		foreach($product_ids as $key => $product_id)
 		{
 			$params = [];
@@ -486,15 +538,16 @@ class SupplierController extends Controller
 				$params['price'] = $request->price[$key];
 			}
 			
-			if($key > 0)
+			
+			$supplierManager->saveSupplierPoProduct($params);
+			/* if($key > 0)
 			{
 				
 			}
 			else
 			{
-				$supplierManager = SupplierManager::getInstance();
-				$supplierManager->saveSupplierPoProduct($params);
-			}
+				
+			} */
 		}
 	}
 	
@@ -505,5 +558,191 @@ class SupplierController extends Controller
 			'supplier_id' => $request->supplier_id,
 			'date' => $request->date
 		];
+	}
+	
+	public function supplierpoupdate(Request $request)
+	{
+		if($request->isMethod('post'))
+		{
+			//try
+			//{
+				$data = $request->all();
+				//
+				/* foreach($request->product_id as $product_id)
+					{
+						echo $product_id;
+					}
+				 */
+				$message = array('city_id.required' => 'The city field is required');
+				
+				$rules = array(
+							'brand_id' => 'required',
+							'supplier_id' => 'required',
+							'date' => 'required'
+						);
+				
+				$validator = Validator::make($data, $rules);
+				
+				if ($validator->fails())
+				{
+					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+				
+				//$data = $request->except(['_token']);
+				
+				$supplierManager = SupplierManager::getInstance();
+				
+				$params = $this->supplierpo_param($request);
+				
+				
+				$check = $request->has('product_id');
+				if($check == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => 'Please select product'));
+				}
+				
+				$lastInsertId =$request->id;
+				$status = $supplierManager->updateSupplierPo($lastInsertId, $params);
+				
+				if($status > 0)
+				{
+					$this->handleSupplierPoProduct($lastInsertId, $request);
+					
+					
+					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
+				}
+				
+				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
+				
+			/* }
+			catch (\Throwable $e)
+			{
+				$error = $e->getMessage().', File Path = '.$e->getFile().', Line Number = '.$e->getLine();
+				//$this->exceptionHandling($error);
+				return response()->json(array('status'=>'exceptionError'));
+			} */
+		}
+	}
+	
+	 public function ajaxcallPoList(Request $request)
+	{
+		 ## Read value
+		 $draw = $request->get('draw');
+		 $start = $request->get("start");
+		 $rowperpage = $request->get("length"); // Rows display per page
+
+		 $columnIndex_arr = $request->get('order');
+		 $columnName_arr = $request->get('columns');
+		 $order_arr = $request->get('order');
+		 $search_arr = $request->get('search');
+
+		 $columnIndex = $columnIndex_arr[0]['column']; // Column index
+		 $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+		 $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+		 $searchValue = $search_arr['value']; // Search value
+
+		 // Total records
+		 $totalRecords = SupplierPo::select('count(*) as allcount')
+		 ->join('suppliers', function($join) {
+			$join->on('suppliers.id', '=', 'supplier_po.supplier_id');
+		})
+		 ->count();
+		 
+		 $countData = SupplierPo::select('count(*) as allcount');
+		 
+		if($searchValue != null) {
+			//$countData->where('product_name', 'like', '%' .$searchValue . '%');
+			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
+		}
+		$totalRecordswithFilter = $countData->count();
+		 // Fetch records
+		 $records = SupplierPo::select('supplier_po.id', 'supplier_po.status', 'suppliers.name')
+			 ->join('suppliers', function($join) {
+				$join->on('suppliers.id', '=', 'supplier_po.supplier_id');
+			})
+		   ->skip($start)
+		   ->take($rowperpage);
+			if($columnName == 'id') {
+			   $records->orderBy($columnName,$columnSortOrder);
+			}
+			if($searchValue != null) {
+				//$records->where('product_name', 'like', '%' .$searchValue . '%');
+				//$records->where('supplier', 'like', '%' .$searchValue . '%');
+			}
+		
+		$list = $records->get();
+
+		 $data_arr = array();
+		 
+		 foreach($list as $sno => $record){
+			$id = $record->id;
+			$status = $record->status;
+			$statustext = 'Active';
+			$statuschecked = 'checked';
+			if($status == 2)
+			{
+				$statustext = 'InActive';
+				$statuschecked = '';
+			}
+			$edit = url('supplierpoedit/'.$id);
+			$view = url('supplierpoview/'.$id);
+            $action = '<div class="d-flex order-actions"><a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a></div>
+			
+            <div class="form-check form-switch">
+				<input class="form-check-input checktrigger" id="checktrigger_'.$id.'" data-id="'.$id.'" data-status="'.$status.'" type="checkbox" '.$statuschecked.'>
+				<label class="form-check-label" id="check_label_'.$id.'" for="">'.$statustext.'</label>
+			</div>
+            ';
+			
+			
+			$action .= '';
+			
+            $detail = '<a href="'.$view.'"><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></a>';
+            $main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
+
+
+			
+			
+			$data_arr[] = array(
+			  "id" => $id,
+			  "supplier" => $record->name,
+			  "detail" => $detail,
+			  'action' => $action,
+			);
+		 }
+
+		 $response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordswithFilter,
+			"aaData" => $data_arr
+		 );
+
+		 echo json_encode($response);
+		 exit;
+	}
+	
+	public function updatestatuspobyid(Request $request)
+	{
+		
+		if($request->isMethod('post'))
+		{
+			$id = $request->id;
+			$status = $request->status;
+			$statusval = ($status == 1) ? 2 : 1;
+			
+			$supplierObj = SupplierManager::getInstance();
+			$isStatus = $supplierObj->updateSupplierPo($id, ['status' => $statusval]);
+			if($isStatus)
+			{
+				
+				
+				$statustext = ($status == 1) ? 'InActive' : 'Active';
+				
+				return response()->json(array('status'=>'success', 'id' => $id, 'statustext' => $statustext, 'statusval' => $statusval));
+			}
+			
+			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
+		}
 	}
 }

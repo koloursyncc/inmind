@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Components\SupplierManager;
+use App\Components\ProductManager;
 class SupplierPoProduct extends Model
 {
-    use HasFactory;
-	
 	protected $table = 'supplier_po_product';
 	
 	public $timestamps = false;
@@ -21,4 +19,10 @@ class SupplierPoProduct extends Model
 		'total_price'
     ];
 	
+	public function getProductDataById($product_id)
+	{
+		//return $product_id;
+		$productManagerObj = ProductManager::getInstance();
+		return $productManagerObj->getProductDataById($product_id);
+	}
 }

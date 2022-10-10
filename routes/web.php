@@ -38,9 +38,12 @@ Route::get('/supplierregister', [SupplierController::class, 'index']);
 Route::get('/supplieredit/{id}', [SupplierController::class, 'edit']);
 Route::get('/supplierdetail/{id}', [SupplierController::class, 'detail']);
 Route::get('/supplierlist', [SupplierController::class, 'list']);
+Route::get('/supplierpolist', [SupplierController::class, 'supplierpolist']);
+Route::get('/ajaxcallPoList', [SupplierController::class, 'ajaxcallPoList']);
 Route::get('/supplierlistajax', [SupplierController::class, 'ajaxcall']);
 Route::get('/supplierpo', [SupplierController::class, 'supplierpo']);
 Route::post('/supplierpo/save', [SupplierController::class, 'supplierposave']);
+Route::post('/supplierpo/update', [SupplierController::class, 'supplierpoupdate']);
 Route::get('/dealeradd', [DealerController::class, 'index']);
 Route::get('/dealerlist', [DealerController::class, 'list']);
 Route::get('/dealerlistajax', [DealerController::class, 'ajaxcall']);
@@ -81,6 +84,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
  */
 Route::post('supplier/updatestatusbyid', [SupplierController::class, 'updatestatusbyid']);
+Route::post('supplierpo/updatestatuspobyid', [SupplierController::class, 'updatestatuspobyid']);
 Route::post('product/updatestatusbyid', [ProductController::class, 'updatestatusbyid']);
 Route::post('customer/updatestatusbyid', [DealerController::class, 'updatestatusbyid']);
 Route::post('staff/updatestatusbyid', [StaffController::class, 'updatestatusbyid']);
@@ -89,6 +93,9 @@ Route::post('/save/product', [ProductController::class, 'save']);
 Route::post('/update/product', [ProductController::class, 'update']);
 Route::post('/update/supplier', [SupplierController::class, 'update']);
 Route::get('/product/generatecode', [ProductController::class, 'generatecode']);
+
+Route::get('/supplierpoedit/{id}', [SupplierController::class, 'supplierpoedit']);
+Route::get('/supplierpoview/{id}', [SupplierController::class, 'supplierpoview']);
 
 Route::post('/save/customer', [DealerController::class, 'save']);
 Route::post('/update/customer', [DealerController::class, 'update']);

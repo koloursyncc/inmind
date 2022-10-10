@@ -42,6 +42,11 @@ class ProductManager
 		return Product::where('status', $status)->find($id);
 	}
 	
+	public function getProductDataById($id)
+	{
+		return Product::find($id);
+	}
+	
 	public function getProductSetByProductId($product_id)
 	{
 		return ProductSet::where('product_id', $product_id)->get();

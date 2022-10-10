@@ -58,6 +58,8 @@ return array(
     'App\\Models\\StaffLabourContracts' => $baseDir . '/app/Models/StaffLabourContracts.php',
     'App\\Models\\State' => $baseDir . '/app/Models/State.php',
     'App\\Models\\Supplier' => $baseDir . '/app/Models/Supplier.php',
+    'App\\Models\\SupplierPo' => $baseDir . '/app/Models/SupplierPo.php',
+    'App\\Models\\SupplierPoProduct' => $baseDir . '/app/Models/SupplierPoProduct.php',
     'App\\Models\\SupplierProduct' => $baseDir . '/app/Models/SupplierProduct.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

@@ -6,6 +6,22 @@
          display:flex;justify-content:center;align-items: end; 
       }
    </style>
+   
+<?php
+$disabled_field = $url = ''; 
+ if($type == 'view') {
+	$disabled_field = 'disabled'; 
+ } else if($type == 'save') {
+	$url = url('supplierpo/save');
+ } else if($type == 'edit') {
+	$url = url('supplierpo/update');
+ }
+ //echo $type; die;
+ $productIds = [];
+foreach($supplierProductPo as $supplierProductPoObj) {
+	$productIds[$supplierProductPoObj->product_id] = $supplierProductPoObj->product_id;
+}
+?>
    <body>
       <!--wrapper-->
       <div class="wrapper">
@@ -50,23 +66,26 @@
                         </ul>
                         <div class="tab-content">
                            <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1"> 
-							<form id="seller_po" data-url="{{ url('supplierpo/save') }}">
+							<form <?php if($type != 'view') { ?>id="seller_po" data-url="{{ $url }}" <?php } ?>>
 									@csrf
+									<?php  if($type == 'edit') { ?>
+										<input type="hidden" class="" name="id" value="{{ @$obj->id }}" />
+									<?php } ?>
                               <div class="row g-3">
 								<div class="col-sm-4">
 									<label for="formFile" class="form-label">P/O For Brand</label>
-									<select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example">
+									<select {{ $disabled_field }} class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example">
 										<option selected>Select Brand </option>
-										<option value="1">Meha</option>
-										<option value="2">Inmind</option>
+										<option value="1"  <?php if(@$obj->brand_id == 1) { echo 'selected'; } ?>>Meha</option>
+										<option value="2" <?php if(@$obj->brand_id == 2) { echo 'selected'; } ?>>Inmind</option>
 									</select> 
 								</div>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Supplier Name</label>
-                                    <select class="form-select mb-3 supplier_id" name="supplier_id" aria-label="Default select example">
+                                    <select {{ $disabled_field }} class="form-select mb-3 supplier_id" name="supplier_id" aria-label="Default select example">
 										<option value="">Select Supplier </option>
 										<?php foreach($suppliers as $supplierObj) { ?>
-											<option value="{{ $supplierObj->id }}">{{ $supplierObj->supplier_name }}</option>
+											<option <?php if(@$obj->supplier_id == $supplierObj->id) { echo 'selected'; } ?> value="{{ $supplierObj->id }}">{{ $supplierObj->supplier_name }}</option>
 										<?php } ?>
 									</select> 
                                  </div>
@@ -80,14 +99,19 @@
                                  </div>
 								 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Date</label>
-									<input type="date" name="date" class="form-control date">
+									<input type="date" value="{{ @$obj->date }}" name="date" {{ $disabled_field }} class="form-control date">
                                  </div>  
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Product Name</label>
-                                    <select class="form-select mb-3 product_name" aria-label="Default select example" multiple>
+                                    <select {{ $disabled_field }} class="form-select mb-3 product_name" aria-label="Default select example" multiple>
 										
-										<?php foreach($products as $productsObj) { ?>
-											<option data-code="{{ $productsObj->code }}"  data-code="{{ $productsObj->name }}" value="{{ $productsObj->id }}">{{ $productsObj->name }}</option>
+										<?php foreach($products as $productsObj) {
+												$selectedrw = '';
+												if(isset($productIds[$productsObj->id])){
+													$selectedrw= 'selected';
+												}
+											?>
+											<option {{ $selectedrw }} data-code="{{ $productsObj->code }}"  data-code="{{ $productsObj->name }}" value="{{ $productsObj->id }}">{{ $productsObj->name }}</option>
 										<?php } ?>
 									</select> 
                                  </div>
@@ -114,7 +138,30 @@
 								
 								
 									<div class="product_container">
-										
+										<?php foreach($supplierProductPo as $supplierProductPoObj) {
+												$productObj = $supplierProductPoObj->getProductDataById($supplierProductPoObj->product_id);
+												
+											?>
+											<div class="row counter_update ">
+												<div class="col-sm-4">
+													<label for="inputFirstName" class="form-label p_name">{{ $productObj->name }}</label>
+													<input type="hidden" class="product_id" name="product_id[{{ $supplierProductPoObj->product_id }}]" value="{{ $productObj->id }}" />
+												</div>  
+												<div class="col-sm-2">
+													<label for="inputFirstName" class="form-label p_code">{{ $productObj->code }}</label>
+													
+												</div> 
+												<div class="col-sm-2">
+													<input type="text" class="unit_price" value="{{ $supplierProductPoObj->unit_price }}" name="unit_price[{{ $supplierProductPoObj->product_id }}]" class="form-control" {{ $disabled_field }} />
+												</div>  
+												<div class="col-sm-2">
+													<input type="text" class="quantity" value="{{ $supplierProductPoObj->qty }}" name="quantity[{{ $supplierProductPoObj->product_id }}]" class="form-control" {{ $disabled_field }} />
+												</div>     
+												<div class="col-sm-2">
+													<input type="text" class="price" value="{{ $supplierProductPoObj->price }}" name="price[{{ $supplierProductPoObj->product_id }}]" class="form-control" {{ $disabled_field }} />
+												</div> 
+											</div>
+										<?php } ?>
 									</div>
 								
 								 
@@ -157,13 +204,13 @@
 				
 			</div> 
 			<div class="col-sm-2">
-				<input type="text" class="unit_price" class="form-control  " />
+				<input type="text" class="unit_price" class="form-control  " {{ $disabled_field }} />
 			</div>  
 			<div class="col-sm-2">
-				<input type="text" class="quantity" class="form-control  " />
+				<input type="text" class="quantity" class="form-control  " {{ $disabled_field }} />
 			</div>     
 			<div class="col-sm-2">
-				<input type="text" class="price" class="form-control  " />
+				<input type="text" class="price" class="form-control  " {{ $disabled_field }} />
 			</div> 
 		</div>
 	  </div>

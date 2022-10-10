@@ -74,4 +74,24 @@ class SupplierManager
 		}
 		return $obj;
 	}
+	
+	public function updateSupplierPo($id, $params)
+	{
+		return SupplierPo::where('id', $id)->update($params);
+	}
+	
+	public function getSupplierPoById($id, $status = 1)
+	{
+		return SupplierPo::where('status', $status)->find($id);
+	}
+	
+	public function getSupplierProductPoByAttrId($supplier_po_id)
+	{
+		return SupplierPoProduct::where('supplier_po_id', $supplier_po_id)->get();
+	}
+	
+	public function deleteSupplierPoProductByAttr($supplier_po_id)
+	{
+		return SupplierPoProduct::where('supplier_po_id', $supplier_po_id)->delete();
+	}
 }
