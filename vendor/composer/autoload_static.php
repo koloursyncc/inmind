@@ -576,6 +576,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
         'App\\Models\\Installment' => __DIR__ . '/../..' . '/app/Models/Installment.php',
         'App\\Models\\Po' => __DIR__ . '/../..' . '/app/Models/Po.php',
+        'App\\Models\\PoInvoice' => __DIR__ . '/../..' . '/app/Models/PoInvoice.php',
+        'App\\Models\\PoItems' => __DIR__ . '/../..' . '/app/Models/PoItems.php',
         'App\\Models\\Price' => __DIR__ . '/../..' . '/app/Models/Price.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\ProductSet' => __DIR__ . '/../..' . '/app/Models/ProductSet.php',

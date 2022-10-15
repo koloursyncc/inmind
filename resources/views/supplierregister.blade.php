@@ -216,7 +216,7 @@ if($type == 'view')
 															</div>
 															<div class="col-sm-4">
 															<label for="inputEmailAddress" class="form-label">  Select Product <span>*</span></label>
-																<select {{ $disabledfield }} class="form-control product_id " name="product_id[]" multiple>
+																<select {{ $disabledfield }} class="form-control product_id " multiple>
 																	<?php foreach($products as $productObj) {
 																			$proched = '';
 																			if($type != 'save') {
@@ -230,6 +230,28 @@ if($type == 'view')
 																		<option value="{{ $productObj->id }}" {{ $proched }}>{{ $productObj->name }} </option>
 																	<?php } ?>
 																</select>
+															</div>
+															
+															<div class="col-sm-12 pro_clone">
+																<?php foreach($supplierProducts as $supplierProductObj) {
+																		$proObj = \App\Models\Product::find($supplierProductObj->product_id);
+																	?>
+																	<div class="row product_unit_container_clone">
+																		<div class="col-sm-3">
+																			<label for="inputEmailAddress" class="form-label product_unit_lavel">
+																				<?php if($proObj) {
+																					echo $proObj->name;
+																				} ?>
+																			</label>
+																			<input type="hidden" {{ $disabledfield }} class="form-control " value="<?php echo $supplierProductObj->product_id; ?>" name="product_id[<?php echo $supplierProductObj->id; ?>]">
+																		</div>
+																		
+																		<div class="col-sm-3">
+																			<label for="inputEmailAddress" class="form-label "></label>
+																			<input type="text" {{ $disabledfield }} class="form-control " value="<?php echo $supplierProductObj->unit_price; ?>" name="unit_price[<?php echo $supplierProductObj->id; ?>]" placeholder="unit price">
+																		</div>
+																	</div>
+																<?php } ?>
 															</div>
 															
 														</div>
@@ -370,6 +392,20 @@ if($type == 'view')
 	</div>
 </div>
 
+<div class="suppiler_pro" style="display:none" data-counter="0"> 
+	<div class="row product_unit_container_clone">
+		<div class="col-sm-3">
+			<label for="inputEmailAddress" class="form-label product_unit_lavel"></label>
+			<input type="hidden" {{ $disabledfield }} class="form-control product_n">
+		</div>
+		
+		<div class="col-sm-3">
+			<label for="inputEmailAddress" class="form-label "></label>
+			<input type="text" {{ $disabledfield }} class="form-control product_unit_price" placeholder="unit price">
+		</div>
+	</div>
+</div>
+
 <script>
 
 function dependdropdown(val, target, name) {
@@ -420,6 +456,30 @@ function addinstall()
 }
 
 $(document).ready(function() {
+	
+	$('body').on('change', '.product_id ', function() {
+		var val = $(this).val();
+		$('.pro_clone').html('');
+		 $.each(val, function (key, v) {
+			 
+			var clone = $('.product_unit_container_clone', $('.suppiler_pro')).clone();
+			var no = $('.suppiler_pro').attr('data-counter');
+			var srno = parseInt(no) - 1;
+			
+			$('.product_unit_lavel', clone).html($(".product_id option[value=" + v +"]").text());
+			$('.product_n', clone).attr('name', 'product_id['+srno+']')
+			$('.product_unit_price', clone).attr('name', 'unit_price['+srno+']')
+			
+			$('.product_n', clone).val(v);
+			
+			$('.pro_clone').append(clone);
+			
+			$('.suppiler_pro').attr('data-counter', srno);
+		});
+		
+		
+	});
+	
 	<?php if($type != 'view') { ?>
 		addinstall();
 		<?php } ?>

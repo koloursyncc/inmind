@@ -14,6 +14,6 @@ class SupplierProduct extends Model
 	//public $timestamps = false;
 
     protected $fillable = [
-        'product_id', 'supplier_id'
+        'product_id', 'supplier_id', 'unit_price'
 		];
 }

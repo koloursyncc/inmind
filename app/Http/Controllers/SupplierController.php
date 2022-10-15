@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use App\Models\SupplierPo;
+use App\Models\SupplierProduct;
 use App\Models\Product;
 use App\Models\Installment;
 use App\Components\SupplierManager;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
 class SupplierController extends Controller
 {
+	
     public function index()
     {
 		
@@ -80,13 +82,14 @@ class SupplierController extends Controller
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
 		$products = Product::select('products.id', 'products.name')->get();
-		$installments = [];
+		$installments = $supplierProducts = [];
 		if($obj)
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 1)->get();
+			$supplierProducts = SupplierProduct::where('supplier_id', $obj->id)->get();
 		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'products' => $products, 'type' => $type, 'installments' => $installments];
+		return ['obj' => $obj, 'countries' => $countries, 'products' => $products, 'type' => $type, 'installments' => $installments, 'supplierProducts' => $supplierProducts];
 	}
 	
 	public function edit($id)
@@ -170,13 +173,15 @@ class SupplierController extends Controller
 				{
 					$this->installments($lastInsertId, $request);
 					
-					foreach($request->product_id as $productid)
+					$this->handleProductSupplier($lastInsertId, $request);
+					
+					/* foreach($request->product_id as $productid)
 					{
 						$supplierManager->saveProductSupplier([
 							'product_id' => $productid,
 							'supplier_id' => $lastInsertId
 						]);
-					}
+					} */
 					
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
@@ -193,6 +198,27 @@ class SupplierController extends Controller
 		}
 	}
 	
+	private function handleProductSupplier($lastInsertId, $request)
+	{
+		$supplierManager = SupplierManager::getInstance();
+		
+		$supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
+		
+		foreach($request->product_id as $key => $productid)
+		{
+			$unit_price = 0;
+			if(isset($request->unit_price[$key]))
+			{
+				$unit_price = $request->unit_price[$key];
+			}
+			$supplierManager->saveProductSupplier([
+				'product_id' => $productid,
+				'unit_price' => $unit_price,
+				'supplier_id' => $lastInsertId
+			]);
+		}
+	}
+	
 	private function installments($lastInsertId, $request)
 	{
 		if(isset($request->installment_1))
@@ -200,25 +226,25 @@ class SupplierController extends Controller
 			foreach($request->installment_1 as $installment_clone_key => $installment_clone_val)
 			{
 				
-				
-				$params['installment_1'] = $installment_clone_val;
-				$params['type'] = 1;
-				$params['type_id'] = $lastInsertId;
-				if(isset($request->installment_2[$installment_clone_key]))
+				if($installment_clone_val > 0)
 				{
-					
-					$params['installment_2'] = $request->installment_2[$installment_clone_key];
-					
-					if($installment_clone_key > 0)
-					{ 
-						Installment::where('type_id', $installment_clone_key)->where('type', 1)->update($params);
-						
-					}
-					else
+					$params['installment_1'] = $installment_clone_val;
+					$params['type'] = 1;
+					$params['type_id'] = $lastInsertId;
+					if(isset($request->installment_2[$installment_clone_key]))
 					{
-						Installment::create($params);
+						$params['installment_2'] = $request->installment_2[$installment_clone_key];
+						
+						if($installment_clone_key > 0)
+						{ 
+							Installment::where('type_id', $installment_clone_key)->where('type', 1)->update($params);
+							
+						}
+						else
+						{
+							Installment::create($params);
+						}
 					}
-					
 				}
 			}
 		}
@@ -272,14 +298,16 @@ class SupplierController extends Controller
 					
 					$this->installments($lastInsertId, $request);
 					
-					$supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
+					$this->handleProductSupplier($lastInsertId, $request);
+					
+					/* $supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
 					foreach($request->product_id as $productid)
 					{
 						$supplierManager->saveProductSupplier([
 							'product_id' => $productid,
 							'supplier_id' => $lastInsertId
 						]);
-					}
+					} */
 					
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}

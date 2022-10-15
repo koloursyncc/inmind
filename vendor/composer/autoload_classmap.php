@@ -51,6 +51,8 @@ return array(
     'App\\Models\\Image' => $baseDir . '/app/Models/Image.php',
     'App\\Models\\Installment' => $baseDir . '/app/Models/Installment.php',
     'App\\Models\\Po' => $baseDir . '/app/Models/Po.php',
+    'App\\Models\\PoInvoice' => $baseDir . '/app/Models/PoInvoice.php',
+    'App\\Models\\PoItems' => $baseDir . '/app/Models/PoItems.php',
     'App\\Models\\Price' => $baseDir . '/app/Models/Price.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Models\\ProductSet' => $baseDir . '/app/Models/ProductSet.php',
