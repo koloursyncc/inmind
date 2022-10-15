@@ -456,7 +456,7 @@ function kindproduct(num) {
 	}
 }
 
-function calulation(cbmval, grossweight, netweight) {
+function calulation(cbmval, grossweight, netweight) { alert(1);
 	var cbm20 = 27;
 	var cbm54 = 54;
 	var cbm72 = 72;	
@@ -560,9 +560,9 @@ function calulation(cbmval, grossweight, netweight) {
 
 	$(document).ready(function() {
 		$('body').on('keyup', '.cbm', function(event) {
-			
-			if(validPrice(event, this) == true) {
-				setTimeout(function() {
+			alert('1st po');
+			if(validPrice(event, this) == true) {alert('2st po');
+				setTimeout(function() {alert('3st po');
 					
 					calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 				}, 10);
