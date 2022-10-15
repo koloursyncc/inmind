@@ -722,11 +722,15 @@ function installment()
 				
 					$('.delivery_district_id').val($("input[name=head_office_district]").val());
 					$('.delivery_road').val($("input[name=head_office_road]").val());
-					$('.delivery_country_id').val('');
+					//$('.delivery_country_id').val('');
 					$('.state_id_delivery').val('');
 					$('.delivery_city').val($("input[name=head_office_city]").val());
 					$('.delivery_zipcode').val($("input[name=head_office_zipcode]").val());
+					dependdropdown(head_office_country_id, '.state_id_delivery', '', 'State');
 					
+					setTimeout(function() {
+						$('.state_id_delivery option[value="'+$('.state_id_head').val()+'"]').prop('selected', true);
+					}, 1500);
 					
 				 } else {
 					 
