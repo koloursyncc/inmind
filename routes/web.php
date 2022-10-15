@@ -59,6 +59,18 @@ Route::post('/save/staff', [StaffController::class, 'save']);
 Route::post('/update/staff', [StaffController::class, 'update']);
 
 Route::get('/pocreate', [PoController::class, 'index']);
+
+Route::post('po/updatepobyid', [ProductController::class, 'updatepobyid']);
+
+Route::get('/podetail/{id}', [PoController::class, 'view']);
+Route::get('/poedit/{id}', [PoController::class, 'edit']);
+Route::post('/po/removeimagebyid', [PoController::class, 'removeimagebyid']);
+Route::post('/po/updatestatusbyid', [PoController::class, 'updatestatusbyid']);
+Route::post('/save/po', [PoController::class, 'save']);
+Route::post('/update/po', [PoController::class, 'update']);
+
+Route::get('/polistajax', [PoController::class, 'ajaxcall']);
+
 Route::get('/polist', [PoController::class, 'polist']);
 Route::get('/getregionaldata', [RegionController::class, 'getregionaldata']);
 

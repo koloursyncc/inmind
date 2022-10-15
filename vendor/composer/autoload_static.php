@@ -533,6 +533,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
     public static $classMap = array (
         'App\\Components\\CustomerManager' => __DIR__ . '/../..' . '/app/Components/CustomerManager.php',
         'App\\Components\\ImageManager' => __DIR__ . '/../..' . '/app/Components/ImageManager.php',
+        'App\\Components\\POManager' => __DIR__ . '/../..' . '/app/Components/POManager.php',
+        'App\\Components\\PriceManager' => __DIR__ . '/../..' . '/app/Components/PriceManager.php',
         'App\\Components\\ProductManager' => __DIR__ . '/../..' . '/app/Components/ProductManager.php',
         'App\\Components\\RegionManager' => __DIR__ . '/../..' . '/app/Components/RegionManager.php',
         'App\\Components\\StaffManager' => __DIR__ . '/../..' . '/app/Components/StaffManager.php',
@@ -573,6 +575,8 @@ class ComposerStaticInit44eb333d0d38a5ee779b09a42f73c4c0
         'App\\Models\\Dealer' => __DIR__ . '/../..' . '/app/Models/Dealer.php',
         'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
         'App\\Models\\Installment' => __DIR__ . '/../..' . '/app/Models/Installment.php',
+        'App\\Models\\Po' => __DIR__ . '/../..' . '/app/Models/Po.php',
+        'App\\Models\\Price' => __DIR__ . '/../..' . '/app/Models/Price.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\ProductSet' => __DIR__ . '/../..' . '/app/Models/ProductSet.php',
         'App\\Models\\Staff' => __DIR__ . '/../..' . '/app/Models/Staff.php',

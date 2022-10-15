@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Components\\CustomerManager' => $baseDir . '/app/Components/CustomerManager.php',
     'App\\Components\\ImageManager' => $baseDir . '/app/Components/ImageManager.php',
+    'App\\Components\\POManager' => $baseDir . '/app/Components/POManager.php',
+    'App\\Components\\PriceManager' => $baseDir . '/app/Components/PriceManager.php',
     'App\\Components\\ProductManager' => $baseDir . '/app/Components/ProductManager.php',
     'App\\Components\\RegionManager' => $baseDir . '/app/Components/RegionManager.php',
     'App\\Components\\StaffManager' => $baseDir . '/app/Components/StaffManager.php',
@@ -48,6 +50,8 @@ return array(
     'App\\Models\\Dealer' => $baseDir . '/app/Models/Dealer.php',
     'App\\Models\\Image' => $baseDir . '/app/Models/Image.php',
     'App\\Models\\Installment' => $baseDir . '/app/Models/Installment.php',
+    'App\\Models\\Po' => $baseDir . '/app/Models/Po.php',
+    'App\\Models\\Price' => $baseDir . '/app/Models/Price.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Models\\ProductSet' => $baseDir . '/app/Models/ProductSet.php',
     'App\\Models\\Staff' => $baseDir . '/app/Models/Staff.php',

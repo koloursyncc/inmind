@@ -32,22 +32,18 @@
 							<div class="position-relative">
 								<input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
 							</div>
-						  <div class="ms-auto"><a href="{{asset('staffadd')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New PO</a></div>
+						  <div class="ms-auto"><a href="{{asset('pocreate')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New PO</a></div>
 						</div>
 						<div class="table-responsive">
 							<table class="table mb-0"  id="dataTable">
 								<thead class="table-light">
 									<tr>
 										<th>Sr. No.</th> 
-										<th>PO no.</th>
-										<th>Date </th>
-                                        <th>Customer Name</th>
-										<th>Order Placed</th>
-										<th>W/H</th>
-										<th>Delivery</th>
-										<th>Invoice</th>
-										<th>Full Recived</th>
-										<th>Commission Paid</th>
+										
+                                        <th>Name</th>
+										<th>Family Name</th>
+										<th>Detail</th>
+										<th>Action</th>
 
 										
 									</tr>
@@ -72,15 +68,34 @@
 <script>
 $(document).ready(function() {
 
+	$('body').on('change', '.checktrigger', function() {
+		var id = $(this).attr('data-id');
+		var status = $(this).attr('data-status');
+		//if (confirm('Are you sure you want remove this image?')) {
+			$.ajax({
+				url: "{{url('po/updatestatusbyid')}}",
+				dataType : "json",
+				type: "post",
+				data : {'id': id, 'status': status, "_token": "{{ csrf_token() }}"},
+				success : function(response) {
+					if(response.status == 'success') {
+						$('#checktrigger_'+response.id).attr('data-status', response.statusval);
+						$('#check_label_'+response.id).html(response.statustext);
+					}
+				},
+			});
+		//} 
+		//return false;
+	});
+
 var table = $('#dataTable').DataTable({
 				processing: true,
 				serverSide: true,
-				ajax: "{{url('supplierlistajax')}}",
+				ajax: "{{url('polistajax')}}",
 				columns: [
 					{ data: 'id', orderable: false}, 
-					{ data: 'product_name', orderable: false},
-					{ data: 'product_code', orderable: false},
-                    { data: 'product_code', orderable: false},
+					{ data: 'customer_name', orderable: false},
+					{ data: 'family_name', orderable: false},
 					{ data: 'detail', orderable: false},
 					{ data: 'action', orderable: false} 
 					  
