@@ -423,6 +423,7 @@ if($type == 'view') {
 <script>
 function validPrice(evt, element)
 {
+	return true;
 	var flag = false;
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;            
@@ -456,7 +457,7 @@ function kindproduct(num) {
 	}
 }
 
-function calulation(cbmval, grossweight, netweight) { alert(1);
+function calulation(cbmval, grossweight, netweight) { //alert(1);
 	var cbm20 = 27;
 	var cbm54 = 54;
 	var cbm72 = 72;	
@@ -560,9 +561,9 @@ function calulation(cbmval, grossweight, netweight) { alert(1);
 
 	$(document).ready(function() {
 		$('body').on('keyup', '.cbm', function(event) {
-			alert('1st po');
-			if(validPrice(event, this) == true) {alert('2st po');
-				setTimeout(function() {alert('3st po');
+			//alert('1st po');
+			if(validPrice(event, this) == true) {//alert('2st po');
+				setTimeout(function() {//alert('3st po');
 					
 					calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 				}, 10);
