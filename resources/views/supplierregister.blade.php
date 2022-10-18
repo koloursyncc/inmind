@@ -20,7 +20,7 @@ $suppliertype = array(
 	3 => 'Shipping',
 	4 => 'Transport',
 	5 => 'W/H and Lessor',
-	6 => 'Packaging<',
+	6 => 'Packaging',
 );
 $disabledfield = '';
 $supplier_name = '';

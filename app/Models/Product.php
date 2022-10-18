@@ -13,6 +13,7 @@ class Product extends Model
 		'name',
 		'code',
 		'brand_id',
+		'parent_product_id',
 		'main_image_id',
 		'color',
 		'barcode',

@@ -6,14 +6,20 @@
 .mt-10{
 	margin-top: 10px;
 }	
+.select2-container .select2-selection--single {
+	width:400px;
+}
+.select2-dropdown--below {
+	width:400px !important;
+}
 </style>
 <?php
-$brands = array(
+/* $brands = array(
 	1 => 'Metha',
 	2 => 'Inmind',
 	3 => 'Inmind',
 	4 => 'Inmind',
-);
+); */
 
 $kindProducts = array(
 	1 => 'Basin',
@@ -171,7 +177,7 @@ if($type == 'view') {
 										<label class="form-label">Brand Name</label>
 										<select class="single-select brand_id" id="" name="brand_id" {{ $disabledrow }}>
 											<?php foreach($brands as $brandKey => $brandObj) { ?>
-												<option value="{{ $brandKey }}" <?php if($product_brand_id == $brandKey) { echo 'selected'; } ?>>{{ $brandObj }}</option>
+												<option value="{{ $brandObj->id }}" <?php if($product_brand_id == $brandObj->id) { echo 'selected'; } ?>>{{ $brandObj->name }}</option>
 											<?php } ?>
 										</select>
 									</div>
@@ -180,15 +186,49 @@ if($type == 'view') {
 									<label for="inputPrice" class="form-label">Product Name</label>
 									<input type="text" class="form-control name" name="name" id="inputPrice" placeholder="Enter product name" {{ $disabledrow }} value="{{ $product_name }}">
 								  </div>
-								 
+								 <?php 
+									/* $colors = [
+										'White' => 'White',
+										'Brown' => 'Brown',
+										'Blue' => 'Blue',
+										'Green' => 'Green',
+										'Yellow' => 'Yellow',
+										'Pink' => 'Pink',
+										'Gray' => 'Gray',
+										'Rosewood' => 'Rosewood'
+									]; */
+								 ?>
 								  <div class="col-md-12">
 									<label for="inputCostPerPrice" class="form-label">Color</label>
-									<input type="text" class="form-control color" name="color" id="inputCostPerPrice"  {{ $disabledrow }} value="{{ $product_color }}">
+									
+									<select id="colorsearch" class="single-select color" id="" name="color" {{ $disabledrow }}>
+											<?php 
+											if($type != 'save') {
+											foreach($colors as $colorsk => $colorsv) { ?>
+												<option value="{{ $colorsv->name }}" <?php if($product_color == $colorsv->name) { echo 'selected'; } ?>>{{ $colorsv->name }}</option>
+											<?php } } ?>
+										</select>
 								  </div>
 								  <div class="col-md-12">
 									<label for="inputStarPoints" class="form-label">Product Code</label>
 									<input type="text" class="form-control code" name="code" id="inputStarPoints"  {{ $disabledrow }} value="{{ $product_code }}">
 								  </div>
+								  
+								  <?php 
+								  $parent_product_set = 'd-none';
+								  if(@$product->type == 2) { 
+									 $parent_product_set = '';
+								  } ?>
+								  
+									<div class="col-md-12 {{ $parent_product_set }} parent_product_set" {{ $disabledrow }}>
+										<label for="inputPrice" class="form-label ">Select Product</label>
+										<select class="form-control parent_product_id" name="parent_product_id">
+											<option value="">Select Product</option>
+											<?php foreach($products as $productObj) { ?>
+												<option value="{{ $productObj->id }}" <?php if(@$product->parent_product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->name }}</option>
+											<?php } ?>
+										</select>
+									</div>
 								  
 									<div class="product_in_set_input_group">
 										<?php foreach($product_set as $product_setkey => $product_setObj) {
@@ -219,7 +259,7 @@ if($type == 'view') {
 								  <div class="col-12">
 									  <div class="d-grid generatecodecontainer">
 											<?php if($product_barcode) {
-												echo '<a id="download_barcode" download="barcode.png" href="'.$product_barcode.'" target="_blank"><img style="width:407px;" src="'.$product_barcode.'"></a>';
+												echo '<a id="download_barcode" download="barcode.png" href="'.$product_barcode.'" target="_blank"><img style="width:407px;" src="'.$product_barcode.'"></a><span style="text-align:center;font-size:20px">'.$product_code.'</span>';
 												echo '<input type="hidden" name="barcode" value="'.$product_barcode.'" />';
 											} ?>
 											<?php //$generator = new Picqer\Barcode\BarcodeGeneratorHTML();
@@ -287,7 +327,7 @@ if($type == 'view') {
 														<input type="text" {{ $disabledrow }} class="form-control gross_kg" value="{{ $product_gross_kg }}" name="gross_kg" id="inputPrice" placeholder="weight">
 													</div>
 													<div class="col-md-4">
-														<label for="inputCostPerPrice" class="form-label">CBM</label>
+														<label for="inputCostPerPrice" class="form-label">CBM (Meter)</label>
 														<input type="text" {{ $disabledrow }} class="form-control cbm" value="{{ $product_cbm }}" name="cbm" id="inputCostPerPrice" placeholder="">
 													</div>
 												
@@ -392,6 +432,7 @@ if($type == 'view') {
 	<!-- Bootstrap JS -->
    @include('layout.jsfile')
 	
+	
 </body>
 
 </html>
@@ -399,6 +440,7 @@ if($type == 'view') {
 <div style="display:none">
 	<div class="kind_of_product_clone">
 		<div class="row clonedata">
+			
 			<div class="md-3">
 				<label for="inputPrice" class="form-label kind_of_product_label"></label>
 				<select class="form-control kind_of_product">
@@ -560,6 +602,28 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 }
 
 	$(document).ready(function() {
+		
+		$("#colorsearch").select2({
+			'minimumInputLength': 1,
+			ajax: {
+				url: "{{url('searchcolor')}}",
+				type: "get",
+				dataType: 'json',
+				delay: 250,
+				data: function (params) {
+					return {
+						searchTerm: params.term // search term
+					};
+				},
+				processResults: function (response) {
+					return {
+						results: response
+					};
+				},
+				cache: true
+			}
+		});
+		
 		$('body').on('keyup', '.cbm', function(event) {
 			//alert('1st po');
 			if(validPrice(event, this) == true) {//alert('2st po');
@@ -596,11 +660,13 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 		$('body').on('change', '.typeval', function() {
 			var value = $(this).val();
 			$('.product_in_set_input').addClass('d-none');
-			$('.product_in_set').val(1);
+			$('.product_in_set').val(2);
 			$('.product_in_set_input_group').html('');
+			$('.parent_product_set').addClass('d-none');
 			if(value == 2)
 			{
-				kindproduct(1);
+				$('.parent_product_set').removeClass('d-none');
+				kindproduct(2);
 				$('.product_in_set_input').removeClass('d-none');
 			}
 		});
@@ -678,7 +744,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 				cache: false,
 				success : function(response) {
 					if(response.status == 'success') {
-						$('.generatecodecontainer').html('<a id="download_barcode" download="barcode.png" href="'+response.generate+'" target="_blank"><img style="width:407px" src="'+response.generate+'" download="output.png" /></a><input type="hidden" name="barcode" value="'+response.generate+'" />');
+						$('.generatecodecontainer').html('<a id="download_barcode" download="barcode.png" href="'+response.generate+'" target="_blank"><img style="width:407px" src="'+response.generate+'" download="output.png" /></a><span style="text-align:center;font-size:20px">'+response.code+'</span><input type="hidden" name="barcode" value="'+response.generate+'" />');
 						
 						$('.download-barcode-btn').removeAttr('d-none');
 						

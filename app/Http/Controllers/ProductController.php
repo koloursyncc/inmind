@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Color;
 use App\Components\ProductManager;
 use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
@@ -81,13 +82,41 @@ class ProductController extends Controller
 		
 		//$generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
 		$barCode = new \Picqer\Barcode\BarcodeGeneratorPNG();
-		$barCode = $barCode->getBarcode($request->name.$request->code.$request->brand_id, $barCode::TYPE_CODE_128);
+		$barCode = $barCode->getBarcode($request->code, $barCode::TYPE_CODE_128);
 		
 		//print_r(base64_encode($barCode)); die;
 		$generate = ''; //json_encode('<img src="data:image/png;base64,{{ base64_encode('.$barCode.')) }}">');
 		$base64 = 'data:image/png;base64,' . base64_encode($barCode);
 		
-		return response()->json(array('status'=>'success', 'generate' => $base64, 'data' => base64_encode($barCode)));
+		return response()->json(array('status'=>'success', 'code' => $request->code, 'generate' => $base64, 'data' => base64_encode($barCode)));
+	}
+	
+	private function validFile($request, &$msg)
+	{
+		$index = 0;
+		$largefile =  false;
+		if($request->hasFile('images')) 
+		{
+			$images = $request->file('images');
+			foreach($images as $file)
+			{
+				if($file->getSize() > 2048) {
+					$largefile = true;
+				}
+				$index++;
+			}
+		}
+		
+		if($index > 5)
+		{
+			$msg = 'Upload max 5 photo';
+			return false;
+		} else if($largefile == true)
+		{
+			$msg = 'File not exceed 2 MB';
+			return false;
+		}
+		return true;
 	}
 	
 	public function save(Request $request)
@@ -102,7 +131,7 @@ class ProductController extends Controller
 
 				$rules = array(
 					'name' => 'required',
-					'code' => 'required',
+					'code' => 'required|unique:products',
 					'brand_id' => 'required',
 					'color' => 'required',
 					'type'=> 'required',
@@ -114,7 +143,21 @@ class ProductController extends Controller
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
-
+				
+				$msg = '';
+				$isValidFile = $this->validFile($request, $msg);
+				
+				if($isValidFile == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
+				}
+				
+				$count = Color::where('name', $request->color)->count();
+				if($count == 0)
+				{
+					Color::create(['name' => $request->color]);
+				}
+				
 				$data = $request->except(['_token']);
 				//print_r($data); die;
 				$productManager = ProductManager::getInstance();
@@ -199,6 +242,16 @@ class ProductController extends Controller
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
+				
+				
+				
+				$msg = '';
+				$isValidFile = $this->validFile($request, $msg);
+				
+				if($isValidFile == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
+				}
 
 				//$data = $request->except(['_token', 'product_id']);
 				//print_r($data); die;
@@ -206,10 +259,22 @@ class ProductController extends Controller
 				
 				$lastInsertId = $request->product_id;
 				
+				$pObj = Product::where('code', $request->code)->where('id', '!=' , $lastInsertId)->first();
+				if($pObj)
+				{
+					return response()->json(array('status'=>'error', 'error' => 'Code already use'));
+				}
+				$count = Color::where('name', $request->color)->count();
+				if($count == 0)
+				{
+					Color::create(['name' => $request->color]);
+				}
+				
 				$data = [
 					'name' => $request->name,
 					'code' => $request->code,
 					'brand_id' => $request->brand_id,
+					'parent_product_id' => $request->parent_product_id,
 					'color' => $request->color,
 					'barcode' => $request->barcode,
 					'type' => $request->type,
@@ -437,5 +502,27 @@ class ProductController extends Controller
 
 		 echo json_encode($response);
 		 exit;
+	}
+	
+	public function searchcolor(Request $request)
+	{
+		$search = $request->searchTerm;
+		
+		$data = Color::where('name', 'like', '%' .$search . '%')->limit(5)->get();
+		
+		$response = array();
+		$response[] = array(
+			"id"=>$search,
+			"text"=>$search
+		);
+		
+		foreach($data as $dataobj){
+			$response[] = array(
+				"id"=>$dataobj->name,
+				"text"=>$dataobj->name
+			);
+		}
+		
+		return response()->json($response);
 	}
 }

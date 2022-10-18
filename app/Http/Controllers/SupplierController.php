@@ -202,7 +202,7 @@ class SupplierController extends Controller
 	{
 		$supplierManager = SupplierManager::getInstance();
 		
-		$supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
+		//$supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
 		
 		foreach($request->product_id as $key => $productid)
 		{
@@ -211,11 +211,31 @@ class SupplierController extends Controller
 			{
 				$unit_price = $request->unit_price[$key];
 			}
+			
 			$supplierManager->saveProductSupplier([
 				'product_id' => $productid,
 				'unit_price' => $unit_price,
-				'supplier_id' => $lastInsertId
+				'supplier_id' => $lastInsertId,
+				'supplier_type' => $request->supplier_type,
 			]);
+			
+			/* if($key > 0)
+			{
+				SupplierProduct::where('id', $key)->update([
+					'product_id' => $productid,
+					'unit_price' => $unit_price,
+					'supplier_id' => $lastInsertId,
+					'supplier_type' => $request->supplier_type,
+				]);
+			} else {
+				$supplierManager->saveProductSupplier([
+					'product_id' => $productid,
+					'unit_price' => $unit_price,
+					'supplier_id' => $lastInsertId,
+					'supplier_type' => $request->supplier_type,
+				]);
+			} */
+			
 		}
 	}
 	

@@ -17,14 +17,24 @@
 							<div class="card-body">
 								<div class="border p-4 rounded">
 									<div class="text-center">
-										<h3 class="">Sign in</h3>
+										<h3 class="">Forgot Password</h3>
 										
 									</div>
 									
-									
+									@if ($message = Session::get('success'))
+
+									<div class="alert alert-success alert-block">
+
+										<button type="button" class="close" data-dismiss="alert">×</button>    
+
+										<strong>{{ $message }}</strong>
+
+									</div>
+
+									@endif
 									<div class="form-body">
-										<form method="POST" action="{{ route('login') }}">
-                        @csrf
+										<form method="POST" action="{{ url('password/email') }}">
+											@csrf
 											<div class="col-12">
 												<label for="inputEmailAddress" class="form-label">Email Address</label>
 												<!--<input type="email" class="form-control" id="inputEmailAddress" placeholder="Email Address">-->
@@ -36,31 +46,11 @@
 													</span>
 												@enderror
 											</div>
-											<div class="col-12">
-												<label for="inputChoosePassword" class="form-label">Enter Password</label>
-												<div class="input-group" id="show_hide_password">
-												<!--<input type="password" class="form-control border-end-0" id="inputChoosePassword" value="12345678" placeholder="Enter Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>-->
-													<input id="password" type="password" class="form-control @error('password') is-invalid @enderror border-end-0" name="password" required autocomplete="current-password">
-													<a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-													@error('password')
-														<span class="invalid-feedback" role="alert">
-															<strong>{{ $message }}</strong>
-														</span>
-													@enderror
-												
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-check form-switch">
-													<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-													<label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
-												</div>
-											</div>
-											<div class="col-md-6 text-end">	<a href="{{ url('passwordreset') }}">Forgot Password ?</a>
-											</div>
+											<br>
+											
 											<div class="col-12">
 												<div class="d-grid">
-													<button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>{{ __('Login') }}</button>
+													<button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>{{ __('Submit') }}</button>
 												</div>
 											</div>
 

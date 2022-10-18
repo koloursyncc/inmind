@@ -2,7 +2,9 @@
 
 namespace App\Components;
 use App\Models\Price;
+use App\Models\Product;
 use App\Components\RegionManager;
+use App\Components\ProductManager;
 class PriceManager
 {
 	public static $_instance;
@@ -49,9 +51,11 @@ class PriceManager
 	public function priceHandleById($id = null, $type, $heading)
 	{
 		$regionManager = RegionManager::getInstance();
+		$productManager = ProductManager::getInstance();
 		$countries = $regionManager->countryList();
+		$products = $productManager->getProducts();
 		
-		$response = ['obj' => null, 'countries' => $countries];
+		$response = ['obj' => null, 'countries' => $countries, 'products' => $products, 'type' => $type];
 		if($id == null)
 		{
 			return $response;

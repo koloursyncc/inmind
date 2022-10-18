@@ -27,6 +27,20 @@
     margin-right: 0.2rem;
     cursor: pointer;
   </style>
+  
+<?php
+$form = 'pricesave';
+$disabledrow = '';
+if($type == 'save')
+{
+	
+} else if($type == 'view') {
+	$disabledrow = 'disabled';
+} else if($type != 'update') {
+	$form = 'priceupdate';
+}
+?>
+  
   <body>
     <!--wrapper-->
     <div class="wrapper">
@@ -60,45 +74,55 @@
               </h5>
               <hr/>
               <div class="form-body mt-4">
-                <form id="" class="fromid ">
+                <form id="priceform" class="fromid " data-url="{{ url($form) }}">
+					@csrf
+								
+					<?php if($type =='edit') { ?>
+						<input type="hidden" name="price_id" value="{{ @$obj->id }}">
+					<?php } ?>
                   <div class="row">
                     <div class="col-lg-5">
                       <div class="border border-3 p-4 rounded">
                            <div class="col-md-12">
                               <label class="form-label">Product</label>
-                                 <select class="single-select">
-                                    <option value="United States">Select Product</option>
-                                    <option value="United Kingdom">United Kingdom</option>
-                                    <option value="Afghanistan">Afghanistan</option>
-                                    <option value="Aland Islands">Aland Islands</option>
-                                    <option value="Albania">Albania</option>
+                                 <select class="single-select product_id" name="product_id">
+									<option value="">Select Product</option>
+									<?php foreach($products as $productObj) { ?>
+										<option value="{{ $productObj->id }}">{{ $productObj->name }}</option>
+									<?php } ?>
                                  </select>
                               </div>
                               <div class="col-md-12 mt-10">
                               <label class="form-label">Product code</label>
-                                 <select class="single-select">
+									<select class="single-select product_code" name="product_code">
+										<option value="">Select Code</option>
+										<?php foreach($products as $productObj) { ?>
+											<option value="{{ $productObj->id }}">{{ $productObj->code }}</option>
+										<?php } ?>
+									</select>
+                                 <!--
                                     <option value="United States">Select Product code</option>
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Afghanistan">Afghanistan</option>
                                     <option value="Aland Islands">Aland Islands</option>
                                     <option value="Albania">Albania</option>
-                                 </select>
+                                 -->
                               </div>
-                        <div class="row">
+                        <div class="row d-none product_detail">
                           <div class="col-md-12 mt-10">
                             <label for="inputCostPerPrice" class="form-label">Color
                             </label>
-                           <p>Red</p>
+                           <p class="product_color"></p>
                           </div>
                           <div class="col-md-12 mt-10">
                             <label for="inputStarPoints" class="form-label">Total Cost
                             </label>
-                            <p>20 THB/Peice</p>
+                            <p class="product_cost">20 THB/Peice</p>
                           </div>
                           <div class="col-md-12 mt-10">
                             <label for="inputStarPoints" class="form-label">Product Image
                             </label>
-                           <p><img src="{{asset('img/')}}"></p>
+                           <p ><img src="{{asset('img/')}}"></p>
                           </div>
                         </div> 
                       </div>
@@ -110,154 +134,61 @@
                            <label class="form-check-label" id="check_label_1" for="">THB</label>
                            <label class="form-check-label" id="check_label_1" for="">Original Currency</label>
 			               </div>
-                        <div class="row">
+                        <div class="row supp_type">
+							<div class="col-md-6">	
+								
+									<label class="form-label">Manufacturer</label><br>
+									<select class="multiple-select1 multiple_select_1" name="multiple_select_1[]" data-placeholder="Choose anything" multiple="multiple">
+										
+									</select>
+								
+							</div>
+							
                           <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Manufacturer</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
+                          
+								<label class="form-label">Agent</label><br>
+								<select class="multiple-select2 multiple_select_2" name="multiple_select_2[]" data-placeholder="Choose anything" multiple="multiple">
+									
+								</select>
+							
                           </div>
+						  
                           <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Agent</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
+                          
+										<label class="form-label">Shipping</label><br>
+										<select class="multiple-select3 multiple_select_3" name="multiple_select_3[]" data-placeholder="Choose anything" multiple="multiple">
+											
 										</select>
-									</div>
+									
                           </div>
+						  
                           <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Shipping</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
+                          
+								<label class="form-label">Transport</label><br>
+								<select class="multiple-select4 multiple_select_4"  name="multiple_select_4[]" data-placeholder="Choose anything" multiple="multiple">
+									
+								</select>
+							
                           </div>
+						  
                           <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Transport</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
+                          
+								<label class="form-label">W/H Lessor</label><br>
+								<select class="multiple-select5 multiple_select_5" name="multiple_select_5[]" data-placeholder="Choose anything" multiple="multiple">
+									
+								</select>
+							
                           </div>
+						  
                           <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">W/H Lessor</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
+                         
+								<label class="form-label">Packaging & Advertise </label><br>
+								<select class="multiple-select6 multiple_select_6" name="multiple_select_6[]" data-placeholder="Choose anything" multiple="multiple">
+									
+								</select>
+							
                           </div>
-                          <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Packaging & Advertise </label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
-                          </div>
-                          <div class="col-md-6">	
-                          <div class="mb-3">
-										<label class="form-label">Labour</label>
-										<select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-											<option value="United States" selected>United States</option>
-											<option value="United Kingdom" selected>United Kingdom</option>
-											<option value="Afghanistan" selected>Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
-											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-											<option value="Argentina">Argentina</option>
-											<option value="Armenia">Armenia</option>
-										</select>
-									</div>
-                          </div>
+						  
                         </div>
                         <div class="row">
                            <h6>Retail Price</h6>
@@ -290,7 +221,7 @@
                     </div>
                   </div>
                   <!--end row-->
-                  <button class="btn sw-btn-prev" type="button">Save</button>
+                  <button class="btn sw-btn-prev" type="submit">Save</button>
                 </form>
               </div>
             </div>
@@ -300,7 +231,7 @@
       <!--end page wrapper -->
       @include('layout.footer')
       <!-- Bootstrap JS -->
-      @include('layout.jsfile')
+      @include('layout.price')
       </body>
     </html>
   <div style="display:none">
@@ -334,3 +265,118 @@
       </div>
     </div>
   </div>
+<script type="text/javascript">
+	
+	function callback(id, type)
+	{
+		$.ajax({
+			url: "{{url('price/getproductdetail')}}",
+			dataType : "json",
+			type: "get",
+			data : {'id': id, 'type': type, "_token": "{{ csrf_token() }}"},
+			success : function(response) {
+				if(response.status == 'success') {
+					$('.product_detail').removeClass('d-none');
+					$('.product_color').html(response.product.color);
+					$('.product_color');
+					$('.product_cost');
+					
+					var multiple_select_1 = $('.multiple_select_1'); 
+					multiple_select_1.empty();
+					
+					var multiple_select_2 = $('.multiple_select_2'); 
+					multiple_select_2.empty();
+					
+					var multiple_select_3 = $('.multiple_select_3'); 
+					multiple_select_3.empty();
+					
+					var multiple_select_4 = $('.multiple_select_4'); 
+					multiple_select_4.empty();
+					
+					var multiple_select_5 = $('.multiple_select_5'); 
+					multiple_select_5.empty();
+					
+					var multiple_select_6 = $('.multiple_select_6'); 
+					multiple_select_6.empty();
+					
+					var multiple_select_1_option = '<option value="">Select</option>';
+					var multiple_select_2_option = '<option value="">Select</option>';
+					var multiple_select_3_option = '<option value="">Select</option>';
+					var multiple_select_4_option = '<option value="">Select</option>';
+					var multiple_select_5_option = '<option value="">Select</option>';
+					var multiple_select_6_option = '<option value="">Select</option>';
+					$.each(response.supp, function(index, item) {
+						//alert(index);
+						$.each(item, function(i, v) {
+							//alert(v.supplier_type);
+							if(v.supplier_type == 1) {
+								multiple_select_1_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							} else if(v.supplier_type == 2) {
+								multiple_select_2_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							} else if(v.supplier_type == 3) {
+								multiple_select_3_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							} else if(v.supplier_type == 4) {
+								multiple_select_4_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							} else if(v.supplier_type == 5) {
+								multiple_select_5_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							} else if(v.supplier_type == 6) {
+								multiple_select_6_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+							}
+							
+						});
+					});
+					
+					$('.multiple_select_1').append(multiple_select_1_option);
+					$('.multiple_select_2').append(multiple_select_2_option);
+					$('.multiple_select_3').append(multiple_select_3_option);
+					$('.multiple_select_4').append(multiple_select_4_option);
+					$('.multiple_select_5').append(multiple_select_5_option);
+					$('.multiple_select_6').append(multiple_select_6_option);
+				}
+			},
+		});
+	}
+	
+	$(document).ready(function() {
+		$('body').on('submit', '#priceform', function() {
+			var url = $("meta[name=url]").attr("content");
+			$('.err_msg').remove();
+			$.ajax({
+				url: $('#priceform').attr('data-url'),
+				dataType : "json",
+				type: "post",
+				data : $('#priceform').serialize(),
+				success : function(response) {
+					
+					if(response.status == 'success') {
+						
+						alert(response.msg);
+						window.location.href = "{{url('supplierlist')}}";
+						
+					} else if(response.status == 'errors') {
+						$.each(response.errors, function(key, msg) {
+							$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+						});
+					} else if(response.status == 'error') {
+						
+						alert(response.error);
+						
+					} else if(response.status == 'exceptionError') {
+						
+					}
+				},
+			});
+			return false;
+		});
+		
+		$('body').on('change', '.product_id', function() {
+			 var id = $(this).val();
+			 callback(id, 'product');
+			
+			
+			return false;
+		 });
+	});
+	
+	
+</script>

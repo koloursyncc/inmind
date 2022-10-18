@@ -10,6 +10,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PoController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PriceController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,9 @@ Route::get('/dealerdetail/{id}', [DealerController::class, 'detail']);
 
 Route::get('/pricecreate', [PriceController::class, 'index']);
 Route::get('/pricelist', [PriceController::class, 'pricelist']);
-
+Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail']);
+Route::post('/pricesave', [PriceController::class, 'pricesave']);
+Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 Route::group(['middleware' => ['auth']], function() {
     /**
     * Logout Route
@@ -111,3 +114,6 @@ Route::get('/supplierpoview/{id}', [SupplierController::class, 'supplierpoview']
 
 Route::post('/save/customer', [DealerController::class, 'save']);
 Route::post('/update/customer', [DealerController::class, 'update']);
+
+Route::get('/passwordreset', [ResetPasswordController::class, 'resetform']);
+Route::get('searchcolor', [ProductController::class, 'searchcolor']);
