@@ -192,7 +192,7 @@ if($type == 'view') {
 										'Brown' => 'Brown',
 										'Blue' => 'Blue',
 										'Green' => 'Green',
-										'Yellow' => 'Yellow',
+										'Yellow' => 'Yellow', 
 										'Pink' => 'Pink',
 										'Gray' => 'Gray',
 										'Rosewood' => 'Rosewood'
