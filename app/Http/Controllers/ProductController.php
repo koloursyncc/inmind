@@ -149,7 +149,7 @@ class ProductController extends Controller
 				
 				if($isValidFile == false)
 				{
-					return response()->json(array('status'=>'error', 'error' => $msg));
+					return response()->json(array('status'=>'single_error', 'target' => 'file', 'error' => $msg));
 				}
 				
 				$count = Color::where('name', $request->color)->count();
@@ -250,7 +250,8 @@ class ProductController extends Controller
 				
 				if($isValidFile == false)
 				{
-					return response()->json(array('status'=>'error', 'error' => $msg));
+					//return response()->json(array('status'=>'error', 'error' => $msg));
+					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-container', 'error' => $msg));
 				}
 
 				//$data = $request->except(['_token', 'product_id']);
@@ -428,12 +429,15 @@ class ProductController extends Controller
 		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
+
 		 $records = Product::select('*') //orderBy($columnName,$columnSortOrder)
 		 //  ->orderBy('id', 'Desc')
 		   ->skip($start)
 		   ->take($rowperpage);
-			if($columnName == 'id') {
-			   $records->orderBy($columnName,$columnSortOrder);
+			if($columnName == 'product_name') {
+			   $records->orderBy('name',$columnSortOrder);
+			} else if($columnName == 'product_code') {
+			   $records->orderBy('code',$columnSortOrder);
 			}
 			if($searchValue != null) {
 				$records->where('name', 'like', '%' .$searchValue . '%');
@@ -472,7 +476,7 @@ class ProductController extends Controller
 			
 			$img = Image::where('product_id', $record->id)->first();
 			
-			$main_img = '<img src="{{asset("assets/images/products/02.png")}}">';
+			$main_img = '';
 			if($img)
 			{
 				$ig = asset("images/products/".$record->id."/".$img->name."");

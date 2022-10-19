@@ -773,7 +773,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 					success : function(response) {
 						$('.saveproduct').removeAttr('disabled');
 						$('.saveproduct').html('Create Product');
-				
+						$('.updateproduct').html('Update Product');
 						if(response.status == 'success') {
 							
 							alert(response.msg);
@@ -783,6 +783,10 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 							$.each(response.errors, function(key, msg) {
 								$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
 							});
+						} else if(response.status == 'single_error') {
+							
+							$(response.target).after('<span class="err_msg" style="color:red">'+response.msg+'</span>');
+							
 						} else if(response.status == 'error') {
 							
 							alert(response.error);
@@ -824,6 +828,10 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 						} else if(response.status == 'error') {
 							
 							alert(response.error);
+							
+						} else if(response.status == 'single_error') {
+							
+							$(response.target).after('<span class="err_msg" style="color:red">'+response.msg+'</span>');
 							
 						} else if(response.status == 'exceptionError') {
 							

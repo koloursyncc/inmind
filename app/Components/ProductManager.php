@@ -40,7 +40,7 @@ class ProductManager
 	
 	public function getProductById($id, $status = 1)
 	{
-		return Product::where('status', $status)->find($id);
+		return Product::find($id); //where('status', $status)->
 	}
 	
 	public function getProducts($status = 1)
@@ -139,6 +139,7 @@ class ProductManager
 		
 		return [
 			'status' => 'success',
+			'code' => $productObj->code,
 			'supp' => $supplieProducts,
 			'product' => $productObj
 		];

@@ -94,7 +94,7 @@ if($type == 'save')
                               </div>
                               <div class="col-md-12 mt-10">
                               <label class="form-label">Product code</label>
-									<select class="single-select product_code" name="product_code">
+									<select class="single-select product_code" name="product_code" id="select_element">
 										<option value="">Select Code</option>
 										<?php foreach($products as $productObj) { ?>
 											<option value="{{ $productObj->id }}">{{ $productObj->code }}</option>
@@ -332,6 +332,14 @@ if($type == 'save')
 					$('.multiple_select_4').append(multiple_select_4_option);
 					$('.multiple_select_5').append(multiple_select_5_option);
 					$('.multiple_select_6').append(multiple_select_6_option);
+					
+					$('#select_element').val(response.product.id).change();
+
+					/* if(response.product_code == '')
+					{
+						
+					} */
+					
 				}
 			},
 		});
@@ -370,12 +378,20 @@ if($type == 'save')
 		});
 		
 		$('body').on('change', '.product_id', function() {
-			 var id = $(this).val();
-			 callback(id, 'product');
+			var id = $(this).val();
+			callback(id, 'product');
 			
 			
 			return false;
 		 });
+		 
+		 $('body').on('change', '.product_code', function() {
+			var id = $(this).val();
+			callback(id, 'code');
+			
+			return false;
+		 });
+		 
 	});
 	
 	

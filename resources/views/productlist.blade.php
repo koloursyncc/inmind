@@ -38,7 +38,7 @@
 							<table class="table mb-0"  id="dataTable">
 								<thead class="table-light">
 									<tr>
-										<th>Sr. No.</th>
+										<th>No.</th>
 										<th>Image</th>
 										<th>Product Name</th>
 										<th>Product Code</th>
@@ -93,8 +93,8 @@ var table = $('#dataTable').DataTable({
 				columns: [
 					{ data: 'id', orderable: false},
 					{ data: 'main_img', orderable: false},
-					{ data: 'product_name', orderable: false},
-					{ data: 'product_code', orderable: false},
+					{ data: 'product_name', orderable: true},
+					{ data: 'product_code', orderable: true},
 					{ data: 'detail', orderable: false},
 					{ data: 'action', orderable: false}
 					
