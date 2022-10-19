@@ -100,7 +100,8 @@ class ProductController extends Controller
 			$images = $request->file('images');
 			foreach($images as $file)
 			{
-				if($file->getSize() > 2048) {
+				
+				if($file->getSize() > 2097152) {
 					$largefile = true;
 				}
 				$index++;
@@ -149,7 +150,7 @@ class ProductController extends Controller
 				
 				if($isValidFile == false)
 				{
-					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-container', 'error' => $msg));
+					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-images-list', 'error' => $msg));
 				}
 				
 				$count = Color::where('name', $request->color)->count();
@@ -251,7 +252,7 @@ class ProductController extends Controller
 				if($isValidFile == false)
 				{
 					//return response()->json(array('status'=>'error', 'error' => $msg));
-					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-container', 'error' => $msg)); 
+					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-images-list', 'error' => $msg)); 
 				}
 
 				//$data = $request->except(['_token', 'product_id']);

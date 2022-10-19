@@ -840,7 +840,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 							alert(response.error);
 							
 						} else if(response.status == 'single_error') {
-							
+							$('.err_msg').remove();
 							$(response.target).after('<span class="err_msg" style="color:red">'+response.msg+'</span>');
 							
 						} else if(response.status == 'exceptionError') {
