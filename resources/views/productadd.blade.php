@@ -507,9 +507,19 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 	var contain40 = $('.contain_1_40');
 	var contain40hq = $('.hq_1_40_contain');
 	
-	contain20.val(Math.ceil(cbm20*cbmval));
-	contain40.val(Math.ceil(cbm54*cbmval));
-	contain40hq.val(Math.ceil(cbm72*cbmval));
+	if(Math.round(cbm20 / cbmval) !== Infinity) {
+		contain20.val(Math.round(cbm20 / cbmval));
+	}
+	
+	if(Math.round(cbm54 / cbmval) !== Infinity) {
+		contain40.val(Math.round(cbm54 / cbmval));
+	}
+	
+	if(Math.round(cbm72 / cbmval) !== Infinity) {
+		contain40hq.val(Math.round(cbm72 / cbmval));
+	}
+	
+	
 	
 	if($('.contain_1_20').val() != '') {
 		

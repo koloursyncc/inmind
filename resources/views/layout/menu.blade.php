@@ -202,7 +202,7 @@
 					  <ul class="dropdown-menu">
                       <li> <a class="dropdown-item" href="{{asset('productadd')}}"><i class="bx bx-right-arrow-alt"></i>Add New Products</a>
 						</li>
-						<li> <a class="dropdown-item" href="{{asset('productlist')}}"><i class="bx bx-right-arrow-alt"></i>Products</a>
+						<li> <a class="dropdown-item" href="{{asset('productlist')}}"><i class="bx bx-right-arrow-alt"></i>Products Search</a>
 						</li>
 						
 						</ul>
