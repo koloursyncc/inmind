@@ -149,7 +149,7 @@ class ProductController extends Controller
 				
 				if($isValidFile == false)
 				{
-					return response()->json(array('status'=>'single_error', 'target' => '.imageuploadify-container', 'error' => $msg));
+					return response()->json(array('status'=>'single_error', 'msg' => $msg, 'target' => '.imageuploadify-container', 'error' => $msg));
 				}
 				
 				$count = Color::where('name', $request->color)->count();
