@@ -175,7 +175,7 @@ if($type == 'view')
 																<input type="text"value="{{ $sub_district }}" class="form-control sub_district" name="sub_district" id="inputEmailAddress" {{ $disabledfield }} placeholder="">
 															</div>
 															<div class="col-sm-4">
-																<label for="inputEmailAddress" class="form-label">  District</label>
+																<label for="inputEmailAddress" class="form-label">  District / City</label>
 																<input type="text"value="{{ $district }}" class="form-control district" name="district" id="inputEmailAddress" {{ $disabledfield }} placeholder="">
 															</div>
 															<div class="col-sm-4">
@@ -199,7 +199,7 @@ if($type == 'view')
 															</div> 
 															
 															<div class="col-sm-4">
-																<label for="inputEmailAddress" class="form-label">State <span>*</span></label>
+																<label for="inputEmailAddress" class="form-label">State / Province<span>*</span></label>
 																<select class="form-select state_id" name="state_id" id="inputSelectCountry" {{ $disabledfield }} aria-label="Default select example">
 																	<option value="">Select State</option>
 																</select>

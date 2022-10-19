@@ -389,13 +389,16 @@ if($type == 'view') {
 														<input type="text" {{ $disabledrow }} class="form-control hq_1_40_net_gross_weight" name="hq_1_40_net_gross_weight" id="inputStarPoints" value="{{ $product_hq_1_40_net_gross_weight }}" readonly >
 													</div>
 								                </div>	
-							
+								<div class="row ">
 								<?php foreach($images as $imageObj) { ?>
+								<div class="col-md-4 py-4">
 									<div id="image_row_{{ $imageObj->id }}">
-									<img  src="{{ asset('images/products/'.$imageObj->product_id.'/'.$imageObj->name) }}" width="140" />
-									<a href="#" class="removeimg" data-id="{{ $imageObj->id }}">Remove</a>
+										<img  src="{{ asset('images/products/'.$imageObj->product_id.'/'.$imageObj->name) }}" width="140" />
+										<p><a href="#" class="removeimg" data-id="{{ $imageObj->id }}">Remove</a></p>
+									</div>
 									</div>
 								<?php } ?>
+								</div>
 							<?php if($type != 'view')  { ?>
 							  <div class="mb-3 mt-10 " >
 								<label for="inputProductDescription" class="form-label">Product Images</label>
