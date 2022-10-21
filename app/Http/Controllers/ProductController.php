@@ -516,10 +516,18 @@ class ProductController extends Controller
 		$data = Color::where('name', 'like', '%' .$search . '%')->limit(5)->get();
 		
 		$response = array();
-		$response[] = array(
-			"id"=>$search,
-			"text"=>$search
-		);
+		$vals = [];
+		foreach($data as $dataobj){
+			$vals[] = strtoupper($dataobj->name);
+		}
+		
+		if (!in_array(strtoupper($search), $vals))
+		{
+			$response[] = array(
+				"id"=>$search,
+				"text"=>$search
+			);
+		}
 		
 		foreach($data as $dataobj){
 			$response[] = array(

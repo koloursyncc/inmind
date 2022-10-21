@@ -328,7 +328,7 @@ if($type == 'view') {
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">CBM (Meter)</label>
-														<input type="text" {{ $disabledrow }} class="form-control cbm" value="{{ $product_cbm }}" name="cbm" id="inputCostPerPrice" placeholder="">
+														<input type="text"  class="form-control cbm" value="{{ $product_cbm }}" name="cbm" id="inputCostPerPrice" placeholder="" disabled1>
 													</div>
 												
 								            </div> 
@@ -646,6 +646,36 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 				}, 10);
 				
 			}
+		});
+		
+		$('body').on('keyup', '.package_width', function(event) {
+			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			$('.package_depth').val();
+			$('.package_height').val();
+			
+			$('.cbm').val(multi/1000);
+			
+			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
+		});
+		
+		$('body').on('keyup', '.package_depth', function(event) {
+			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			$('.package_depth').val();
+			$('.package_height').val();
+			
+			$('.cbm').val(multi/1000);
+			
+			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
+		});
+		
+		$('body').on('keyup', '.package_height', function(event) {
+			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			$('.package_depth').val();
+			$('.package_height').val();
+			
+			$('.cbm').val(multi/1000);
+			
+			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
 		
 		$('body').on('keyup', '.gross_kg', function(event) {
