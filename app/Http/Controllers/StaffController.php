@@ -882,11 +882,13 @@ class StaffController extends Controller
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
 		 $records = Staff::select('*') //orderBy($columnName,$columnSortOrder)
-		 //  ->orderBy('id', 'Desc')
+		 //  
 		   ->skip($start)
 		   ->take($rowperpage);
 			if($columnName == 'id') {
 			   $records->orderBy($columnName,$columnSortOrder);
+			} else {
+				$records->orderBy('id', 'Desc');
 			}
 			if($searchValue != null) {
 				$records->where('name', 'like', '%' .$searchValue . '%');

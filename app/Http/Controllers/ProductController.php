@@ -91,7 +91,7 @@ class ProductController extends Controller
 		return response()->json(array('status'=>'success', 'code' => $request->code, 'generate' => $base64, 'data' => base64_encode($barCode)));
 	}
 	
-	private function validFile($request, &$msg)
+	private function validFile($request, &$msg, $isUpdate = true)
 	{
 		$index = 0;
 		$largefile =  false;
@@ -110,8 +110,11 @@ class ProductController extends Controller
 		
 		if($index == 0)
 		{
-			$msg = 'Please select photo';
-			return false;
+			if($isUpdate == false) {
+				$msg = 'Please select photo';
+				return false;
+			}
+			
 		} else if($index > 5)
 		{
 			$msg = 'Upload max 5 photo';
@@ -150,7 +153,7 @@ class ProductController extends Controller
 				}
 				
 				$msg = '';
-				$isValidFile = $this->validFile($request, $msg);
+				$isValidFile = $this->validFile($request, $msg, false);
 				
 				if($isValidFile == false)
 				{
@@ -447,6 +450,8 @@ class ProductController extends Controller
 			if($searchValue != null) {
 				$records->where('name', 'like', '%' .$searchValue . '%');
 				//$records->where('supplier', 'like', '%' .$searchValue . '%');
+			} else {
+				$records->orderBy('id', 'Desc');
 			}
 		
 		$list = $records->get();

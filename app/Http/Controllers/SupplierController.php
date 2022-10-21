@@ -428,11 +428,13 @@ class SupplierController extends Controller
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
 		 $records = Supplier::select('*') //orderBy($columnName,$columnSortOrder)
-		 //  ->orderBy('id', 'Desc')
+		 // 
 		   ->skip($start)
 		   ->take($rowperpage);
 			if($columnName == 'id') {
 			   $records->orderBy($columnName,$columnSortOrder);
+			} else {
+				$records->orderBy('id', 'Desc');
 			}
 			if($searchValue != null) {
 				//$records->where('product_name', 'like', '%' .$searchValue . '%');
