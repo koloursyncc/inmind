@@ -310,6 +310,9 @@ if($type == 'view')
 																<label for="inputEmailAddress"  {{ $disabledfield }} class="form-label">  Beneficiary Address</label>
 																<textarea type="text" value="{{ $beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" id="inputEmailAddress" {{ $disabledfield }}>{{ $beneficiary_address }}</textarea>
 															</div> 
+															
+															<h3>Trade Condition</h3>
+															
 															<div class="col-sm-4">
 																<label for="inputFirstName" class="form-label">Currency</label>
 																<select class="form-select currency" {{ $disabledfield }} name="currency" id="inputSelectCountry" aria-label="Default select example">
@@ -387,8 +390,13 @@ if($type == 'view')
 				<?php foreach($installment as $installmentValueKey => $installmentValue) { ?>
 				<option value="{{ $installmentValueKey }}">{{ $installmentValue }}</option>
 				<?php } ?>
-			</select>
+			</select> 
 		</div>
+		
+		<div class="col-sm-4 rmv" style="display:flex;align-items:flex-end">
+		<span class="installment_container_clone_remove" style="cursor:pointer">Remove</span>
+		</div>
+		
 	</div>
 </div>
 
@@ -435,7 +443,7 @@ function dependdropdown(val, target, name) {
 	});
 }
 
-function addinstall()
+function addinstall(pos)
 {
 	var clone = $('.installment_container_clone', $('.installment_container_d_none')).clone();
 			
@@ -451,11 +459,21 @@ function addinstall()
 	$('.installment_2', clone).attr('name', 'installment_2['+total+']');
 	$('.installment_lavel_2', clone).html('Installment '+html);
 	
+	if(pos == 0) {
+		$('.rmv', clone).addClass('d-none');
+	}
+	
 	$('.installment_container').append(clone);
+	
 	$('.installment_container_d_none').attr('data-counter', total);
 }
 
 $(document).ready(function() {
+	
+	$('body').on('click', '.installment_container_clone_remove ', function() {
+		$(this).closest(".installment_container_clone").remove();
+		return false;
+	});
 	
 	$('body').on('change', '.product_id ', function() {
 		var val = $(this).val();
@@ -481,10 +499,11 @@ $(document).ready(function() {
 	});
 	
 	<?php if($type != 'view') { ?>
-		addinstall();
+		addinstall(0);
 		<?php } ?>
 		$('body').on('click', '#addoninstall', function() {
-			addinstall();
+			addinstall(1);
+			return false;
 		});
 	
 	

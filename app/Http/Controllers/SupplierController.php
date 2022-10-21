@@ -152,6 +152,9 @@ class SupplierController extends Controller
 							'city_id' => 'required',
 							'name' => 'required',
 							'mobile' => 'required',
+							'currency' => 'required',
+							'incoterm' => 'required',
+							'delivery_destination' => 'required'
 						);
 				
 				$validator = Validator::make($data, $rules, $message);
@@ -296,6 +299,9 @@ class SupplierController extends Controller
 					'city_id' => 'required',
 					'name' => 'required',
 					'mobile' => 'required',
+					'currency' => 'required',
+					'incoterm' => 'required',
+					'delivery_destination' => 'required'
 				);
 				
 				$validator = Validator::make($data, $rules, $message);
