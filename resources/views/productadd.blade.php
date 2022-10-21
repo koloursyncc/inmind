@@ -257,7 +257,7 @@ if($type == 'view') {
 								  </div>
 								  <?php } ?>
 								  <div class="col-12">
-									  <div class="d-grid generatecodecontainer">
+									  <div class="d-grid generatecodecontainer text-center">
 											<?php if($product_barcode) {
 												echo '<a id="download_barcode" download="barcode.png" href="'.$product_barcode.'" target="_blank"><img style="width:407px;" src="'.$product_barcode.'"></a><span style="text-align:center;font-size:20px">'.$product_code.'</span>';
 												echo '<input type="hidden" name="barcode" value="'.$product_barcode.'" />';

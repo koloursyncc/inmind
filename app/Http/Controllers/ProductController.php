@@ -108,7 +108,11 @@ class ProductController extends Controller
 			}
 		}
 		
-		if($index > 5)
+		if($index == 0)
+		{
+			$msg = 'Please select photo';
+			return false;
+		} else if($index > 5)
 		{
 			$msg = 'Upload max 5 photo';
 			return false;
