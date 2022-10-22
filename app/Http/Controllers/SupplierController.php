@@ -12,6 +12,7 @@ use App\Components\SupplierManager;
 use App\Components\RegionManager;
 use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
+use App\Models\SupplierContact;
 class SupplierController extends Controller
 {
 	
@@ -58,6 +59,7 @@ class SupplierController extends Controller
 				$type = 'save';
 			} else {
 				$supplierProductPo = $supplierObj->getSupplierProductPoByAttrId($id);
+				
 			}
 		}
 		
@@ -82,14 +84,15 @@ class SupplierController extends Controller
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
 		$products = Product::select('products.id', 'products.name')->get();
-		$installments = $supplierProducts = [];
+		$installments = $supplierProducts = $supplierProductContact = [];
 		if($obj)
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 1)->get();
 			$supplierProducts = SupplierProduct::where('supplier_id', $obj->id)->get();
+			$supplierProductContact = SupplierContact::where('supplier_id', $obj->id)->get();
 		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'products' => $products, 'type' => $type, 'installments' => $installments, 'supplierProducts' => $supplierProducts];
+		return ['obj' => $obj, 'supplierProductContact' => $supplierProductContact, 'countries' => $countries, 'products' => $products, 'type' => $type, 'installments' => $installments, 'supplierProducts' => $supplierProducts];
 	}
 	
 	public function edit($id)
@@ -126,6 +129,100 @@ class SupplierController extends Controller
     {
 		return view('supplierlist');
     }
+	
+	private function validateContactPerson($request,&$msg)
+	{
+		$flag = false;
+		$err = [];
+		if(isset($request->name) && isset($request->mobile)) {
+			
+			foreach($request->name as $key => $name)
+			{
+				$mobile = '';
+				if(isset($request->mobile[$key]))
+				{
+					$mobile = $request->mobile[$key];
+				}
+				
+				if($name == '')
+				{
+					$err['name'] = 'Please enter name';
+				}
+				
+				if($mobile == '')
+				{
+					$err['mobile'] = 'Please enter mobile';
+				}
+				
+				if(isset($request->email[$key]))
+				{
+					$email = $request->email[$key];
+					if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						$err['email'] = 'Email is not a valid email address';
+					}
+				}
+				
+			}
+		} else {
+			$err['name'] = 'Please enter name';
+			$err['mobile'] = 'Please enter mobile';
+		}
+		
+		if(count($err) > 0)
+		{
+			foreach($err as $e)
+			{
+				$msg .= $e.' ';
+			}
+			return $flag;
+		}
+		
+		return true;
+	}
+	
+	private function handleContactPerson($insertid, $request)
+	{
+		foreach($request->name as $key => $name)
+		{
+			$params = [];
+			$params['supplier_id'] = $insertid;
+			$params['name'] = $name;
+			$mobile = '';
+			if(isset($request->mobile[$key]))
+			{
+				$mobile = $request->mobile[$key];
+			}
+			$params['mobile'] = $mobile;
+			
+			if(isset($request->family_name[$key]))
+			{
+				$params['family_name'] = $request->family_name[$key];
+			}
+			
+			if(isset($request->position[$key]))
+			{
+				$params['position'] = $request->position[$key];
+			}
+			
+			if(isset($request->email[$key]))
+			{
+				$params['email'] = $request->email[$key];
+			}
+			
+			if(isset($request->remark[$key]))
+			{
+				$params['remark'] = $request->remark[$key];
+			}
+			
+			if($key > 0)
+			{
+				SupplierProduct::where('id', $key)->update($params);
+			} else {
+				SupplierContact::create($params);
+			}
+			//
+		}
+	}
 
 	public function save(Request $request)
 	{
@@ -164,6 +261,13 @@ class SupplierController extends Controller
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
 				
+				$msg = '';
+				$status = $this->validateContactPerson($request, $msg);
+				if($status === false)
+				{
+					return response()->json(['status' => 'error', 'error' => $msg]);
+				}
+				
 				//$data = $request->except(['_token']);
 				
 				$supplierManager = SupplierManager::getInstance();
@@ -177,6 +281,8 @@ class SupplierController extends Controller
 					$this->installments($lastInsertId, $request);
 					
 					$this->handleProductSupplier($lastInsertId, $request);
+					
+					$this->handleContactPerson($lastInsertId, $request);
 					
 					/* foreach($request->product_id as $productid)
 					{
@@ -310,6 +416,15 @@ class SupplierController extends Controller
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
+				
+				
+				$msg = '';
+				$status = $this->validateContactPerson($request, $msg);
+				if($status === false)
+				{
+					return response()->json(['status' => 'error', 'error' => $msg]);
+				}
+				
 				$products = $request->product_id;
 				//$data = $request->except(['_token', 'product_id']);
 				
@@ -325,6 +440,8 @@ class SupplierController extends Controller
 					$this->installments($lastInsertId, $request);
 					
 					$this->handleProductSupplier($lastInsertId, $request);
+					
+					$this->handleContactPerson($lastInsertId, $request);
 					
 					/* $supplierManager->deleteProductSupplierBySupplierId($lastInsertId);
 					foreach($request->product_id as $productid)
@@ -364,12 +481,12 @@ class SupplierController extends Controller
 			'state_id' => $request->state_id,
 			'country_id' => $request->country_id,
 			'zipcode' => $request->zipcode,
-			'name' => $request->name,
+			/* 'name' => $request->name,
 			'family_name' => $request->family_name,
 			'position' => $request->position,
 			'mobile' => $request->mobile,
 			'email' => $request->email,
-			'remark' => $request->remark,
+			'remark' => $request->remark, */
 			'bank_name' => $request->bank_name,
 			'bank_address' => $request->bank_address,
 			'swift' => $request->swift,
@@ -438,7 +555,7 @@ class SupplierController extends Controller
 		   ->skip($start)
 		   ->take($rowperpage);
 			if($columnName == 'id') {
-			   $records->orderBy($columnName,$columnSortOrder);
+			   $records->orderBy('id', 'Desc');//$records->orderBy($columnName,$columnSortOrder);
 			} else {
 				$records->orderBy('id', 'Desc');
 			}

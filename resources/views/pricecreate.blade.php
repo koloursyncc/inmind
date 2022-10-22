@@ -310,17 +310,17 @@ if($type == 'save')
 						$.each(item, function(i, v) {
 							//alert(v.supplier_type);
 							if(v.supplier_type == 1) {
-								multiple_select_1_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_1_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							} else if(v.supplier_type == 2) {
-								multiple_select_2_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_2_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							} else if(v.supplier_type == 3) {
-								multiple_select_3_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_3_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							} else if(v.supplier_type == 4) {
-								multiple_select_4_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_4_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							} else if(v.supplier_type == 5) {
-								multiple_select_5_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_5_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							} else if(v.supplier_type == 6) {
-								multiple_select_6_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+response.product.name+' ('+v.unit_price+') '+'</option>';
+								multiple_select_6_option += '<option data-type="'+v.supplier_type+'" data-price="'+v.unit_price+'" value="'+v.id+'">'+v.supplier_name+' ('+v.unit_price+') '+'</option>';
 							}
 							
 						});

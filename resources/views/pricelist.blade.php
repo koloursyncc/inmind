@@ -29,26 +29,15 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
-							<div class="position-relative">
-								<input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
-							</div>
-						  <div class="ms-auto"><a href="{{asset('staffadd')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New PO</a></div>
+							
+						  <div class="ms-auto"><a href="{{asset('pricecreate')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New PO</a></div>
 						</div>
 						<div class="table-responsive">
 							<table class="table mb-0"  id="dataTable">
 								<thead class="table-light">
 									<tr>
-										<th>Sr. No.</th> 
-										<th>PO no.</th>
-										<th>Date </th>
-                                        <th>Customer Name</th>
-										<th>Order Placed</th>
-										<th>W/H</th>
-										<th>Delivery</th>
-										<th>Invoice</th>
-										<th>Full Recived</th>
-										<th>Commission Paid</th>
-
+										<th>Product</th>
+										<th>Code</th>
 										
 									</tr>
 								</thead>
@@ -75,15 +64,10 @@ $(document).ready(function() {
 var table = $('#dataTable').DataTable({
 				processing: true,
 				serverSide: true,
-				ajax: "{{url('supplierlistajax')}}",
+				ajax: "{{url('pricelistajax')}}",
 				columns: [
-					{ data: 'id', orderable: false}, 
-					{ data: 'product_name', orderable: false},
-					{ data: 'product_code', orderable: false},
-                    { data: 'product_code', orderable: false},
-					{ data: 'detail', orderable: false},
-					{ data: 'action', orderable: false} 
-					  
+					{ data: 'product', orderable: false},
+					 { data: 'code', orderable: false}
 					
 				],
 

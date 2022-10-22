@@ -257,32 +257,42 @@ if($type == 'view')
 														</div>
 										 </div>
 										<div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-										<div class="row g-3">
-															<div class="col-sm-4">
-																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
-																<input type="text" value="{{ $name }}" class="form-control name" name="name" id="inputFirstName" {{ $disabledfield }}>
-															</div>
-															<div class="col-sm-4">
-																<label for="inputLastName" {{ $disabledfield }} class="form-label">Family Name</label>
-																<input type="text" value="{{ $family_name }}" class="form-control family_name" name="family_name" id="inputLastName" {{ $disabledfield }}>
-															</div>
-															<div class="col-sm-4">
-																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
-																<input type="text" value="{{ $position }}" class="form-control position" name="position" id="inputEmailAddress" {{ $disabledfield }}>
-															</div>
-															<div class="col-sm-4">
-																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
-																<input type="text" value="{{ $mobile }}" class="form-control mobile" name="mobile" id="inputEmailAddress" {{ $disabledfield }}>
-															</div>
-															<div class="col-sm-4">
-																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
-																<input type="text" value="{{ $email }}" class="form-control email" name="email" id="inputEmailAddress" {{ $disabledfield }}>
-															</div>
-															<div class="col-sm-4">
-																<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
-																<textarea type="text" value="{{ $remark }}" class="form-control remark" name="remark" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea>
-															</div> 
-														</div>
+										<h3 class="add_more_content" style="cursor:pointer">Add More</h3>
+										<div class="step_2_contact">
+										<?php 
+											$supplierProductContactCount = 0;
+											foreach($supplierProductContact as $supplierProductContactObj) {
+												$supplierProductContactCount++;
+													$supprProConId = $supplierProductContactObj->id;
+											?>
+											<div class="row g-3">
+												<div class="col-sm-4">
+													<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
+													<input type="text" value="{{ $supplierProductContactObj->name }}" class="form-control name" name="name[{{ $supprProConId }}]" id="inputFirstName" {{ $disabledfield }}>
+												</div>
+												<div class="col-sm-4">
+													<label for="inputLastName" {{ $disabledfield }} class="form-label">Family Name</label>
+													<input type="text" value="{{ $supplierProductContactObj->family_name }}" class="form-control family_name" name="family_name[{{ $supprProConId }}]" id="inputLastName" {{ $disabledfield }}>
+												</div>
+												<div class="col-sm-4">
+													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
+													<input type="text" value="{{ $supplierProductContactObj->position }}" class="form-control position" name="position[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+												</div>
+												<div class="col-sm-4">
+													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
+													<input type="text" value="{{ $supplierProductContactObj->mobile }}" class="form-control mobile" name="mobile[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+												</div>
+												<div class="col-sm-4">
+													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
+													<input type="text" value="{{ $supplierProductContactObj->email }}" class="form-control email" name="email[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+												</div>
+												<div class="col-sm-4">
+													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
+													<textarea type="text" value="{{ $supplierProductContactObj->remark }}" class="form-control remark" name="remark[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea>
+												</div> 
+											</div>
+										<?php } ?>
+										</div>
 										</div>
 										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
 										<div class="row g-3">
@@ -414,6 +424,41 @@ if($type == 'view')
 	</div>
 </div>
 
+
+<div class="step_2_contact_wrapper" style="display:none" data-counter="0"> 
+	<div class="row g-3 step_2_contact_wrapper_clone">
+		
+		<div class="col-sm-4">
+			<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
+			<input type="text" class="form-control name" name="name" id="inputFirstName" {{ $disabledfield }}>
+		</div>
+		<div class="col-sm-4">
+			<label for="inputLastName" {{ $disabledfield }} class="form-label">Family Name</label>
+			<input type="text" class="form-control family_name" name="family_name" id="inputLastName" {{ $disabledfield }}>
+		</div>
+		<div class="col-sm-4">
+			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
+			<input type="text" class="form-control position" name="position" id="inputEmailAddress" {{ $disabledfield }}>
+		</div>
+		<div class="col-sm-4">
+			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
+			<input type="text" class="form-control mobile" name="mobile" id="inputEmailAddress" {{ $disabledfield }}>
+		</div>
+		<div class="col-sm-4">
+			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
+			<input type="text" class="form-control email" name="email" id="inputEmailAddress" {{ $disabledfield }}>
+		</div>
+		<div class="col-sm-4">
+			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
+			<textarea type="text" class="form-control remark" name="remark" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea> 
+			
+		</div> 
+		<div class="col-sm-4 remove_content_wrapper">
+		<h4 class="remove_content" style="cursor:pointer">Remove</h4>
+		</div>
+	</div>
+</div>
+
 <script>
 
 function dependdropdown(val, target, name) {
@@ -468,6 +513,28 @@ function addinstall(pos)
 	$('.installment_container_d_none').attr('data-counter', total);
 }
 
+function contactperson(pos)
+{
+	var clone = $('.step_2_contact_wrapper_clone', $('.step_2_contact_wrapper')).clone();
+			
+	var no = $('.step_2_contact_wrapper').attr('data-counter');
+	var total = parseInt(no) - 1;
+	
+	if(pos == 0) {
+		$('.remove_content_wrapper', clone).addClass('d-none');
+	}
+	
+	$('.name', clone).attr('name', 'name['+total+']');
+	$('.family_name', clone).attr('name', 'family_name['+total+']');
+	$('.position', clone).attr('name', 'position['+total+']');
+	$('.mobile', clone).attr('name', 'mobile['+total+']');
+	$('.email', clone).attr('name', 'email['+total+']');
+	$('.remark', clone).attr('name', 'remark['+total+']');
+	
+	$('.step_2_contact').append(clone);
+	$('.step_2_contact_wrapper').attr('data-counter', total);
+}
+
 $(document).ready(function() {
 	
 	$('body').on('click', '.installment_container_clone_remove ', function() {
@@ -500,12 +567,26 @@ $(document).ready(function() {
 	
 	<?php if($type != 'view') { ?>
 		addinstall(0);
+		
+		<?php if($supplierProductContactCount == 0) { ?>
+			contactperson(0);
+		<?php } ?>
 		<?php } ?>
 		$('body').on('click', '#addoninstall', function() {
 			addinstall(1);
 			return false;
 		});
-	
+		
+		$('body').on('click', '.add_more_content', function() {
+			contactperson(1);
+			return false;
+		});
+		
+		
+		$('body').on('click', '.remove_content', function() {
+			$(this).closest(".step_2_contact_wrapper_clone").remove();
+			return false;
+		});
 	
 	var country = $('.country_id').val();
 	dependdropdown(country, '.state_id', 'State');

@@ -280,4 +280,76 @@ class PriceController extends Controller
 			'total_cost' => $total,
 		];
 	}
+	
+	public function ajaxcall(Request $request)
+	{
+		 ## Read value
+		 $draw = $request->get('draw');
+		 $start = $request->get("start");
+		 $rowperpage = $request->get("length"); // Rows display per page
+
+		 $columnIndex_arr = $request->get('order');
+		 $columnName_arr = $request->get('columns');
+		 $order_arr = $request->get('order');
+		 $search_arr = $request->get('search');
+
+		 $columnIndex = $columnIndex_arr[0]['column']; // Column index
+		 $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+		 $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+		 $searchValue = $search_arr['value']; // Search value
+
+		 // Total records
+		$totalRecords = Price::select('count(*) as allcount')
+		->join('products', function($join) {
+			$join->on('products.id', '=', 'price.product_id');
+		})
+		->count();
+		
+		$countData = Price::select('count(*) as allcount');
+		 
+		if($searchValue != null) {
+			//$countData->where('product_name', 'like', '%' .$searchValue . '%');
+			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
+		}
+		$totalRecordswithFilter = $countData->count();
+		 // Fetch records
+		 $records = Price::select('products.name', 'products.code') 
+			->join('products', function($join) {
+				$join->on('products.id', '=', 'price.product_id');
+			})
+		   ->skip($start)
+		   ->take($rowperpage);
+			if($columnName == 'id') {
+			   $records->orderBy('price.id', 'Desc');//$records->orderBy($columnName,$columnSortOrder);
+			} else {
+				$records->orderBy('price.id', 'Desc');
+			}
+			if($searchValue != null) {
+				//$records->where('product_name', 'like', '%' .$searchValue . '%');
+				//$records->where('supplier', 'like', '%' .$searchValue . '%');
+			}
+		
+		$list = $records->get();
+
+		 $data_arr = array();
+		 
+		 foreach($list as $sno => $record){
+			
+			
+			$data_arr[] = array(
+			  "product" => $record->name,
+			  "code" => $record->code
+			);
+		 }
+
+		 $response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordswithFilter,
+			"aaData" => $data_arr
+		 );
+
+		 echo json_encode($response);
+		 exit;
+	}
 }

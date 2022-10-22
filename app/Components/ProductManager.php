@@ -125,7 +125,7 @@ class ProductManager
 		foreach($suppliertype as $suppliek => $suppliev)
 		{
 			$data = DB::table('supplier_products')
-			->select('supplier_products.id', 'supplier_products.unit_price', 'supplier_products.supplier_type')
+			->select('supplier_products.id', 'supplier_products.unit_price', 'supplier_products.supplier_type', 'suppliers.supplier_name')
 			->join('suppliers', function($join) {
 				$join->on('supplier_products.supplier_id', '=', 'suppliers.id');
 			})
