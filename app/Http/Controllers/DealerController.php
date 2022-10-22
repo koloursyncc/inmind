@@ -34,9 +34,11 @@ class DealerController extends Controller
 		if($type != 'save')
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 2)->get();
-			/* $customerManager = CustomerManager::getInstance();
+			/* 
 			$documents = $customerManager->getCustomerAddressDocumentByCustId($obj->id);
-			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id); */
+			; */
+			$customerManager = CustomerManager::getInstance();
+			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id);
 		}
 		
 		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons];
@@ -88,6 +90,8 @@ class DealerController extends Controller
 					'title' => 'required',
 					'type' => 'required',
 					'invoice'=> 'required',
+					'beneficiary_name' => 'nullable|alpha',
+					'account_number' => 'nullable|numeric'
 				);
 
 				$validator = Validator::make($data, $rules);
@@ -107,6 +111,8 @@ class DealerController extends Controller
 				if($lastInsertId)
 				{
 					$this->installments($lastInsertId, $request);
+					
+					$this->contactperson($lastInsertId, $request);
 					
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
@@ -130,6 +136,7 @@ class DealerController extends Controller
 			//echo '<pre>'; print_r($request->installment_clone); die;
 			foreach($request->installment_clone as $installment_clone_key => $installment_clone_val)
 			{
+				if(!empty($installment_clone_val)) {
 				$params['installment_1'] = $installment_clone_val;
 				$params['type'] = 2;
 				$params['type_id'] = $lastInsertId;
@@ -146,6 +153,7 @@ class DealerController extends Controller
 						Installment::create($params);
 					}
 					
+				}
 				}
 			}
 		}
@@ -195,14 +203,20 @@ class DealerController extends Controller
 			'delivery_zipcode' => $request->delivery_zipcode,
 			'delivery_state_id' => $request->delivery_state_id,
 			'delivery_country_id' => $request->delivery_country_id,
-			'contact_name' => $request->contact_name,
+			
+			'payment_bank_name' => $request->payment_bank_name,
+			'payment_account_number' => $request->payment_account_number,
+			'payment_branch' => $request->payment_branch,
+			'payment_beneficiary' => $request->payment_beneficiary,
+			
+			/* 'contact_name' => $request->contact_name,
 			'contact_family_name' => $request->contact_family_name,
 			'contact_position' => $request->contact_position,
 			'contact_mobile' => $request->contact_mobile,
 			'contact_email' => $request->contact_email,
 			'contact_dob' => $request->contact_dob,
 			'contact_line' => $request->contact_line,
-			'contact_remark' => $request->contact_remark,
+			'contact_remark' => $request->contact_remark, */
 		];
 		
 		return $params;
@@ -211,38 +225,38 @@ class DealerController extends Controller
 	private function contactperson($lastinsertid, $request)
 	{
 		
-		foreach($request->namearr as $k => $namearr) {
+		foreach($request->contact_name as $k => $namearr) {
 			
 			$params = array();
 			$params['customer_id'] = $lastinsertid;
 			$params['name'] = $namearr;
-			if(isset($request->family_name[$k]))
+			if(isset($request->contact_family_name[$k]))
 			{
-				$params['family_name'] = $request->family_name[$k];
+				$params['family_name'] = $request->contact_family_name[$k];
 			}
-			if(isset($request->position[$k]))
+			if(isset($request->contact_position[$k]))
 			{
-				$params['position'] = $request->position[$k];
+				$params['position'] = $request->contact_position[$k];
 			}
-			if(isset($request->mobile[$k]))
+			if(isset($request->contact_mobile[$k]))
 			{
-				$params['mobile'] = $request->mobile[$k];
+				$params['mobile'] = $request->contact_mobile[$k];
 			}
-			if(isset($request->email[$k]))
+			if(isset($request->contact_email[$k]))
 			{
-				$params['email'] = $request->email[$k];
+				$params['email'] = $request->contact_email[$k];
 			}
-			if(isset($request->dob[$k]))
+			if(isset($request->contact_dob[$k]))
 			{
-				$params['dob'] = $request->dob[$k];
+				$params['dob'] = $request->contact_dob[$k];
 			}
-			if(isset($request->line[$k]))
+			if(isset($request->contact_line[$k]))
 			{
-				$params['line'] = $request->line[$k];
+				$params['line'] = $request->contact_line[$k];
 			}
-			if(isset($request->remark[$k]))
+			if(isset($request->contact_remark[$k]))
 			{
-				$params['remark'] = $request->remark[$k];
+				$params['remark'] = $request->contact_remark[$k];
 			}
 			
 			if($k > 0)
@@ -335,6 +349,8 @@ class DealerController extends Controller
 					'title' => 'required',
 					'type' => 'required',
 					'invoice'=> 'required',
+					'beneficiary_name' => 'nullable|alpha',
+					'account_number' => 'nullable|numeric'
 				);
 
 				$validator = Validator::make($data, $rules);
@@ -379,8 +395,10 @@ class DealerController extends Controller
 				if($status)
 				{
 					$this->installments($lastInsertId, $request);
+					
+					$this->contactperson($lastInsertId, $request);
 					//$this->headDocumant($lastInsertId, $request);
-					//$this->contactperson($lastInsertId, $request);
+					//
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
@@ -454,7 +472,8 @@ class DealerController extends Controller
 		   ->skip($start)
 		   ->take($rowperpage);
 			if($columnName == 'id') {
-			   $records->orderBy($columnName,$columnSortOrder);
+			   //$records->orderBy($columnName,$columnSortOrder);
+			   $records->orderBy('id', 'Desc');
 			} else {
 				$records->orderBy('id', 'Desc');
 			}

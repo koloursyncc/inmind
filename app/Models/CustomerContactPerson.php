@@ -10,6 +10,9 @@ class CustomerContactPerson extends Model
     use HasFactory;
 
 	protected $table = 'customer_contact_persons';
+	
+	public $timestamps = false;
+
 
     protected $fillable = [
         'customer_id',

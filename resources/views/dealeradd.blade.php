@@ -71,6 +71,10 @@ $customer_type = '';
 $customer_invoice = '';
 $id ='';
 $url = '';
+$payment_account_number = '';
+$payment_bank_name = '';
+$payment_branch = '';
+$payment_beneficiary = '';
 
 if($type == 'save')
 {
@@ -105,6 +109,10 @@ if($type != 'save')
 		$customer_beneficiary_address = $obj->beneficiary_address;
 		$customer_type = $obj->type;
 		$customer_invoice = $obj->invoice;
+		$payment_bank_name = $obj->payment_bank_name;
+		$payment_account_number = $obj->payment_account_number;
+		$payment_branch = $obj->payment_branch;
+		$payment_beneficiary = $obj->payment_beneficiary;
 	}
 }
 
@@ -232,7 +240,7 @@ if($type == 'view')
 								  <div class="row g-3 headoffice">
 									
 									 <div class="row g-3">
-										  <h6>Head office address by certified document</h6>
+										  <h6>Head office address by Registration Document</h6>
 										 <div class="col-sm-4">
 											<label for="inputFirstName" class="form-label">Address no.</label>
 											<input type="text" class="form-control address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
@@ -295,7 +303,7 @@ if($type == 'view')
 										</div>
 									
 										<div class="row g-3 delivery_check_content">
-										  <h6><input name="delivery_check" class="form-check-input delivery_check" type="checkbox" value="1" id="flexCheckChecked" > Delivery address same as home address</h6>
+										  <h6><input name="delivery_check" class="form-check-input delivery_check" type="checkbox" value="1" id="flexCheckChecked" > It such warehouse or depoot address same as home address</h6>
 										  
 										 <div class="col-sm-4">
 											<label for="inputFirstName" class="form-label">Address no.</label>
@@ -360,47 +368,57 @@ if($type == 'view')
 								  </div>
 							   </div>
 							   <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-									
-									<div id="">
-										<?php //foreach($persons as $personK => $personObj) { ?>
+									<h4 style="cursor:pointer" class="contact_add"> Add More</h4>
+									<div id="contact_detail">
+										<?php 
+										$personCount = 0;
+										foreach($persons as $personK => $personObj) {
+											$personCount++;
+												$pId = $personObj->id;
+											?>
 										<div class="row g-3">
-											 <h6>Contact Person 1</h6>
+											 <h6>Contact Person</h6>
 											 <div class="col-sm-4">
 												<label for="inputFirstName" class="form-label">Name</label>
-												<input type="text" class="form-control contact_name" name="contact_name" value="{{ @$obj->contact_name }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_name" name="contact_name[{{ $pId }}]" value="{{ @$personObj->name }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputLastName" class="form-label">Family Name</label>
-												<input type="text" class="form-control contact_family_name" name="contact_family_name" value="{{ @$obj->contact_family_name }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_family_name" name="contact_family_name[{{ $pId }}]" value="{{ @$personObj->family_name }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Position</label>
-												<input type="text" class="form-control contact_position" name="contact_position" value="{{ @$obj->contact_position }}" {{ $disabledfield }}>
+												
+												<select class="form-control contact_position" name="contact_position[{{ $pId }}]">
+													<option value="">Select</option>
+													<option value="Owner Manager" <?php if(@$personObj->position == 'Owner Manager') { echo 'selected'; } ?>>Owner Manager</option>
+													<option value="Sale Technician" <?php if(@$personObj->position == 'Sale Technician') { echo 'selected'; } ?>>Sale Technician</option>
+												</select>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">  Mobile</label>
-												<input type="text" class="form-control contact_mobile" name="contact_mobile" value="{{ @$obj->contact_mobile }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_mobile" name="contact_mobile[{{ $pId }}]" value="{{ @$personObj->mobile }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Email</label>
-												<input type="text" class="form-control contact_email" name="contact_email" value="{{ @$obj->contact_email }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_email" name="contact_email[{{ $pId }}]" value="{{ @$personObj->email }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<div class="mb-3">
 												   <label class="form-label">Date of Birth:</label>
-												   <input type="date" class="form-control contact_dob" name="contact_dob" value="{{ @$obj->contact_dob }}" {{ $disabledfield }}>
+												   <input type="date" class="form-control contact_dob" name="contact_dob[{{ $pId }}]" value="{{ @$personObj->dob }}" {{ $disabledfield }}>
 												</div>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Line</label>
-												<input type="text" class="form-control contact_line" name="contact_line" value="{{ @$obj->contact_line }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_line" name="contact_line[{{ $pId }}]" value="{{ @$personObj->line }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">  Remark</label>
-												<textarea type="text" class="form-control contact_remark" name="contact_remark" value="{{ @$obj->contact_remark }}" {{ $disabledfield }}>{{ @$obj->contact_remark }}</textarea>
+												<textarea type="text" class="form-control contact_remark" name="contact_remark[{{ $pId }}]" value="{{ @$personObj->remark }}" {{ $disabledfield }}>{{ @$personObj->remark }}</textarea>
 											 </div>
 										  </div>
-										<?php //} ?>
+										<?php } ?>
 									</div>
 								  
 							   </div>
@@ -493,6 +511,7 @@ if($type == 'view')
 								  </div>
 							   </div>
 							   <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+									<h3>Customer bank info</h3>
 								  <div class="row g-3">
 									 <div class="col-sm-4">
 										<label for="inputFirstName" class="form-label">Bank Name</label>
@@ -519,7 +538,57 @@ if($type == 'view')
 										<textarea type="text" value="{{ $customer_beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" {{ $disabledfield }}>{{ $customer_beneficiary_address }}</textarea>
 									 </div>
 								  </div>
-							   </div>
+								  <?php 
+										$payment_branch_dnone = $payment_beneficiary  = $payment_account_number = 'd-none';
+											if(@$obj->payment_branch != '') {
+												$payment_branch_dnone = '';
+											}
+											
+											if(@$obj->payment_beneficiary != '') {
+												$payment_beneficiary = '';
+											}
+											
+											if(@$obj->payment_account_number != '')
+											{
+												$payment_account_number = '';
+											}
+										?>
+								  <h3>Payment bank info</h3>
+									<div class="row g-3">
+										<div class="col-sm-4">
+											<label for="inputFirstName" class="form-label">Payment Bank Name</label>
+											<select class="form-control payment_bank_name" name="payment_bank_name" {{ $disabledfield }}>
+												<option value="">Select</option>
+												<option value="Bangkok Bank" <?php if($payment_bank_name == 'Bangkok Bank') { echo 'selected'; } ?>>Bangkok Bank</option>
+												<option value="Kasikom Bank" <?php if($payment_bank_name == 'Kasikom Bank') { echo 'selected'; } ?>>Kasikom Bank</option>
+												<option value="Krungsri Bank" <?php if($payment_bank_name == 'Krungsri Bank') { echo 'selected'; } ?>>Krungsri Bank</option>
+											</select>
+										</div>
+										
+										<div class="col-sm-4 branch_name_container {{ $payment_branch_dnone }}">
+											<label for="inputFirstName" class="form-label">Branch</label>
+											<span class="branch_name">{{ @$obj->payment_branch }}</span>
+											<input type="hidden" class="payment_branch" name="payment_branch" value="{{ @$obj->payment_branch }}" />
+										</div>
+									</div>
+									
+									<div class="row g-3 ">
+										<div class="col-sm-4 bankac">	
+											<label for="inputFirstName" class="form-label">A/C Number</label>
+											<select class="form-control payment_account_number" name="payment_account_number" {{ $disabledfield }}>
+												<option value="">Select</option>
+											</select>
+										</div>
+											
+										<div class="col-sm-4 beneficiary_name_container {{ $payment_beneficiary }}">
+											<label for="inputFirstName" class="form-label">Beneficiary Name</label>
+											<input type="hidden" class="payment_beneficiary" name="payment_beneficiary" value="{{ @$obj->payment_beneficiary }}" />
+											<span class="beneficiary_name">{{ @$obj->payment_beneficiary }}</span>
+										</div>
+	
+									</div>
+									
+									
 							</div>
 						 </div>
 					 </form>
@@ -610,6 +679,85 @@ if($type == 'view')
 		 </div>
 	</div>
 </div>
+
+
+<div class="contact_detail_d_none" style="display:none" data-counter="0" data-pos="1">
+	
+		
+		<div class="row g-3 contact_detail_html">
+			 <h6>Contact Person</h6>
+			 <div class="col-sm-4">
+				<label for="inputFirstName" class="form-label">Name</label>
+				<input type="text" class="form-control contact_name" {{ $disabledfield }}>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputLastName" class="form-label">Family Name</label>
+				<input type="text" class="form-control contact_family_name" {{ $disabledfield }}>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputEmailAddress" class="form-label">Position</label>
+				
+				<select class="form-control contact_position" {{ $disabledfield }}>
+					<option value="">Select</option>
+					<option value="Owner Manager" >Owner Manager</option>
+					<option value="Sale Technician" >Sale Technician</option>
+				</select>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputEmailAddress" class="form-label">  Mobile</label>
+				<input type="text" class="form-control contact_mobile" {{ $disabledfield }}>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputEmailAddress" class="form-label">Email</label>
+				<input type="text" class="form-control contact_email" {{ $disabledfield }}>
+			 </div>
+			 <div class="col-sm-4">
+				<div class="mb-3">
+				   <label class="form-label">Date of Birth:</label>
+				   <input type="date" class="form-control contact_dob"" {{ $disabledfield }}>
+				</div>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputEmailAddress" class="form-label">Line</label>
+				<input type="text" class="form-control contact_line" {{ $disabledfield }}>
+			 </div>
+			 <div class="col-sm-4">
+				<label for="inputEmailAddress" class="form-label">  Remark</label>
+				<textarea type="text" class="form-control contact_remark"  {{ $disabledfield }}></textarea>
+			 </div>
+			 <div class="col-sm-4">
+				<h4 class="removeContactPerson">  Remove</h4>
+			 </div>
+		  </div>
+		
+</div>
+
+<div class="payment_bank_none" style="display:none">
+	<div class="payment_bank_pc_1">	
+		<label for="inputFirstName" class="form-label">A/C Number</label>
+		<select class="form-control payment_account_number" name="payment_account_number" {{ $disabledfield }}>
+			<option value="">Select</option>
+			<option value="058-301795-9" >058-301795-9</option>
+			<option value="058-057010-9" >058-057010-9</option>
+		</select>
+	</div>
+	
+	<div class=" payment_bank_pc_2">	
+		<label for="inputFirstName" class="form-label">A/C Number</label>
+		<select class="form-control payment_account_number" name="payment_account_number" {{ $disabledfield }}>
+			<option value="">Select</option>
+			<option value="655-2-13419-0" >655-2-13419-0</option>
+		</select>
+	</div>
+	
+	<div class="payment_bank_pc_3">	
+		<label for="inputFirstName" class="form-label">A/C Number</label>
+		<select class="form-control payment_account_number" name="payment_account_number" {{ $disabledfield }}>
+			<option value="">Select</option>
+			<option value="315-1-31039-4" >315-1-31039-4</option>
+		</select>
+	</div>
+</div>
 	  
       @include('layout.customer')
       <script>
@@ -691,8 +839,134 @@ function installment()
 	$('.contactpersoncontent_d_none').attr('data-counter', total);
 	$('.contactpersoncontent_d_none').attr('data-pos', totalnum);
 }
+
+function contact_peraon(pos) {
+	var clone = $('.contact_detail_html', $('.contact_detail_d_none')).clone();
+	
+	var no = $('.contact_detail_d_none').attr('data-counter');
+	var numbering = $('.contactpersoncontent_d_none').attr('data-pos');
+	var total = parseInt(no) - 1;
+	var totalnum = parseInt(numbering) + 1;
+	
+	$('.contact_name', clone).attr('name', 'contact_name['+total+']');
+	$('.contact_family_name', clone).attr('name', 'contact_family_name['+total+']');
+	$('.contact_position', clone).attr('name', 'contact_position['+total+']');
+	$('.contact_mobile', clone).attr('name', 'contact_mobile['+total+']');
+	$('.contact_email', clone).attr('name', 'contact_email['+total+']');
+	$('.contact_dob', clone).attr('name', 'contact_dob['+total+']');
+	$('.contact_line', clone).attr('name', 'contact_line['+total+']');
+	$('.contact_remark', clone).attr('name', 'contact_remark['+total+']');
+	
+	if(pos == 0) {
+		$('.removeContactPerson', clone).remove();
+	}
+	
+	$('#contact_detail').append(clone);
+	
+	$('.contact_detail_d_none').attr('data-counter', total);
+	$('.contact_detail_d_none').attr('data-pos', totalnum);
+	
+}
 	  
          $(document).ready(function() {
+			 $('body').on('change', '.payment_account_number', function() {
+				var id = $(this).val();
+				$('.beneficiary_name').html('');
+				$('.payment_beneficiary').val('');
+				$('.beneficiary_name_container').addClass('d-none');
+				if(id == '058-301795-9') {
+					$('.beneficiary_name_container').removeClass('d-none');
+					$('.payment_beneficiary').val('inmind CO.,Ltd');
+					$('.beneficiary_name').html('inmind CO.,Ltd');
+				} if(id == '058-057010-9') {
+					$('.beneficiary_name_container').removeClass('d-none');
+					$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
+					$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
+				} else if(id == '655-2-13419-0') {
+					$('.beneficiary_name_container').removeClass('d-none');
+					$('.payment_beneficiary').val('inmind CO.,Ltd');
+					$('.beneficiary_name').html('inmind CO.,Ltd');
+				} else if(id == '315-1-31039-4') {
+					$('.beneficiary_name_container').removeClass('d-none');
+					$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
+					$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
+				}
+					
+			 });
+			
+			
+			$('body').on('change', '.payment_bank_name', function() {
+				var id = $(this).val();
+				$('.branch_name_container').addClass('d-none');
+				$('.payment_branch').val('');
+				$('.branch_name').html('');
+				if(id == 'Bangkok Bank')
+				{
+					$('.branch_name_container').removeClass('d-none');
+					$('.branch_name').html('Rattanatibet');	
+					$('.payment_branch').val('Rattanatibet');
+					
+					var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+				} else if(id == 'Kasikom Bank')
+				{
+					$('.branch_name_container').removeClass('d-none');
+					$('.payment_branch').val('Rajpruk');
+					$('.branch_name').html('Rajpruk');	
+					
+					var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+				} else if(id == 'Krungsri Bank')
+				{
+					$('.branch_name_container').removeClass('d-none');
+					$('.branch_name').html('Phra Nangklao');
+					$('.payment_branch').val('Phra Nangklao');
+					
+					var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+				}
+				
+			});
+			 
+			 var payment_bank_name = $('.payment_bank_name').val();
+			
+			if(payment_bank_name == 'Bangkok Ban'){
+				var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+					
+					
+					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+					
+			} else if(payment_bank_name == 'Kasikom Bank'){
+				var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+					
+					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+			} else if(payment_bank_name == 'Krungsri Bank'){
+				var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
+					$('.bankac').html('');
+					$('.bankac').append(clone);
+					
+					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+			}
+			 
+			 <?php if($personCount == 0) { ?>
+				contact_peraon(0); 
+			 <?php } ?>
+			  $('body').on('click', '.contact_add', function() {
+				 contact_peraon(1); 
+				 return false;
+			  });
+			  
+			   $('body').on('click', '.removeContactPerson', function() {
+				 $(this).closest(".contact_detail_html").remove();
+				 return false;
+			  });
 			 
 			 $('body').on('change', '.delivery_check', function() {
 				 

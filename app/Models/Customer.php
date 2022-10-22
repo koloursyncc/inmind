@@ -40,6 +40,10 @@ class Customer extends Model
 		'contact_line',
 		'contact_remark',
 		'status',
+		'payment_bank_name',
+		'payment_account_number',
+		'payment_branch',
+		'payment_beneficiary'
 		];
 		
 		public function getStateByCountryId($country_id)
