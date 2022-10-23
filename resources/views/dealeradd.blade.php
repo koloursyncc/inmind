@@ -256,7 +256,7 @@ if($type == 'view')
 								  <div class="row g-3 headoffice">
 									
 									 <div class="row g-3">
-										  <h6>Head office address by Registration Document</h6>
+										  <h6><span class="address_text">Head office</span> address by Registration Document</h6>
 										 <div class="col-sm-4">
 											<label for="inputFirstName" class="form-label">Address no.</label>
 											<input type="text" class="form-control address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
@@ -407,7 +407,7 @@ if($type == 'view')
 											 <h6>Contact Person</h6>
 											 <div class="col-sm-4">
 												<label for="inputFirstName" class="form-label">Name</label>
-												<input type="text" class="form-control contact_name" name="contact_name[{{ $pId }}]" value="{{ @$personObj->name }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_name  contact_name_11111111{{ $personCount }}" data-id="11111111{{ $personCount }}" name="contact_name[{{ $pId }}]" value="{{ @$personObj->name }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputLastName" class="form-label">Family Name</label>
@@ -428,7 +428,7 @@ if($type == 'view')
 											 </div>
 											 <div class="col-sm-4">
 												<label for="inputEmailAddress" class="form-label">Email</label>
-												<input type="text" class="form-control contact_email" name="contact_email[{{ $pId }}]" value="{{ @$personObj->email }}" {{ $disabledfield }}>
+												<input type="text" class="form-control contact_email contact_email_11111111{{ $personCount }}"  data-id="11111111{{ $personCount }}" name="contact_email[{{ $pId }}]" value="{{ @$personObj->email }}" {{ $disabledfield }}>
 											 </div>
 											 <div class="col-sm-4">
 												<div class="mb-3">
@@ -511,8 +511,11 @@ if($type == 'view')
 										<label for="inputEmailAddress" class="form-label"> Contact Person</label>
 										<select class="form-select contact_person" name="contact_person" aria-label="Default select example" {{ $disabledfield }}>
 										   <option value="">Select option </option>
-										   <option value="1" <?php if(@$obj->contact_person == 1) { echo 'selected'; } ?>>Email</option>
-										   <option value="2" <?php if(@$obj->contact_person == 2) { echo 'selected'; } ?>>Post & Email</option>
+										   <?php if(@$obj->contact_person != '') { ?>
+											<option value="<?php echo @$obj->contact_person; ?>" selected><?php echo @$obj->contact_person; ?></option>
+										   <?php } ?>
+										   <!--<option value="1" <?php if(@$obj->contact_person == 1) { echo 'selected'; } ?>>Email</option>
+										   <option value="2" <?php if(@$obj->contact_person == 2) { echo 'selected'; } ?>>Post & Email</option>-->
 										</select>
 									 </div>
 									 <div class="col-sm-4">
@@ -546,32 +549,32 @@ if($type == 'view')
 							   </div>
 							   <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
 									<h3>Customer bank info</h3>
-								  <div class="row g-3">
-									 <div class="col-sm-4">
-										<label for="inputFirstName" class="form-label">Bank Name</label>
-										<input type="text" value="{{ $customer_bank_name }}" class="form-control bank_name" name="bank_name" {{ $disabledfield }}>
-									 </div>
-									 <div class="col-sm-4">
-										<label for="inputLastName" class="form-label">Bank Address</label>
-										<input type="text" value="{{ $customer_bank_address }}" class="form-control bank_address" name="bank_address" {{ $disabledfield }}>
-									 </div>
-									 <div class="col-sm-4">
-										<label for="inputEmailAddress" class="form-label">SWIFT</label>
-										<input type="text" value="{{ $customer_swift }}" class="form-control swift" name="swift" {{ $disabledfield }}>
-									 </div>
-									 <div class="col-sm-4">
-										<label for="inputEmailAddress" class="form-label"> A/C No.</label>
-										<input type="text" value="{{ $customer_account_number }}" class="form-control account_number" name="account_number" {{ $disabledfield }}>
-									 </div>
-									 <div class="col-sm-4">
-										<label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
-										<input type="text" value="{{ $customer_beneficiary_name }}" class="form-control beneficiary_name" name="beneficiary_name" {{ $disabledfield }}>
-									 </div>
-									 <div class="col-sm-4">
-										<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
-										<textarea type="text" value="{{ $customer_beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" {{ $disabledfield }}>{{ $customer_beneficiary_address }}</textarea>
-									 </div>
-								  </div>
+									  <div class="row g-3">
+										 <div class="col-sm-4">
+											<label for="inputFirstName" class="form-label">Bank Name</label>
+											<input type="text" value="{{ $customer_bank_name }}" class="form-control bank_name" name="bank_name" {{ $disabledfield }}>
+										 </div>
+										 <div class="col-sm-4">
+											<label for="inputLastName" class="form-label">Bank Address</label>
+											<input type="text" value="{{ $customer_bank_address }}" class="form-control bank_address" name="bank_address" {{ $disabledfield }}>
+										 </div>
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">SWIFT</label>
+											<input type="text" value="{{ $customer_swift }}" class="form-control swift" name="swift" {{ $disabledfield }}>
+										 </div>
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label"> A/C No.</label>
+											<input type="text" value="{{ $customer_account_number }}" class="form-control account_number" name="account_number" {{ $disabledfield }}>
+										 </div>
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">Beneficiary Name</label>
+											<input type="text" value="{{ $customer_beneficiary_name }}" class="form-control beneficiary_name" name="beneficiary_name" {{ $disabledfield }}>
+										 </div>
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">  Beneficiary Address</label>
+											<textarea type="text" value="{{ $customer_beneficiary_address }}" class="form-control beneficiary_address" name="beneficiary_address" {{ $disabledfield }}>{{ $customer_beneficiary_address }}</textarea>
+										 </div>
+									  </div>
 								  <?php 
 										$payment_branch_dnone = $payment_beneficiary  = $payment_account_number = 'd-none';
 											if(@$obj->payment_branch != '') {
@@ -890,10 +893,14 @@ function contact_peraon(pos) {
 	var totalnum = parseInt(numbering) + 1;
 	
 	$('.contact_name', clone).attr('name', 'contact_name['+total+']');
+	$('.contact_name', clone).attr('data-id', totalnum);
+	$('.contact_name', clone).addClass('contact_name_'+totalnum);
 	$('.contact_family_name', clone).attr('name', 'contact_family_name['+total+']');
 	$('.contact_position', clone).attr('name', 'contact_position['+total+']');
 	$('.contact_mobile', clone).attr('name', 'contact_mobile['+total+']');
 	$('.contact_email', clone).attr('name', 'contact_email['+total+']');
+	$('.contact_email', clone).attr('data-id', totalnum);
+	$('.contact_email', clone).addClass('contact_email_'+totalnum);
 	$('.contact_dob', clone).attr('name', 'contact_dob['+total+']');
 	$('.contact_line', clone).attr('name', 'contact_line['+total+']');
 	$('.contact_remark', clone).attr('name', 'contact_remark['+total+']');
@@ -908,8 +915,41 @@ function contact_peraon(pos) {
 	$('.contact_detail_d_none').attr('data-pos', totalnum);
 	
 }
+
+function handlecontactoption() {
+	var list = $('.contact_person');
+	list.empty();
+	var html = '';
+	list.append('<option value="" data-email="">Select Person</option>');
+	$('.contact_name', $('#contact_detail')).each(function(i) {
+		let id = $(this).attr('data-id');
+		let name = $(this).val();
+		if(name != '') {
+			
+			list.append('<option value="'+name+'" data-email="'+$(".contact_email_"+id).val()+'">'+name+'</option>');
+			
+			
+		}
+		
+	});
+}
 	  
          $(document).ready(function() {
+			 $('body').on('change', '.contact_person', function() {
+				var element = $(this).find('option:selected'); 
+				var myTag = element.attr("data-email"); 
+				$('.email').val(myTag);
+			 });
+			 
+			 $('body').on('keyup', '.contact_name', function() {
+				handlecontactoption();
+			 });
+			 
+			 $('body').on('keyup', '.contact_email', function() {
+				handlecontactoption();
+			 });
+			 
+			 
 			 $('body').on('change', '.payment_account_number', function() {
 				var id = $(this).val();
 				$('.beneficiary_name').html('');
@@ -1118,6 +1158,13 @@ function contact_peraon(pos) {
 				$("input:radio[name='title']").each(function(i) {
 					   this.checked = false;
 				});
+				
+				if(val == 1) {
+					$('.address_text').html('Head office ');
+				} else if(val == 2) {
+					$('.address_text').html('Home ');
+				}
+				
 				if(val == 3) {
 					$('.mr').addClass('d-none');
 					$('.ms').addClass('d-none');
