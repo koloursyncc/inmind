@@ -11,10 +11,10 @@ $installment = array(
 	5 => 'Work Progress 100%',
 	6 => 'Original B/L is shown',
 );
-$brands = array(
+/* $brands = array(
 	1 => 'Meha',
 	2 => 'Inmind'
-);
+); */
 
 $currencydata = array(
 	1 => 'USD',
@@ -181,7 +181,7 @@ if($type == 'view')
 								  <select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example" {{ $disabledfield }}>
 									 <option value="">Select Brand </option>
 									<?php foreach($brands as $brandkey => $brandval) { ?>
-										<option value="{{ $brandkey }}" <?php if($customer_brand_id == $brandkey) { echo 'selected'; } ?>>{{ $brandval }}</option>
+										<option value="{{ $brandval->id }}" <?php if($customer_brand_id == $brandval->id) { echo 'selected'; } ?>>{{ $brandval->name }}</option>
 									<?php } ?>
 								  </select>
 								  <label for="formFile" class="form-label">Type of Customer</label>
@@ -245,6 +245,12 @@ if($type == 'view')
 											<label for="inputFirstName" class="form-label">Address no.</label>
 											<input type="text" class="form-control address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
 										 </div>
+										 
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">Road</label>
+											<input type="text" class="form-control head_office_road"  name="head_office_road" value="{{ @$obj->head_office_road }}" {{ $disabledfield }}>
+										 </div>
+										 
 										 <div class="col-sm-4">
 											<label for="inputLastName" class="form-label">Building / Village</label>
 											<input type="text" class="form-control building" name="head_office_building" value="{{ @$obj->head_office_building }}" {{ $disabledfield }}>
@@ -257,9 +263,11 @@ if($type == 'view')
 											<label for="inputEmailAddress" class="form-label">  District</label>
 											<input type="text" class="form-control district_id"  name="head_office_district" value="{{ @$obj->head_office_district }}" {{ $disabledfield }}>
 										 </div>
-										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">Road</label>
-											<input type="text" class="form-control head_office_road"  name="head_office_road" value="{{ @$obj->head_office_road }}" {{ $disabledfield }}>
+										 
+										 
+										  <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">  City</label>
+											<input type="text" class="form-control city"  name="head_office_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
 										 </div>
 										 
 										 <div class="col-4 mb-3">
@@ -272,6 +280,7 @@ if($type == 'view')
 											</select>
 										 </div>
 										 
+										 
 										 <?php 
 											$stateslist = [];
 											if($type != 'save') {
@@ -280,7 +289,7 @@ if($type == 'view')
 										 
 										 ?>
 										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">State</label>
+											<label for="inputEmailAddress" class="form-label">State / Province</label>
 											<select name="head_office_state_id" class="form-select state_id state_id_head" {{ $disabledfield }}>
 												<option value="">Select State</option>
 												<?php foreach($stateslist as $stateObj) { ?>
@@ -289,10 +298,7 @@ if($type == 'view')
 											</select>
 										 </div>
 										 
-										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">  City</label>
-											<input type="text" class="form-control city"  name="head_office_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
-										 </div>
+										
 										 
 										 
 										 <div class="col-sm-4">
@@ -309,6 +315,12 @@ if($type == 'view')
 											<label for="inputFirstName" class="form-label">Address no.</label>
 											<input type="text" class="form-control address delivery_address" name="delivery_address" value="{{ @$obj->delivery_address }}" {{ $disabledfield }}>
 										 </div>
+										 
+										 <div class="col-sm-4">
+											<label for="inputEmailAddress" class="form-label">Road</label>
+											<input type="text" class="form-control head_office_road delivery_road"  name="delivery_road" value="{{ @$obj->delivery_road }}" {{ $disabledfield }}>
+										 </div>
+										 
 										 <div class="col-sm-4">
 											<label for="inputLastName" class="form-label">Building / Village</label>
 											<input type="text" class="form-control building delivery_building" name="delivery_building" value="{{ @$obj->delivery_building }}" {{ $disabledfield }}>
@@ -321,9 +333,11 @@ if($type == 'view')
 											<label for="inputEmailAddress" class="form-label">  District</label>
 											<input type="text" class="form-control district_id delivery_district_id"  name="delivery_district_id" value="{{ @$obj->delivery_district_id }}" {{ $disabledfield }}>
 										 </div>
+										 
+										 
 										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">Road</label>
-											<input type="text" class="form-control head_office_road delivery_road"  name="delivery_road" value="{{ @$obj->delivery_road }}" {{ $disabledfield }}>
+											<label for="inputEmailAddress" class="form-label">  City</label>
+											<input type="text" class="form-control city delivery_city"  name="delivery_city" value="{{ @$obj->delivery_city }}" {{ $disabledfield }}>
 										 </div>
 										 
 										  <div class="col-4 mb-3">
@@ -344,7 +358,7 @@ if($type == 'view')
 											}
 										 ?>
 										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">State</label>
+											<label for="inputEmailAddress" class="form-label">State / Province</label>
 											<select name="delivery_state_id" class="form-select state_id state_id_delivery" {{ $disabledfield }}>
 												<option value="">Select State</option>
 												<?php foreach($stateslist as $stateObj) { ?>
@@ -353,10 +367,7 @@ if($type == 'view')
 											</select>
 										 </div>
 										 
-										 <div class="col-sm-4">
-											<label for="inputEmailAddress" class="form-label">  City</label>
-											<input type="text" class="form-control city delivery_city"  name="delivery_city" value="{{ @$obj->delivery_city }}" {{ $disabledfield }}>
-										 </div>
+										 
 										 
 										 
 										 <div class="col-sm-4">
@@ -425,6 +436,12 @@ if($type == 'view')
 							   <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
 								  <label for="inputFirstName" class="form-label">Invoice</label><br>
 								  <div class="form-check form-check-inline">
+									<select class="form-control" name="invoice" {{ $disabledfield }}>
+										<option value="">Select Invoice</option>
+										<option value="1" <?php if($customer_invoice == 1) { echo 'checked'; } ?>>Sale</option>
+										<option value="2" <?php if($customer_invoice == 2) { echo 'checked'; } ?>>Consignment</option>
+									</select>
+									<?php /*/ ?>
 									 <input class="form-check-input" type="radio" <?php if($customer_invoice == 1) { echo 'checked'; } ?> name="invoice" id="" value="1" {{ $disabledfield }}>
 									 <label class="form-check-label" for="inlineRadio1">Sale</label>
 								  </div>
@@ -432,6 +449,7 @@ if($type == 'view')
 									 <input class="form-check-input" type="radio" name="invoice" <?php if($customer_invoice == 2) { echo 'checked'; } ?> value="2" {{ $disabledfield }}>
 									 <label class="form-check-label" for="inlineRadio1">Consignment</label>
 								  </div>
+								  <?php */ ?>
 								  <div class="row g-3">
 									 <div class="col-sm-4">
 										<label for="inputFirstName" class="form-label">Currency</label>
@@ -676,6 +694,9 @@ if($type == 'view')
 					<?php } ?>
 				</select>
 			 </div>
+			 <div class="col-md-4">
+				<h4 class="remove_installment">Remove</h4>
+			 </div>
 		 </div>
 	</div>
 </div>
@@ -816,7 +837,7 @@ function addHeadOffice()
 	$('.headofficeclone_d_none').attr('data-pos', postotal);
 }
 
-function installment()
+function installment(pos)
 {
 	
 	var clone = $('.contactpersoncontent', $('.contactpersoncontent_d_none')).clone();
@@ -833,6 +854,10 @@ function installment()
 	$('.installment_clone_lavel', clone).html('Installment '+numbering);
 	$('.installment_clone_option_lavel', clone).html('Installment '+totalnum);
 	
+	if(pos == 0)
+	{
+		$('.remove_installment', clone).addClass('d-none');
+	}
 	
 	$('#installment_store').append(clone);
 	
@@ -1011,6 +1036,12 @@ function contact_peraon(pos) {
 				 }
 			 });
 			 
+			 
+				$('body').on('click', '.remove_installment', function() {
+					$(this).closest(".contactpersoncontent").remove();
+					return false;
+				});
+			 
 			<?php if($type == 'save') { ?>
 				$('.head_office_country_id option[value="237"]').prop('selected', true);
 				$('.delivery_country_id option[value="237"]').prop('selected', true);
@@ -1021,7 +1052,7 @@ function contact_peraon(pos) {
 					
 					dependdropdown(country, '.state_id_delivery', '', 'State');
 					
-					installment();
+					installment(0);
 				}, 1000);
 				
 			<?php } ?>
@@ -1036,7 +1067,7 @@ function contact_peraon(pos) {
 			
 			
 			$('body').on('click', '#add_installment_store', function() {
-				installment();
+				installment(1);
 				return false;
 			});
 			

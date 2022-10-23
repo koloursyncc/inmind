@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Brand;
 use App\Models\Installment;
 use App\Components\RegionManager;
 use App\Components\CustomerManager;
@@ -31,6 +32,7 @@ class DealerController extends Controller
 		$countries = $regionManager->countryList();
 		$documents = $persons = [];
 		$installments = [];
+		$brands = Brand::get();
 		if($type != 'save')
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 2)->get();
@@ -41,7 +43,7 @@ class DealerController extends Controller
 			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id);
 		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons];
+		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons, 'brands' => $brands];
 	}
 	
 	public function edit($id)
