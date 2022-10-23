@@ -526,8 +526,11 @@ if($type == 'view')
 									 <a href="#" id="add_installment_store">Add More</a>
 									 <div id="installment_store">
 										
-										<?php foreach($installments as $installmentk => $installmentObj) {
+										<?php 
+										$installmentin = 0;
+										foreach($installments as $installmentk => $installmentObj) {
 												$installmentkinc = ++$installmentk;
+												$installmentin = $installmentkinc;
 											?>
 											<div class="row">
 											 <div class="col-md-4">
@@ -867,10 +870,22 @@ function installment(pos)
 	var total = parseInt(no) - 1;
 	var totalnum = parseInt(numbering) + 1;
 	
+	$(".installment_clone_option", $('#installment_store')).each(function() {
+		var x = $(this).val();
+		$(".installment_clone_option option[value='"+x+"']", clone).remove();
+	});
+	
+	var length = $('.installment_clone_option > option', clone).length;
+	if(length == 0) {
+		return false;
+	}
+	
 	$('.installment_clone', clone).attr('name', 'installment_clone['+total+']');
+	
 	$('.installment_clone_option', clone).attr('name', 'installment_clone_option['+total+']');
 	
 	$('.installment_clone_lavel', clone).html('Installment '+numbering);
+	
 	$('.installment_clone_option_lavel', clone).html('Installment '+totalnum);
 	
 	if(pos == 0)
@@ -882,6 +897,9 @@ function installment(pos)
 	
 	$('.contactpersoncontent_d_none').attr('data-counter', total);
 	$('.contactpersoncontent_d_none').attr('data-pos', totalnum);
+	
+	//$(".ct option[value='X']").remove();
+	
 }
 
 function contact_peraon(pos) {
@@ -1108,11 +1126,13 @@ function handlecontactoption() {
 					
 					dependdropdown(country, '.state_id_delivery', '', 'State');
 					
-					installment(0);
+					
 				}, 1000);
 				
 			<?php } ?>
-			
+			<?php if($installmentin == 0) { ?>
+				installment(0);
+			<?php } ?>
 			$('body').on('change', '.head_office_country_id', function() {
 				var country = $(this).val();
 				
