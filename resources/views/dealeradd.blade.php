@@ -471,7 +471,7 @@ if($type == 'view')
 										<label for="inputFirstName" class="form-label">Currency</label>
 										<select class="form-select currency" name="currency" aria-label="Default select example" {{ $disabledfield }}>
 											<?php foreach($countries as $currencykey => $currencyval) { ?>
-												<option value="{{ $currencyval->id }}" <?php if(@$obj->currency == $currencyval->id) { echo 'selected'; } ?>>{{ $currencyval->currency }}</option>
+												<option value="{{ $currencyval->id }}" <?php if(@$obj->currency == $currencyval->id) { echo 'selected'; } else if($currencyval->id == 237) { echo 'selected'; } ?>>{{ $currencyval->currency }}</option>
 											<?php } ?>
 										</select>
 									 </div>
