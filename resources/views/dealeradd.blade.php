@@ -500,7 +500,7 @@ if($type == 'view')
 										</select>
 									 </div>
 									 <div class="col-sm-4">
-										<label for="inputLastName" class="form-label">Incoterm</label>
+										<label for="inputLastName" class="form-label">Place Invoice By</label>
 										<select class="form-select incoterm_type" name="incoterm_type" aria-label="Default select example" {{ $disabledfield }}>
 										   <option value="2" <?php if(@$obj->incoterm_type == 1) { echo 'selected'; } ?>>Post </option>
 										   <option value="3" <?php if(@$obj->incoterm_type == 2) { echo 'selected'; } ?>>Email</option>
