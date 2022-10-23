@@ -11,7 +11,8 @@ class Customer extends Model
 
     protected $fillable = [
         'brand_id', 'name', 'family', 'title','currency','incoterm','place_of_delivery_destination','credit_term_days','from','incoterm_type','contact_person','email', 'bank_name', 'bank_address','swift','account_number','beneficiary_name','beneficiary_address','type','invoice',
-		
+		'country_code',
+		'country_number',
 		'head_office_address',
 		'head_office_building',
 		'head_office_sub_district',

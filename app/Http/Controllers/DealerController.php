@@ -93,7 +93,9 @@ class DealerController extends Controller
 					'type' => 'required',
 					'invoice'=> 'required',
 					'beneficiary_name' => 'nullable|alpha',
-					'account_number' => 'nullable|numeric'
+					'account_number' => 'nullable|numeric',
+					'country_code' => 'required',
+					'country_number' => 'required|numeric'
 				);
 
 				$validator = Validator::make($data, $rules);
@@ -210,6 +212,9 @@ class DealerController extends Controller
 			'payment_account_number' => $request->payment_account_number,
 			'payment_branch' => $request->payment_branch,
 			'payment_beneficiary' => $request->payment_beneficiary,
+			
+			'country_code' => $request->country_code,
+			'country_number' => $request->country_number,
 			
 			/* 'contact_name' => $request->contact_name,
 			'contact_family_name' => $request->contact_family_name,
@@ -352,7 +357,9 @@ class DealerController extends Controller
 					'type' => 'required',
 					'invoice'=> 'required',
 					'beneficiary_name' => 'nullable|alpha',
-					'account_number' => 'nullable|numeric'
+					'account_number' => 'nullable|numeric',
+					'country_code' => 'required',
+					'country_number' => 'required|numeric'
 				);
 
 				$validator = Validator::make($data, $rules);

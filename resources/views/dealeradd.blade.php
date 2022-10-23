@@ -235,6 +235,22 @@ if($type == 'view')
 											<label for="formFile" class="form-label">Family Name</label>
 											<input class="form-control mb-3" value="{{ $customer_family }}" type="text" placeholder="enter dealer family" name="family" aria-label="default input example" {{ $disabledfield }}>
 										</div>
+										
+										<div class="col-sm-1">
+											<label for="formFile" class="form-label">Tel</label>
+											<select  name="country_code" class="form-select country_code" {{ $disabledfield }}>
+												<option value="">Select Country</option>
+												<?php foreach($countries as $country) { ?>
+													<option  value="{{ $country->id }}" <?php if($country->id == @$obj->country_code) { echo 'selected'; } else if($country->id == 237) { echo 'selected'; }  ?>>{{ $country->phone_code }}</option>
+												<?php } ?>
+											</select>
+											
+										</div>
+										
+										<div class="col-sm-3">
+											<label for="formFile" class="form-label">Number</label>
+											<input class="form-control mb-3" value="{{ @$obj->country_number }}" type="text" name="country_number" aria-label="default input example" {{ $disabledfield }}>
+										</div>
 									</div>
 									
 								  <div class="row g-3 headoffice">
@@ -434,12 +450,12 @@ if($type == 'view')
 								  
 							   </div>
 							   <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-								  <label for="inputFirstName" class="form-label">Invoice</label><br>
-								  <div class="form-check form-check-inline">
+								 
+								  <div class="form-check form-check-inline"> <label for="inputFirstName" class="form-label">Invoice</label><br>
 									<select class="form-control" name="invoice" {{ $disabledfield }}>
 										<option value="">Select Invoice</option>
-										<option value="1" <?php if($customer_invoice == 1) { echo 'checked'; } ?>>Sale</option>
-										<option value="2" <?php if($customer_invoice == 2) { echo 'checked'; } ?>>Consignment</option>
+										<option value="1" <?php if($customer_invoice == 1) { echo 'selected'; } ?>>Sale</option>
+										<option value="2" <?php if($customer_invoice == 2) { echo 'selected'; } ?>>Consignment</option>
 									</select>
 									<?php /*/ ?>
 									 <input class="form-check-input" type="radio" <?php if($customer_invoice == 1) { echo 'checked'; } ?> name="invoice" id="" value="1" {{ $disabledfield }}>
