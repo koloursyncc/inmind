@@ -76,6 +76,28 @@ class DealerController extends Controller
 		return view('dealeradd', $data);
 	}
 	
+	private function handleInstall($request, &$msg)
+	{
+		$status = false;
+		$total = 0;
+		if(isset($request->installment_clone))
+		{
+			
+			//echo '<pre>'; print_r($request->installment_clone); die;
+			foreach($request->installment_clone as $installment_clone_key => $installment_clone_val)
+			{
+				$total  += $installment_clone_val;
+			}
+		}
+		if($total < 100) {
+			$msg = 'installment should 100%';
+			return false;
+		}
+		
+		
+		return true;
+	}
+	
 	public function save(Request $request)
 	{
 		if($request->isMethod('post'))
@@ -103,6 +125,14 @@ class DealerController extends Controller
 				if ($validator->fails())
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+				
+				
+				$msg = '';
+				$status = $this->handleInstall($request, $msg);
+				if($status == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
 				}
 
 				$customerManager = CustomerManager::getInstance();
@@ -367,6 +397,13 @@ class DealerController extends Controller
 				if ($validator->fails())
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+				}
+				
+				$msg = '';
+				$status = $this->handleInstall($request, $msg);
+				if($status == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
 				}
 
 				$customerManager = CustomerManager::getInstance();

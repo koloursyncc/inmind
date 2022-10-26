@@ -177,6 +177,10 @@ if($type == 'view')
 							</ul>
 							<div class="tab-content">
 							   <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+									<!--<h4 class="add_store" style="cursor:pointer">Add More</h4>-->
+									<div class="customer_store_data"></div>
+									
+							   
 								  <label for="formFile" class="form-label">Brand</label>
 								  <select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example" {{ $disabledfield }}>
 									 <option value="">Select Brand </option>
@@ -630,6 +634,7 @@ if($type == 'view')
 									
 									
 							</div>
+							
 						 </div>
 					 </form>
                   </div>
@@ -757,7 +762,7 @@ if($type == 'view')
 			 <div class="col-sm-4">
 				<div class="mb-3">
 				   <label class="form-label">Date of Birth:</label>
-				   <input type="date" class="form-control contact_dob"" {{ $disabledfield }}>
+				   <input type="date" class="form-control contact_dob" {{ $disabledfield }}>
 				</div>
 			 </div>
 			 <div class="col-sm-4">
@@ -801,6 +806,11 @@ if($type == 'view')
 		</select>
 	</div>
 </div>
+<?php /* ?>
+<div class="store_wrapper_d_none" style="display:none" data-counter="0" data-pos="-1">
+	@include('customer/store')
+</div>
+<?php */ ?>
 	  
       @include('layout.customer')
       <script>
@@ -951,164 +961,252 @@ function handlecontactoption() {
 		
 	});
 }
+
+
+function storeclone(pos) {
+	var clone = $('.store_wrapper', $('.store_wrapper_d_none')).clone();
+	
+	var no = $('.store_wrapper_d_none').attr('data-pos');
+	var numbering = $('.store_wrapper_d_none').attr('data-counter');
+	
+	var total = parseInt(no) - 1;
+	var totalnum = parseInt(numbering) + 1;
+	
+	$('.store_wrapper_target', clone).addClass('store_wrapper_'+totalnum);
+	
+	$('.store_name', clone).attr('name', 'store_name['+total+']');
+	$('.store_building_village', clone).attr('name', 'store_building_village['+total+']');
+	$('.store_sub_district', clone).attr('name', 'store_sub_district['+total+']');
+	$('.store_district', clone).attr('name', 'store_district['+total+']');
+	$('.store_road', clone).attr('name', 'store_road['+total+']');
+	$('.store_city', clone).attr('name', 'store_city['+total+']');
+	$('.store_zip_code', clone).attr('name', 'store_zip_code['+total+']');
+	$('.store_country', clone).attr('name', 'store_country['+total+']');
+	
+	
+	
+	var nosub = $('.add_store_contact_person_wrapper', clone).attr('data-pos');
+	var numberingsub = $('.add_store_contact_person_wrapper', clone).attr('data-counter');
+	var totalnosub = parseInt(nosub) - 1;
+	var totalnumnosub = parseInt(numberingsub) + 1;
+	$('.add_store_contact_person', clone).attr('data-id', totalnum);
+	$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
+	$('.store_contact_address', clone).attr('name', 'store_contact_address['+total+']['+totalnosub+']');
+	$('.store_contact_building', clone).attr('name', 'store_contact_building['+total+']['+totalnosub+']');
+	$('.store_contact_sub_district', clone).attr('name', 'store_contact_sub_district['+total+']['+totalnosub+']');
+	$('.store_contact_district_id', clone).attr('name', 'store_contact_district_id['+total+']['+totalnosub+']');
+	$('.store_contact_road', clone).attr('name', 'store_contact_road['+total+']['+totalnosub+']');
+	$('.store_contact_country_id', clone).attr('name', 'store_contact_country_id['+total+']['+totalnosub+']');
+	$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
+	$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
+	$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
+	$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);
+	$('.add_store_contact_person_wrapper', clone).attr('data-counter', totalnumnosub);
+	
+	
+	$('.customer_store_data').append(clone);
+	
+	$('.store_wrapper_d_none').attr('data-pos', total);
+	$('.store_wrapper_d_none').attr('data-counter', totalnum);
+	
+}
 	  
-         $(document).ready(function() {
-			 $('body').on('change', '.contact_person', function() {
-				var element = $(this).find('option:selected'); 
-				var myTag = element.attr("data-email"); 
-				$('.email').val(myTag);
-			 });
-			 
-			 $('body').on('keyup', '.contact_name', function() {
-				handlecontactoption();
-			 });
-			 
-			 $('body').on('keyup', '.contact_email', function() {
-				handlecontactoption();
-			 });
-			 
-			 
-			 $('body').on('change', '.payment_account_number', function() {
-				var id = $(this).val();
-				$('.beneficiary_name').html('');
-				$('.payment_beneficiary').val('');
-				$('.beneficiary_name_container').addClass('d-none');
-				if(id == '058-301795-9') {
-					$('.beneficiary_name_container').removeClass('d-none');
-					$('.payment_beneficiary').val('inmind CO.,Ltd');
-					$('.beneficiary_name').html('inmind CO.,Ltd');
-				} if(id == '058-057010-9') {
-					$('.beneficiary_name_container').removeClass('d-none');
-					$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
-					$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
-				} else if(id == '655-2-13419-0') {
-					$('.beneficiary_name_container').removeClass('d-none');
-					$('.payment_beneficiary').val('inmind CO.,Ltd');
-					$('.beneficiary_name').html('inmind CO.,Ltd');
-				} else if(id == '315-1-31039-4') {
-					$('.beneficiary_name_container').removeClass('d-none');
-					$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
-					$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
-				}
-					
-			 });
+	$(document).ready(function() {
 			
+		storeclone(0);
+		$('body').on('click', '.add_store', function() {
+			storeclone(1);
+		});
+		
+		$('body').on('click', '.add_store_contact_person', function() {
+			var id = $(this).attr('data-id');
 			
-			$('body').on('change', '.payment_bank_name', function() {
-				var id = $(this).val();
-				$('.branch_name_container').addClass('d-none');
-				$('.payment_branch').val('');
-				$('.branch_name').html('');
-				if(id == 'Bangkok Bank')
-				{
-					$('.branch_name_container').removeClass('d-none');
-					$('.branch_name').html('Rattanatibet');	
-					$('.payment_branch').val('Rattanatibet');
-					
-					var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-				} else if(id == 'Kasikom Bank')
-				{
-					$('.branch_name_container').removeClass('d-none');
-					$('.payment_branch').val('Rajpruk');
-					$('.branch_name').html('Rajpruk');	
-					
-					var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-				} else if(id == 'Krungsri Bank')
-				{
-					$('.branch_name_container').removeClass('d-none');
-					$('.branch_name').html('Phra Nangklao');
-					$('.payment_branch').val('Phra Nangklao');
-					
-					var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-				}
-				
-			});
+			var no = $('.store_wrapper_d_none').attr('data-pos');
+			var numbering = $('.store_wrapper_d_none').attr('data-counter');
+			
+			var total = parseInt(no) - 1;
+			var totalnum = parseInt(numbering) + 1;
+			
+			$('.store_wrapper_target', clone).addClass('store_wrapper_'+totalnum);
+			
+			var target = $('.store_wrapper_target store_wrapper_'+id);
+			
+			var nosub = $('.add_store_contact_person_wrapper', clone).attr('data-pos');
+			var numberingsub = $('.add_store_contact_person_wrapper', clone).attr('data-counter');
+			var totalnosub = parseInt(nosub) - 1;
+			var totalnumnosub = parseInt(numberingsub) + 1;
+			$('.add_store_contact_person', clone).attr('data-id', totalnum);
+			$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
+			$('.store_contact_address', clone).attr('name', 'store_contact_address['+total+']['+totalnosub+']');
+			$('.store_contact_building', clone).attr('name', 'store_contact_building['+total+']['+totalnosub+']');
+			$('.store_contact_sub_district', clone).attr('name', 'store_contact_sub_district['+total+']['+totalnosub+']');
+			$('.store_contact_district_id', clone).attr('name', 'store_contact_district_id['+total+']['+totalnosub+']');
+			$('.store_contact_road', clone).attr('name', 'store_contact_road['+total+']['+totalnosub+']');
+			$('.store_contact_country_id', clone).attr('name', 'store_contact_country_id['+total+']['+totalnosub+']');
+			$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
+			$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
+			$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
+			$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);
+			$('.add_store_contact_person_wrapper', clone).attr('data-counter', totalnumnosub);
+			
+		});
 			 
-			 var payment_bank_name = $('.payment_bank_name').val();
-			
-			if(payment_bank_name == 'Bangkok Ban'){
-				var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-					
-					
-					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
-					
-			} else if(payment_bank_name == 'Kasikom Bank'){
-				var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-					
-					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
-			} else if(payment_bank_name == 'Krungsri Bank'){
-				var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
-					$('.bankac').html('');
-					$('.bankac').append(clone);
-					
-					$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+		 $('body').on('change', '.contact_person', function() {
+			var element = $(this).find('option:selected'); 
+			var myTag = element.attr("data-email"); 
+			$('.email').val(myTag);
+		 });
+		 
+		 $('body').on('keyup', '.contact_name', function() {
+			handlecontactoption();
+		 });
+		 
+		 $('body').on('keyup', '.contact_email', function() {
+			handlecontactoption();
+		 });
+			 
+			 
+		 $('body').on('change', '.payment_account_number', function() {
+			var id = $(this).val();
+			$('.beneficiary_name').html('');
+			$('.payment_beneficiary').val('');
+			$('.beneficiary_name_container').addClass('d-none');
+			if(id == '058-301795-9') {
+				$('.beneficiary_name_container').removeClass('d-none');
+				$('.payment_beneficiary').val('inmind CO.,Ltd');
+				$('.beneficiary_name').html('inmind CO.,Ltd');
+			} if(id == '058-057010-9') {
+				$('.beneficiary_name_container').removeClass('d-none');
+				$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
+				$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
+			} else if(id == '655-2-13419-0') {
+				$('.beneficiary_name_container').removeClass('d-none');
+				$('.payment_beneficiary').val('inmind CO.,Ltd');
+				$('.beneficiary_name').html('inmind CO.,Ltd');
+			} else if(id == '315-1-31039-4') {
+				$('.beneficiary_name_container').removeClass('d-none');
+				$('.payment_beneficiary').val('Mr.Nattapong Anekadhana');
+				$('.beneficiary_name').html('Mr.Nattapong Anekadhana');
 			}
-			 
-			 <?php if($personCount == 0) { ?>
-				contact_peraon(0); 
-			 <?php } ?>
-			  $('body').on('click', '.contact_add', function() {
-				 contact_peraon(1); 
-				 return false;
-			  });
-			  
-			   $('body').on('click', '.removeContactPerson', function() {
-				 $(this).closest(".contact_detail_html").remove();
-				 return false;
-			  });
-			 
-			 $('body').on('change', '.delivery_check', function() {
-				 
-				 $("input[name=head_office_country_id]").val();
-				 $("input[name=head_office_state_id]").val();
-				 
-				 
-				 $('.delivery_address').val('');
-				$('.delivery_building').val('');
-				$('.delivery_sub_district').val('');
-				$('.delivery_district_id').val('');
-				$('.delivery_road').val('');
-				$('.delivery_country_id').val('');
-				$('.state_id_delivery').val('');
-				$('.delivery_city').val('');
-				$('.delivery_zipcode').val('');
-				 if($(this).prop('checked')) {
-					 var head_office_country_id = $('.head_office_country_id').val();
-					 
-					 $('.delivery_country_id option[value="'+head_office_country_id+'"]').prop('selected', true);
-					 
-					 //alert($("input[name=head_office_country_id]").val());
-					 $('.delivery_address').val($("input[name=head_office_address]").val());
-					 $('.delivery_building').val($("input[name=head_office_building]").val());
-					 
-					 $('.delivery_sub_district').val($("input[name=head_office_sub_district]").val());
 				
-					$('.delivery_district_id').val($("input[name=head_office_district]").val());
-					$('.delivery_road').val($("input[name=head_office_road]").val());
-					//$('.delivery_country_id').val('');
-					$('.state_id_delivery').val('');
-					$('.delivery_city').val($("input[name=head_office_city]").val());
-					$('.delivery_zipcode').val($("input[name=head_office_zipcode]").val());
-					dependdropdown(head_office_country_id, '.state_id_delivery', '', 'State');
-					
-					setTimeout(function() {
-						$('.state_id_delivery option[value="'+$('.state_id_head').val()+'"]').prop('selected', true);
-					}, 1500);
-					
-				 } else {
-					 
-				 }
-			 });
+		 });
+		
+		
+		$('body').on('change', '.payment_bank_name', function() {
+			var id = $(this).val();
+			$('.branch_name_container').addClass('d-none');
+			$('.payment_branch').val('');
+			$('.branch_name').html('');
+			if(id == 'Bangkok Bank')
+			{
+				$('.branch_name_container').removeClass('d-none');
+				$('.branch_name').html('Rattanatibet');	
+				$('.payment_branch').val('Rattanatibet');
+				
+				var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+			} else if(id == 'Kasikom Bank')
+			{
+				$('.branch_name_container').removeClass('d-none');
+				$('.payment_branch').val('Rajpruk');
+				$('.branch_name').html('Rajpruk');	
+				
+				var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+			} else if(id == 'Krungsri Bank')
+			{
+				$('.branch_name_container').removeClass('d-none');
+				$('.branch_name').html('Phra Nangklao');
+				$('.payment_branch').val('Phra Nangklao');
+				
+				var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+			}
+			
+		});
+			 
+		 var payment_bank_name = $('.payment_bank_name').val();
+		
+		if(payment_bank_name == 'Bangkok Ban'){
+			var clone = $('.payment_bank_pc_1', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+				
+				
+				$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+				
+		} else if(payment_bank_name == 'Kasikom Bank'){
+			var clone = $('.payment_bank_pc_2', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+				
+				$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+		} else if(payment_bank_name == 'Krungsri Bank'){
+			var clone = $('.payment_bank_pc_3', $('.payment_bank_none')).clone();
+				$('.bankac').html('');
+				$('.bankac').append(clone);
+				
+				$('.payment_account_number option[value="<?php echo @$obj->payment_account_number; ?>"]', $('.bankac')).prop('selected', true);
+		}
+			 
+	 <?php if($personCount == 0) { ?>
+		contact_peraon(0); 
+	 <?php } ?>
+	  $('body').on('click', '.contact_add', function() {
+		 contact_peraon(1); 
+		 return false;
+	  });
+	  
+	   $('body').on('click', '.removeContactPerson', function() {
+		 $(this).closest(".contact_detail_html").remove();
+		 return false;
+	  });
+	 
+	 $('body').on('change', '.delivery_check', function() {
+		 
+		 $("input[name=head_office_country_id]").val();
+		 $("input[name=head_office_state_id]").val();
+		 
+		 
+		 $('.delivery_address').val('');
+		$('.delivery_building').val('');
+		$('.delivery_sub_district').val('');
+		$('.delivery_district_id').val('');
+		$('.delivery_road').val('');
+		$('.delivery_country_id').val('');
+		$('.state_id_delivery').val('');
+		$('.delivery_city').val('');
+		$('.delivery_zipcode').val('');
+		 if($(this).prop('checked')) {
+			 var head_office_country_id = $('.head_office_country_id').val();
+			 
+			 $('.delivery_country_id option[value="'+head_office_country_id+'"]').prop('selected', true);
+			 
+			 //alert($("input[name=head_office_country_id]").val());
+			 $('.delivery_address').val($("input[name=head_office_address]").val());
+			 $('.delivery_building').val($("input[name=head_office_building]").val());
+			 
+			 $('.delivery_sub_district').val($("input[name=head_office_sub_district]").val());
+		
+			$('.delivery_district_id').val($("input[name=head_office_district]").val());
+			$('.delivery_road').val($("input[name=head_office_road]").val());
+			//$('.delivery_country_id').val('');
+			$('.state_id_delivery').val('');
+			$('.delivery_city').val($("input[name=head_office_city]").val());
+			$('.delivery_zipcode').val($("input[name=head_office_zipcode]").val());
+			dependdropdown(head_office_country_id, '.state_id_delivery', '', 'State');
+			
+			setTimeout(function() {
+				$('.state_id_delivery option[value="'+$('.state_id_head').val()+'"]').prop('selected', true);
+			}, 1500);
+			
+		 } else {
+			 
+		 }
+	 });
 			 
 			 
 				$('body').on('click', '.remove_installment', function() {

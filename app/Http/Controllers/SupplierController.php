@@ -216,14 +216,38 @@ class SupplierController extends Controller
 			
 			if($key > 0)
 			{
-				SupplierProduct::where('id', $key)->update($params);
+				//SupplierProduct::where('id', $key)->update($params);
+				SupplierContact::where('id', $key)->update($params);
 			} else {
+				//SupplierContact::create($params);
 				SupplierContact::create($params);
 			}
 			//
 		}
 	}
 
+	private function handleInstall($request, &$msg)
+	{
+		$status = false;
+		$total = 0;
+		if(isset($request->installment_1))
+		{
+			
+			//echo '<pre>'; print_r($request->installment_clone); die;
+			foreach($request->installment_1 as $installment_clone_key => $installment_clone_val)
+			{
+				$total  += $installment_clone_val;
+			}
+		}
+		if($total < 100) {
+			$msg = 'installment should 100%';
+			return false;
+		}
+		
+		
+		return true;
+	}
+	
 	public function save(Request $request)
 	{
 		if($request->isMethod('post'))
@@ -266,6 +290,13 @@ class SupplierController extends Controller
 				if($status === false)
 				{
 					return response()->json(['status' => 'error', 'error' => $msg]);
+				}
+				
+				$msg = '';
+				$status = $this->handleInstall($request, $msg);
+				if($status == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
 				}
 				
 				//$data = $request->except(['_token']);
@@ -423,6 +454,13 @@ class SupplierController extends Controller
 				if($status === false)
 				{
 					return response()->json(['status' => 'error', 'error' => $msg]);
+				}
+				
+				$msg = '';
+				$status = $this->handleInstall($request, $msg);
+				if($status == false)
+				{
+					return response()->json(array('status'=>'error', 'error' => $msg));
 				}
 				
 				$products = $request->product_id;

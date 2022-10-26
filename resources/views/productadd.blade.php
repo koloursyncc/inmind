@@ -68,13 +68,15 @@ if($type != 'save') {
 		$form = 'prodctupdate';
 	}
 	
-	if($product->type == 2) {
-		
-		
+	if($product->type == 1) {
+		$type_of_product_sole = 'checked';
+		$type_of_product_set = '';
+	} else if($product->type == 2) {
+		$type_of_product_sole = '';
+		$type_of_product_set = 'checked';
 	}
 	
-	$type_of_product_sole = '';
-	$type_of_product_set = 'checked';
+	
 	
 	$product_name = $product->name;
 	$product_code = $product->code;
@@ -222,7 +224,7 @@ if($type == 'view') {
 								  
 									<div class="col-md-12 {{ $parent_product_set }} parent_product_set" {{ $disabledrow }}>
 										<label for="inputPrice" class="form-label ">Select Product</label>
-										<select class="form-control parent_product_id" name="parent_product_id">
+										<select class="form-control parent_product_id" name="parent_product_id"  {{ $disabledrow }}>
 											<option value="">Select Product</option>
 											<?php foreach($products as $productObj) { ?>
 												<option value="{{ $productObj->id }}" <?php if(@$product->parent_product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->name }}</option>
@@ -328,7 +330,7 @@ if($type == 'view') {
 													</div>
 													<div class="col-md-4">
 														<label for="inputCostPerPrice" class="form-label">CBM (Meter)</label>
-														<input type="text"  class="form-control cbm" value="{{ $product_cbm }}" name="cbm" id="inputCostPerPrice" placeholder="" disabled1>
+														<input type="text"  class="form-control cbm" {{ $disabledrow }}  value="{{ $product_cbm }}" name="cbm" id="inputCostPerPrice" placeholder="" disabled1>
 													</div>
 												
 								            </div> 
