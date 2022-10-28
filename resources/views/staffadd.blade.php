@@ -170,14 +170,15 @@ if($type == 'view')
                                  <label for="inputFirstName" class="form-label">Name(Thai) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control name_thai" name="name_thai"  value="{{ @$obj->name_thai }}" {{ $disabledfield }}>
                               </div>
+							   <div class="col-sm-4">
+                                 <label for="inputEmailAddress" class="form-label">Family Name(Thai) <span style="color:red">*</span></label>
+                                 <input type="text" class="form-control famly_name_thai" name="famly_name_thai"  value="{{ @$obj->famly_name_thai }}" {{ $disabledfield }}>
+                              </div>
                               <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Name(English) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control name_eng" name="name_eng"  value="{{ @$obj->name_eng }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Family Name(Thai) <span style="color:red">*</span></label>
-                                 <input type="text" class="form-control famly_name_thai" name="famly_name_thai"  value="{{ @$obj->famly_name_thai }}" {{ $disabledfield }}>
-                              </div>
+                             
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Family Name(English) <span style="color:red">*</span></label>
                                  <input type="text" class="form-control famly_name_eng" name="famly_name_eng"  value="{{ @$obj->famly_name_eng }}" {{ $disabledfield }}>
