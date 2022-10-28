@@ -59,61 +59,35 @@
 		 <div class="row g-3 add_store_pik">
 			  <h6 class="c_p">Contact Person</h6>
 			 <div class="col-sm-4">
-				<label for="inputFirstName" class="form-label">Address no.</label>
-				<input type="text" class="form-control store_contact_address" id="" {{ $disabledfield }}>
+				<label for="inputFirstName" class="form-label">Name</label>
+				<input type="text" class="form-control store_contact_name" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputLastName" class="form-label">Building / Village</label>
-				<input type="text" class="form-control store_contact_building" id="" {{ $disabledfield }}>
+				<label for="inputLastName" class="form-label">Family name</label>
+				<input type="text" class="form-control store_contact_family_name" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">Sub District</label>
-				<input type="text" class="form-control store_contact_sub_district" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">Email</label>
+				<input type="text" class="form-control store_contact_email" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">  District</label>
-				<input type="text" class="form-control store_contact_district_id" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">  Position</label>
+				<input type="text" class="form-control store_contact_position" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">Road</label>
-				<input type="text" class="form-control store_contact_road" id="" {{ $disabledfield }}>
-			 </div>
-			 
-			  <div class="col-4 mb-3">
-				<label for="inputSelectCountry" class="form-label ">Country</label>
-				<select class="form-select store_contact_country_id" id="" aria-label="Default select example" {{ $disabledfield }}>
-					<option value="">Select Country</option>
-					<?php foreach($countries as $country) { ?>
-						<option value="{{ $country->id }}" <?php if($country->id == 237) { echo 'selected'; } ?>>{{ $country->name }}</option>
-					<?php } ?>
-				</select>
+				<label for="inputEmailAddress" class="form-label">Mobile</label>
+				<input type="text" class="form-control store_contact_mobile" id="" {{ $disabledfield }}>
 			 </div>
 			 
 			 <div class="col-4">
-				<label for="inputEmailAddress" class="form-label">State</label>
-				<select class="form-select store_contact_state_id" id="" aria-label="Default select example" {{ $disabledfield }}>
-					<option value="">Select State</option>
-					<?php $statesContact = \App\Models\State::where('country_id', 237)->get();
-						foreach($statesContact as $statesContactObj) {
-							echo '<option value="'.$statesContactObj->id.'">'.$statesContactObj->name.'</option>';
-						}
-					?>
-				</select>
+				<label for="inputEmailAddress" class="form-label">  Line</label>
+				<input type="text" class="form-control store_contact_line" id="" {{ $disabledfield }}>
 			 </div>
 			 
 			 <div class="col-4">
-				<label for="inputEmailAddress" class="form-label">  City</label>
-				<input type="text" class="form-control store_contact_city" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">  Birth Date</label>
+				<input type="date" class="form-control store_contact_birth_date" id="" {{ $disabledfield }}>
 			 </div>
-			 
-			 
-			 
-			 
-			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">  Zip Code</label>
-				<input type="text" class="form-control store_contact_zipcode" id="" {{ $disabledfield }}>
-			 </div>
-			
 		</div>
 	</div>
 	<hr>
@@ -125,55 +99,39 @@
 		 <div class="row g-3 add_store_pik">
 			  <h6 class="c_p">Contact Person</h6>
 			 <div class="col-sm-4">
-				<label for="inputFirstName" class="form-label">Address no.</label>
-				<input type="text" class="form-control store_contact_address" id="" {{ $disabledfield }}>
+				<label for="inputFirstName" class="form-label">Name</label>
+				<input type="text" class="form-control store_contact_name" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputLastName" class="form-label">Building / Village</label>
-				<input type="text" class="form-control store_contact_building" id="" {{ $disabledfield }}>
+				<label for="inputLastName" class="form-label">Family name</label>
+				<input type="text" class="form-control store_contact_family_name" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">Sub District</label>
-				<input type="text" class="form-control store_contact_sub_district" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">Email</label>
+				<input type="text" class="form-control store_contact_email" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">  District</label>
-				<input type="text" class="form-control store_contact_district_id" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">  Position</label>
+				<input type="text" class="form-control store_contact_position" id="" {{ $disabledfield }}>
 			 </div>
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">Road</label>
-				<input type="text" class="form-control store_contact_road" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">Mobile</label>
+				<input type="text" class="form-control store_contact_mobile" id="" {{ $disabledfield }}>
 			 </div>
 			 
-			  <div class="col-4 mb-3">
-				<label for="inputSelectCountry" class="form-label ">Country</label>
-				<select class="form-select store_contact_country_id" id="" aria-label="Default select example" {{ $disabledfield }}>
-					<option value="">Select Country</option>
-					<?php foreach($countries as $country) { ?>
-						<option value="{{ $country->id }}" <?php if($country->id == 237) { echo 'selected'; } ?>>{{ $country->name }}</option>
-					<?php } ?>
-				</select>
-			 </div>
+			  
 			 
 			 <div class="col-4">
-				<label for="inputEmailAddress" class="form-label">State</label>
-				<select class="form-select store_contact_state_id" id="" aria-label="Default select example" {{ $disabledfield }}>
-					<option value="">Select State</option>
-					
-				</select>
-			 </div>
-			 
-			 <div class="col-4">
-				<label for="inputEmailAddress" class="form-label">  City</label>
-				<input type="text" class="form-control store_contact_city" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label">  Line</label>
+				<input type="text" class="form-control store_contact_line" id="" {{ $disabledfield }}>
 			 </div>
 			 
 			 
 			 
 			 
 			 <div class="col-sm-4">
-				<label for="inputEmailAddress" class="form-label">  Zip Code</label>
-				<input type="text" class="form-control store_contact_zipcode" id="" {{ $disabledfield }}>
+				<label for="inputEmailAddress" class="form-label"> Birth Date</label>
+				<input type="date" class="form-control store_contact_birth_date" id="" {{ $disabledfield }}>
 			 </div>
 			
 		</div>

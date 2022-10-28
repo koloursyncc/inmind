@@ -1099,17 +1099,13 @@ function storeclone(pos) {
 	var totalnumnosub = parseInt(numberingsub) + 1;
 	$('.add_store_contact_person', clone).attr('data-id', totalnum);
 	$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
-	$('.store_contact_address', clone).attr('name', 'store_contact_address['+total+']['+totalnosub+']');
-	$('.store_contact_building', clone).attr('name', 'store_contact_building['+total+']['+totalnosub+']');
-	$('.store_contact_sub_district', clone).attr('name', 'store_contact_sub_district['+total+']['+totalnosub+']');
-	$('.store_contact_district_id', clone).attr('name', 'store_contact_district_id['+total+']['+totalnosub+']');
-	$('.store_contact_road', clone).attr('name', 'store_contact_road['+total+']['+totalnosub+']');
-	$('.store_contact_country_id', clone).attr('name', 'store_contact_country_id['+total+']['+totalnosub+']');
-	$('.store_contact_country_id', clone).attr('data-id', totalnum);
-	$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
-	$('.store_contact_state_id', clone).addClass('store_contact_state_id_'+totalnum);
-	$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
-	$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
+	$('.store_contact_name', clone).attr('name', 'store_contact_name['+total+']['+totalnosub+']');
+	$('.store_contact_family_name', clone).attr('name', 'store_contact_family_name['+total+']['+totalnosub+']');
+	$('.store_contact_email', clone).attr('name', 'store_contact_email['+total+']['+totalnosub+']');
+	$('.store_contact_position', clone).attr('name', 'store_contact_position['+total+']['+totalnosub+']');
+	$('.store_contact_mobile', clone).attr('name', 'store_contact_mobile['+total+']['+totalnosub+']');
+	$('.store_contact_line', clone).attr('name', 'store_contact_line['+total+']['+totalnosub+']');
+	
 	$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);
 	$('.add_store_contact_person_wrapper', clone).attr('data-counter', totalnumnosub);
 	
@@ -1221,19 +1217,14 @@ function storeclone(pos) {
 			//alert(totalnosub);
 			//$('.add_store_contact_person', clone).attr('data-id', totalnum);
 			//$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
-			$('.store_contact_address', clone).attr('name', 'store_contact_address['+total+']['+totalnosub+']');
-			$('.store_contact_building', clone).attr('name', 'store_contact_building['+total+']['+totalnosub+']');
-			$('.store_contact_sub_district', clone).attr('name', 'store_contact_sub_district['+total+']['+totalnosub+']');
-			$('.store_contact_district_id', clone).attr('name', 'store_contact_district_id['+total+']['+totalnosub+']');
-			$('.store_contact_road', clone).attr('name', 'store_contact_road['+total+']['+totalnosub+']');
-			$('.store_contact_country_id', clone).attr('name', 'store_contact_country_id['+total+']['+totalnosub+']');
-			$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
-			$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
-			$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
+			$('.store_contact_name', clone).attr('name', 'store_contact_name['+total+']['+totalnosub+']');
+			$('.store_contact_family_name', clone).attr('name', 'store_contact_family_name['+total+']['+totalnosub+']');
+			$('.store_contact_email', clone).attr('name', 'store_contact_email['+total+']['+totalnosub+']');
+			$('.store_contact_position', clone).attr('name', 'store_contact_position['+total+']['+totalnosub+']');
+			$('.store_contact_mobile', clone).attr('name', 'store_contact_mobile['+total+']['+totalnosub+']');
+			$('.store_contact_line', clone).attr('name', 'store_contact_line['+total+']['+totalnosub+']');
 			
-			$('.store_contact_country_id', clone).attr('data-id', totalnum);
-
-			$('.store_contact_state_id', clone).addClass('store_contact_state_id_'+totalnum);
+			
 
 			$('.subchild_'+id).append(clone);
 			

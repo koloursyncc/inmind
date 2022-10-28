@@ -163,7 +163,7 @@ class DealerController extends Controller
 		if(isset($request->store_checked))
 		{
 			foreach($request->store_checked as $sk => $store_checked)
-			{
+			{ //echo 12; die;
 				$store = [];
 				$store['customer_id'] = $lastInsertId;
 				$store['store_checked'] = $store_checked;
@@ -225,6 +225,7 @@ class DealerController extends Controller
 				if($flag == true)
 				{ // echo '<pre>'; print_R($store); die;
 					$id = $sk;
+					
 					if($sk > 0)
 					{
 						DB::table('customer_stores')->where('id', $id)->update($store);
@@ -235,68 +236,53 @@ class DealerController extends Controller
 					
 					if($id)
 					{
-						if(isset($request->store_contact_address[$sk]))
-						{
+						if(isset($request->store_contact_name[$sk]))
+						{ 
 							$contact_person = [];
-							foreach($request->store_contact_address[$sk] as $skcontact => $store_contact_address)
+							foreach($request->store_contact_name[$sk] as $skcontact => $store_contact_name)
 							{
 								$flag = false;
 								$contact_person['customer_id'] = $lastInsertId;
 								$contact_person['store_id'] = $id;
-								if(isset($request->store_contact_building[$sk][$skcontact]))
+								$contact_person['store_contact_name'] = $store_contact_name;
+								
+								if(isset($request->store_contact_family_name[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_building'] = $request->store_contact_building[$sk][$skcontact];
+									$contact_person['store_contact_family_name'] = $request->store_contact_family_name[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_sub_district[$sk][$skcontact]))
+								if(isset($request->store_contact_email[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_sub_district'] = $request->store_contact_sub_district[$sk][$skcontact];
+									$contact_person['store_contact_email'] = $request->store_contact_email[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_sub_district[$sk][$skcontact]))
+								if(isset($request->store_contact_position[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_sub_district'] = $request->store_contact_sub_district[$sk][$skcontact];
+									$contact_person['store_contact_position'] = $request->store_contact_position[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_district_id[$sk][$skcontact]))
+								if(isset($request->store_contact_mobile[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_district_id'] = $request->store_contact_district_id[$sk][$skcontact];
+									$contact_person['store_contact_mobile'] = $request->store_contact_mobile[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_road[$sk][$skcontact]))
+								if(isset($request->store_contact_line[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_road'] = $request->store_contact_road[$sk][$skcontact];
+									$contact_person['store_contact_line'] = $request->store_contact_line[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_country_id[$sk][$skcontact]))
+								if(isset($request->store_contact_birth_date[$sk][$skcontact]))
 								{
 									$flag = true;
-									$contact_person['store_contact_country_id'] = $request->store_contact_country_id[$sk][$skcontact];
+									$contact_person['store_contact_birth_date'] = $request->store_contact_birth_date[$sk][$skcontact];
 								}
 								
-								if(isset($request->store_contact_state_id[$sk][$skcontact]))
-								{
-									$flag = true;
-									$contact_person['store_contact_state_id'] = $request->store_contact_state_id[$sk][$skcontact];
-								}
 								
-								if(isset($request->store_contact_city[$sk][$skcontact]))
-								{
-									$flag = true;
-									$contact_person['store_contact_city'] = $request->store_contact_city[$sk][$skcontact];
-								}
-								
-								if(isset($request->store_contact_zipcode[$sk][$skcontact]))
-								{
-									$flag = true;
-									$contact_person['store_contact_zipcode'] = $request->store_contact_zipcode[$sk][$skcontact];
-								}
-								//echo '<pre>'; print_r($contact_person);die;
 								if($flag == true)
 								{
 									if($skcontact > 0)
@@ -783,12 +769,17 @@ class DealerController extends Controller
 
 
 			$id = $record->id;
-			
+			$contactname = '';
+			$contact = DB::table('customer_store_contact_persons')->where('customer_id', $record->id)->first();
+			if($contact)
+			{
+				$contactname = $contact->store_contact_name;
+			}
 			$data_arr[] = array(
 			  "id" => $id,
 			  //"main_img" => $main_img,
 			  "product_name" => $record->name,
-			  "product_code" => $record->contact_name,
+			  "product_code" => $contactname,
 			  'detail' => $detail,
 			  'action' => $action,
 			  //"supplier" => $record->supplier,
