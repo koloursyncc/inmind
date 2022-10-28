@@ -16,7 +16,7 @@ class DealerController extends Controller
 {
     public function index()
     {
-		$data = $this->getCustomer('save', null);
+		$data = $this->getCustomer('save', null) ;
 		
 		return view('dealeradd', $data);
     }
@@ -30,10 +30,11 @@ class DealerController extends Controller
 	{
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
-		$documents = $persons = [];
+		$documents = $persons = $stores = $customer_products = [];
 		$installments = [];
 		$brands = Brand::get();
 		$products = Product::get();
+		
 		if($type != 'save')
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 2)->get();
@@ -42,9 +43,11 @@ class DealerController extends Controller
 			; */
 			$customerManager = CustomerManager::getInstance();
 			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id);
+			$stores = DB::table('customer_stores')->where('customer_id', $obj->id)->get();
+			$customer_products = DB::table('customer_products')->where('customer_id', $obj->id)->get();
 		}
-		
-		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons, 'brands' => $brands, 'products' => $products];
+		/* dd($customer_products) */
+		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons, 'brands' => $brands, 'products' => $products, 'stores' => $stores, 'customer_products' => $customer_products];
 	}
 	
 	public function edit($id)
@@ -142,13 +145,15 @@ class DealerController extends Controller
 				
 				if($flag == true)
 				{
+					
 					if($k > 0)
 					{
-						DB::table('customer_products')->insert($product);
-					} else {
 						DB::table('customer_products')
 						->where('id', $k)
 						->update($product);
+					} else {
+						DB::table('customer_products')->insert($product);
+						
 					}
 				}
 				
@@ -169,6 +174,12 @@ class DealerController extends Controller
 					$store['store_name'] = $request->store_name[$sk];
 				}
 				
+				/* if(isset($request->store_contact_address[$sk]))
+				{
+					$flag = true;
+					$store['store_contact_address'] = $request->store_contact_address[$sk];
+				}
+				 */
 				if(isset($request->store_building_village[$sk]))
 				{
 					$flag = true;
@@ -212,13 +223,14 @@ class DealerController extends Controller
 				}
 				
 				if($flag == true)
-				{
+				{ // echo '<pre>'; print_R($store); die;
 					$id = $sk;
 					if($sk > 0)
 					{
-						$id = DB::table('customer_stores')->insertGetId($store);
-					} else {
 						DB::table('customer_stores')->where('id', $id)->update($store);
+					} else {
+						
+						$id = DB::table('customer_stores')->insertGetId($store);
 					}
 					
 					if($id)
@@ -284,14 +296,15 @@ class DealerController extends Controller
 									$flag = true;
 									$contact_person['store_contact_zipcode'] = $request->store_contact_zipcode[$sk][$skcontact];
 								}
-								
+								//echo '<pre>'; print_r($contact_person);die;
 								if($flag == true)
 								{
 									if($skcontact > 0)
 									{
+										
 										DB::table('customer_store_contact_persons')->where('id', $skcontact)->update($contact_person);
 									} else {
-										DB::table('customer_store_contact_persons')->insertGetId($store);
+										DB::table('customer_store_contact_persons')->insertGetId($contact_person);
 									}
 								}
 							}
@@ -307,7 +320,6 @@ class DealerController extends Controller
 	{
 		if($request->isMethod('post'))
 		{
-			//$this->handleProduct(1, $request); die;
 			//try
 			//{
 				$data = $request->all();
@@ -353,6 +365,8 @@ class DealerController extends Controller
 					$this->installments($lastInsertId, $request);
 					
 					$this->contactperson($lastInsertId, $request);
+					
+					$this->handleProduct($lastInsertId, $request);
 					
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
 				}
@@ -650,6 +664,7 @@ class DealerController extends Controller
 					
 					$this->contactperson($lastInsertId, $request);
 					//$this->headDocumant($lastInsertId, $request);
+					$this->handleProduct($lastInsertId, $request);
 					//
 					//die;
 					return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));

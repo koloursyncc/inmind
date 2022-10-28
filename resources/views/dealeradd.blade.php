@@ -177,7 +177,7 @@ if($type == 'view')
 							</ul>
 							<div class="tab-content">
 							   <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-							   <?php /* ?>
+							   
 									<div class="row">
 										<div class="col-md-12">	
 											<label for="inputFirstName" class="form-label">Product</label>
@@ -191,36 +191,41 @@ if($type == 'view')
 									
 									<div class="row d-none mktpro">
 										<div class="col-md-1">
-											<label for="inputFirstName" class="form-label p_name">Product Name</label>
+											<label for="inputFirstName" class="form-label ">Product Name</label>
 											<input type="hidden" class="product_id" />
 										</div>  
 										<div class="col-md-1">
-											<label for="inputFirstName" class="form-label p_code">Product Code</label>
+											<label for="inputFirstName" class="form-label ">Product Code</label>
 											
 										</div> 
 										<div class="col-md-2">
-											<label for="inputFirstName" class="form-label p_code">Price THB (Ex Vat)</label>
+											<label for="inputFirstName" class="form-label ">Price THB (Ex Vat)</label>
 										</div>  
 										<div class="col-md-2">
-											<label for="inputFirstName" class="form-label p_code">Price THB (inc Vat)</label>
+											<label for="inputFirstName" class="form-label ">Price THB (inc Vat)</label>
 										</div>     
 										<div class="col-md-2">
-											<label for="inputFirstName" class="form-label p_code">Mkt Price (Ex Vat)</label>
+											<label for="inputFirstName" class="form-label ">Mkt Price (Ex Vat)</label>
 										</div>
 										
 										<div class="col-md-2">
-											<label for="inputFirstName" class="form-label p_code">Mkt Price (inc Vat)</label>
+											<label for="inputFirstName" class="form-label ">Mkt Price (inc Vat)</label>
 										</div>
 										<div class="col-md-2">
-											<label for="inputFirstName" class="form-label p_code">Mkt Valid Date</label>
+											<label for="inputFirstName" class="form-label ">Mkt Valid Date</label>
 										</div>			
 									</div>
 									
-									<div class="pro_clone"></div>
+									@include('customer/updateproduct')
+									<div class="pro_clone">
+										
+									</div>
 							   
 									<h4 class="add_store" style="cursor:pointer">Add More</h4>
-									<div class="customer_store_data"></div>
-									<?php */ ?>
+									<div class="customer_store_data">
+										@include('customer/updatestore')
+									</div>
+									
 							   
 								  <label for="formFile" class="form-label">Brand</label>
 								  <select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example" {{ $disabledfield }}>
@@ -915,6 +920,33 @@ function dependdropdown(val, target, cnt, name) {
 	});
 }
 
+function countrymultidependdropdown(val, target, cnt, name) {
+	var url = $("meta[name=url]").attr("content");
+	$.ajax({
+		url: "{{url('getregionaldata')}}",
+		dataType : "json",
+		type: "get",
+		data : {'value':val, 'name':name},
+		success : function(response) {
+			
+			var list = $(target); 
+			list.empty();
+			list.append(new Option('Select '+name, ''));
+			$.each(response, function(index, item) {
+				list.append(new Option(item.name, item.id, true));
+			});
+			
+			<?php if($type == 'save') { ?>
+				
+				/* setTimeout(function() {
+					
+				
+				}, 500); */
+			<?php } ?>
+		},
+	});
+}
+
 function addHeadOffice()
 {
 	var clone = $('.headofficeclone', $('.headofficeclone_d_none')).clone();
@@ -1073,7 +1105,9 @@ function storeclone(pos) {
 	$('.store_contact_district_id', clone).attr('name', 'store_contact_district_id['+total+']['+totalnosub+']');
 	$('.store_contact_road', clone).attr('name', 'store_contact_road['+total+']['+totalnosub+']');
 	$('.store_contact_country_id', clone).attr('name', 'store_contact_country_id['+total+']['+totalnosub+']');
+	$('.store_contact_country_id', clone).attr('data-id', totalnum);
 	$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
+	$('.store_contact_state_id', clone).addClass('store_contact_state_id_'+totalnum);
 	$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
 	$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
 	$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);
@@ -1085,10 +1119,20 @@ function storeclone(pos) {
 	$('.store_wrapper_d_none').attr('data-pos', total);
 	$('.store_wrapper_d_none').attr('data-counter', totalnum);
 	
+	
+	
 }
 
 
 	$(document).ready(function() {
+		
+		$('body').on('change', '.store_contact_country_id', function() {
+			var id = $(this).val();
+			
+			var target = $('.store_contact_state_id',$(this).parent().parent());
+			
+			countrymultidependdropdown(id, target, '', 'State');
+		});
 		
 		$('body').on('keyup', '.price_thb_ex_vat', function() {
 			var id = $(this).attr('data-id');
@@ -1096,7 +1140,7 @@ function storeclone(pos) {
 			var val = $(this).val();
 			var price_thb_inc_vat = $('.price_thb_inc_vat',$(this).parent().parent()).val();
 			
-			$('.price_thb_inc_vat',$(this).parent().parent()).val(val*7/100);
+			$('.price_thb_inc_vat',$(this).parent().parent()).val(val+(val*7/100));
 		});
 		
 		$('body').on('keyup', '.mkt_price_thb_ex_vat', function() {
@@ -1105,7 +1149,7 @@ function storeclone(pos) {
 			var val = $(this).val();
 			var mkt_price_thb_inc_vat = $('.mkt_price_thb_inc_vat',$(this).parent().parent()).val();
 			
-			$('.mkt_price_thb_inc_vat',$(this).parent().parent()).val(val*7/100);
+			$('.mkt_price_thb_inc_vat',$(this).parent().parent()).val(val+(val*7/100));
 		});
 		
 		$('body').on('change', '.product_name', function() {
@@ -1187,7 +1231,10 @@ function storeclone(pos) {
 			$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
 			$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
 			
-			
+			$('.store_contact_country_id', clone).attr('data-id', totalnum);
+
+			$('.store_contact_state_id', clone).addClass('store_contact_state_id_'+totalnum);
+
 			$('.subchild_'+id).append(clone);
 			
 			$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);

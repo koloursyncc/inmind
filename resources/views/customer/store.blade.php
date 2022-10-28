@@ -46,6 +46,9 @@
 			<label for="inputFirstName" class="form-label">Country</label>
 			<select class="form-control store_country" {{ $disabledfield }}>
 				<option value="">Select</option>
+				<?php foreach($countries as $country) { ?>
+					<option  value="{{ $country->id }}" <?php if($country->id == 237) { echo 'selected'; } ?>>{{ $country->name }}</option>
+				<?php } ?>
 			</select>
 		</div>
 	</div>
@@ -90,7 +93,11 @@
 				<label for="inputEmailAddress" class="form-label">State</label>
 				<select class="form-select store_contact_state_id" id="" aria-label="Default select example" {{ $disabledfield }}>
 					<option value="">Select State</option>
-					
+					<?php $statesContact = \App\Models\State::where('country_id', 237)->get();
+						foreach($statesContact as $statesContactObj) {
+							echo '<option value="'.$statesContactObj->id.'">'.$statesContactObj->name.'</option>';
+						}
+					?>
 				</select>
 			 </div>
 			 
