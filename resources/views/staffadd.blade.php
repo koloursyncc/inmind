@@ -187,10 +187,18 @@ if($type == 'view')
                                  <label for="inputEmailAddress" class="form-label">  Nick Name</label>
                                  <input type="text" class="form-control" name="nick" value="{{ @$obj->nick }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-4">
+                              <!----<div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Current Job Position</label>
                                  <input type="text" class="form-control" name="current_job" value="{{ @$obj->current_job }}"  {{ $disabledfield }}>
-                              </div>
+                              </div>------>
+							  <div class="col-sm-4">
+								<label for="inputFirstName" class="form-label">Current Job Position</label>
+								<select class="form-select position" value="{{ @$obj->current_job }}" name="current_job" aria-label="Default select example" {{ $disabledfield }}>
+									<?php foreach($positionData as $positionDatak => $positionDatav) { ?>
+										<option value="{{ $positionDatak }}">{{ $positionDatav }}</option>
+									<?php } ?>
+								</select>
+	  						</div> 
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Mobile no.</label>
                                  <input type="text" class="form-control" name="mobile_no" value="{{ @$obj->mobile_no }}" {{ $disabledfield }}>
