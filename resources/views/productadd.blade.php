@@ -655,7 +655,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000);
+			$('.cbm').val(multi/1000000);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
@@ -665,7 +665,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000);
+			$('.cbm').val(multi/1000000);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
@@ -675,7 +675,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000);
+			$('.cbm').val(multi/1000000);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});

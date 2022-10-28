@@ -11,7 +11,7 @@ use App\Components\RegionManager;
 use App\Components\CustomerManager;
 use Validator;
 use Illuminate\Http\Request;
-
+use DB;
 class DealerController extends Controller
 {
     public function index()
@@ -33,6 +33,7 @@ class DealerController extends Controller
 		$documents = $persons = [];
 		$installments = [];
 		$brands = Brand::get();
+		$products = Product::get();
 		if($type != 'save')
 		{
 			$installments = Installment::where('type_id', $obj->id)->where('type', 2)->get();
@@ -43,7 +44,7 @@ class DealerController extends Controller
 			$persons = $customerManager->getCustomerContactPersonByCustId($obj->id);
 		}
 		
-		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons, 'brands' => $brands];
+		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'installments' => $installments, 'documents' => $documents, 'persons' => $persons, 'brands' => $brands, 'products' => $products];
 	}
 	
 	public function edit($id)
@@ -98,10 +99,215 @@ class DealerController extends Controller
 		return true;
 	}
 	
+	private function handleProduct($lastInsertId, $request)
+	{
+		
+		if(isset($request->product_id))
+		{
+			foreach($request->product_id as $k => $productId)
+			{
+				$product = [];
+				$product['customer_id'] = $lastInsertId;
+				$product['product_id'] = $productId;
+				$flag = false;
+				if(isset($request->price_thb_ex_vat[$k]))
+				{
+					$flag = true;
+					$product['price_thb_ex_vat'] = $request->price_thb_ex_vat[$k];
+				}
+				
+				if(isset($request->price_thb_inc_vat[$k]))
+				{
+					$flag = true;
+					$product['price_thb_inc_vat'] = $request->price_thb_inc_vat[$k];
+				}
+				
+				if(isset($request->mkt_price_thb_ex_vat[$k]))
+				{
+					$flag = true;
+					$product['mkt_price_thb_ex_vat'] = $request->mkt_price_thb_ex_vat[$k];
+				}
+				
+				if(isset($request->mkt_price_thb_inc_vat[$k]))
+				{
+					$flag = true;
+					$product['mkt_price_thb_inc_vat'] = $request->mkt_price_thb_inc_vat[$k];
+				}
+				
+				if(isset($request->mkt_valid_date[$k]))
+				{
+					$flag = true;
+					$product['mkt_valid_date'] = $request->mkt_valid_date[$k];
+				}
+				
+				if($flag == true)
+				{
+					if($k > 0)
+					{
+						DB::table('customer_products')->insert($product);
+					} else {
+						DB::table('customer_products')
+						->where('id', $k)
+						->update($product);
+					}
+				}
+				
+			}
+		}
+		
+		if(isset($request->store_checked))
+		{
+			foreach($request->store_checked as $sk => $store_checked)
+			{
+				$store = [];
+				$store['customer_id'] = $lastInsertId;
+				$store['store_checked'] = $store_checked;
+				$flag = false;
+				if(isset($request->store_name[$sk]))
+				{
+					$flag = true;
+					$store['store_name'] = $request->store_name[$sk];
+				}
+				
+				if(isset($request->store_building_village[$sk]))
+				{
+					$flag = true;
+					$store['store_building_village'] = $request->store_building_village[$sk];
+				}
+				
+				if(isset($request->store_sub_district[$sk]))
+				{
+					$flag = true;
+					$store['store_sub_district'] = $request->store_sub_district[$sk];
+				}
+				
+				if(isset($request->store_district[$sk]))
+				{
+					$flag = true;
+					$store['store_district'] = $request->store_district[$sk];
+				}
+				
+				if(isset($request->store_road[$sk]))
+				{
+					$flag = true;
+					$store['store_road'] = $request->store_road[$sk];
+				}
+				
+				if(isset($request->store_city[$sk]))
+				{
+					$flag = true;
+					$store['store_city'] = $request->store_city[$sk];
+				}
+				
+				if(isset($request->store_zip_code[$sk]))
+				{
+					$flag = true;
+					$store['store_zip_code'] = $request->store_zip_code[$sk];
+				}
+				
+				if(isset($request->store_country[$sk]))
+				{
+					$flag = true;
+					$store['store_country'] = $request->store_country[$sk];
+				}
+				
+				if($flag == true)
+				{
+					$id = $sk;
+					if($sk > 0)
+					{
+						$id = DB::table('customer_stores')->insertGetId($store);
+					} else {
+						DB::table('customer_stores')->where('id', $id)->update($store);
+					}
+					
+					if($id)
+					{
+						if(isset($request->store_contact_address[$sk]))
+						{
+							$contact_person = [];
+							foreach($request->store_contact_address[$sk] as $skcontact => $store_contact_address)
+							{
+								$flag = false;
+								$contact_person['customer_id'] = $lastInsertId;
+								$contact_person['store_id'] = $id;
+								if(isset($request->store_contact_building[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_building'] = $request->store_contact_building[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_sub_district[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_sub_district'] = $request->store_contact_sub_district[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_sub_district[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_sub_district'] = $request->store_contact_sub_district[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_district_id[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_district_id'] = $request->store_contact_district_id[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_road[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_road'] = $request->store_contact_road[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_country_id[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_country_id'] = $request->store_contact_country_id[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_state_id[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_state_id'] = $request->store_contact_state_id[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_city[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_city'] = $request->store_contact_city[$sk][$skcontact];
+								}
+								
+								if(isset($request->store_contact_zipcode[$sk][$skcontact]))
+								{
+									$flag = true;
+									$contact_person['store_contact_zipcode'] = $request->store_contact_zipcode[$sk][$skcontact];
+								}
+								
+								if($flag == true)
+								{
+									if($skcontact > 0)
+									{
+										DB::table('customer_store_contact_persons')->where('id', $skcontact)->update($contact_person);
+									} else {
+										DB::table('customer_store_contact_persons')->insertGetId($store);
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}
+		}
+	}
+	
 	public function save(Request $request)
 	{
 		if($request->isMethod('post'))
 		{
+			//$this->handleProduct(1, $request); die;
 			//try
 			//{
 				$data = $request->all();
@@ -398,7 +604,7 @@ class DealerController extends Controller
 				{
 					return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
 				}
-				
+				//$this->handleProduct(1, $request);
 				$msg = '';
 				$status = $this->handleInstall($request, $msg);
 				if($status == false)

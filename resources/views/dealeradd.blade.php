@@ -177,9 +177,50 @@ if($type == 'view')
 							</ul>
 							<div class="tab-content">
 							   <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-									<!--<h4 class="add_store" style="cursor:pointer">Add More</h4>-->
-									<div class="customer_store_data"></div>
+							   <?php /* ?>
+									<div class="row">
+										<div class="col-md-12">	
+											<label for="inputFirstName" class="form-label">Product</label>
+											<select class="form-control product_name" {{ $disabledfield }} multiple>
+												<?php foreach($products as $product) { ?>
+													<option value="{{ $product->id }}" data-code="{{ $product->code }}">{{ $product->name }}</option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
 									
+									<div class="row d-none mktpro">
+										<div class="col-md-1">
+											<label for="inputFirstName" class="form-label p_name">Product Name</label>
+											<input type="hidden" class="product_id" />
+										</div>  
+										<div class="col-md-1">
+											<label for="inputFirstName" class="form-label p_code">Product Code</label>
+											
+										</div> 
+										<div class="col-md-2">
+											<label for="inputFirstName" class="form-label p_code">Price THB (Ex Vat)</label>
+										</div>  
+										<div class="col-md-2">
+											<label for="inputFirstName" class="form-label p_code">Price THB (inc Vat)</label>
+										</div>     
+										<div class="col-md-2">
+											<label for="inputFirstName" class="form-label p_code">Mkt Price (Ex Vat)</label>
+										</div>
+										
+										<div class="col-md-2">
+											<label for="inputFirstName" class="form-label p_code">Mkt Price (inc Vat)</label>
+										</div>
+										<div class="col-md-2">
+											<label for="inputFirstName" class="form-label p_code">Mkt Valid Date</label>
+										</div>			
+									</div>
+									
+									<div class="pro_clone"></div>
+							   
+									<h4 class="add_store" style="cursor:pointer">Add More</h4>
+									<div class="customer_store_data"></div>
+									<?php */ ?>
 							   
 								  <label for="formFile" class="form-label">Brand</label>
 								  <select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example" {{ $disabledfield }}>
@@ -806,12 +847,44 @@ if($type == 'view')
 		</select>
 	</div>
 </div>
-<?php /* ?>
+
 <div class="store_wrapper_d_none" style="display:none" data-counter="0" data-pos="-1">
 	@include('customer/store')
 </div>
-<?php */ ?>
-	  
+
+<div class="product_wrapper_d_none" style="display:none" data-counter="0" data-pos="-1">
+	@include('customer/product')
+</div>
+
+
+<div class="content-wrapper" style="display:none" data-counter="-1">
+		<div class="row counter ">
+			<div class="col-md-1">
+				<label for="inputFirstName" class="form-label p_name">Product Name</label>
+				<input type="hidden" class="product_id" />
+			</div>  
+			<div class="col-md-1">
+				<label for="inputFirstName" class="form-label p_code">Product Code</label>
+				
+			</div> 
+			<div class="col-md-2">
+				<input type="text" class="price_thb_ex_vat" class="form-control  " {{ $disabledfield }} />
+			</div>  
+			<div class="col-md-2">
+				<input type="text" class="price_thb_inc_vat" class="form-control  " {{ $disabledfield }} />
+			</div>     
+			<div class="col-md-2">
+				<input type="text" class="mkt_price_thb_ex_vat" class="form-control  " {{ $disabledfield }} />
+			</div>
+			
+			<div class="col-md-2">
+				<input type="text" class="mkt_price_thb_inc_vat" class="form-control  " {{ $disabledfield }} />
+			</div>
+			<div class="col-md-2">
+				<input type="date" class="mkt_valid_date" class="form-control  " {{ $disabledfield }} />
+			</div>			
+		</div>
+	  </div>
       @include('layout.customer')
       <script>
 	  
@@ -973,7 +1046,10 @@ function storeclone(pos) {
 	var totalnum = parseInt(numbering) + 1;
 	
 	$('.store_wrapper_target', clone).addClass('store_wrapper_'+totalnum);
+	$('.store_wrapper_target', clone).attr('data-id', total);
+	$('.store_wrapper_target', clone).attr('data-pos', '-1');
 	
+	$('.store_checked', clone).attr('name', 'store_checked['+total+']');
 	$('.store_name', clone).attr('name', 'store_name['+total+']');
 	$('.store_building_village', clone).attr('name', 'store_building_village['+total+']');
 	$('.store_sub_district', clone).attr('name', 'store_sub_district['+total+']');
@@ -1010,8 +1086,69 @@ function storeclone(pos) {
 	$('.store_wrapper_d_none').attr('data-counter', totalnum);
 	
 }
-	  
+
+
 	$(document).ready(function() {
+		
+		$('body').on('keyup', '.price_thb_ex_vat', function() {
+			var id = $(this).attr('data-id');
+			
+			var val = $(this).val();
+			var price_thb_inc_vat = $('.price_thb_inc_vat',$(this).parent().parent()).val();
+			
+			$('.price_thb_inc_vat',$(this).parent().parent()).val(val*7/100);
+		});
+		
+		$('body').on('keyup', '.mkt_price_thb_ex_vat', function() {
+			var id = $(this).attr('data-id');
+			
+			var val = $(this).val();
+			var mkt_price_thb_inc_vat = $('.mkt_price_thb_inc_vat',$(this).parent().parent()).val();
+			
+			$('.mkt_price_thb_inc_vat',$(this).parent().parent()).val(val*7/100);
+		});
+		
+		$('body').on('change', '.product_name', function() {
+			$('.mktpro').addClass('d-none');
+			var ids = $(this).val();
+			$('.pro_clone').html('');
+			$('.total_sum').html('');
+			$('.none-class').addClass('d-none');
+			
+			$.each(ids, function( index, value ) {
+				var target = $('.product_name option[value="'+value+'"]');
+				var code = target.attr('data-code');
+				var value = target.val();
+				var name = target.html();
+				
+				var clone = $('.counter', $('.content-wrapper')).clone();
+				
+				var num = $('.content-wrapper').attr('data-counter');
+				var cnt = parseInt(num) - 1;
+				
+				$('.p_name', clone).html(name);
+				$('.p_code', clone).html($(this).attr('data-code'));
+				$('.product_id', clone).attr('name', 'product_id['+cnt+']');
+				$('.product_id', clone).val(value);
+				
+				$('.p_code', clone).html(code);
+				$('.price_thb_ex_vat', clone).attr('name', 'price_thb_ex_vat['+cnt+']').attr('id', 'price_thb_ex_vat_'+value).attr('data-id', value);
+				
+				$('.price_thb_inc_vat', clone).attr('name', 'price_thb_inc_vat['+cnt+']').attr('id', 'price_thb_inc_vat_'+value).attr('data-id', value);
+				
+				$('.mkt_price_thb_ex_vat', clone).attr('name', 'mkt_price_thb_ex_vat['+cnt+']').attr('id', 'mkt_price_thb_ex_vat_'+value).attr('data-id', value);
+				
+				$('.mkt_price_thb_inc_vat', clone).attr('name', 'mkt_price_thb_inc_vat['+cnt+']').attr('id', 'mkt_price_thb_inc_vat_'+value).attr('data-id', value);
+				
+				$('.mkt_valid_date', clone).attr('name', 'mkt_valid_date['+cnt+']').attr('id', 'mkt_valid_date_'+value).attr('data-id', value);
+				
+				$('.pro_clone').append(clone);
+				$('.none-class').removeClass('d-none');
+				$('.mktpro').removeClass('d-none');
+				$('.content-wrapper').attr('data-counter', cnt)
+			});
+			
+		});
 			
 		storeclone(0);
 		$('body').on('click', '.add_store', function() {
@@ -1021,22 +1158,25 @@ function storeclone(pos) {
 		$('body').on('click', '.add_store_contact_person', function() {
 			var id = $(this).attr('data-id');
 			
+			var clone = $('.add_store_contact_person_wrapper_a', $('.cp')).clone();
+			
 			var no = $('.store_wrapper_d_none').attr('data-pos');
 			var numbering = $('.store_wrapper_d_none').attr('data-counter');
 			
-			var total = parseInt(no) - 1;
 			var totalnum = parseInt(numbering) + 1;
 			
 			$('.store_wrapper_target', clone).addClass('store_wrapper_'+totalnum);
+			var total = $('.store_wrapper_'+id).attr('data-id');
+			var sub = $('.store_wrapper_'+id).attr('data-pos');
 			
-			var target = $('.store_wrapper_target store_wrapper_'+id);
 			
 			var nosub = $('.add_store_contact_person_wrapper', clone).attr('data-pos');
 			var numberingsub = $('.add_store_contact_person_wrapper', clone).attr('data-counter');
-			var totalnosub = parseInt(nosub) - 1;
+			var totalnosub = parseInt(sub) - 2;
 			var totalnumnosub = parseInt(numberingsub) + 1;
-			$('.add_store_contact_person', clone).attr('data-id', totalnum);
-			$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
+			//alert(totalnosub);
+			//$('.add_store_contact_person', clone).attr('data-id', totalnum);
+			//$('.add_store_contact_person_wrapper', clone).addClass('subchild_'+totalnum);
 			$('.store_contact_address', clone).attr('name', 'store_contact_address['+total+']['+totalnosub+']');
 			$('.store_contact_building', clone).attr('name', 'store_contact_building['+total+']['+totalnosub+']');
 			$('.store_contact_sub_district', clone).attr('name', 'store_contact_sub_district['+total+']['+totalnosub+']');
@@ -1046,8 +1186,13 @@ function storeclone(pos) {
 			$('.store_contact_state_id', clone).attr('name', 'store_contact_state_id['+total+']['+totalnosub+']');
 			$('.store_contact_city', clone).attr('name', 'store_contact_city['+total+']['+totalnosub+']');
 			$('.store_contact_zipcode', clone).attr('name', 'store_contact_zipcode['+total+']['+totalnosub+']');
+			
+			
+			$('.subchild_'+id).append(clone);
+			
 			$('.add_store_contact_person_wrapper', clone).attr('data-pos', totalnosub);
 			$('.add_store_contact_person_wrapper', clone).attr('data-counter', totalnumnosub);
+			$('.store_wrapper_'+id).attr('data-pos', totalnosub);
 			
 		});
 			 
