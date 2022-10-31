@@ -53,6 +53,7 @@ $departmentData =[
 $increaseSalaryBeConsideredWhen =[
 	1 => 'Probation passed',
 	2 => 'Company evaluate annually',
+	3 => 'None',
 ];
 	
 $disabledfield = $url = '';
