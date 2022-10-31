@@ -694,7 +694,11 @@ if($type == 'view')
 		}
 	}   
 	  
-		function labour_contract_group() {
+		function labour_contract_group(pos) {
+			var len = $('.updatelabour', '#labour_contract_container').length;
+			if(len > 6) {
+				return false;
+			}
 			
 			var clone = $('.labour_contract_group_cl', $('.labour_contract_group_clone')).clone();
 			
@@ -774,6 +778,11 @@ if($type == 'view')
 			$('.guarantor_amount', clone).attr('name', 'guarantor_amount['+cnt+']');
 			$('.upload_contact_sign_doc', clone).attr('name', 'upload_contact_sign_doc['+cnt+'][]');
 
+			if(pos == 0)
+			{
+				$('.remove_store', clone).remove();
+			}
+
 			$('#labour_contract_container').append(clone);
 			
 			$('.labour_contract_group_clone').attr('data-counter', cnt);
@@ -826,6 +835,10 @@ if($type == 'view')
 	
 				$(document).on("input", ".mobile_no", function() {
 					this.value = this.value.replace(/\D/g,'');
+				});
+				
+				$('body').on('click', '.remove_store', function() {
+					$(this).closest(".updatelabour").remove();
 				});
 
 				$('body').on('change', '.title_option', function() {
@@ -903,17 +916,17 @@ if($type == 'view')
 			 
 				$('body').on('click', '.add_more_labour', function() {
 					
-					labour_contract_group();
+					labour_contract_group(1);
 					return false;
 				});
 			 
 				<?php if($type == 'save') { ?>
 				
-					labour_contract_group();
+					labour_contract_group(0);
 				<?php } else { ?>
 					var clonecon = $('.updatelabour').length;
 					if(clonecon == 0) {
-						labour_contract_group();
+						labour_contract_group(0);
 					}
 				<?php } ?>
 			

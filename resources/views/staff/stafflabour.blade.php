@@ -7,6 +7,11 @@
 	
  ?>
 <div class="row g-3">
+	
+	<div class=" col-sm-2 flux-right1">
+	<button type="button" class="btn btn-sm btn-primary px-2 radius-30 remove_store">Remove</button>
+  </div>
+	
    <div class="col-sm-10 flux">
 		<h6 class="labour_contract">Labour Contract</h6>
 	  </div>
