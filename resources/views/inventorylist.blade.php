@@ -42,7 +42,7 @@
                                                         <input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Inmind" disabled>
                                                         </div>
 														<div class="col-sm-4">
-                                                        <label for="formFile" class="form-label">Address <span>*</span></label>
+                                                        <label for="formFile" class="form-label">Address</label>
                                                         <textarea class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Test" disabled>Testing</textarea>
                                                         </div>
 							</div>
