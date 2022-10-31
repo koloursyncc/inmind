@@ -11,7 +11,7 @@ use App\Http\Controllers\PoController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-
+use App\Http\Controllers\WarehouseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,6 +84,13 @@ Route::get('/pricelist', [PriceController::class, 'pricelist']);
 Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail']);
 Route::post('/pricesave', [PriceController::class, 'pricesave']);
 Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
+
+Route::get('/warehousecreate', [WarehouseController::class, 'index']);
+Route::get('/warehouselist', [WarehouseController::class, 'list']);
+Route::get('/inventory', [WarehouseController::class, 'inventory']);
+Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
+
+
 Route::group(['middleware' => ['auth']], function() {
     /**
     * Logout Route

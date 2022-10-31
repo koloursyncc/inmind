@@ -279,9 +279,15 @@
 						  <div class="menu-title">Warehouse</div>
 						</a>
 						<ul class="dropdown-menu">
-							<li> <a class="dropdown-item" href="user-profile.html"><i class="bx bx-right-arrow-alt"></i>Add Warehouse</a>
+							<li> <a class="dropdown-item" href="{{asset('warehousecreate')}}"><i class="bx bx-right-arrow-alt"></i>Warehouse Creator</a>
 							</li>
-							<li> <a class="dropdown-item" href="timeline.html"><i class="bx bx-right-arrow-alt"></i>PO List</a>
+							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>W/H Search</a>
+							</li>
+							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory IN</a>
+							</li>
+							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Out</a>
+							</li>
+							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Modify</a>
 							</li>
 							
 						</ul>
