@@ -44,7 +44,7 @@ class Staff extends Model
         'hospital_in_charges',
 		'pay_social_fund_by',
         'will_apply_in',
-		
+		'reason',
 		'home_address',
 		'home_building',
 		'home_sub_district',
@@ -67,7 +67,10 @@ class Staff extends Model
 		'conact_country_id',
 		'conact_document',
 		'status',
-		
+		'checked_registration',
+		'effective_date',
+		'registration_document_file',
+		'compensated_amount',
 		/* 'working_pay',
 		'type_of_labour',
 		'effective_period_start_date',

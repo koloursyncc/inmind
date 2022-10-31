@@ -9,6 +9,7 @@ use App\Components\RegionManager;
 use App\Components\StaffManager;
 use App\Models\Staff;
 use App\Models\StaffLabourContractImage;
+use DB;
 class StaffController extends Controller
 {
 	
@@ -29,7 +30,7 @@ class StaffController extends Controller
 		$regionManager = RegionManager::getInstance();
 		$countries = $regionManager->countryList();
 		$objaddress = null;
-		$staffPhotos = $staffDocumentss = $staffLabourContracts = [];
+		$staffPhotos = $staffDocumentss = $staffLabourContracts = $salaryWageHistory = [];
 		$default_country_id = 237;
 		$states = [];
 		if($type != 'save')
@@ -41,13 +42,13 @@ class StaffController extends Controller
 			$staffDocumentss = $StaffManager->getStaffDocByStaffIdTypeId($obj->id, 2);
 			$staffLabourContracts = $StaffManager->getStaffContactAddressByStaffId($obj->id);
 			$states = $regionManager->getStateByCountryId($default_country_id);
-			
+			$salaryWageHistory = DB::table('staff_salary_wage_history')->where('staff_id', $obj->id)->get();
 		} else {
 			$states = $regionManager->getStateByCountryId($default_country_id);
 		}
 		//dd($staffPhotos);
 		return ['obj' => $obj, 'countries' => $countries, 'type' => $type, 'objaddress' => $objaddress, 'staffPhotos' => $staffPhotos, 'staffDocumentss' => $staffDocumentss, 'staffLabourContracts' => $staffLabourContracts, 'default_country_id' => $default_country_id,
-		'states' => $states];
+		'states' => $states, 'salaryWageHistory' => $salaryWageHistory];
 	}
 	
 	public function edit($id)
@@ -79,6 +80,26 @@ class StaffController extends Controller
 		$data = $this->getStaff($type, $obj);
 		
 		return view('staffadd', $data);
+	}
+	
+	private function upload_Registration_document($request)
+	{
+		$file = null;
+		if($request->hasFile('registration_document_file')) 
+		{
+			$image = $request->file('registration_document_file');
+			$path = public_path('customer');
+			$filename = rand().$image->getClientOriginalName();
+			$extension = $image->getClientOriginalExtension();
+			
+			if($image->move($path,$filename))
+			{
+				$file = $filename;
+			}
+			
+		}
+		
+		return $file;
 	}
 	
 	public function save(Request $request)
@@ -170,7 +191,7 @@ class StaffController extends Controller
 					
 					$this->updateStaffData($lastInsertId, $request);
 					
-					return response()->json(array('status'=>'false', 'msg' => 'Successfully Update'));
+					return response()->json(array('status'=>'success', 'msg' => 'Successfully Update'));
 				}
 				
 				return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
@@ -240,6 +261,36 @@ class StaffController extends Controller
 		$this->handleLabourContact($lastInsertId, $request);
 		//$this->handleAddress($lastInsertId, $request);
 		
+		$this->handleSalaryWageHistory($lastInsertId, $request);
+		
+	}
+	
+	private function handleSalaryWageHistory($lastInsertId, $request)
+	{
+		if(isset($request->salary_date)) {
+			foreach($request->salary_date as $key => $date)
+			{
+				if($date != '')
+				{
+					$params = array();
+					$params['staff_id'] = $lastInsertId;
+					$params['date'] = $date;
+					if(isset($request->salary_amount[$key]))
+					{
+						$params['ammount'] = $request->salary_amount[$key];
+					}
+					
+					if($key > 0)
+					{
+						DB::table('staff_salary_wage_history')->where('id', $key)->update($params);
+					} 
+					else
+					{
+						DB::table('staff_salary_wage_history')->insert($params);
+					}
+				}
+			}
+		}
 	}
 	
 	private function handleLabourContact($lastInsertId, $request)
@@ -700,6 +751,7 @@ class StaffController extends Controller
 	
 	private function request_param($request)
 	{
+		
 		$params = 
 			[
 				'active_staff' => $request->active_staff,
@@ -756,9 +808,19 @@ class StaffController extends Controller
 				'conact_state_id' => $request->conact_state_id,
 				'conact_zip' => $request->conact_zip,
 				'conact_country_id' => $request->conact_country_id,
-				'conact_document' => $request->conact_document
+				'conact_document' => $request->conact_document,
+				
+				
+				'effective_date' => $request->effective_date,
+				'reason' => $request->reason,
+				'compensated_amount' => $request->compensated_amount,
+				'registration_document_file' => $this->upload_Registration_document($request)
 				
 			];
+			
+			if($request->checked_registration == 1 || $request->checked_registration == 2) {
+				$params['checked_registration'] = $request->checked_registration;
+			}
 			
 			if($request->card_type == 1)
 			{

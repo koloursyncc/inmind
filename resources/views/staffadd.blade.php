@@ -137,6 +137,10 @@ if($type == 'view')
                            <a class="nav-link" href="#step-4">	<strong>Step 4</strong> 
                            <br>Contract Details</a>
                         </li>
+						<li class="nav-item">
+                           <a class="nav-link" href="#step-5">	<strong>Step 5</strong> 
+                           <br>Registration</a>
+                        </li>
                      </ul>
 					 <form id="staffform" data-url="{{ $url }}">
 						@csrf
@@ -591,7 +595,7 @@ if($type == 'view')
 							  
                            </div> 
                         </div>
-						<div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+						<div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
 							<div class=" col-sm-2 flux-right">
 							    <button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_more_labour">Add more</button>
                               </div>
@@ -602,6 +606,67 @@ if($type == 'view')
 							</div>
                            
                      </div>
+					 
+					 <?php $registration_checked = 'checked'; ?>
+					 
+					 <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
+							
+						<input type="checkbox" name="checked_registration" value="1" {{ $registration_checked }}  {{ $disabledfield }} /> Registration
+						<div class="row">	
+							<div class="col-sm-4">
+								<label for="inputLastName" class="form-label">Reason</label>
+								<input type="text" class="form-control reason" value="{{ @$obj->reason }}" {{ $disabledfield }} name="reason">
+							</div>
+							
+							<div class="col-sm-4">
+								<label for="inputLastName" class="form-label">Effective Date</label>
+								<input type="date" class="form-control effective_date" value="{{ @$obj->effective_date }}" {{ $disabledfield }} name="effective_date">
+							</div>
+							
+							<div class="col-sm-4">
+								<label for="inputLastName" class="form-label">Registration Document File</label>
+								<input type="file" class="form-control registration_document_file" value="" {{ $disabledfield }} name="registration_document_file">
+							</div>
+							
+							<div class="col-sm-4">
+								<label for="inputLastName" class="form-label">Compensated amount</label>
+								<input type="text" class="form-control compensated_amount" value="{{ @$obj->compensated_amount }}" {{ $disabledfield }} name="compensated_amount">
+							</div>
+						</div>
+						
+						<h4>Salary Wage History</h4>
+						<div class=" col-sm-2">
+							<button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_salary_istory">Add more</button>
+						 </div>
+						
+						
+						
+						<div id="salary_wage_history">	
+							
+							<?php foreach($salaryWageHistory as $salaryWageHistoryObj) {  ?>
+								<div class="row salery_group salery_group_{{ $salaryWageHistoryObj->id }}">
+									<div class="col-sm-5">
+										<label for="" class="form-label salery_date_lavel">Date</label>
+										<input type="date" value="{{ $salaryWageHistoryObj->date }}" class="form-control salary_date" name="salary_date[{{ $salaryWageHistoryObj->id }}]"  {{ $disabledfield }}>
+									</div>
+									
+									<div class="col-sm-5">
+										<label for="" class="form-label">Salary/Wage Amount</label>
+										<input type="text" value="{{ $salaryWageHistoryObj->ammount }}" class="form-control salary_amount"  name="salary_amount[{{ $salaryWageHistoryObj->id }}]"  {{ $disabledfield }}>
+									</div>
+									
+									<div class="col-sm-2">
+										<div class=" col-sm-2">
+											
+										 </div>
+									</div>
+								</div>
+							<?php } ?>
+							
+						</div>
+                           
+                     </div>
+					 
                   </div>
 				  </form>
                </div>
@@ -673,6 +738,26 @@ if($type == 'view')
 	   <div class="labour_contract_group_clone" style="display:none" data-pos="125000" data-counter="0">
 			<div class="labour_contract_group_cl updatelabour ">
 				@include('staff.stafflabour')
+			</div>
+		</div>
+		
+		<div class="salery_clone" style="display:none" data-pos="125000" data-counter="0">
+			<div class="row salery_group">
+				<div class="col-sm-5">
+					<label for="" class="form-label salery_date_lavel">Date</label>
+					<input type="date" class="form-control salary_date"  {{ $disabledfield }}>
+				</div>
+				
+				<div class="col-sm-5">
+					<label for="" class="form-label">Salary/Wage Amount</label>
+					<input type="text" class="form-control salary_amount"  {{ $disabledfield }}>
+				</div>
+				
+				<div class="col-sm-2">
+					<div class=" col-sm-2">
+						<button type="button" style="margin-top:32px" class="btn btn-sm btn-primary px-2 radius-30 remove_salary">Remove</button>
+					 </div>
+				</div>
 			</div>
 		</div>
 	  
@@ -830,9 +915,27 @@ if($type == 'view')
 			});
 		}
 		
+		function salary_data(pos) {
+			
+			var clone = $('.salery_group', $('.salery_clone')).clone();
+			
+			var no = $('.salery_clone').attr('data-counter');
+			var cnt = parseInt(no) - 1;
+			
+			$('.salary_date', clone).attr('name', 'salary_date['+cnt+']');
+			$('.salary_amount', clone).attr('name', 'salary_amount['+cnt+']');
+			
+			if(pos == 0)
+			{
+				$('.remove_salary', clone).remove();
+			}
+		
+			$('#salary_wage_history').append(clone);
+			
+			$('.salery_clone').attr('data-counter', cnt);
+		}
 
          $(document).ready(function() {
-			
 	
 				$(document).on("input", ".mobile_no", function() {
 					this.value = this.value.replace(/\D/g,'');
@@ -920,9 +1023,11 @@ if($type == 'view')
 					labour_contract_group(1);
 					return false;
 				});
-			 
+				$('body').on('click', '.add_salary_istory', function() {
+					salary_data(1);
+				});
 				<?php if($type == 'save') { ?>
-				
+					salary_data(0);
 					labour_contract_group(0);
 				<?php } else { ?>
 					var clonecon = $('.updatelabour').length;
