@@ -716,10 +716,12 @@ class StaffController extends Controller
 				'card_type' => $request->card_type,
 				'card_no' => $request->card_no,
 				'issue_date' => $request->issue_date,
+				'title_other_text' => $request->title_other_text,
+				'phone_code' => $request->phone_code,
 				'issue_by' => $request->issue_by,
 				'passport_no' => $request->passport_no,
-				'exp_date' => $request->exp_date,
-				'country_id' => $request->country_id,
+				//'exp_date' => $request->exp_date,
+				//'country_id' => $request->country_id,
 				'higest_education' => $request->higest_education,
 				'school_univercity_name' => $request->school_univercity_name,
 				'education_year' => $request->education_year,
@@ -756,75 +758,18 @@ class StaffController extends Controller
 				'conact_country_id' => $request->conact_country_id,
 				'conact_document' => $request->conact_document
 				
-				/* 
-				'working_pay' => $request->working_pay,
-				'type_of_labour' => $request->type_of_labour,
-				'effective_period_start_date' => $request->effective_period_start_date,
-				'effective_period_end_date' => $request->effective_period_end_date,
-				'position' => $request->position,
-				'labour_department' => $request->labour_department,
-				'salary_wages_in_contract' => $request->salary_wages_in_contract,
-				'increase_salary_be_considered_when' => $request->increase_salary_be_considered_when,
-				'salary_promised' => $request->salary_promised,
-				'hotel_thb_day_chk' => $request->hotel_thb_day_chk,
-				'hotel_thb_day' => $request->hotel_thb_day,
-				'allowance_thb_day_chk' => $request->allowance_thb_day_chk,
-				'allowance_thb_day' => $request->allowance_thb_day,
-				'travel_expense_thb_day_chk' => $request->travel_expense_thb_day_chk,
-				'travel_expense_thb_day' => $request->travel_expense_thb_day,
-				'ot_thb_chk' => $request->ot_thb_chk,
-				'ot_thb_day' => $request->ot_thb_day,
-				'food_thb_day_chk' => $request->food_thb_day_chk,
-				'food_thb_day' => $request->food_thb_day,
-				'sick_leave_chk' => $request->sick_leave_chk,
-				'sick_leave' => $request->sick_leave,
-				'vocation_leave_chk' => $request->vocation_leave_chk,
-				'vocation_leave' => $request->vocation_leave,
-				'maternity_leave_chk' => $request->maternity_leave_chk,
-				'maternity_leave' => $request->maternity_leave,
-				'gaurantor_type' => $request->gaurantor_type,
-				'gaurantor_title' => $request->gaurantor_title,
-				'gaurantor_name_thi' => $request->gaurantor_name_thi,
-				'gaurantor_name_eng' => $request->gaurantor_name_eng,
-				'gaurantor_family_name_thai' => $request->gaurantor_family_name_thai,
-				'gaurantor_family_name_end' => $request->gaurantor_family_name_end,
-				'guarantor_office_name' => $request->guarantor_office_name,
-				'guarantor_address' => $request->guarantor_address,
-				'guarantor_building' => $request->guarantor_building,
-				'guarantor_sub_district' => $request->guarantor_sub_district,
-				'guarantor_district' => $request->guarantor_district,
-				'guarantor_road' => $request->guarantor_road,
-				'guarantor_city' => $request->guarantor_city,
-				'guarantor_zip' => $request->guarantor_zip,
-				'guarantor_salary' => $request->guarantor_salary,
-				'guarantor_amount' => $request->guarantor_amount,
-				'guarantor_state_id' => $request->guarantor_state_id,
-				'guarantor_country_id' => $request->guarantor_country_id,
-				'guarantor_document' => $request->guarantor_document, */
-
-				/* 'home_address' => $request->home_address,
-				'home_building' => $request->home_building,
-				'home_sub_district' => $request->home_sub_district,
-				'home_district' => $request->home_district,
-				'home_road' => $request->home_road,
-				'home_city' => $request->home_city,
-				'home_state_id' => $request->home_state_id,
-				'home_zip' => $request->home_zip,
-				'home_country_id' => $request->home_country_id,
-				'home_document' => $request->home_document,
-				
-				'conact_address_check' => $request->conact_address_check,
-				'conact_address' => $request->conact_address,
-				'conact_building' => $request->conact_building,
-				'conact_sub_district' => $request->conact_sub_district,
-				'conact_district' => $request->conact_district,
-				'conact_road' => $request->conact_road,
-				'conact_city' => $request->conact_city,
-				'conact_state_id' => $request->conact_state_id,
-				'conact_zip' => $request->conact_zip,
-				'conact_country_id' => $request->conact_country_id,
-				'conact_document' => $request->conact_document, */
 			];
+			
+			if($request->card_type == 1)
+			{
+				$params['expired_date'] = $request->exp_date_pass;
+				$params['country_id'] = $request->country_id_pass;
+			} 
+			else if($request->card_type == 2)
+			{
+				$params['expired_date'] = $request->exp_date;
+				$params['country_id'] = $request->country_id;
+			}
 			
 		return $params;
 	}

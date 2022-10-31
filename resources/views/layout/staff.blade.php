@@ -23,6 +23,8 @@
 		})
 		$(document).ready(function () {
 			$('#image-uploadify3').imageuploadify();
+			$('#image-uploadify01').imageuploadify();
+			$('#image-uploadify02').imageuploadify();
 		})
 	</script>
 	<script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>

@@ -154,38 +154,47 @@ if($type == 'view')
                            <input class="form-control mb-3" type="text" value="{{ @$obj->staff_rand_id }}" disabled aria-label="default input example">
                            <label for="formFile" class="form-label">Title</label>  <br>
                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="title" value="1" <?php if($staff_title == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
+                              <input class="form-check-input title_option" type="radio" name="title" value="1" <?php if($staff_title == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
                               <label class="form-check-label" for="inlineRadio1">Mr.</label>
                            </div>
                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="title" value="2" <?php if($staff_title == 2) { echo 'checked'; } ?>  {{ $disabledfield }}>
+                              <input class="form-check-input title_option" type="radio" name="title" value="2" <?php if($staff_title == 2) { echo 'checked'; } ?>  {{ $disabledfield }}>
                               <label class="form-check-label" for="inlineRadio2">Ms.</label>
                            </div>
                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="title" value="3" <?php if($staff_title == 3) { echo 'checked'; } ?>  {{ $disabledfield }}>
+                              <input class="form-check-input title_option" type="radio" name="title" value="3" <?php if($staff_title == 3) { echo 'checked'; } ?>  {{ $disabledfield }}>
                               <label class="form-check-label" for="inlineRadio2">Other</label>
+							  
+							  <?php $title_other_text = 'd-none';
+									if(@$obj->title == 3)
+									{
+										$title_other_text = '';
+									}
+							  ?>
+							  <input type="text" name="title_other_text" value="{{ @$obj->title_other_text }}" class="form-controls title_other_text {{ $title_other_text }}" />
+							  
                            </div>
                            <div class="row g-3">
                               <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Name(Thai) <span style="color:red">*</span></label>
-                                 <input type="text" class="form-control name_thai" name="name_thai"  value="{{ @$obj->name_thai }}" {{ $disabledfield }}>
+                                 <input type="text" class="form-control name_thai alpha"  name="name_thai"  value="{{ @$obj->name_thai }}" {{ $disabledfield }}>
                               </div>
 							   <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Family Name(Thai) <span style="color:red">*</span></label>
-                                 <input type="text" class="form-control famly_name_thai" name="famly_name_thai"  value="{{ @$obj->famly_name_thai }}" {{ $disabledfield }}>
+                                 <input type="text" class="form-control famly_name_thai alpha" name="famly_name_thai"  value="{{ @$obj->famly_name_thai }}" {{ $disabledfield }}>
                               </div>
                               <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Name(English) <span style="color:red">*</span></label>
-                                 <input type="text" class="form-control name_eng" name="name_eng"  value="{{ @$obj->name_eng }}" {{ $disabledfield }}>
+                                 <input type="text" class="form-control name_eng alpha" name="name_eng"  value="{{ @$obj->name_eng }}" {{ $disabledfield }}>
                               </div>
                              
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Family Name(English) <span style="color:red">*</span></label>
-                                 <input type="text" class="form-control famly_name_eng" name="famly_name_eng"  value="{{ @$obj->famly_name_eng }}" {{ $disabledfield }}>
+                                 <input type="text" class="form-control famly_name_eng alpha" name="famly_name_eng"  value="{{ @$obj->famly_name_eng }}" {{ $disabledfield }}>
                               </div>
                               <div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">  Nick Name</label>
-                                 <input type="text" class="form-control" name="nick" value="{{ @$obj->nick }}" {{ $disabledfield }}>
+                                 <input type="text" class="form-control alpha" name="nick" value="{{ @$obj->nick }}" {{ $disabledfield }}>
                               </div>
                               <!----<div class="col-sm-4">
                                  <label for="inputEmailAddress" class="form-label">Current Job Position</label>
@@ -199,20 +208,34 @@ if($type == 'view')
 									<?php } ?>
 								</select>
 	  						</div> 
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">  Mobile no.</label>
-                                 <input type="text" class="form-control" name="mobile_no" value="{{ @$obj->mobile_no }}" {{ $disabledfield }}>
-                              </div>
-                              <div class="col-sm-4">
-                                 <label for="inputEmailAddress" class="form-label">Current Salary/ Wages</label>
-                                 <input type="text" class="form-control" name="current_salary" value="{{ @$obj->current_salary }}" {{ $disabledfield }}>
-                              </div>
-                              <div class="col-sm-4">
+                              <div class="col-sm-1">
+							  
+                                <label for="inputEmailAddress" class="form-label">  Code.</label>
+								
+								<select class="form-control" name="phone_code" {{ $disabledfield }>
+									<option value="">Select Country Code</option>
+									<?php foreach($countries as $country) { ?>
+										<option value="{{ $country->id }}" <?php if($country->id == 237) { echo 'selected'; } ?>>{{ $country->phone_code }}</option>
+									<?php } ?>
+								</select>
+								
+								</div>
+								
+								<div class="col-sm-3">
+									<label for="inputEmailAddress" class="form-label">  Mobile no.</label>
+									<input type="text" class="form-control mobile_no" name="mobile_no" value="{{ @$obj->mobile_no }}" {{ $disabledfield }}>
+								</div>
+								<div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Date of Birth:</label>
                                     <input type="date" class="form-control" name="dob" value="{{ @$obj->dob }}" {{ $disabledfield }}>
                                  </div>
                               </div>
+                              <div class="col-sm-4">
+                                 <label for="inputEmailAddress" class="form-label">Current Salary/ Wages</label>
+                                 <input type="text" class="form-control" name="current_salary" value="{{ @$obj->current_salary }}" {{ $disabledfield }}>
+                              </div>
+                              
                               <div class="row">
                                  <div class="form-check form-check-inline col-sm-3">
                                     <input class="form-check-input card_type" type="radio" name="card_type" value="1" <?php if($staff_card_type == 1) { echo 'checked'; } ?> {{ $disabledfield }}>
@@ -241,20 +264,37 @@ if($type == 'view')
 							  ?>
 							  
 							  <div class="row card_type_div {{ $id_card_radio }}">
-								  <div class="col-sm-4">
+								  <div class="col-sm-3">
 									 <label for="inputEmailAddress" class="form-label">  ID Card no.</label>
 									 <input type="text" class="form-control" name="card_no" value="{{ @$obj->card_no }}" {{ $disabledfield }}>
 								  </div>
-								  <div class="col-sm-4">
+								  <div class="col-sm-3">
 									 <div class="mb-3">
-										<label class="form-label">Issue   Date</label>
+										<label class="form-label">Issue Date</label>
 										<input type="date" class="form-control" name="issue_date" value="{{ @$obj->issue_date }}" {{ $disabledfield }}>
 									 </div>
 								  </div>
-								  <div class="col-sm-4">
+								  <div class="col-sm-3">
+									 <div class="mb-3">
+										<label class="form-label">Expired Date</label>
+										<input type="date" class="form-control" name="exp_date_pass" value="<?php if(@$obj->card_type == 1) { echo @$obj->expired_date; } ?>" {{ $disabledfield }}>
+									 </div>
+								  </div>
+								  <div class="col-sm-3">
 									 <label for="inputEmailAddress" class="form-label"> Issue by</label>
 									 <input type="text" class="form-control" name="issue_by"  value="{{ @$obj->issue_by }}" {{ $disabledfield }}>
 								  </div>
+								  
+								  <div class="col-sm-3">
+									 <label for="inputEmailAddress" class="form-label"> Country</label>
+									 <select class="form-select "  name="country_id_pass" aria-label="Default select example "  {{ $disabledfield }}>
+										<option value="">Select Country</option>
+										<?php foreach($countries as $countryObj) { ?>
+											<option value="{{ $countryObj->id }}" <?php if(@$obj->card_type == 1) { if($default_country_id == $countryObj->id || @$obj->default_country_id == $countryObj->id) { echo 'selected'; } } ?>>{{ $countryObj->name }}</option>
+										<?php } ?>
+									 </select>
+								  </div>
+								  
 							  </div>
 							  
 							  <div class="row passport_type {{ $id_passport_radio }}">
@@ -265,12 +305,12 @@ if($type == 'view')
                               <div class="col-sm-4">
                                  <div class="mb-3">
                                     <label class="form-label">Expire Date</label>
-                                    <input type="date" class="form-control" name="exp_date" value="{{ @$obj->exp_date }}" {{ $disabledfield }}>
+                                    <input type="date" class="form-control" name="exp_date" value="<?php if(@$obj->card_type == 2) { echo @$obj->expired_date; } ?>" {{ $disabledfield }}>
                                  </div>
                               </div>
                               <div class="col-sm-4">
                                  <label for="inputSelectCountry" class="form-label">Country</label>
-                                 <select class="form-select country_id" id="country_id" aria-label="Default select example "  {{ $disabledfield }}>
+                                 <select class="form-select country_id" name="country_id" id="country_id" aria-label="Default select example "  {{ $disabledfield }}>
 									<option value="">Select Country</option>
 									<?php foreach($countries as $countryObj) { ?>
 										<option value="{{ $countryObj->id }}" <?php if($default_country_id == $countryObj->id || @$obj->default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
@@ -306,12 +346,7 @@ if($type == 'view')
                                  <label for="inputFirstName" class="form-label">School / Univercity Name</label>
                                  <input type="text" class="form-control" name="school_univercity_name"  value="{{ @$obj->school_univercity_name }}" {{ $disabledfield }}>
                               </div>
-                              <div class="col-sm-4">
-                                 <div class="mb-3">
-                                    <label class="form-label">Educational Year</label>
-                                    <input type="date" class="form-control" name="education_year" value="{{ @$obj->education_year }}" {{ $disabledfield }}>
-                                 </div>
-                              </div>
+                              
                               <div class="col-sm-4">
                                  <label for="inputFirstName" class="form-label">Faculty / School of</label>
                                  <input type="text" class="form-control" name="school_faculty" value="{{ @$obj->school_faculty }}"  {{ $disabledfield }}>
@@ -319,6 +354,12 @@ if($type == 'view')
                               <div class="col-sm-4">
                                  <label for="inputLastName" class="form-label">Department</label>
                                  <input type="text" class="form-control" name="department" value="{{ @$obj->department }}"  {{ $disabledfield }}>
+                              </div>
+							  <div class="col-sm-4">
+                                 <div class="mb-3">
+                                    <label class="form-label">Educational Year</label>
+                                    <input type="date" class="form-control" name="education_year" value="{{ @$obj->education_year }}" {{ $disabledfield }}>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -343,6 +384,10 @@ if($type == 'view')
 											 <input type="text" value="{{ @$obj->home_building }}" class="form-control contact_address_building" name="home_building"  {{ $disabledfield }}>
 										  </div>
 										  <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Road</label>
+											 <input type="text" value="{{ @$obj->home_road }}" class="form-control home_road" name="home_road"  {{ $disabledfield }}>
+										  </div>
+										  <div class="col-sm-4">
 											 <label for="inputEmailAddress" class="form-label">Sub District</label>
 											 <input type="text" value="{{ @$obj->home_sub_district }}" class="form-control home_sub_district" name="home_sub_district"  {{ $disabledfield }}>
 										  </div>
@@ -350,11 +395,8 @@ if($type == 'view')
 											 <label for="inputEmailAddress" class="form-label">  District</label>
 											 <input type="text" value="{{ @$obj->home_district }}" class="form-control home_district" name="home_district"  {{ $disabledfield }}>
 										  </div>
-										  <div class="col-sm-4">
-											 <label for="inputEmailAddress" class="form-label">Road</label>
-											 <input type="text" value="{{ @$obj->home_road }}" class="form-control home_road" name="home_road"  {{ $disabledfield }}>
-										  </div>
-										   <div class="col-12">
+										  
+										   <div class="col-4">
 											 <label for="inputSelectCountry" class="form-label">Country</label>
 											 <select data-country-id="" class="form-select home_country_id" name="home_country_id" aria-label="Default select example" {{ $disabledfield }}>
 												<?php foreach($countries as $countryObj) { ?>
@@ -372,7 +414,7 @@ if($type == 'view')
 												}
 										  ?>
 										  <div class="col-sm-4">
-											 <label for="inputEmailAddress" class="form-label">State</label>
+											 <label for="inputEmailAddress" class="form-label">State / Province</label>
 											 <select class="form-select home_state_id " name="home_state_id" {{ $disabledfield }}>
 												<option value="">Select State</option>
 												<?php foreach($addrstates as $addrstateobj) { ?>
@@ -394,7 +436,7 @@ if($type == 'view')
 										 
 										  <div class="mb-3 mt-10 col-md-12 " >
 											 <label for="inputProductDescription" class="form-label">Upload Home Registration </label>
-											 <input class="image_upload_doc" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
+											 <input id="image-uploadify01" class="image_upload_doc" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
 										  </div>
 									</div>
 								</div>
@@ -416,6 +458,10 @@ if($type == 'view')
 											 <label for="inputLastName" class="form-label">Building / Village</label>
 											 <input type="text" value="{{ @$obj->conact_building }}" class="form-control conact_building" name="conact_building"  {{ $disabledfield }}>
 										  </div>
+										   <div class="col-sm-4">
+											 <label for="inputEmailAddress" class="form-label">Road</label>
+											 <input type="text" value="{{ @$obj->conact_road }}" class="form-control conact_road" name="conact_road"  {{ $disabledfield }}>
+										  </div>
 										  <div class="col-sm-4">
 											 <label for="inputEmailAddress" class="form-label">Sub District</label>
 											 <input type="text" value="{{ @$obj->conact_sub_district }}" class="form-control conact_sub_district" name="conact_sub_district"  {{ $disabledfield }}>
@@ -424,10 +470,16 @@ if($type == 'view')
 											 <label for="inputEmailAddress" class="form-label">  District</label>
 											 <input type="text" value="{{ @$obj->conact_district }}" class="form-control conact_district" name="conact_district"  {{ $disabledfield }}>
 										  </div>
-										  <div class="col-sm-4">
-											 <label for="inputEmailAddress" class="form-label">Road</label>
-											 <input type="text" value="{{ @$obj->conact_road }}" class="form-control conact_road" name="conact_road"  {{ $disabledfield }}>
+										 
+										 <div class="col-sm-4">
+											 <label for="inputSelectCountry" class="form-label">Country</label>
+											 <select name="conact_country_id" class="form-select conact_country_id" name="" aria-label="Default select example" {{ $disabledfield }}>
+												<?php foreach($countries as $countryObj) { ?>
+													<option value="{{ $countryObj->id }}" <?php if($countryObj->id == @$obj->conact_country_id || $default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
+												<?php } ?>
+											 </select>
 										  </div>
+										 
 										  <div class="col-sm-4">
 											 <label for="inputEmailAddress" class="form-label">  City</label>
 											 <input type="text" value="{{ @$obj->conact_city }}" class="form-control conact_city" name="conact_city"  {{ $disabledfield }}>
@@ -440,7 +492,7 @@ if($type == 'view')
 												}
 										  ?>
 										  <div class="col-sm-4">
-											 <label for="inputEmailAddress" class="form-label">State</label>
+											 <label for="inputEmailAddress" class="form-label">State / Province</label>
 											 <select class="form-select conact_state_id" name="conact_state_id" {{ $disabledfield }}>
 												<option value="">Select State</option>
 												<?php foreach($addrstates as $addrstateobj) { ?>
@@ -454,17 +506,10 @@ if($type == 'view')
 											 <label for="inputEmailAddress" class="form-label">  Zip Code</label>
 											 <input type="text" value="{{ @$obj->conact_zip }}" class="form-control conact_zip" name="conact_zip" {{ $disabledfield }}>
 										  </div>
-										  <div class="col-12">
-											 <label for="inputSelectCountry" class="form-label">Country</label>
-											 <select name="conact_country_id" class="form-select conact_country_id" name="" aria-label="Default select example" {{ $disabledfield }}>
-												<?php foreach($countries as $countryObj) { ?>
-													<option value="{{ $countryObj->id }}" <?php if($countryObj->id == @$obj->conact_country_id || $default_country_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->name }}</option>
-												<?php } ?>
-											 </select>
-										  </div>
+										  
 										  <div class="mb-3 mt-10 col-md-12 " >
 											 <label for="inputProductDescription" class="form-label">Upload Home Registration </label>
-											 <input class="image_upload_doc" type="file" name="conact_document" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
+											 <input id="image-uploadify02" class="image_upload_doc" type="file" name="conact_document" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple {{ $disabledfield }}>
 										  </div>
 									</div>
 								</div>
@@ -636,6 +681,19 @@ if($type == 'view')
       @include('layout.staff')
       <script>
 	  
+	function lettersAndSpaceCheck(name)
+	{
+		var regEx = /^[a-z][a-z\s]*$/;
+		if(name.value.match(regEx))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}   
+	  
 		function labour_contract_group() {
 			
 			var clone = $('.labour_contract_group_cl', $('.labour_contract_group_clone')).clone();
@@ -764,7 +822,20 @@ if($type == 'view')
 		
 
          $(document).ready(function() {
-			 
+			
+	
+				$(document).on("input", ".mobile_no", function() {
+					this.value = this.value.replace(/\D/g,'');
+				});
+
+				$('body').on('change', '.title_option', function() {
+					var val = $(this).val();
+					$('.title_other_text').addClass('d-none');
+					$('.title_other_text').val('');
+					if(val == 3) {
+						$('.title_other_text').removeClass('d-none');
+					}
+				});
 				
 				$('body').on('change', '.hotel_thb_day_chk', function() {
 					var target = $('.hotel_thb_day',$(this).parent().parent());
