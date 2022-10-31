@@ -1027,13 +1027,21 @@ if($type == 'view')
 					salary_data(1);
 				});
 				<?php if($type == 'save') { ?>
+				
 					salary_data(0);
 					labour_contract_group(0);
 				<?php } else { ?>
-					var clonecon = $('.updatelabour').length;
+					var clonecon = $('.updatelabour', $('#labour_contract_container')).length;
+					
 					if(clonecon == 0) {
 						labour_contract_group(0);
-					}
+					} 
+					
+					var salary_wage_history = $('.salery_group', $('#salary_wage_history')).length;
+					
+					if(salary_wage_history == 0) {
+						salary_data(0);
+					} 
 				<?php } ?>
 			
 			$('body').on('click', '.removelabourimg', function() {
