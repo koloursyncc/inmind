@@ -2,9 +2,11 @@
 
 namespace App\Components;
 use App\Models\Price;
+use App\Models\PriceMap;
 use App\Models\Product;
 use App\Components\RegionManager;
 use App\Components\ProductManager;
+use DB;
 class PriceManager
 {
 	public static $_instance;
@@ -40,7 +42,8 @@ class PriceManager
 	
 	public function getPriceById($id, $status = 1)
 	{
-		return Price::where('status', $status)->find($id);
+		//where('status', $status)->
+		return Price::find($id);
 	}
 	
 	public function getPriceDataById($id)
@@ -55,7 +58,7 @@ class PriceManager
 		$countries = $regionManager->countryList();
 		$products = $productManager->getProducts();
 		
-		$response = ['obj' => null, 'countries' => $countries, 'products' => $products, 'type' => $type];
+		$response = ['obj' => null, 'countries' => $countries, 'products' => $products, 'type' => $type, 'details' => array()];
 		if($id == null)
 		{
 			return $response;
@@ -71,6 +74,33 @@ class PriceManager
 		}
 		$response['obj'] = $productObj;
 		$response['countries'] = $countries;
+		
+		$supplieProducts = [];
+		$suppliertype = array(
+			1 => 'Manufacturer',
+			2 => 'Agent',
+			3 => 'Shipping',
+			4 => 'Transport',
+			5 => 'W/H and Lessor',
+			6 => 'Packaging',
+		);
+		
+		foreach($suppliertype as $suppliek => $suppliev)
+		{
+			$data = DB::table('supplier_products')
+			->select('supplier_products.id', 'supplier_products.unit_price', 'supplier_products.supplier_type', 'suppliers.supplier_name')
+			->join('suppliers', function($join) {
+				$join->on('supplier_products.supplier_id', '=', 'suppliers.id');
+			})
+			
+			->where('supplier_products.product_id', $productObj->product_id)
+			->where('suppliers.status', 1)
+			->where('suppliers.supplier_type', $suppliek)
+			->get();
+			$supplieProducts[$suppliek] = $data;
+		}
+		
+		$response['details'] = $supplieProducts;
 		
 		return $response;
 	}

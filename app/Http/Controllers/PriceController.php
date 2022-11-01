@@ -25,7 +25,7 @@ class PriceController extends Controller
         return view('pricecreate', $data);
     }
     
-	private function edit($id)
+	public function edit($id)
 	{
 		$priceManagerObj = PriceManager::getInstance();
 		$data = $priceManagerObj->priceHandleById($id, 'edit', '');
@@ -76,6 +76,40 @@ class PriceController extends Controller
 				$this->price_map($lastInsertId, $request);
 				
 				return response()->json(array('status'=>'success', 'msg' => 'Successfully Save'));
+			}
+		
+			return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
+			
+		}
+	}
+	
+	public function priceupdate(Request $request)
+	{
+		if($request->isMethod('post'))
+		{
+			$rules = array(
+				'product_id' => 'required',
+			);
+			$data = $request->all();
+			$validator = Validator::make($data, $rules);
+			
+			if ($validator->fails())
+			{
+				return response()->json(['status' => 'errors', 'errors' => $validator->getMessageBag()->toArray()]);
+			}
+			
+			$params = $this->request_params($request);
+			
+			$priceManager = PriceManager::getInstance();
+			
+			$lastInsertId = $priceManager->update($request->price_id, $params);
+			
+			if($lastInsertId > 0)
+			{
+				
+				$this->price_map($lastInsertId, $request);
+				
+				return response()->json(array('status'=>'success', 'msg' => 'Successfully Update'));
 			}
 		
 			return response()->json(array('status'=>'error', 'error' => 'Something Wrong'));
@@ -313,7 +347,7 @@ class PriceController extends Controller
 		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
-		 $records = Price::select('products.name', 'products.code') 
+		 $records = Price::select('price.id', 'products.name', 'products.code') 
 			->join('products', function($join) {
 				$join->on('products.id', '=', 'price.product_id');
 			})
@@ -335,10 +369,16 @@ class PriceController extends Controller
 		 
 		 foreach($list as $sno => $record){
 			
+			$edit = url('priceedit/'.$record->id);
+			$action = '<div class="d-flex order-actions">
+				<a href="'.$edit.'" class=""><i class="bx bxs-edit"></i></a>
+				
+			</div>';
 			
 			$data_arr[] = array(
 			  "product" => $record->name,
-			  "code" => $record->code
+			  "code" => $record->code,
+			  "action" => $action
 			);
 		 }
 

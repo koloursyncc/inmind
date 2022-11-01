@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 //use App\Components\PriceManager;
+use DB;
 class Price extends Model
 {
     use HasFactory;
@@ -17,10 +18,9 @@ class Price extends Model
 		'currency_type'
 	];
 	
-	/* public function getProductSupplierBySupplierId($product_id, $id)
+	public function getProductById($id)
 	{
 		//return $product_id.' '.$id;
-		$supplierManagerObj = SupplierManager::getInstance();
-		return $supplierManagerObj->getProductSupplierBySupplierId($product_id, $id);
-	} */
+		return DB::table('products')->where('id', $id)->first();
+	}
 }

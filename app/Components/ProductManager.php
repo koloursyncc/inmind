@@ -99,14 +99,7 @@ class ProductManager
 	public function getproductdetail($id, $type)
 	{
 		$productObj = false;
-		if($type == 'product')
-		{
-			$productObj = $this->getProductById($id, 1);
-			
-		} else if($type == 'code')
-		{
-			$productObj = $this->getProductByCode($id, 1);
-		}
+		$productObj = $this->getProductById($id, 1);
 		
 		if(!$productObj)
 		{
@@ -141,7 +134,8 @@ class ProductManager
 			'status' => 'success',
 			'code' => $productObj->code,
 			'supp' => $supplieProducts,
-			'product' => $productObj
+			'product' => $productObj,
+			'type' => $type
 		];
 	}
 }

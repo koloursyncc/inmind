@@ -81,6 +81,7 @@ Route::get('/dealerdetail/{id}', [DealerController::class, 'detail']);
 Route::get('/pricecreate', [PriceController::class, 'index']);
 Route::get('/pricelistajax', [PriceController::class, 'ajaxcall']);
 Route::get('/pricelist', [PriceController::class, 'pricelist']);
+Route::get('/priceedit/{id}', [PriceController::class, 'edit']);
 Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail']);
 Route::post('/pricesave', [PriceController::class, 'pricesave']);
 Route::post('/priceupdate', [PriceController::class, 'priceupdate']);

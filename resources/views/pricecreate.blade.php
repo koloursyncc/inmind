@@ -85,10 +85,10 @@ if($type == 'save')
                       <div class="border border-3 p-4 rounded">
                            <div class="col-md-12">
                               <label class="form-label">Product</label>
-                                 <select class="single-select product_id" name="product_id">
+                                 <select class="single-select product_id" name="product_id" id="select_product_element">
 									<option value="">Select Product</option>
 									<?php foreach($products as $productObj) { ?>
-										<option value="{{ $productObj->id }}">{{ $productObj->name }}</option>
+										<option value="{{ $productObj->id }}" <?php if(@$obj->product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->name }}</option>
 									<?php } ?>
                                  </select>
                               </div>
@@ -97,7 +97,7 @@ if($type == 'save')
 									<select class="single-select product_code" name="product_code" id="select_element">
 										<option value="">Select Code</option>
 										<?php foreach($products as $productObj) { ?>
-											<option value="{{ $productObj->id }}">{{ $productObj->code }}</option>
+											<option value="{{ $productObj->id }}" <?php if(@$obj->product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->code }}</option>
 										<?php } ?>
 									</select>
                                  <!--
@@ -108,16 +108,32 @@ if($type == 'save')
                                     <option value="Albania">Albania</option>
                                  -->
                               </div>
-                        <div class="row d-none product_detail">
+							  
+						<?php
+							$product_detail= 'd-none';
+							if($type != 'save') {
+								$product_detail= '';
+							}
+						?>
+							  
+                        <div class="row  product_detail {{ $product_detail }}">
                           <div class="col-md-12 mt-10">
                             <label for="inputCostPerPrice" class="form-label">Color
                             </label>
-                           <p class="product_color"></p>
+                           <p class="product_color">
+							<?php if(@$obj->product_id > 0) {
+								$product = $obj->getProductById($obj->product_id);
+								if($product) {
+									echo $product->color;
+								}
+							}
+							?>
+						   </p>
                           </div>
                           <div class="col-md-12 mt-10">
                             <label for="inputStarPoints" class="form-label">Total Cost
                             </label>
-                            <p class="product_cost">20 THB/Peice</p>
+                            <p class="product_cost">{{ @$obj->total_cost }} THB/Peice</p>
                           </div>
                           <div class="col-md-12 mt-10">
                             <label for="inputStarPoints" class="form-label">Product Image
@@ -131,14 +147,15 @@ if($type == 'save')
                       <div class="border border-3 p-4 rounded">
                         <div class="form-check form-switch">
                            <input class="form-check-input checktrigger" id="checktrigger_1" data-id="1" data-status="1" type="checkbox" checked="">
-                           <label class="form-check-label" id="check_label_1" for="">THB</label>
-                           <label class="form-check-label" id="check_label_1" for="">Original Currency</label>
+                           <label class="form-check-label" id="check_label_1" <?php if(@$obj->type == 1) { echo 'checked'; } ?>>THB</label>
+                           <label class="form-check-label" id="check_label_1" <?php if(@$obj->type == 2) { echo 'checked'; } ?>>Original Currency</label>
 			               </div>
                         <div class="row supp_type">
 							<div class="col-md-6">	
 								
 									<label class="form-label">Manufacturer</label><br>
 									<select class="multiple-select1 multiple_select_1" name="multiple_select_1[]" data-placeholder="Choose anything" multiple="multiple">
+										<option>Select</option>
 										
 									</select>
 								
@@ -148,7 +165,7 @@ if($type == 'save')
                           
 								<label class="form-label">Agent</label><br>
 								<select class="multiple-select2 multiple_select_2" name="multiple_select_2[]" data-placeholder="Choose anything" multiple="multiple">
-									
+									<option>Select</option>
 								</select>
 							
                           </div>
@@ -157,7 +174,7 @@ if($type == 'save')
                           
 										<label class="form-label">Shipping</label><br>
 										<select class="multiple-select3 multiple_select_3" name="multiple_select_3[]" data-placeholder="Choose anything" multiple="multiple">
-											
+											<option>Select</option>
 										</select>
 									
                           </div>
@@ -166,7 +183,7 @@ if($type == 'save')
                           
 								<label class="form-label">Transport</label><br>
 								<select class="multiple-select4 multiple_select_4"  name="multiple_select_4[]" data-placeholder="Choose anything" multiple="multiple">
-									
+									<option>Select</option>
 								</select>
 							
                           </div>
@@ -175,7 +192,7 @@ if($type == 'save')
                           
 								<label class="form-label">W/H Lessor</label><br>
 								<select class="multiple-select5 multiple_select_5" name="multiple_select_5[]" data-placeholder="Choose anything" multiple="multiple">
-									
+									<option>Select</option>
 								</select>
 							
                           </div>
@@ -184,7 +201,7 @@ if($type == 'save')
                          
 								<label class="form-label">Packaging & Advertise </label><br>
 								<select class="multiple-select6 multiple_select_6" name="multiple_select_6[]" data-placeholder="Choose anything" multiple="multiple">
-									
+									<option>Select</option>
 								</select>
 							
                           </div>
@@ -333,12 +350,11 @@ if($type == 'save')
 					$('.multiple_select_5').append(multiple_select_5_option);
 					$('.multiple_select_6').append(multiple_select_6_option);
 					
-					$('#select_element').val(response.product.id).change();
-
-					/* if(response.product_code == '')
-					{
-						
-					} */
+					 if(response.type == 'code') {
+						$('.product_id').val(response.product.id).select2();
+					 } else {
+						 $('.product_code').val(response.product.id).select2();
+					 }
 					
 				}
 			},
@@ -359,7 +375,7 @@ if($type == 'save')
 					if(response.status == 'success') {
 						
 						alert(response.msg);
-						window.location.href = "{{url('supplierlist')}}";
+						window.location.href = "{{url('pricelist')}}";
 						
 					} else if(response.status == 'errors') {
 						$.each(response.errors, function(key, msg) {
@@ -392,7 +408,74 @@ if($type == 'save')
 			return false;
 		 });
 		 
+		 <?php if(@$obj->product_id > 0)  { ?>
+			callback(<?php echo $obj->product_id; ?>, 'product');
+		 <?php } ?>
+		 
+		$('body').on('change', '.multiple_select_1', function() {
+			total();
+		});
+		
+		$('body').on('change', '.multiple_select_2', function() {
+			total();
+		});
+		
+		$('body').on('change', '.multiple_select_3', function() {
+			total();
+		});
+		
+		$('body').on('change', '.multiple_select_4', function() {
+			total();
+		});
+		
+		$('body').on('change', '.multiple_select_5', function() {
+			total();
+		});
+		
+		$('body').on('change', '.multiple_select_6', function() {
+			total();
+		});
+		 
 	});
 	
-	
+	function total() {
+		var sum = 0;
+		$('.multiple_select_1 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.multiple_select_2 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.multiple_select_3 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.multiple_select_4 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.multiple_select_5 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.multiple_select_6 option').each(function() {
+			if (this.selected) {
+				sum += parseInt($(this).attr('data-price'));
+			}
+		});
+		
+		$('.product_cost').html(sum+' THB/Peice');
+	}
 </script>

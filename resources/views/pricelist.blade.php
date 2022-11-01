@@ -38,7 +38,7 @@
 									<tr>
 										<th>Product</th>
 										<th>Code</th>
-										
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -67,7 +67,8 @@ var table = $('#dataTable').DataTable({
 				ajax: "{{url('pricelistajax')}}",
 				columns: [
 					{ data: 'product', orderable: false},
-					 { data: 'code', orderable: false}
+					 { data: 'code', orderable: false},
+					  { data: 'action', orderable: false}
 					
 				],
 
