@@ -651,31 +651,31 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 		});
 		
 		$('body').on('keyup', '.package_width', function(event) {
-			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			var multi = $('.package_width').val()/1000 * $('.package_depth').val()/1000 * $('.package_height').val()/1000;
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000000);
+			$('.cbm').val(multi);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
 		
 		$('body').on('keyup', '.package_depth', function(event) {
-			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			var multi = $('.package_width').val()/1000 * $('.package_depth').val()/1000 * $('.package_height').val()/1000;
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000000);
+			$('.cbm').val(multi);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
 		
 		$('body').on('keyup', '.package_height', function(event) {
-			var multi = ($('.package_width').val() * $('.package_depth').val() * $('.package_height').val());
+			var multi = $('.package_width').val()/1000 * $('.package_depth').val()/1000 * $('.package_height').val()/1000;
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi/1000000);
+			$('.cbm').val(multi);
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
