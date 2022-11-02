@@ -222,20 +222,22 @@ if($type == 'view') {
 									 $parent_product_set = '';
 								  } ?>
 								  
-									<div class="col-md-12 {{ $parent_product_set }} parent_product_set" {{ $disabledrow }}>
-										<label for="inputPrice" class="form-label ">Select Product</label>
-										<select class="form-control parent_product_id" name="parent_product_id"  {{ $disabledrow }}>
-											<option value="">Select Product</option>
-											<?php foreach($products as $productObj) { ?>
-												<option value="{{ $productObj->id }}" <?php if(@$product->parent_product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->name }}</option>
-											<?php } ?>
-										</select>
-									</div>
-								  
+									
 									<div class="product_in_set_input_group">
 										<?php foreach($product_set as $product_setkey => $product_setObj) {
 												$number = ++$product_setkey;
 											?>
+											
+											<div class="col-md-12 parent_product_set" {{ $disabledrow }}>
+												<label for="inputPrice" class="form-label parent_product_id_label">Select Product {{ $number }}</label>
+												<select class="form-control parent_product_id" name="parent_product_id[{{ $number }}]"  {{ $disabledrow }}>
+													<option value="">Select Product</option>
+													<?php foreach($products as $productObj) { ?>
+														<option value="{{ $productObj->id }}" <?php if($product_setObj->parent_product_id == $productObj->id) { echo 'selected'; } ?>>{{ $productObj->name }}</option>
+													<?php } ?>
+												</select>
+											</div>
+											
 											<div class="mb-3">
 											<label for="inputPrice" class="form-label kind_of_product_label">Kind of Product {{ $number }}</label>
 												<select name="kind_of_product[{{ $number }}]" class="form-control kind_of_product"  {{ $disabledrow }}>
@@ -445,6 +447,16 @@ if($type == 'view') {
 <div style="display:none">
 	<div class="kind_of_product_clone">
 		<div class="row clonedata">
+			<div class="col-md-12 parent_product_set" {{ $disabledrow }}>
+				<label for="inputPrice" class="form-label parent_product_id_label">Select Product</label>
+				<select class="form-control parent_product_id" name=""  {{ $disabledrow }}>
+					<option value="">Select Product</option>
+					<?php foreach($products as $productObj) { ?>
+						<option value="{{ $productObj->id }}">{{ $productObj->name }}</option>
+					<?php } ?>
+				</select>
+			</div>
+		  
 			
 			<div class="md-3">
 				<label for="inputPrice" class="form-label kind_of_product_label"></label>
@@ -498,6 +510,8 @@ function kindproduct(num) {
 		var clone = $('.clonedata', $('.kind_of_product_clone')).clone();
 		$('.kind_of_product_label', clone).html('Kind of Product '+i);
 		$('.kind_of_product', clone).attr('name', 'kind_of_product['+i+']');
+		$('.parent_product_id', clone).attr('name', 'parent_product_id['+i+']');
+		$('.parent_product_id_label', clone).html('Select Product '+i);
 		$('.kind_of_product_qty_label', clone).html('Product Qty '+i);
 		$('.kind_of_product_qty', clone).attr('name', 'kind_of_product_qty['+i+']');
 		$('.product_in_set_input_group').append(clone);
@@ -655,7 +669,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi);
+			$('.cbm').val(multi.toFixed(2));
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
@@ -665,7 +679,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi);
+			$('.cbm').val(multi.toFixed(2));
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});
@@ -675,7 +689,7 @@ function calulation(cbmval, grossweight, netweight) { //alert(1);
 			$('.package_depth').val();
 			$('.package_height').val();
 			
-			$('.cbm').val(multi);
+			$('.cbm').val(multi.toFixed(2));
 			
 			calulation($('.cbm').val(), $('.gross_kg').val(), $('.net_height').val());
 		});

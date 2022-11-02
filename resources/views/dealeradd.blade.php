@@ -1223,14 +1223,15 @@ $payment_account_number = '';
           var id = $(this).attr('data-id');
           var val = $(this).val();
           var price_thb_inc_vat = $('.price_thb_inc_vat',$(this).parent().parent()).val();
-          $('.price_thb_inc_vat',$(this).parent().parent()).val(val+(val*7 / 100));
+		  
+          $('.price_thb_inc_vat',$(this).parent().parent()).val(Number(val)+ Number(val*7 / 100));
         }
                     );
         $('body').on('keyup', '.mkt_price_thb_ex_vat', function() {
           var id = $(this).attr('data-id');
           var val = $(this).val();
           var mkt_price_thb_inc_vat = $('.mkt_price_thb_inc_vat',$(this).parent().parent()).val();
-          $('.mkt_price_thb_inc_vat',$(this).parent().parent()).val(val+(val*7/100));
+          $('.mkt_price_thb_inc_vat',$(this).parent().parent()).val(Number(val)+ Number(val*7 / 100));
         }
                     );
         $('body').on('change', '.product_name', function() {

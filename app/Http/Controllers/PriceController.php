@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 use Validator;
 class PriceController extends Controller
 {
+	
+	public function exchangerate()
+	{
+		return view('exchangerate');
+	}
+	
 	public function pricelist()
     {
         return view('pricelist');

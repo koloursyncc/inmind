@@ -16,6 +16,7 @@ class ProductSet extends Model
     protected $fillable = [
         'product_id',
 		'kind_of_product',
-		'qty'
+		'qty',
+		'parent_product_id'
 	];
 }

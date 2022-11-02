@@ -111,7 +111,7 @@ class ProductController extends Controller
 		if($index == 0)
 		{
 			if($isUpdate == false) {
-				$msg = 'Please select photo';
+				$msg = 'Please select atleast one photo';
 				return false;
 			}
 			
@@ -125,6 +125,38 @@ class ProductController extends Controller
 			return false;
 		}
 		return true;
+	}
+	
+	private function request_params($request)
+	{
+				
+		return [
+			'type' => $request->type,
+			'product_in_set' => $request->product_in_set,
+			'brand_id' => $request->brand_id,
+			'name' => $request->name,
+			'color' => $request->color,
+			'code' => $request->code,
+			'barcode' => $request->barcode,
+			'dimension_width' => $request->dimension_width,
+			'dimension_depth' => $request->dimension_depth,
+			'dimension_height' => $request->dimension_height,
+			'package_width' => $request->package_width,
+			'package_depth' => $request->package_depth,
+			'package_height' => $request->package_height,
+			'gross_kg' => $request->gross_kg,
+			'cbm' => $request->cbm,
+			'net_height' => $request->net_height,
+			'contain_1_20' => $request->contain_1_20,
+			'contain_1_20_net_weight' => $request->contain_1_20_net_weight,
+			'contain_1_20_net_gross_weight' => $request->contain_1_20_net_gross_weight,
+			'contain_1_40' => $request->contain_1_40,
+			'contain_1_40_net_weight' => $request->contain_1_40_net_weight,
+			'contain_1_40_net_gross_weight' => $request->contain_1_40_net_gross_weight,
+			'hq_1_40_contain' => $request->hq_1_40_contain,
+			'hq_1_40_net_weight' => $request->hq_1_40_net_weight,
+			'hq_1_40_net_gross_weight' => $request->hq_1_40_net_gross_weight
+		];
 	}
 	
 	public function save(Request $request)
@@ -166,8 +198,8 @@ class ProductController extends Controller
 					Color::create(['name' => $request->color]);
 				}
 				
-				$data = $request->except(['_token']);
-				//print_r($data); die;
+				$data = $this->request_params($request); //$request->except(['_token']);
+			
 				$productManager = ProductManager::getInstance();
 				
 				$lastInsertId = $productManager->save($data, true);
@@ -178,7 +210,7 @@ class ProductController extends Controller
 						
 						if(isset($request->kind_of_product))
 						{
-							$this->handleProductSet($lastInsertId, $request->kind_of_product, $request->kind_of_product_qty);
+							$this->handleProductSet($lastInsertId, $request->kind_of_product, $request->kind_of_product_qty, $request->parent_product_id);
 						}
 					}
 					
@@ -279,7 +311,7 @@ class ProductController extends Controller
 					Color::create(['name' => $request->color]);
 				}
 				
-				$data = [
+				/* $data = [
 					'name' => $request->name,
 					'code' => $request->code,
 					'brand_id' => $request->brand_id,
@@ -306,7 +338,9 @@ class ProductController extends Controller
 					'gross_kg' => $request->gross_kg,
 					'cbm' => $request->cbm,
 					'net_height' => $request->net_height
-				];
+				]; */
+				
+				$data = $this->request_params($request);
 				
 				$status = $productManager->update($lastInsertId, $data);
 				
@@ -317,7 +351,7 @@ class ProductController extends Controller
 						if(isset($request->kind_of_product))
 						{
 							$productManager->deleteProductSetByProductId($lastInsertId);
-							$this->handleProductSet($lastInsertId, $request->kind_of_product, $request->kind_of_product_qty);
+							$this->handleProductSet($lastInsertId, $request->kind_of_product, $request->kind_of_product_qty, $request->parent_product_id);
 						}
 					}
 					
@@ -365,22 +399,22 @@ class ProductController extends Controller
 		}
 	}
 	
-	private function productSet($productId, $kind_of_product, $kind_of_product_qty)
+	private function productSet($productId, $kind_of_product, $kind_of_product_qty, $parent_product_id)
 	{
 		$productManager = ProductManager::getInstance();
 		
-		$dataset = ['product_id' => $productId, 'kind_of_product' => $kind_of_product, 'qty' => $kind_of_product_qty];
+		$dataset = ['product_id' => $productId, 'parent_product_id' => $parent_product_id, 'kind_of_product' => $kind_of_product, 'qty' => $kind_of_product_qty];
 		
 		$productManager->saveProductSet($dataset);
 	}
 	
-	private function handleProductSet($productId, $kind_of_product, $kind_of_product_qty)
+	private function handleProductSet($productId, $kind_of_product, $kind_of_product_qty, $parent_product_id)
 	{
 		foreach($kind_of_product as $k => $kind_of_product_val)
 		{
 			if(isset($kind_of_product_qty[$k]))
 			{
-				$this->productSet($productId, $kind_of_product_val, $kind_of_product_qty[$k]);
+				$this->productSet($productId, $kind_of_product_val, $kind_of_product_qty[$k], $parent_product_id[$k]);
 			}
 		}
 	}
