@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Components\ProductManager;
 use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
+use DB;
 class ProductController extends Controller
 {
     public function index()
@@ -580,5 +581,26 @@ class ProductController extends Controller
 		}
 		
 		return response()->json($response);
+	}
+	
+	public function getcustomerproduct(Request $request)
+	{
+		$params = $request->value;
+		$data = DB::table('customer_products')
+					->select('products.id', 'products.name')
+					->join('products', 'products.id', '=', 'customer_products.product_id')
+					->whereIn('customer_id', $params)->get();
+					
+		return response()->json($data);
+	}
+	
+	public function getbyproductid(Request $request)
+	{
+		$params = $request->value;
+		$data = DB::table('products')
+				->whereIn('id', $params)->get();
+					
+		//return response()->json($data);
+		return view('price.exchangerate', ['data' => $data]);
 	}
 }

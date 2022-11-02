@@ -10,12 +10,26 @@ use App\Components\PriceManager;
 use App\Components\ProductManager;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 class PriceController extends Controller
 {
 	
 	public function exchangerate()
 	{
-		return view('exchangerate');
+		$data = $this->exchangedata(null, 'save', '');
+		return view('exchangerate', $data);
+	}
+	
+	private function exchangedata($id, $type, $heading)
+	{
+		$customer = DB::table('customers')->get();
+		$response = ['obj' => null, 'customer' => $customer, 'type' => $type];
+		if($id == null)
+		{
+			return $response;
+		}
+		
+		return [];
 	}
 	
 	public function pricelist()

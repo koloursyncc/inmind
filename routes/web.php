@@ -118,6 +118,8 @@ Route::post('/update/product', [ProductController::class, 'update']);
 Route::post('/update/supplier', [SupplierController::class, 'update']);
 Route::get('/product/generatecode', [ProductController::class, 'generatecode']);
 Route::get('/exchangerate', [PriceController::class, 'exchangerate']);
+Route::get('/getcustomerproduct', [ProductController::class, 'getcustomerproduct']);
+Route::get('/getbyproductid', [ProductController::class, 'getbyproductid']);
 
 Route::get('/supplierpoedit/{id}', [SupplierController::class, 'supplierpoedit']);
 Route::get('/supplierpoview/{id}', [SupplierController::class, 'supplierpoview']);
