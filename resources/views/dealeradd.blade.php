@@ -520,7 +520,7 @@ $pId = $personObj->id;
             </label>
             <br>
             <select class="form-control" name="invoice" {{ $disabledfield }}>
-              <option value="">Select Invoice
+              <option value="">Type of Businessship
               </option>
               <option value="1" 
                       <?php if($customer_invoice == 1) { echo 'selected'; } ?>>Sale
