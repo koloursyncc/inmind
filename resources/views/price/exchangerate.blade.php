@@ -9,9 +9,8 @@
 		<th>tai Watsadu</th>
 	</thead>
 	<tbody>
-		<?php foreach($data as $obj) { ?>
 			<tr>
-				<td>{{ $obj->name }}</td>
+				<td>Product Name</td>
 				<td>900</td>
 				<td><input type="text" class="form-control "></td>
 				<td><input type="text" class="form-control "></td>
@@ -19,6 +18,6 @@
 				<td><input type="text" class="form-control "></td>
 				<td><input type="text" class="form-control "></td>
 			</tr>
-		<?php } ?>
+
 	</tbody>
  </table>

@@ -599,8 +599,9 @@ class ProductController extends Controller
 		$params = $request->value;
 		$data = DB::table('products')
 				->whereIn('id', $params)->get();
-					
+		$customerlist = []; /* $data = DB::table('customer')
+					->whereIn('customer_id', $request->customerlist)->get();; */			
 		//return response()->json($data);
-		return view('price.exchangerate', ['data' => $data]);
+		return view('price.pricecompare', ['customerlist' => $customerlist, 'data' => $data]);
 	}
 }

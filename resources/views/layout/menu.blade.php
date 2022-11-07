@@ -244,6 +244,7 @@
 						<li> <a class="dropdown-item" href="{{asset('pricecreate')}}"><i class="bx bx-right-arrow-alt"></i>Add Price</a>
 						</li>
 						<li> <a class="dropdown-item" href="{{asset('pricelist')}}"><i class="bx bx-right-arrow-alt"></i>Price List</a> </li>
+						<li> <a class="dropdown-item" href="{{asset('pricecompare')}}"><i class="bx bx-right-arrow-alt"></i>Price Compare</a> </li>
 						<li> <a class="dropdown-item" href="{{asset('exchangerate')}}"><i class="bx bx-right-arrow-alt"></i>Exchnage  Rate</a> </li>
 					  </ul>
 					</li>

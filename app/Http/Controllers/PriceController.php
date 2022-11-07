@@ -13,6 +13,30 @@ use Validator;
 use DB;
 class PriceController extends Controller
 {
+	public function pricecompare()
+	{
+		
+		$data = $this->pricecomparedatalist(null, 'save', '');
+		return view('pricecompare', $data);
+	}
+	
+	/* public function pricecomparedata()
+	{
+		$data = $this->pricecomparedatalist(null, 'save', '');
+		return view('exchangerate', $data);
+	} */
+	
+	private function pricecomparedatalist($id, $type, $heading)
+	{
+		$customer = DB::table('customers')->get();
+		$response = ['obj' => null, 'customer' => $customer, 'type' => $type];
+		if($id == null)
+		{
+			return $response;
+		}
+
+		return [];
+	}
 	
 	public function exchangerate()
 	{
@@ -22,8 +46,7 @@ class PriceController extends Controller
 	
 	private function exchangedata($id, $type, $heading)
 	{
-		$customer = DB::table('customers')->get();
-		$response = ['obj' => null, 'customer' => $customer, 'type' => $type];
+		$response = ['obj' => null, 'customer' => [], 'type' => $type];
 		if($id == null)
 		{
 			return $response;

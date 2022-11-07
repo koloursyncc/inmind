@@ -118,6 +118,7 @@ Route::post('/update/product', [ProductController::class, 'update']);
 Route::post('/update/supplier', [SupplierController::class, 'update']);
 Route::get('/product/generatecode', [ProductController::class, 'generatecode']);
 Route::get('/exchangerate', [PriceController::class, 'exchangerate']);
+Route::get('/pricecompare', [PriceController::class, 'pricecompare']);
 Route::get('/getcustomerproduct', [ProductController::class, 'getcustomerproduct']);
 Route::get('/getbyproductid', [ProductController::class, 'getbyproductid']);
 

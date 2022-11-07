@@ -11,7 +11,7 @@
 	<tbody>
 		<?php foreach($data as $obj) { ?>
 			<tr>
-				<td>Product Name</td>
+				<td>{{ $obj->name }}</td>
 				<td>900</td>
 				<td><input type="text" class="form-control "></td>
 				<td><input type="text" class="form-control "></td>
