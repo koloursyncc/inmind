@@ -91,6 +91,7 @@ Route::get('/warehousecreate', [WarehouseController::class, 'index']);
 Route::get('/warehouselist', [WarehouseController::class, 'list']);
 Route::get('/inventory', [InventoryController::class, 'inventory']);
 Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
+Route::get('/getaddress', [SupplierController::class, 'getaddress']);
 
 
 Route::group(['middleware' => ['auth']], function() {

@@ -128,21 +128,7 @@ if($type == 'view')
 								
 								<!-- SmartWizard html -->
 								<div id="smartwizard">
-									<ul class="nav">
-										<li class="nav-item">
-											<a class="nav-link" href="#step-1">	<strong>Step 1</strong> 
-												<br>Supplier Details</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="#step-2">	<strong>Step 2</strong> 
-												<br>Contact Person</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="#step-3">	<strong>Step 3</strong> 
-												<br>Bank Details</a>
-										</li>
-										 
-									</ul>
+									
 									<div class="tab-content">
 										<form id="supplier-form" data-url="{{ $url }}">
 											@csrf
@@ -212,7 +198,7 @@ if($type == 'view')
 															
 															<div class="col-sm-4">
 																<label for="inputEmailAddress" class="form-label">  Zip Code <span>*</span></label>
-																<input type="text" value="{{ $zipcode }}" class="form-control zipcode" {{ $disabledfield }} name="zipcode" id="inputEmailAddress" placeholder="">
+																<input type="text" value="{{ $zipcode }}" maxlength="7" class="form-control zipcode" {{ $disabledfield }} name="zipcode" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-4">
 															<label for="inputEmailAddress" class="form-label" >  Select Product <span>*</span></label>
@@ -306,6 +292,7 @@ if($type == 'view')
 										</div>
 										</div>
 										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
+										<h3>Bank Detail</h3>
 										<div class="row g-3">
 															<div class="col-sm-4">
 																<label for="inputFirstName" {{ $disabledfield }} class="form-label">Bank Name</label>
@@ -356,7 +343,8 @@ if($type == 'view')
 																<input {{ $disabledfield }} type="text" value="{{ $delivery_destination }}" {{ $disabledfield }} class="form-control delivery_destination" name="delivery_destination" id="inputEmailAddress" placeholder="">
 															 </div>
 															<?php if($type != 'view') { ?>
-																<a href="#" id="addoninstall">Add More</a>
+																
+																<button type="button" id="addoninstall" class="btn btn-sm btn-primary px-2 radius-30 col-md-1">Add More</button>
 															 <?php } ?>
 															 <div class="row installment_container"> 
 															 <?php foreach($installments as $installmentK => $installmentObj) { ?>
@@ -379,8 +367,12 @@ if($type == 'view')
 																</div>
 															<?php } ?>
 															 </div>
+															 <span class="installment_cal"></span>
 														</div>
 										</div>
+										<br>
+										<input type="button" value="Save" class="btn btn-primary submit" />
+										
 									</form>	 
 								</div>
 							</div>
@@ -415,7 +407,7 @@ if($type == 'view')
 		</div>
 		
 		<div class="col-sm-4 rmv" style="display:flex;align-items:flex-end">
-		<span class="installment_container_clone_remove" style="cursor:pointer">Remove</span>
+		<button type="button" class="btn btn-sm btn-primary px-2 radius-30 installment_container_clone_remove">Remove</button>
 		</div>
 		
 	</div>
@@ -494,6 +486,8 @@ if($type == 'view')
 </div>
 
 <script>
+
+
 
 function dependdropdown(val, target, name) {
 	var url = $("meta[name=url]").attr("content");
@@ -574,6 +568,66 @@ function contactperson(pos)
 }
 
 $(document).ready(function() {
+	
+	$('body').on('keyup', '.installment_1 ', function() {
+		let sum = 0;
+		$('.installment_cal').html('');
+		$(".installment_1").each(function() {
+			sum += Number($(this).val());
+		});
+		let msg = 'Your Total percent is '+sum+'%';
+		if(sum > 100) {
+			msg = '<span style="color:red">Your have crossed the 100%</span>';
+		}
+		$('.installment_cal').html(msg);
+	});
+
+	$('.zipcode').keypress(function (e) {
+		$('.err').remove();
+        var regex = new RegExp("^[a-zA-Z]+$");
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (!regex.test(str)) {
+            return true;
+        }
+        else
+        {
+        e.preventDefault();
+        $('.zipcode').after('<span style="color:red" class="err">Please Enter numberic value</span>');
+        return false;
+        }
+    });
+	
+	
+	$('body').on('click', '.submit ', function() {
+		var url = $("meta[name=url]").attr("content");
+		$('.err_msg').remove();
+		$.ajax({
+			url: $('#supplier-form').attr('data-url'),
+			dataType : "json",
+			type: "post",
+			data : $('#supplier-form').serialize(),
+			success : function(response) {
+				
+				if(response.status == 'success') {
+					
+					alert(response.msg);
+					window.location.href = "{{url('supplierlist')}}";
+					
+				} else if(response.status == 'errors') {
+					$.each(response.errors, function(key, msg) {
+						$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+					});
+				} else if(response.status == 'error') {
+					
+					alert(response.error);
+					
+				} else if(response.status == 'exceptionError') {
+					
+				}
+			},
+		});
+		return false;
+	});
 	
 	$('body').on('click', '.installment_container_clone_remove ', function() {
 		$(this).closest(".installment_container_clone").remove();

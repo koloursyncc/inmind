@@ -30,7 +30,11 @@
 					<div class="card-body">
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
 							<div class="position-relative">
-								
+								<select class="status form-control">
+									<option value="">Select Status</option>
+									<option value="1">Active</option>
+									<option value="2">InActive</option>
+								</select>
 							</div>
 						  <div class="ms-auto"><a href="{{asset('supplierregister')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New Supplier</a></div>
 						</div>
@@ -88,16 +92,28 @@ $(document).ready(function() {
 	var table = $('#dataTable').DataTable({
 		processing: true,
 		serverSide: true,
-		ajax: "{{url('supplierlistajax')}}",
+		//ajax: "{{url('supplierlistajax')}}",
+		"ajax": {
+			"url": "{{url('supplierlistajax')}}",
+			"type": "GET",
+			"datatype": "json",
+			"data": function(d){
+				d.status = $('.status').val();
+			}
+		},
 		columns: [
-			{ data: 'id', orderable: false}, 
-			{ data: 'supplier', orderable: false},
+			{ data: 'id'}, 
+			{ data: 'supplier'},
 			{ data: 'detail', orderable: false},
 			{ data: 'action', orderable: false} 
 			  
 			
 		],
 
+	});
+	
+	$('body').on('change', '.status', function() {
+		table.ajax.reload();
 	});
 });
 		</script>

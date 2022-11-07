@@ -446,8 +446,8 @@ $stateslist = $obj->getStateByCountryId($obj->delivery_country_id);
               </div>
             </div>
             <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-              <h4 style="cursor:pointer" class="contact_add"> Add More
-              </h4>
+			<button type="button" class="btn btn-sm btn-primary px-2 radius-30 contact_add">Add More</button>
+              
               <div id="contact_detail">
                 <?php 
 $personCount = 0;
@@ -621,8 +621,8 @@ $pId = $personObj->id;
   </label>
   <input type="text" value="{{ $customer_email }}" class="form-control email" name="email" {{ $disabledfield }}>
 </div>
-<a href="#" id="add_installment_store">Add More
-</a>
+<button type="button" id="add_installment_store" class="btn btn-sm btn-primary px-2 radius-30 col-md-1 ">Add More</button>
+
 <div id="installment_store">
   <?php 
 $installmentin = 0;
@@ -893,8 +893,7 @@ $payment_account_number = '';
         </select>
       </div>
       <div class="col-md-4">
-        <h4 class="remove_installment">Remove
-        </h4>
+		<button type="button" class="btn btn-sm btn-primary px-2 radius-30 remove_installment" style="margin-top:25px">Remove</button>
       </div>
     </div>
   </div>
@@ -954,8 +953,7 @@ $payment_account_number = '';
       </textarea>
     </div>
     <div class="col-sm-4">
-      <h4 class="removeContactPerson">  Remove
-      </h4>
+	<button type="button" class="btn btn-sm btn-primary px-2 radius-30 removeContactPerson">Remove</button>
     </div>
   </div>
 </div>

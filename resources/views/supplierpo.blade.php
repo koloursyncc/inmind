@@ -68,17 +68,17 @@ foreach($supplierProductPo as $supplierProductPoObj) {
                                     <select {{ $disabled_field }} class="form-select mb-3 supplier_id" name="supplier_id" aria-label="Default select example">
 										<option value="">Select Supplier </option>
 										<?php foreach($suppliers as $supplierObj) { ?>
-											<option <?php if(@$obj->supplier_id == $supplierObj->id) { echo 'selected'; } ?> value="{{ $supplierObj->id }}">{{ $supplierObj->supplier_name }}</option>
+											<option data-address="{{ $supplierObj->address }} {{ $supplierObj->building }} {{ $supplierObj->sub_district }}  {{ $supplierObj->district }}  {{ $supplierObj->road }} " <?php if(@$obj->supplier_id == $supplierObj->id) { echo 'selected'; } ?> value="{{ $supplierObj->id }}">{{ $supplierObj->supplier_name }}</option>
 										<?php } ?>
 									</select> 
                                  </div>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Supplier PO no.</label>
-                                    <p>0001/2565</p>
+                                    <p class="">0001/2565</p>
                                  </div> 
 								 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Address</label>
-                                    <p>0001/2565</p>
+                                    <p class="supplier_address">0001/2565</p>
                                  </div>
 								 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Date</label>
@@ -88,14 +88,14 @@ foreach($supplierProductPo as $supplierProductPoObj) {
                                     <label for="inputFirstName" class="form-label">Product Name</label>
                                     <select {{ $disabled_field }} class="form-select mb-3 product_name" aria-label="Default select example" multiple>
 										
-										<?php foreach($products as $productsObj) {
+										<?php /* foreach($products as $productsObj) {
 												$selectedrw = '';
 												if(isset($productIds[$productsObj->id])){
 													$selectedrw= 'selected';
 												}
 											?>
 											<option {{ $selectedrw }} data-code="{{ $productsObj->code }}"  data-code="{{ $productsObj->name }}" value="{{ $productsObj->id }}">{{ $productsObj->name }}</option>
-										<?php } ?>
+										<?php } */ ?>
 									</select> 
                                  </div>
 								 <h6 class="order_description none-class d-none">Order Description </h6> 
@@ -164,6 +164,9 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 									 </div> 
 								</div>
                               </div>
+							  
+							  <input type="submit" class="btn btn-primary submit" value="Save" />
+							  
 							  </form>
                   </div>
                </div>
@@ -183,7 +186,7 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 				
 			</div> 
 			<div class="col-sm-2">
-				<input type="text" class="unit_price" class="form-control  " {{ $disabled_field }} />
+				<input type="text" class="unit_price" disabled class="form-control  " {{ $disabled_field }} />
 			</div>  
 			<div class="col-sm-2">
 				<input type="text" class="quantity" class="form-control  " {{ $disabled_field }} />
@@ -214,6 +217,85 @@ function cal(target, unit_price, quantity, total) {
 }
 
 	$(document).ready(function() {
+		
+		$('body').on('submit', '#seller_po', function() {
+		 $('.err_msg').remove();
+				$.ajax({
+					url: $('#seller_po').attr('data-url'),
+					dataType : "json",
+					type: "post",
+					data : $('#seller_po').serialize(),
+					success : function(response) {
+						
+						if(response.status == 'success') {
+							
+							alert(response.msg);
+							window.location.href = "{{url('supplierlist')}}";
+							
+						} else if(response.status == 'errors') {
+							$.each(response.errors, function(key, msg) {
+								$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+							});
+						} else if(response.status == 'error') {
+							
+							alert(response.error);
+							
+						} else if(response.status == 'exceptionError') {
+							
+						}
+					},
+				});
+				return false;
+		});
+		
+		$('body').on('change', '.supplier_id', function() {
+			
+			var dataid = $(".supplier_id option:selected").attr('data-address');
+			$('.supplier_address').html('');
+			$.ajax({
+				url: "{{url('getaddress')}}",
+				dataType : "json",
+				type: "get",
+				data : {'id': $(this).val()},
+				success : function(response) {
+					var address = '';
+					if(response.data.address != '') {
+						address += response.data.address+' ';
+					}
+					
+					if(response.data.building != '') {
+						address += response.data.building+' ';
+					}
+					
+					if(response.data.road != '') {
+						address += response.data.road+' ';
+					}
+					address += '<br>';
+					if(response.data.sub_district != '') {
+						address += response.data.sub_district+', ';
+					}
+					
+					if(response.data.sub_district != '') {
+						address += response.data.sub_district+' ';
+					}
+					
+					address += '<br>';
+					address += response.countryname+', '+response.statename+', '+response.data.zipcode;
+					
+					$('.supplier_address').html(address);
+					
+					var list = $('.product_name');
+					list.empty();
+					var html = '';
+					$.each(response.products, function(index, item) {
+						html += '<option value="'+item.id+'" data-code="'+item.code+'" data-unit="'+item.unit_price+'">'+item.name+'</option>';
+					});
+					list.html(html);
+				},
+			});
+
+			
+		});
 		
 		$('body').on('keyup', '.unit_price', function() {
 			
@@ -265,6 +347,7 @@ function cal(target, unit_price, quantity, total) {
 				
 				$('.p_code', clone).html(code);
 				$('.unit_price', clone).attr('name', 'unit_price['+cnt+']').attr('id', 'unit_price_'+value).attr('data-id', value);
+				$('.unit_price', clone).val(target.attr('data-unit'));
 				
 				$('.quantity', clone).attr('name', 'quantity['+cnt+']').attr('id', 'quantity_'+value).attr('data-id', value);
 				

@@ -13,6 +13,7 @@ use App\Components\RegionManager;
 use Illuminate\Http\Request;
 use Validator, Redirect, Auth;
 use App\Models\SupplierContact;
+use DB;
 class SupplierController extends Controller
 {
 	
@@ -46,7 +47,7 @@ class SupplierController extends Controller
 	private function getSupplierpoData($id, $type)
 	{
 		$products = Product::select('id', 'name', 'code')->get();
-		$suppliers = Supplier::select('id', 'supplier_name')->get();
+		$suppliers = Supplier::select('id', 'supplier_type', 'address', 'building', 'sub_district', 'district', 'road', 'supplier_name')->get();
 		
 		$obj = null;
 		$supplierProductPo = [];
@@ -583,9 +584,13 @@ class SupplierController extends Controller
 		 $countData = Supplier::select('count(*) as allcount');
 		 
 		if($searchValue != null) {
-			//$countData->where('product_name', 'like', '%' .$searchValue . '%');
-			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
+			$countData->where('supplier_name', 'like', '%' .$searchValue . '%');
 		}
+		
+		if($request->status > 0) {
+			$countData->where('status', $request->status);
+		}
+		
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
 		 $records = Supplier::select('*') //orderBy($columnName,$columnSortOrder)
@@ -594,14 +599,15 @@ class SupplierController extends Controller
 		   ->take($rowperpage);
 			if($columnName == 'id') {
 			   $records->orderBy('id', 'Desc');//$records->orderBy($columnName,$columnSortOrder);
-			} else {
-				$records->orderBy('id', 'Desc');
+			} else if($columnName == 'supplier') {
+				$records->orderBy('supplier_name', $columnSortOrder);
 			}
 			if($searchValue != null) {
-				//$records->where('product_name', 'like', '%' .$searchValue . '%');
-				//$records->where('supplier', 'like', '%' .$searchValue . '%');
+				$records->where('supplier_name', 'like', '%' .$searchValue . '%');
 			}
-		
+		if($request->status > 0) {
+			$records->where('status', $request->status);
+		}
 		$list = $records->get();
 
 		 $data_arr = array();
@@ -955,5 +961,31 @@ class SupplierController extends Controller
 			
 			return response()->json(array('status'=>'error', 'msg' => 'Something went wrong'));
 		}
+	}
+	
+	public function getaddress(Request $request) {
+		$id = $request->id;
+		$data = DB::table('suppliers')->where('id', $id)->first();
+		
+		$country = DB::table('countries')->where('id', $data->country_id)->first();
+		$state = DB::table('states')->where('id', $data->state_id)->first();
+		
+		$countryname = $statename = '';
+		if($country) {
+			$countryname = $country->name;
+		}
+		if($state) {
+			$statename = $state->name;
+		}
+		
+		$products = DB::table('supplier_products')
+			->select('products.id', 'products.name', 'products.code', 'supplier_products.unit_price')
+			->where('supplier_id', $data->id)
+			->join('products', function($join) {
+				$join->on('products.id', '=', 'supplier_products.product_id');
+			})
+			->get();
+		
+		return response()->json(array('data'=>$data, 'countryname' => $countryname, 'statename' => $statename, 'products' => $products));
 	}
 }
