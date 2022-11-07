@@ -279,7 +279,7 @@ $disabledfield = 'disabled';
                             <input class="form-control mb-3" value="{{ $customer_family }}" type="text" placeholder="enter dealer family" name="family" aria-label="default input example" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-1">
-                            <label for="formFile" class="form-label">Tel
+                            <label for="formFile" class="form-label">Code
                             </label>
                             <select  name="country_code" class="form-select country_code" {{ $disabledfield }}>
                               <option value="">Select Country

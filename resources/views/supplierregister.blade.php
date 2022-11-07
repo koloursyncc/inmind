@@ -215,8 +215,8 @@ if($type == 'view')
 																<input type="text" value="{{ $zipcode }}" class="form-control zipcode" {{ $disabledfield }} name="zipcode" id="inputEmailAddress" placeholder="">
 															</div>
 															<div class="col-sm-4">
-															<label for="inputEmailAddress" class="form-label">  Select Product <span>*</span></label>
-																<select {{ $disabledfield }} class="form-control product_id " multiple>
+															<label for="inputEmailAddress" class="form-label" >  Select Product <span>*</span></label>
+																<select {{ $disabledfield }} class="form-control product_id " multiple style="min-height:150px;">
 																	<?php foreach($products as $productObj) {
 																			$proched = '';
 																			if($type != 'save') {
@@ -257,7 +257,8 @@ if($type == 'view')
 														</div>
 										 </div>
 										<div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-										<h3 class="add_more_content" style="cursor:pointer">Add More</h3>
+										<!---<h3 class="" style="cursor:pointer"></h3>----->
+										<button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_more_content">Add contact Person</button>
 										<div class="step_2_contact">
 										<?php 
 											$supplierProductContactCount = 0;
@@ -267,7 +268,7 @@ if($type == 'view')
 											?>
 											<div class="row g-3">
 												<div class="col-sm-4">
-													<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
+													<label for="inputFirstName" {{ $disabledfield }} class="form-label person_name">Name <span>*</span></label>
 													<input type="text" value="{{ $supplierProductContactObj->name }}" class="form-control name" name="name[{{ $supprProConId }}]" id="inputFirstName" {{ $disabledfield }}>
 												</div>
 												<div class="col-sm-4">
@@ -277,21 +278,31 @@ if($type == 'view')
 												<div class="col-sm-4">
 													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
 													<input type="text" value="{{ $supplierProductContactObj->position }}" class="form-control position" name="position[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+													<select class="form-control position" name="position[{{ $supprProConId }}]">
+														<option value="">Select
+														</option>
+														<option value="Owner" <?php if($supplierProductContactObj->position == 'Owner') { echo 'selected'; } ?> >Owner </option>
+														<option value="Sale Manager" <?php if($supplierProductContactObj->position == 'Sale Manager') { echo 'selected'; } ?>>Sale Manager</option>
+														<option value="Sale" <?php if($supplierProductContactObj->position == 'Sale') { echo 'selected'; } ?>>Sale </option>
+														<option value="Accountant" <?php if($supplierProductContactObj->position == 'Accountant') { echo 'selected'; } ?>>Accountant</option>
+													</select>
 												</div>
 												<div class="col-sm-4">
 													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
-													<input type="text" value="{{ $supplierProductContactObj->mobile }}" class="form-control mobile" name="mobile[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+													<input type="phone" value="{{ $supplierProductContactObj->mobile }}" class="form-control mobile" name="mobile[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
 												</div>
 												<div class="col-sm-4">
 													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Email</label>
-													<input type="text" value="{{ $supplierProductContactObj->email }}" class="form-control email" name="email[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
+													<input type="email" value="{{ $supplierProductContactObj->email }}" class="form-control email" name="email[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>
 												</div>
 												<div class="col-sm-4">
 													<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Remark</label>
 													<textarea type="text" value="{{ $supplierProductContactObj->remark }}" class="form-control remark" name="remark[{{ $supprProConId }}]" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea>
 												</div> 
 											</div>
+											
 										<?php } ?>
+										
 										</div>
 										</div>
 										<div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"> 
@@ -425,11 +436,15 @@ if($type == 'view')
 </div>
 
 
-<div class="step_2_contact_wrapper" style="display:none" data-counter="0"> 
+<div class="step_2_contact_wrapper" style="display:none" data-counter="0" data-ps="0"> 
 	<div class="row g-3 step_2_contact_wrapper_clone">
-		
+		<hr style="margin:30px;">
+	<div class="col-sm-12 remove_content_wrapper">
+		<!---<h4 class="remove_content" style="cursor:pointer">teststst</h4>---->
+		<button type="button" class="btn btn-sm btn-primary px-2 radius-30 remove_content">Remove contact Person</button>
+		</div>	
 		<div class="col-sm-4">
-			<label for="inputFirstName" {{ $disabledfield }} class="form-label">Name <span>*</span></label>
+			<label for="inputFirstName" {{ $disabledfield }} class="form-label person_name">Person Name  <span>*</span></label>
 			<input type="text" class="form-control name" name="name" id="inputFirstName" {{ $disabledfield }}>
 		</div>
 		<div class="col-sm-4">
@@ -438,9 +453,30 @@ if($type == 'view')
 		</div>
 		<div class="col-sm-4">
 			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">Position</label>
-			<input type="text" class="form-control position" name="position" id="inputEmailAddress" {{ $disabledfield }}>
+			<!---<input type="text" class="form-control position" name="position" id="inputEmailAddress" {{ $disabledfield }}>---->
+			<select class="form-control position" name="position">
+                      <option value="">Select
+                      </option>
+                      <option value="Owner" >Owner </option>
+                    <option value="Sale Manager">Sale Manager</option>
+					<option value="Sale">Sale </option>
+					<option value="Accountant">Accountant</option>
+                  </select>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-1">
+                            <label for="formFile" class="form-label">Code
+                            </label>
+                            <select  name="country_code" class="form-select country_code" {{ $disabledfield }}>
+                              <option value="">Select Country
+                              </option>
+                              <?php foreach($countries as $country) { ?>
+                              <option  value="{{ $country->id }}" 
+                                      <?php if($country->id == @$obj->country_code) { echo 'selected'; } else if($country->id == 237) { echo 'selected'; }  ?>>{{ $country->phone_code }}
+                              </option>
+                            <?php } ?>
+                            </select>
+                        </div>
+		<div class="col-sm-3">
 			<label for="inputEmailAddress" {{ $disabledfield }} class="form-label">  Mobile <span>*</span></label>
 			<input type="text" class="form-control mobile" name="mobile" id="inputEmailAddress" {{ $disabledfield }}>
 		</div>
@@ -453,9 +489,7 @@ if($type == 'view')
 			<textarea type="text" class="form-control remark" name="remark" id="inputEmailAddress" {{ $disabledfield }}>{{ $remark }}</textarea> 
 			
 		</div> 
-		<div class="col-sm-4 remove_content_wrapper">
-		<h4 class="remove_content" style="cursor:pointer">Remove</h4>
-		</div>
+		
 	</div>
 </div>
 
@@ -519,12 +553,15 @@ function contactperson(pos)
 			
 	var no = $('.step_2_contact_wrapper').attr('data-counter');
 	var total = parseInt(no) - 1;
-	
+	var ps = $('.step_2_contact_wrapper').attr('data-ps');
+	var pstotal = parseInt(ps) + 1;
+	//alert(pstotal);
 	if(pos == 0) {
 		$('.remove_content_wrapper', clone).addClass('d-none');
 	}
 	
 	$('.name', clone).attr('name', 'name['+total+']');
+	$('.person_name', clone).html(' Person Name ' + pstotal);
 	$('.family_name', clone).attr('name', 'family_name['+total+']');
 	$('.position', clone).attr('name', 'position['+total+']');
 	$('.mobile', clone).attr('name', 'mobile['+total+']');
@@ -533,6 +570,7 @@ function contactperson(pos)
 	
 	$('.step_2_contact').append(clone);
 	$('.step_2_contact_wrapper').attr('data-counter', total);
+	$('.step_2_contact_wrapper').attr('data-ps', pstotal);
 }
 
 $(document).ready(function() {
