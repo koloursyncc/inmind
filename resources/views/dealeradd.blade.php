@@ -217,12 +217,12 @@ $disabledfield = 'disabled';
                           <label class="form-check-label" for="inlineRadio1">Retail
                           </label>
                         </div>
-                        <div class="form-check form-check-inline">
+                        <!----<div class="form-check form-check-inline">
                           <input class="form-check-input type type_val" type="radio" name="type" 
                                  <?php if($customer_type == 3) { echo 'checked'; } ?> value="3" {{ $disabledfield }}>
                           <label class="form-check-label online_shopping" for="inlineRadio1">Online Shopping
                           </label>
-                        </div>
+                        </div>----->
                         <div style="clear:both">
                         </div>
                         <label for="formFile" class="form-label">Title
@@ -259,12 +259,12 @@ $disabledfield = 'disabled';
                           <label class="form-check-label " for="inlineRadio1">Part Ltd.
                           </label>
                         </div>
-                        <div class="form-check form-check-inline www">
+                        <!---<div class="form-check form-check-inline www">
                           <input class="form-check-input  title_val" type="radio" name="title" 
                                  <?php if($customer_title == 6) { echo 'checked'; } ?> value="6" {{ $disabledfield }}>
                           <label class="form-check-label " for="inlineRadio1">www
                           </label>
-                        </div>
+                        </div>----->
                         <div style="clear:both">
                         </div>
                         <div class="row g-3">
@@ -279,7 +279,7 @@ $disabledfield = 'disabled';
                             <input class="form-control mb-3" value="{{ $customer_family }}" type="text" placeholder="enter dealer family" name="family" aria-label="default input example" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-1">
-                            <label for="formFile" class="form-label">Tel
+                            <label for="formFile" class="form-label">Code
                             </label>
                             <select  name="country_code" class="form-select country_code" {{ $disabledfield }}>
                               <option value="">Select Country
@@ -520,7 +520,7 @@ $pId = $personObj->id;
             </label>
             <br>
             <select class="form-control" name="invoice" {{ $disabledfield }}>
-              <option value="">Select Invoice
+              <option value="">Type of Businessship
               </option>
               <option value="1" 
                       <?php if($customer_invoice == 1) { echo 'selected'; } ?>>Sale

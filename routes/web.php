@@ -12,6 +12,7 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\InventoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,7 +89,7 @@ Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 
 Route::get('/warehousecreate', [WarehouseController::class, 'index']);
 Route::get('/warehouselist', [WarehouseController::class, 'list']);
-Route::get('/inventory', [WarehouseController::class, 'inventory']);
+Route::get('/inventory', [InventoryController::class, 'inventory']);
 Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
 
 

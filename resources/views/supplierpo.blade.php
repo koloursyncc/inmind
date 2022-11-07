@@ -49,24 +49,7 @@ foreach($supplierProductPo as $supplierProductPoObj) {
                <div class="card">
                   <div class="card-body">
                      <!-- SmartWizard html -->
-                     <div id="smartwizard">
-                        <ul class="nav">
-                           <li class="nav-item">
-                              <a class="nav-link" href="#step-1">	<strong>Step 1</strong> 
-                              <br>PO Details</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#step-2">	<strong>Step 2</strong> 
-                              <br>Contact Person</a>
-                           </li>
-                           <li class="nav-item"> 
-                              <a class="nav-link" href="#step-3">	<strong>Step 3</strong> 
-                              <br>Bank Details </a>
-                           </li>
-                        </ul>
-                        <div class="tab-content">
-                           <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1"> 
-							<form <?php if($type != 'view') { ?>id="seller_po" data-url="{{ $url }}" <?php } ?>>
+					 <form <?php if($type != 'view') { ?>id="seller_po" data-url="{{ $url }}" <?php } ?>>
 									@csrf
 									<?php  if($type == 'edit') { ?>
 										<input type="hidden" class="" name="id" value="{{ @$obj->id }}" />
@@ -182,10 +165,6 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 								</div>
                               </div>
 							  </form>
-                           </div>
-						   
-                        </div>
-                     </div>
                   </div>
                </div>
             </div>
