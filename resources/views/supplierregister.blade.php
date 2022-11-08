@@ -526,10 +526,21 @@ function addinstall(pos)
 	var length = $('.installment_container_clone', $('.installment_container')).length;
 	var html = parseInt(length) + 1;
 	
+	$(".installment_2", $('.installment_container')).each(function() {
+		var x = $(this).val();
+		$(".installment_2 option[value='"+x+"']", clone).remove();
+	});
+	
+	var length = $('.installment_2 > option', clone).length;
+	if(length == 0) {
+		return false;
+	}
+	
 	$('.installment_1', clone).attr('name', 'installment_1['+total+']');
 	$('.installment_lavel_1', clone).html('Installment '+html);
 	
 	$('.installment_2', clone).attr('name', 'installment_2['+total+']');
+	$('.installment_2', clone).addClass('installment_1_'+html).attr('data-id', html);
 	$('.installment_lavel_2', clone).html('Installment '+html);
 	
 	if(pos == 0) {
@@ -568,8 +579,22 @@ function contactperson(pos)
 }
 
 $(document).ready(function() {
+	$(document).on("input", ".mobile", function() {
+		this.value = this.value.replace(/\D/g,'');
+	});
+	
+	$('body').on('keyup', '.email ', function() {
+		var val = $(this).val();
+		var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		
+		$(".err").remove(); 
+		if (!expr.test(val)) {
+			$(this).after('<span class="err" style="color:red">Please enter valid email.</span>');
+		}
+	});
 	
 	$('body').on('keyup', '.installment_1 ', function() {
+		$('.submit').removeAttr('disabled');
 		let sum = 0;
 		$('.installment_cal').html('');
 		$(".installment_1").each(function() {
@@ -577,6 +602,7 @@ $(document).ready(function() {
 		});
 		let msg = 'Your Total percent is '+sum+'%';
 		if(sum > 100) {
+			$('.submit').attr('disabled', 'disabled');
 			msg = '<span style="color:red">Your have crossed the 100%</span>';
 		}
 		$('.installment_cal').html(msg);
@@ -652,6 +678,19 @@ $(document).ready(function() {
 			$('.pro_clone').append(clone);
 			
 			$('.suppiler_pro').attr('data-counter', srno);
+		});
+		
+		
+	});
+	
+	$('body').on('change', '.installment_2', function() {
+		var value = $(this).val();
+		var change = $(this).attr('data-id');
+		$(".installment_2", $('.installment_container_clone')).each(function() {
+			if(change != $(this).attr('data-id')) {
+				$(".installment_2 option[value='"+value+"']", $('.installment_container_clone')).remove();
+			}
+			
 		});
 		
 		

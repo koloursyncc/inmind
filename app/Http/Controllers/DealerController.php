@@ -321,7 +321,27 @@ class DealerController extends Controller
 					'beneficiary_name' => 'nullable|alpha',
 					'account_number' => 'nullable|numeric',
 					'country_code' => 'required',
-					'country_number' => 'required|numeric'
+					'country_number' => 'required|numeric',
+					
+					'head_office_address' => 'required',
+					'head_office_road' => 'required',
+					'head_office_building' => 'required',
+					'head_office_sub_district' => 'required',
+					'head_office_district' => 'required',
+					'head_office_city' => 'required',
+					'head_office_country_id' => 'required',
+					'head_office_state_id' => 'required',
+					'head_office_zipcode' => 'required',
+					
+					'delivery_address' => 'required',
+					'delivery_road' => 'required',
+					'delivery_building' => 'required',
+					'delivery_sub_district' => 'required',
+					'delivery_district_id' => 'required',
+					'delivery_city' => 'required',
+					'delivery_country_id' => 'required',
+					'delivery_state_id' => 'required',
+					'delivery_zipcode' => 'required',
 				);
 
 				$validator = Validator::make($data, $rules);

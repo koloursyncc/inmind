@@ -150,47 +150,8 @@ $disabledfield = 'disabled';
                     <?php if($type == 'edit') { ?>
                     <input type="hidden" name="id" value="{{ $id }}" >
                     <?php } ?>
-                    <div id="smartwizard">
-                      <ul class="nav">
-                        <li class="nav-item">
-                          <a class="nav-link" href="#step-1">	
-                            <strong>Step 1
-                            </strong> 
-                            <br>Customer Details
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#step-2">	
-                            <strong>Step 2
-                            </strong> 
-                            <br>Contact Person
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#step-3">	
-                            <strong>Step 3
-                            </strong> 
-                            <br>Payment Term
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#step-4">	
-                            <strong>Step 4
-                            </strong> 
-                            <br>Bank Details
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#step-5">	
-                            <strong>Step 5
-                            </strong> 
-                            <br>Store Details
-                          </a>
-                        </li>
-                      </ul>
-                      <div class="tab-content">
-                        <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                          <label for="formFile" class="form-label">Brand
+					
+					 <label for="formFile" class="form-label">Brand
                           </label>
                           <select class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example" {{ $disabledfield }}>
                             <option value="">Select Brand 
@@ -201,6 +162,7 @@ $disabledfield = 'disabled';
                             </option>
                           <?php } ?>
                           </select>
+						  <br>
                         <label for="formFile" class="form-label">Type of Customer
                         </label>
                         <div style="clear:both">
@@ -269,7 +231,7 @@ $disabledfield = 'disabled';
                         </div>
                         <div class="row g-3">
                           <div class="col-sm-4">
-                            <label for="formFile" class="form-label">Customer Name
+                            <label for="formFile" class="form-label">Customer Name <span style="color:red">*</span>
                             </label>
                             <input class="form-control mb-3" value="{{ $customer_name }}" type="text" placeholder="enter dealer name" name="name" aria-label="default input example" {{ $disabledfield }}>
                           </div>
@@ -301,40 +263,40 @@ $disabledfield = 'disabled';
                         <div class="row g-3">
                           <h6>
                             <span class="address_text">Head office
-                            </span> address by Registration Document
+                            </span> address by Registration Document <span style="color:red">*</span>
                           </h6>
                           <div class="col-sm-4">
-                            <label for="inputFirstName" class="form-label">Address no.
+                            <label for="inputFirstName" class="form-label">Address no. <span style="color:red">*</span>
                             </label>
-                            <input type="text" class="form-control address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
+                            <input type="text" class="form-control address head_office_address" name="head_office_address" value="{{ @$obj->head_office_address }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-4">
-                            <label for="inputEmailAddress" class="form-label">Road
+                            <label for="inputEmailAddress" class="form-label">Road <span style="color:red">*</span>
                             </label>
                             <input type="text" class="form-control head_office_road"  name="head_office_road" value="{{ @$obj->head_office_road }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-4">
-                            <label for="inputLastName" class="form-label">Building / Village
+                            <label for="inputLastName" class="form-label">Building / Village <span style="color:red">*</span>
                             </label>
-                            <input type="text" class="form-control building" name="head_office_building" value="{{ @$obj->head_office_building }}" {{ $disabledfield }}>
+                            <input type="text" class="form-control building head_office_building" name="head_office_building" value="{{ @$obj->head_office_building }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-4">
-                            <label for="inputEmailAddress" class="form-label">Sub District
+                            <label for="inputEmailAddress" class="form-label">Sub District <span style="color:red">*</span>
                             </label>
-                            <input type="text" class="form-control sub_district"  name="head_office_sub_district" value="{{ @$obj->head_office_sub_district }}" {{ $disabledfield }}>
+                            <input type="text" class="form-control sub_district head_office_sub_district"  name="head_office_sub_district" value="{{ @$obj->head_office_sub_district }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-4">
-                            <label for="inputEmailAddress" class="form-label">  District
+                            <label for="inputEmailAddress" class="form-label">  District <span style="color:red">*</span>
                             </label>
-                            <input type="text" class="form-control district_id"  name="head_office_district" value="{{ @$obj->head_office_district }}" {{ $disabledfield }}>
+                            <input type="text" class="form-control district_id head_office_district"  name="head_office_district" value="{{ @$obj->head_office_district }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-sm-4">
-                            <label for="inputEmailAddress" class="form-label">  City
+                            <label for="inputEmailAddress" class="form-label">  City <span style="color:red">*</span>
                             </label>
-                            <input type="text" class="form-control city"  name="head_office_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
+                            <input type="text" class="form-control city head_office_city"  name="head_office_city" value="{{ @$obj->head_office_city }}" {{ $disabledfield }}>
                           </div>
                           <div class="col-4 mb-3">
-                            <label for="inputSelectCountry" class="form-label ">Country
+                            <label for="inputSelectCountry" class="form-label ">Country <span style="color:red">*</span>
                             </label>
                             <select  name="head_office_country_id" class="form-select head_office_country_id" {{ $disabledfield }}>
                               <option value="">Select Country
@@ -353,10 +315,10 @@ $stateslist = $obj->getStateByCountryId($obj->head_office_country_id);
 }
 ?>
                         <div class="col-sm-4">
-                          <label for="inputEmailAddress" class="form-label">State / Province
+                          <label for="inputEmailAddress" class="form-label">State / Province <span style="color:red">*</span>
                           </label>
-                          <select name="head_office_state_id" class="form-select state_id state_id_head" {{ $disabledfield }}>
-                            <option value="">Select State
+                          <select name="head_office_state_id" class="form-select state_id state_id_head head_office_state_id" {{ $disabledfield }}>
+                            <option value="">Select State <span style="color:red">*</span>
                             </option>
                             <?php foreach($stateslist as $stateObj) { ?>
                             <option value="{{ $stateObj->id }}" 
@@ -366,47 +328,47 @@ $stateslist = $obj->getStateByCountryId($obj->head_office_country_id);
                           </select>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputEmailAddress" class="form-label">  Zip Code
+                        <label for="inputEmailAddress" class="form-label">  Zip Code <span style="color:red">*</span>
                         </label>
-                        <input name="head_office_zipcode" type="text" class="form-control zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }}>
+                        <input name="head_office_zipcode" type="text" class="form-control zipcode head_office_zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }}>
                       </div>
                     </div>
                     <div class="row g-3 delivery_check_content">
                       <h6>
-                        <input name="delivery_check" class="form-check-input delivery_check" type="checkbox" value="1" id="flexCheckChecked" > It such warehouse or depoot address same as home address
+                        <input name="delivery_check" class="form-check-input delivery_check" type="checkbox" value="1" id="flexCheckChecked" > It such warehouse or depoot address same as home address <span style="color:red">*</span>
                       </h6>
                       <div class="col-sm-4">
-                        <label for="inputFirstName" class="form-label">Address no.
+                        <label for="inputFirstName" class="form-label">Address no.<span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control address delivery_address" name="delivery_address" value="{{ @$obj->delivery_address }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputEmailAddress" class="form-label">Road
+                        <label for="inputEmailAddress" class="form-label">Road <span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control head_office_road delivery_road"  name="delivery_road" value="{{ @$obj->delivery_road }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputLastName" class="form-label">Building / Village
+                        <label for="inputLastName" class="form-label">Building / Village <span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control building delivery_building" name="delivery_building" value="{{ @$obj->delivery_building }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputEmailAddress" class="form-label">Sub District
+                        <label for="inputEmailAddress" class="form-label">Sub District <span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control sub_district delivery_sub_district"  name="delivery_sub_district" value="{{ @$obj->delivery_sub_district }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputEmailAddress" class="form-label">  District
+                        <label for="inputEmailAddress" class="form-label">  District <span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control district_id delivery_district_id"  name="delivery_district_id" value="{{ @$obj->delivery_district_id }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-sm-4">
-                        <label for="inputEmailAddress" class="form-label">  City
+                        <label for="inputEmailAddress" class="form-label">  City <span style="color:red">*</span>
                         </label>
                         <input type="text" class="form-control city delivery_city"  name="delivery_city" value="{{ @$obj->delivery_city }}" {{ $disabledfield }}>
                       </div>
                       <div class="col-4 mb-3">
-                        <label for="inputSelectCountry" class="form-label ">Country
+                        <label for="inputSelectCountry" class="form-label ">Country <span style="color:red">*</span>
                         </label>
                         <select  name="delivery_country_id" class="form-select delivery_country_id" {{ $disabledfield }}>
                           <option value="">Select Country
@@ -425,7 +387,7 @@ $stateslist = $obj->getStateByCountryId($obj->delivery_country_id);
 }
 ?>
                     <div class="col-sm-4">
-                      <label for="inputEmailAddress" class="form-label">State / Province
+                      <label for="inputEmailAddress" class="form-label">State / Province <span style="color:red">*</span>
                       </label>
                       <select name="delivery_state_id" class="form-select state_id state_id_delivery" {{ $disabledfield }}>
                         <option value="">Select State
@@ -438,15 +400,14 @@ $stateslist = $obj->getStateByCountryId($obj->delivery_country_id);
                       </select>
                     </div>
                   <div class="col-sm-4">
-                    <label for="inputEmailAddress" class="form-label">  Zip Code
+                    <label for="inputEmailAddress" class="form-label">  Zip Code <span style="color:red">*</span>
                     </label>
                     <input name="delivery_zipcode" type="text" class="form-control zipcode delivery_zipcode" value="{{ @$obj->delivery_zipcode }}" {{ $disabledfield }}>
                   </div>
                 </div>
               </div>
-            </div>
-            <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-			<button type="button" class="btn btn-sm btn-primary px-2 radius-30 contact_add">Add More</button>
+			  
+			  <button type="button" class="btn btn-sm btn-primary px-2 radius-30 contact_add">Add More</button>
               
               <div id="contact_detail">
                 <?php 
@@ -485,7 +446,7 @@ $pId = $personObj->id;
               <div class="col-sm-4">
                 <label for="inputEmailAddress" class="form-label">  Mobile
                 </label>
-                <input type="text" class="form-control contact_mobile" name="contact_mobile[{{ $pId }}]" value="{{ @$personObj->mobile }}" {{ $disabledfield }}>
+                <input type="text" class="form-control contact_mobile" minlength="10" name="contact_mobile[{{ $pId }}]" value="{{ @$personObj->mobile }}" {{ $disabledfield }}>
               </div>
               <div class="col-sm-4">
                 <label for="inputEmailAddress" class="form-label">Email
@@ -513,9 +474,8 @@ $pId = $personObj->id;
             </div>
             <?php } ?>
           </div>
-        </div>
-        <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-          <div class="form-check form-check-inline"> 
+		  
+		  <div class="form-check form-check-inline"> 
             <label for="inputFirstName" class="form-label">Invoice
             </label>
             <br>
@@ -651,10 +611,8 @@ $installmentin = $installmentkinc;
 <?php } ?>
 </div>
 </div>
-</div>
-</div>
-<div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-  <h3>Customer bank info
+			
+<h3>Customer bank info
   </h3>
   <div class="row g-3">
     <div class="col-sm-4">
@@ -747,9 +705,8 @@ $payment_account_number = '';
     </span>
   </div>
 </div>
-</div>
-<div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
-  <h3>Store 
+
+<h3>Store 
   </h3>
   <div class="row">
     <div class="col-md-12">	
@@ -802,8 +759,9 @@ $payment_account_number = '';
   <div class="customer_store_data">
     @include('customer/updatestore')
   </div>
-</div>
-</div>
+
+			
+    <input type="button" value="Save" class="btn btn-primary submit">
 </form>
 </div>
 </div>
@@ -1211,6 +1169,52 @@ $payment_account_number = '';
         $('.store_wrapper_d_none').attr('data-counter', totalnum);
       }
       $(document).ready(function() {
+		  
+		  $(document).on("input", ".contact_mobile", function() {
+					this.value = this.value.replace(/\D/g,'');
+				});
+		  
+		$('body').on('click', '.submit ', function() {
+			$('.err_msg').remove();
+				$.ajax({
+					url: $('#customerform').attr('data-url'),
+					dataType : "json",
+					type: "post",
+					data : $('#customerform').serialize(),
+					success : function(response) {
+						
+						if(response.status == 'success') {
+							
+							alert(response.msg);
+							window.location.href = "{{url('dealerlist')}}";
+							
+						} else if(response.status == 'errors') {
+							$.each(response.errors, function(key, msg) {
+								$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+							});
+						} else if(response.status == 'error') {
+							
+							alert(response.error);
+							
+						} else if(response.status == 'exceptionError') {
+							
+						}
+					},
+				});
+			return false;
+		});
+		  
+			$('body').on('keyup', '.contact_email', function() {
+		var val = $(this).val();
+		var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		
+		$(".err").remove(); 
+		if (!expr.test(val)) {
+			$(this).after('<span class="err" style="color:red">Please enter valid email.</span>');
+		}
+	});
+		  
+		  
         $('body').on('change', '.store_contact_country_id', function() {
           var id = $(this).val();
           var target = $('.store_contact_state_id',$(this).parent().parent());
