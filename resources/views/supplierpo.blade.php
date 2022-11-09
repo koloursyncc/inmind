@@ -59,8 +59,11 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 									<label for="formFile" class="form-label">P/O For Brand</label>
 									<select {{ $disabled_field }} class="form-select mb-3 brand_id" name="brand_id" aria-label="Default select example">
 										<option selected>Select Brand </option>
-										<option value="1"  <?php if(@$obj->brand_id == 1) { echo 'selected'; } ?>>Meha</option>
-										<option value="2" <?php if(@$obj->brand_id == 2) { echo 'selected'; } ?>>Inmind</option>
+										<?php foreach($brands as $brandObj) { ?>
+											<option value="{{ $brandObj->id }}"  <?php if(@$obj->brand_id == 1) { echo 'selected'; } ?>>
+												{{ $brandObj->name }}
+											</option>
+										<?php } ?>
 									</select> 
 								</div>
                                  <div class="col-sm-4">
@@ -72,13 +75,17 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 										<?php } ?>
 									</select> 
                                  </div>
+								 <?php
+									$supplier_code = str_pad(($latest->code+1), 4, '0', STR_PAD_LEFT);
+								 ?>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Supplier PO no.</label>
-                                    <p class="">0001/2565</p>
+                                    <p class="">{{ $supplier_code }}</p>
+									<input type="hidden" name="supplier_code" value="{{ $supplier_code }}" />
                                  </div> 
 								 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Address</label>
-                                    <p class="supplier_address">0001/2565</p>
+                                    <p class="supplier_address"></p>
                                  </div>
 								 <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Date</label>

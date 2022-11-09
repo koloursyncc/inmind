@@ -16,7 +16,8 @@ class SupplierPo extends Model
 		'brand_id',
         'supplier_id',
 		'date',
-		'status'
+		'status',
+		'code'
     ];
 	
 }
