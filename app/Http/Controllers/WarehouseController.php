@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;  
+use App\Components\RegionManager;
+use DB;
 
 class WarehouseController extends Controller
 {
@@ -11,8 +13,12 @@ class WarehouseController extends Controller
     {
 		
 		//$data = $this->getSupplier('save', null);
-		
-		return view('warehousecreate');
+		$regionManager = RegionManager::getInstance();
+		$countries = $regionManager->countryList();
+				
+		return view('warehousecreate',[
+			'countries' => $countries
+		]);
     }
 
     public function list()
@@ -49,7 +55,7 @@ class WarehouseController extends Controller
 			$countData->where('name', 'like', '%' .$searchValue . '%');
 			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
 		}
-		$totalRecordswithFilter = $countData->count();
+		$totalRecordswithFilter = $countData->count();  
 		 // Fetch records
 
 		 $records = Product::select('*') //orderBy($columnName,$columnSortOrder)
@@ -130,5 +136,29 @@ class WarehouseController extends Controller
 
 		 echo json_encode($response);
 		 exit;
+	}
+	public function ajax_get_stores(){
+
+		$customers_store = DB::table('customer_stores')->get();
+		
+		return response()->json([
+
+			'customers_store' => $customers_store
+
+		]);
+
+	}
+
+	public function ajax_get_customers_by_store_id(Request $req){
+
+		$customers = DB::table('customer_stores')
+		->join('customers','customers.id' ,'=','customer_stores.customer_id')
+		->select('customer_stores.*','customers.*')
+		->where('customer_stores.id','=',$req->store_id)->get();
+		//dd($customers);
+		return response()->json([
+
+			'customers' => $customers
+		]);
 	}
 }
