@@ -402,7 +402,7 @@ $stateslist = $obj->getStateByCountryId($obj->delivery_country_id);
                   <div class="col-sm-4">
                     <label for="inputEmailAddress" class="form-label">  Zip Code <span style="color:red">*</span>
                     </label>
-                    <input name="delivery_zipcode" type="text" class="form-control zipcode delivery_zipcode" value="{{ @$obj->delivery_zipcode }}" {{ $disabledfield }}>
+                    <input name="delivery_zipcode" type="text" maxlength="7" class="form-control zipcode delivery_zipcode" value="{{ @$obj->delivery_zipcode }}" {{ $disabledfield }}>
                   </div>
                 </div>
               </div>
@@ -446,7 +446,7 @@ $pId = $personObj->id;
               <div class="col-sm-4">
                 <label for="inputEmailAddress" class="form-label">  Mobile
                 </label>
-                <input type="text" class="form-control contact_mobile" minlength="10" name="contact_mobile[{{ $pId }}]" value="{{ @$personObj->mobile }}" {{ $disabledfield }}>
+                <input type="text" class="form-control contact_mobile"  maxlength="10"  name="contact_mobile[{{ $pId }}]" value="{{ @$personObj->mobile }}" {{ $disabledfield }}>
               </div>
               <div class="col-sm-4">
                 <label for="inputEmailAddress" class="form-label">Email
@@ -583,6 +583,7 @@ $pId = $personObj->id;
 </div>
 <button type="button" id="add_installment_store" class="btn btn-sm btn-primary px-2 radius-30 col-md-1 ">Add More</button>
 
+
 <div id="installment_store">
   <?php 
 $installmentin = 0;
@@ -610,6 +611,7 @@ $installmentin = $installmentkinc;
 </div>
 <?php } ?>
 </div>
+<div class="installment_cal"></div>
 </div>
 			
 <h3>Customer bank info
@@ -739,11 +741,11 @@ $payment_account_number = '';
       </label>
     </div>     
     <div class="col-md-2">
-      <label for="inputFirstName" class="form-label ">Mkt Price (Ex Vat)
+      <label for="inputFirstName" class="form-label ">Promotion Price (Ex Vat)
       </label>
     </div>
     <div class="col-md-2">
-      <label for="inputFirstName" class="form-label ">Mkt Price (inc Vat)
+      <label for="inputFirstName" class="form-label ">Promotion Price (inc Vat)
       </label>
     </div>
     <div class="col-md-2">
@@ -754,7 +756,8 @@ $payment_account_number = '';
   @include('customer/updateproduct')
   <div class="pro_clone">
   </div>
-  <h4 class="add_store" style="cursor:pointer">Add More
+  
+  <button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_store" style="margin-top:25px">Add Store</button>
   </h4>
   <div class="customer_store_data">
     @include('customer/updatestore')
@@ -839,6 +842,7 @@ $payment_account_number = '';
         <label for="inputEmailAddress" class="form-label installment_clone_lavel"> Installment 1
         </label>
         <input type="text" class="form-control installment_clone" {{ $disabledfield }}>
+		
       </div>
       <div class="col-md-4">
         <label for="inputEmailAddress" class="form-label installment_clone_lavel"> Installment 1
@@ -885,7 +889,7 @@ $payment_account_number = '';
     <div class="col-sm-4">
       <label for="inputEmailAddress" class="form-label">  Mobile
       </label>
-      <input type="text" class="form-control contact_mobile" {{ $disabledfield }}>
+      <input type="text" class="form-control contact_mobile" maxlength="10"	  {{ $disabledfield }}>
     </div>
     <div class="col-sm-4">
       <label for="inputEmailAddress" class="form-label">Email
@@ -967,16 +971,16 @@ $payment_account_number = '';
       </label>
     </div> 
     <div class="col-md-2">
-      <input type="text" class="price_thb_ex_vat" class="form-control  " {{ $disabledfield }} />
+      <input type="text" class="price_thb_ex_vat float" class="form-control  " {{ $disabledfield }} />
     </div>  
     <div class="col-md-2">
-      <input type="text" class="price_thb_inc_vat" class="form-control  " {{ $disabledfield }} />
+      <input type="text" class="price_thb_inc_vat float" class="form-control  " {{ $disabledfield }} />
     </div>     
     <div class="col-md-2">
-      <input type="text" class="mkt_price_thb_ex_vat" class="form-control  " {{ $disabledfield }} />
+      <input type="text" class="mkt_price_thb_ex_vat float" class="form-control  " {{ $disabledfield }} />
     </div>
     <div class="col-md-2">
-      <input type="text" class="mkt_price_thb_inc_vat" class="form-control  " {{ $disabledfield }} />
+      <input type="text" class="mkt_price_thb_inc_vat float" class="form-control  " {{ $disabledfield }} />
     </div>
     <div class="col-md-2">
       <input type="date" class="mkt_valid_date" class="form-control  " {{ $disabledfield }} />
@@ -1152,6 +1156,9 @@ $payment_account_number = '';
         $('.store_country', clone).attr('name', 'store_country['+total+']');
         var nosub = $('.add_store_contact_person_wrapper', clone).attr('data-pos');
         var numberingsub = $('.add_store_contact_person_wrapper', clone).attr('data-counter');
+		if(pos == 0) {
+			$('.remove_store', clone).remove();
+		}
         var totalnosub = parseInt(nosub) - 1;
         var totalnumnosub = parseInt(numberingsub) + 1;
         $('.add_store_contact_person', clone).attr('data-id', totalnum);
@@ -1169,11 +1176,51 @@ $payment_account_number = '';
         $('.store_wrapper_d_none').attr('data-counter', totalnum);
       }
       $(document).ready(function() {
+		  $('body').on('keyup', '.credit_term_days ', function() {
+			  $('.submit').removeAttr('disabled');
+			  $('.err').remove();
+				let sum = $(this).val();
+				let msg = '';
+				if(sum > 180) {
+					$('.submit').attr('disabled', 'disabled');
+					msg = '<span class="err" style="color:red">It should not be more then 180 days</span>';
+				}
+				$(this).after(msg);
+		  });
 		  
-		  $(document).on("input", ".contact_mobile", function() {
-					this.value = this.value.replace(/\D/g,'');
-				});
+		  $('body').on('keyup', '.installment_clone ', function() {
+			$('.submit').removeAttr('disabled');
+			let sum = 0;
+			$('.installment_cal').html('');
+			$(".installment_clone").each(function() {
+				sum += Number($(this).val());
+			});
+			let msg = 'Your Total percent is '+sum+'%';
+			if(sum > 100) {
+				$('.submit').attr('disabled', 'disabled');
+				msg = '<span style="color:red">Your have crossed the 100%</span>';
+			}
+			$('.installment_cal').html(msg);
+		});
+		
+		 $(document).on("input", ".contact_mobile", function() {
+			this.value = this.value.replace(/\D/g,'');
+		});
+		
+		$(document).on("input", ".store_contact_mobile", function() {
+			this.value = this.value.replace(/\D/g,'');
+		});
+		
+		$(document).on("input", ".delivery_zipcode", function() {
+			this.value = this.value.replace(/\D/g,'');
+		});
 		  
+		  $('body').on('click', '.remove_store ', function() {
+			  $(this).parent().remove();
+		  });
+		  $('body').on('click', '.remove_store_contact ', function() {
+			  $(this).parent().remove();
+		  });
 		$('body').on('click', '.submit ', function() {
 			$('.err_msg').remove();
 				$.ajax({
@@ -1213,6 +1260,22 @@ $payment_account_number = '';
 			$(this).after('<span class="err" style="color:red">Please enter valid email.</span>');
 		}
 	});
+	$(document).on("input", ".float", function() {
+		this.value = this.value.replace(/\D/g,'');
+	});
+	$('input.float').on('input', function() {
+	  this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+	});
+	
+		$('body').on('keyup', '.email', function() {
+			var val = $(this).val();
+			var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			
+			$(".err").remove(); 
+			if (!expr.test(val)) {
+				$(this).after('<span class="err" style="color:red">Please enter valid email.</span>');
+			}
+		});
 		  
 		  
         $('body').on('change', '.store_contact_country_id', function() {

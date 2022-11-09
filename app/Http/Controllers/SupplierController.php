@@ -869,10 +869,13 @@ class SupplierController extends Controller
 		})
 		 ->count();
 		 
-		 $countData = SupplierPo::select('count(*) as allcount');
+		 $countData = SupplierPo::select('count(*) as allcount')
+		 ->join('suppliers', function($join) {
+			$join->on('suppliers.id', '=', 'supplier_po.supplier_id');
+		});
 		 
 		if($searchValue != null) {
-			//$countData->where('product_name', 'like', '%' .$searchValue . '%');
+			$countData->where('suppliers.name', 'like', '%' .$searchValue . '%');
 			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
 		}
 		$totalRecordswithFilter = $countData->count();
@@ -887,8 +890,8 @@ class SupplierController extends Controller
 			   $records->orderBy($columnName,$columnSortOrder);
 			}
 			if($searchValue != null) {
-				//$records->where('product_name', 'like', '%' .$searchValue . '%');
-				//$records->where('supplier', 'like', '%' .$searchValue . '%');
+				$records->where('suppliers.name', 'like', '%' .$searchValue . '%');
+				//$countData->where('supplier', 'like', '%' .$searchValue . '%');
 			}
 		
 		$list = $records->get();

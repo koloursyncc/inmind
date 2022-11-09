@@ -30,7 +30,7 @@
 					<div class="card-body">
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
 							<div class="position-relative">
-								<input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
+								
 							</div>
 						
 						</div>
