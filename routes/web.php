@@ -92,6 +92,10 @@ Route::get('/warehouselist', [WarehouseController::class, 'list']);
 Route::get('/inventory', [InventoryController::class, 'inventory']);
 Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
 Route::get('/getaddress', [SupplierController::class, 'getaddress']);
+Route::get('/ajax-customers-store-list',[WarehouseController::class, 'ajax_get_stores'])
+->name('ajaxGetCustomersStore');
+Route::get('/ajax-customers-detail-by-store_id',[WarehouseController::class, 'ajax_get_customers_by_store_id'])
+->name('ajaxGetCustomersDetailByStoreId');
 
 
 Route::group(['middleware' => ['auth']], function() {
