@@ -19,7 +19,7 @@
         <div class="page-content">
           <!--breadcrumb-->
           <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Inventory Out
+            <div class="breadcrumb-title pe-3">Delivery Creator
             </div>
             <div class="ps-3">
               <nav aria-label="breadcrumb">
@@ -30,7 +30,7 @@
                       </i>
                     </a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page">Inventory Out
+                  <li class="breadcrumb-item active" aria-current="page">Delivery Creator
                   </li>
                 </ol>
               </nav>
@@ -45,10 +45,10 @@
                   <form id="po-form" data-url="" enctype="multipart/form-data">
                   <div class="row g-3">
                   <div class="col-sm-4">
-                   <p>Inventory Out  Date: 04/11/2022</p>
+                   <p>Pickup  Date: 04/11/2022</p>
                   </div>
                   <div class="col-sm-4">
-                   <p>Inventory out Ticket ID: MVI 200/2565</p>
+                   <p>Delivery Ticket no: DL 200/2565</p>
                   </div>
                 </div>
                 <label for="formFile" class="form-label">Order Type
@@ -66,9 +66,9 @@
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">By </label>
                             <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
-                                <option value="">Select Inventory Out  Ticket ID 
+                                <option value="">Inventory Out  Ticket ID 
                                 </option>
-                                <option value="1">Meha </option>
+                                <option value="1">MV 200/2565 </option>
                                 <option value="2" >Inmind</option>
                             </select>
                         </div>
@@ -76,7 +76,7 @@
                     <div class="col-sm-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Customer PO
+                            <label class="form-check-label" for="inlineRadio1">Customer PO 
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="inlineRadio1">To W/H </label>
+                        <label class="form-check-label" for="inlineRadio1">From W/H </label>
                             <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
                                 <option value="">Select Warehouse
                                 </option>
@@ -105,47 +105,28 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
                         <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="inlineRadio1">Product Name / Code</label>
+                        <label class="form-check-label" for="inlineRadio1">To</label>
                             <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
-                                <option value="">C133-546 </option>
+                                <option value="">366 M 4, Saima, Nonthaburi, Thailand</option>
                                 <option value="1">Meha </option>
                                 <option value="2" >Inmind</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <label for="inputFirstName" class="form-label">Quantity</label>
-                        <input  type="text" class="form-control" id="delivery_address" name="delivery_address" value="">
-                    </div>
-
-                    <div class="col-sm-4">
-                        <label class="form-check-label" for="inlineRadio1">Product Status Choose :</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Ready to Sale
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Repair
-                            </label>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                 <div class="col-sm-6">
-                        <label for="inputFirstName" class="form-label">All Products Available In : W/H 34   /  ABC 123/2022</label>
+                        <label for="inputFirstName" class="form-label">Delivery Basket By Order</label>
                        <table class="table table-responsive table-bordered">
                             <thead> 
                                 <th></th>
                                 <th>Product name</th>
                                 <th>Product Code</th>
-                                <th>Product Image</th>
                                 <th>Total</th>
-                                <th>Ready to Sale</th>
-                                <th>Repair</th>
+                                <th>From W/H</th>
+                                <th>To</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -155,7 +136,6 @@
                                         </div>
                                     </td>
                                     <td>Siri cabinet</td>
-                                    <td><img src=""></td>
                                     <td>C133-546</td>
                                     <td>50</td>
                                     <td>2</td>
@@ -169,7 +149,6 @@
                                         </div>
                                     </td>
                                     <td>Siri cabinet</td>
-                                    <td><img src=""></td>
                                     <td>C133-546</td>
                                     <td>50</td>
                                     <td>2</td>
@@ -182,7 +161,6 @@
                                         </div>
                                     </td>
                                     <td>Siri cabinet</td>
-                                    <td><img src=""></td>
                                     <td>C133-546</td>
                                     <td>50</td>
                                     <td>2</td>
@@ -192,40 +170,44 @@
                        </table>
                     </div>
                     <div class="col-sm-6">
-                         <label for="inputFirstName" class="form-label">Delivery Basket</label>
+                         <label for="inputFirstName" class="form-label">Total Basket for Delivery In : 28 Oct 2022</label>
                        <table class="table table-responsive table-bordered">
                             <thead> 
                                 
-                                <th>Product name</th>
-                                <th>Product Image</th>
+                                <th>PO/Ticket</th>
+                                <th>Product Name</th>
                                 <th>Product Code</th>
                                 <th>Total</th>
-                                <th>From</th>
+                                <th>From W/H</th>
+                                <th>To</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     
-                                    <td>Siri cabinet</td>
-                                    <td><img src=""></td>
+                                    <td>00001/2565</td>
+                                    <td>Siri Cabinet</td>
                                     <td>C133-546</td>
                                     <td>50</td>
-                                    <td>Fong</td>
+                                    <td>W/H 34</td>
+                                    <td>To</td>
                                 </tr>
                                 <tr>
-                                   
-                                    <td>Siri cabinet</td>
-                                    <td><img src=""></td>
+                                    
+                                    <td>00001/2565</td>
+                                    <td>Siri Cabinet</td>
                                     <td>C133-546</td>
                                     <td>50</td>
-                                    <td>Fong</td>
+                                    <td>W/H 34</td>
+                                    <td>To</td>
                                 </tr>
                                 <tr>
-                                   
-                                    <td>Siri cabinet</td>
-                                    <td><img src=""></td>
+                                    
+                                    <td>00001/2565</td>
+                                    <td>Siri Cabinet</td>
                                     <td>C133-546</td>
                                     <td>50</td>
-                                    <td>Fong</td>
+                                    <td>W/H 34</td>
+                                    <td>To</td>
                                 </tr>
                             </tbody>
                        </table>
@@ -249,7 +231,10 @@
                         <input type="date" class="form-control store_contact_birth_date" id="">
                     </div>
                   <div class="col-sm-4">
-                    <label for="inputEmailAddress" class="form-label">Reamrk </label>
+                    <label for="inputEmailAddress" class="form-label">Remark </label>
+                    <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
+                                <option value="">MV 200/2565</option>
+                            </select>
                     <textarea  type="text" class="form-control" id="delivery_road" name="delivery_road" value="<?php echo @$obj->delivery_road; ?>"></textarea>
                   </div>
                 </div>

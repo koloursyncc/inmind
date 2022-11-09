@@ -13,6 +13,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\DeliveryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,6 +91,14 @@ Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 Route::get('/warehousecreate', [WarehouseController::class, 'index']);
 Route::get('/warehouselist', [WarehouseController::class, 'list']);
 Route::get('/inventory', [InventoryController::class, 'inventory']);
+Route::get('/inventoryin', [InventoryController::class, 'inventoryin']);
+Route::get('/inventoryout', [InventoryController::class, 'inventoryout']);
+Route::get('/inventorymodify', [InventoryController::class, 'inventorymodify']);
+
+Route::get('/deliverycreate', [DeliveryController::class, 'deliverycreate']);
+Route::get('/deliveryreceived', [DeliveryController::class, 'deliveryreceived']);
+Route::get('/deliverysearch', [DeliveryController::class, 'deliverysearch']);
+
 Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
 Route::get('/getaddress', [SupplierController::class, 'getaddress']);
 Route::get('/ajax-customers-store-list',[WarehouseController::class, 'ajax_get_stores'])

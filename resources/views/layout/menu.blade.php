@@ -284,11 +284,11 @@
 							</li>
 							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>W/H Search</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory IN</a>
+							<li> <a class="dropdown-item" href="{{asset('inventoryin')}}"><i class="bx bx-right-arrow-alt"></i>Inventory IN</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Out</a>
+							<li> <a class="dropdown-item" href="{{asset('inventoryout')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Out</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Modify</a>
+							<li> <a class="dropdown-item" href="{{asset('inventorymodify')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Modify</a>
 							</li>
 							
 						</ul>
@@ -299,9 +299,11 @@
 						  <div class="menu-title">Delivery</div>
 						</a>
 						<ul class="dropdown-menu">
-							<li> <a class="dropdown-item" href="form-elements.html"><i class="bx bx-right-arrow-alt"></i>Add Delivery Order</a>
+							<li> <a class="dropdown-item" href="{{asset('deliverycreate')}}"><i class="bx bx-right-arrow-alt"></i>Add Delivery Order by W/H Order</a>
 							</li>
-							<li> <a class="dropdown-item" href="form-input-group.html"><i class="bx bx-right-arrow-alt"></i>Delivery List</a>
+							<li> <a class="dropdown-item" href="{{asset('deliveryreceived')}}"><i class="bx bx-right-arrow-alt"></i>Goods receive From</a>
+							</li>
+							<li> <a class="dropdown-item" href="{{asset('deliverysearch')}}"><i class="bx bx-right-arrow-alt"></i>Search Delivery record</a>
 							</li>
 						</ul>
 					  </li>

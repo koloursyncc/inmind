@@ -11,4 +11,16 @@ class InventoryController extends Controller
     {
         return view('inventorylist');
     }
+    public function inventoryin()
+    {
+        return view('inventoryin');
+    }
+    public function inventoryout()
+    {
+        return view('inventoryout');
+    }
+    public function inventorymodify()
+    {
+        return view('inventorymodify');
+    }
 }

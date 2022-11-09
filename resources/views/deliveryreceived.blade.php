@@ -19,7 +19,7 @@
         <div class="page-content">
           <!--breadcrumb-->
           <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Inventory Out
+            <div class="breadcrumb-title pe-3">Delivery Receiving
             </div>
             <div class="ps-3">
               <nav aria-label="breadcrumb">
@@ -30,7 +30,7 @@
                       </i>
                     </a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page">Inventory Out
+                  <li class="breadcrumb-item active" aria-current="page">Delivery Receiving
                   </li>
                 </ol>
               </nav>
