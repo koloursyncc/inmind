@@ -48,8 +48,10 @@ class SupplierController extends Controller
 	{
 		$products = Product::select('id', 'name', 'code')->get();
 		$suppliers = Supplier::select('id', 'supplier_type', 'address', 'building', 'sub_district', 'district', 'road', 'supplier_name')->get();
-		
+		$brands = DB::table('brands')->get();
 		$obj = null;
+		$latest = DB::table('supplier_po')->latest('id')->first();
+		
 		$supplierProductPo = [];
 		if($id != null)
 		{
@@ -69,7 +71,9 @@ class SupplierController extends Controller
 			'suppliers' => $suppliers,
 			'type' => $type,
 			'obj' => $obj,
-			'supplierProductPo' => $supplierProductPo
+			'supplierProductPo' => $supplierProductPo,
+			'brands' => $brands,
+			'latest' => $latest
 		];
 	}
 	
@@ -702,7 +706,7 @@ class SupplierController extends Controller
 					return response()->json(array('status'=>'error', 'error' => 'Please select product'));
 				}
 				
-				
+				$params['code'] = $request->supplier_code;
 				$lastInsertId = $supplierManager->saveSupplierPo($params, true);
 				
 				if($lastInsertId > 0)
