@@ -451,7 +451,7 @@ $pId = $personObj->id;
               <div class="col-sm-4">
                 <label for="inputEmailAddress" class="form-label">Email
                 </label>
-                <input type="text" class="form-control contact_email contact_email_11111111{{ $personCount }}"  data-id="11111111{{ $personCount }}" name="contact_email[{{ $pId }}]" value="{{ @$personObj->email }}" {{ $disabledfield }}>
+                <input type="text" class="form-control contact_email email contact_email_11111111{{ $personCount }}"  data-id="11111111{{ $personCount }}" name="contact_email[{{ $pId }}]" value="{{ @$personObj->email }}" {{ $disabledfield }}>
               </div>
               <div class="col-sm-4">
                 <div class="mb-3">
@@ -894,7 +894,7 @@ $payment_account_number = '';
     <div class="col-sm-4">
       <label for="inputEmailAddress" class="form-label">Email
       </label>
-      <input type="text" class="form-control contact_email" {{ $disabledfield }}>
+      <input type="text" class="form-control contact_email email" {{ $disabledfield }}>
     </div>
     <div class="col-sm-4">
       <div class="mb-3">
