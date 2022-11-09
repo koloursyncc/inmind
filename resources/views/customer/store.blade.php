@@ -1,5 +1,6 @@
 <div class="row store_wrapper">
 <div class=" store_wrapper_target">
+	<button type="button" class="btn btn-sm btn-primary px-2 radius-30 remove_store" style="margin-top:25px">Remove</button>
 	<div class="row">
 		<div class="col-md-12">	
 			<label for="inputFirstName" class="form-label">Store</label>
@@ -53,9 +54,10 @@
 		</div>
 	</div>
 	
-	<h5 class="add_store_contact_person" style="cursor:pointer">Add Contact Person</h5>
+	<button type="button" class="btn btn-sm btn-primary px-2 radius-30 col-sm-2 add_store_contact_person" style="margin-top:25px">Add Contact Person</button>
 	
 	<div class="add_store_contact_person_wrapper" data-counter="0" data-pos="-1">	 
+		
 		 <div class="row g-3 add_store_pik">
 			  <h6 class="c_p">Contact Person</h6>
 			 <div class="col-sm-4">
@@ -76,7 +78,7 @@
 			 </div>
 			 <div class="col-sm-4">
 				<label for="inputEmailAddress" class="form-label">Mobile</label>
-				<input type="text" class="form-control store_contact_mobile" id="" {{ $disabledfield }}>
+				<input type="text" class="form-control store_contact_mobile" maxlength="10" id="" {{ $disabledfield }}>
 			 </div>
 			 
 			 <div class="col-4">
@@ -91,12 +93,15 @@
 		</div>
 	</div>
 	<hr>
+	
 </div>
 </div>
 
 <div class="cp" style="display:none">
 	<div class="add_store_contact_person_wrapper_a" data-counter="0" data-pos="-1">	 
 		 <div class="row g-3 add_store_pik">
+			
+			<button type="button" class="btn btn-sm btn-primary px-2 radius-30 remove_store_contact col-sm-1" style="margin-top:25px">Remove</button>
 			  <h6 class="c_p">Contact Person</h6>
 			 <div class="col-sm-4">
 				<label for="inputFirstName" class="form-label">Name</label>
