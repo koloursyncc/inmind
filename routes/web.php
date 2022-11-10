@@ -88,8 +88,8 @@ Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail
 Route::post('/pricesave', [PriceController::class, 'pricesave']);
 Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 
-Route::get('/warehousecreate', [WarehouseController::class, 'index']);
-Route::get('/warehouselist', [WarehouseController::class, 'list']);
+
+
 Route::get('/inventory', [InventoryController::class, 'inventory']);
 Route::get('/inventoryin', [InventoryController::class, 'inventoryin']);
 Route::get('/inventoryout', [InventoryController::class, 'inventoryout']);
@@ -98,6 +98,14 @@ Route::get('/inventorymodify', [InventoryController::class, 'inventorymodify']);
 Route::get('/deliverycreate', [DeliveryController::class, 'deliverycreate']);
 Route::get('/deliveryreceived', [DeliveryController::class, 'deliveryreceived']);
 Route::get('/deliverysearch', [DeliveryController::class, 'deliverysearch']);
+
+/*********************************************************************************
+ *                  Warehouse
+ *********************************************************************************/
+Route::get('/warehousecreate', [WarehouseController::class, 'index']);
+Route::post('/warehousecreate', [WarehouseController::class, 'store'])
+->name('storeWarehouse');
+Route::get('/warehouselist', [WarehouseController::class, 'list']);
 
 Route::get('/warehouselistajax', [WarehouseController::class, 'ajaxcall']);
 Route::get('/getaddress', [SupplierController::class, 'getaddress']);
