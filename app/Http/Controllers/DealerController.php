@@ -310,7 +310,9 @@ class DealerController extends Controller
 			//{
 				$data = $request->all();
 				
-				$message = []; //array('city_id.required' => 'The city field is required');
+				$message = [
+					'type.required' => 'Customer type field is required.'
+				]; //array('city_id.required' => 'The city field is required');
 
 				$rules = array(
 					'brand_id' => 'required',
@@ -344,7 +346,7 @@ class DealerController extends Controller
 					'delivery_zipcode' => 'required',
 				);
 
-				$validator = Validator::make($data, $rules);
+				$validator = Validator::make($data, $rules,$message);
 
 				if ($validator->fails())
 				{

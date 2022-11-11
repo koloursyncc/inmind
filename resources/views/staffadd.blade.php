@@ -120,35 +120,15 @@ if($type == 'view')
                <div class="card-body">
                   <!-- SmartWizard html --> 
                   <div id="smartwizard">
-                     <ul class="nav">
-                        <li class="nav-item">
-                           <a class="nav-link" href="#step-1">	<strong>Step 1</strong> 
-                           <br>Staff Personal Detail</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#step-2">	<strong>Step 2</strong> 
-                           <br>Address Detail</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#step-3">	<strong>Step 3</strong> 
-                           <br>Social ID</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#step-4">	<strong>Step 4</strong> 
-                           <br>Contract Details</a>
-                        </li>
-						<li class="nav-item">
-                           <a class="nav-link" href="#step-5">	<strong>Step 5</strong> 
-                           <br>Registration</a>
-                        </li>
-                     </ul>
+                     
 					 <form id="staffform" data-url="{{ $url }}">
 						@csrf
 						<?php if($type =='edit') { ?>
 							<input type="hidden" name="staff_id" value="{{ $id }}">
 						<?php } ?>
                      <div class="tab-content">
-                        <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                        
+						
                            <h6>
                               <div class="form-check">
                                  <label class="form-check-label" for="flexCheckChecked">Activated Staff</label>
@@ -367,9 +347,6 @@ if($type == 'view')
                                  </div>
                               </div>
                            </div>
-                        </div>
-						
-                        <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
 							
 							<div id="home_address_as_registered_document">
 									<div class="">
@@ -521,7 +498,7 @@ if($type == 'view')
 									
 							</div>
                            
-                        </div>
+                        
 						
                         <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                            <div class="row g-3">
@@ -595,8 +572,8 @@ if($type == 'view')
 							  
                            </div> 
                         </div>
-						<div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-							<div class=" col-sm-2 flux-right">
+						
+						<div class=" col-sm-2 flux-right">
 							    <button type="button" class="btn btn-sm btn-primary px-2 radius-30 add_more_labour">Add more</button>
                               </div>
 							<div id="labour_contract_container">
@@ -604,13 +581,9 @@ if($type == 'view')
 									@include('staff.staffupdatelabour')
 								<?php //} ?>
 							</div>
-                           
-                     </div>
 					 
 					 <?php $registration_checked = 'checked'; ?>
-					 
-					 <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
-							
+					 	
 						<input type="checkbox" name="checked_registration" value="1" {{ $registration_checked }}  {{ $disabledfield }} /> Registration
 						<div class="row">	
 							<div class="col-sm-4">
@@ -664,8 +637,8 @@ if($type == 'view')
 							<?php } ?>
 							
 						</div>
-                           
-                     </div>
+                        <br>
+						<input type="submit" value="Save" class="btn btn-primary submit">
 					 
                   </div>
 				  </form>
@@ -763,8 +736,8 @@ if($type == 'view')
 	  
       <!--end page wrapper -->
       @include('layout.footer')
+	   @include('layout.staff')
       <!-- Bootstrap JS -->
-      @include('layout.staff')
       <script>
 	  
 	function lettersAndSpaceCheck(name)
@@ -934,8 +907,60 @@ if($type == 'view')
 			
 			$('.salery_clone').attr('data-counter', cnt);
 		}
+		
+		$('.zipcode').keypress(function (e) {
+					$('.err').remove();
+					var regex = new RegExp("^[a-zA-Z]+$");
+					var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+					if (!regex.test(str)) {
+						return true;
+					}
+					else
+					{
+					e.preventDefault();
+					$('.zipcode').after('<span style="color:red" class="err">Please Enter numberic value</span>');
+					return false;
+					}
+				});
 
          $(document).ready(function() {
+			 
+			 
+	
+			$('body').on('click', '.submit', function() {
+					
+					$('.err_msg').remove();
+					$.ajax({
+						url: $('#staffform').attr('data-url'),
+						dataType : "json",
+						type: "post",
+						data : new FormData($('#staffform')[0]),
+						cache: false,
+						processData: false,
+						contentType: false,
+						success : function(response) {
+							
+							if(response.status == 'success') {
+								
+								alert(response.msg);
+								window.location.href = "{{url('stafflist')}}";
+								
+							} else if(response.status == 'errors') {
+								$.each(response.errors, function(key, msg) {
+									$('.'+key).after('<span class="err_msg" style="color:red">'+msg+'</span>');
+								});
+							} else if(response.status == 'error') {
+								
+								alert(response.error);
+								
+							} else if(response.status == 'exceptionError') {
+								
+							}
+						},
+					});
+					
+					return false;
+				});	
 	
 				$(document).on("input", ".mobile_no", function() {
 					this.value = this.value.replace(/\D/g,'');
@@ -1017,6 +1042,8 @@ if($type == 'view')
 						target.removeAttr('disabled');
 					}
 				});
+				
+				
 			 
 				$('body').on('click', '.add_more_labour', function() {
 					

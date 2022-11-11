@@ -173,12 +173,15 @@ $disabledfield = 'disabled';
                           <label class="form-check-label" for="inlineRadio1">Wholesale
                           </label>
                         </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input retail type_val" type="radio" name="type" 
+                        <div class="form-check form-check-inline ">
+                          <input class="form-check-input retail type_val " type="radio" name="type" 
                                  <?php if($customer_type == 2) { echo 'checked'; } ?> value="2" {{ $disabledfield }}>
                           <label class="form-check-label" for="inlineRadio1">Retail
                           </label>
                         </div>
+						<div class="type">
+						
+						</div>
                         <!----<div class="form-check form-check-inline">
                           <input class="form-check-input type type_val" type="radio" name="type" 
                                  <?php if($customer_type == 3) { echo 'checked'; } ?> value="3" {{ $disabledfield }}>
@@ -256,7 +259,7 @@ $disabledfield = 'disabled';
                         <div class="col-sm-3">
                           <label for="formFile" class="form-label">Number
                           </label>
-                          <input class="form-control mb-3" value="{{ @$obj->country_number }}" type="text" name="country_number" aria-label="default input example" {{ $disabledfield }}>
+                          <input class="form-control mb-3 country_number" value="{{ @$obj->country_number }}" type="text" name="country_number" aria-label="default input example" {{ $disabledfield }}>
                         </div>
                       </div>
                       <div class="row g-3 headoffice">
@@ -1175,7 +1178,44 @@ $payment_account_number = '';
         $('.store_wrapper_d_none').attr('data-pos', total);
         $('.store_wrapper_d_none').attr('data-counter', totalnum);
       }
+	  
+	  $('.head_office_zipcode').keypress(function (e) {
+			$('.err').remove();
+			var regex = new RegExp("^[a-zA-Z]+$");
+			var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+			if (!regex.test(str)) {
+				return true;
+			}
+			else
+			{
+			e.preventDefault();
+			$('.head_office_zipcode').after('<span style="color:red" class="err">Please Enter numberic value</span>');
+			return false;
+			}
+		});
+
+	 
+		
       $(document).ready(function() {
+		  $(document).on("input", ".country_number", function() {
+					this.value = this.value.replace(/\D/g,'');
+				});
+		  
+		    $('.store_zip_code_vslidate').keypress(function (e) {
+			$('.err').remove();
+			var regex = new RegExp("^[a-zA-Z]+$");
+			var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+			if (!regex.test(str)) {
+				return true;
+			}
+			else
+			{
+			e.preventDefault();
+			$('.store_zip_code_vslidate').after('<span style="color:red" class="err">Please Enter numberic value</span>');
+			return false;
+			}
+		});
+		
 		  $('body').on('keyup', '.credit_term_days ', function() {
 			  $('.submit').removeAttr('disabled');
 			  $('.err').remove();
@@ -1267,6 +1307,16 @@ $payment_account_number = '';
 	  this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
 	});
 	
+		$('body').on('keyup', '.store_contact_email', function() {
+			var val = $(this).val();
+			var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			
+			$(".err").remove(); 
+			if (!expr.test(val)) {
+				$(this).after('<span class="err" style="color:red">Please enter valid email.</span>');
+			}
+		});
+		
 		$('body').on('keyup', '.email', function() {
 			var val = $(this).val();
 			var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;

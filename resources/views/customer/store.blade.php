@@ -40,7 +40,7 @@
 		
 		<div class="col-md-3">	
 			<label for="inputFirstName" class="form-label">Zip Code</label>
-			<input type="text" class="form-control store_zip_code" {{ $disabledfield }}>
+			<input type="text" class="form-control store_zip_code store_zip_code_vslidate" maxlength="7" {{ $disabledfield }}>
 		</div>
 		
 		<div class="col-md-3">	

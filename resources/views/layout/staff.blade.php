@@ -50,7 +50,7 @@
 				//alert('Finish Clicked');
 				var url = $("meta[name=url]").attr("content");
 				
-				$('.err_msg').remove();
+				/* $('.err_msg').remove();
 				$.ajax({
 					url: $('#staffform').attr('data-url'),
 					dataType : "json",
@@ -80,7 +80,7 @@
 					},
 				});
 				
-				return false;
+				return false; */
 				
 			});
 			var btnCancel = $('<button></button>').text('Cancel').addClass('btn btn-danger').on('click', function () {

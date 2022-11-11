@@ -42,7 +42,7 @@ $storeId = $storeObj->id;
 			
 			<div class="col-md-3">	
 				<label for="inputFirstName" class="form-label">Zip Code</label>
-				<input type="text" class="form-control " name="store_zip_code[{{ $storeId }}]" value="{{ $storeObj->store_zip_code }}"  {{ $disabledfield }}>
+				<input type="text" class="form-control store_zip_code_vslidate" maxlength="7" name="store_zip_code[{{ $storeId }}]" value="{{ $storeObj->store_zip_code }}"  {{ $disabledfield }}>
 			</div>
 			
 			<div class="col-md-3">	
