@@ -84,7 +84,7 @@ $storeId = $storeObj->id;
 							 </div>
 							 <div class="col-sm-4">
 								<label for="inputEmailAddress" class="form-label">Mobile</label>
-								<input value="{{ @$contact->store_contact_mobile }}" name="store_contact_mobile[{{ $storeId }}][{{ $contactId }}]" type="text" class="form-control " id="" {{ $disabledfield }}>
+								<input value="{{ @$contact->store_contact_mobile }}" name="store_contact_mobile[{{ $storeId }}][{{ $contactId }}]" type="text" class="form-control " id="" {{ $disabledfield }} maxlength="10">
 							 </div>
 							 
 							  <div class="col-sm-4">

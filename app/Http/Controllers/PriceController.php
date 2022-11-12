@@ -89,6 +89,14 @@ class PriceController extends Controller
 		$productManager = ProductManager::getInstance();
 		
 		$data = $productManager->getproductdetail($request->id, $request->type);
+		$images = [];
+		foreach($data['product_image'] as $product_image) {
+			$images[] = [
+				'name' => asset('images/products/'.$request->id.'/'.$product_image->name)
+			];
+		}
+		
+		return response()->json(['status' => 'success', 'images' => $images, 'product' => $data['product'], 'data' => view('price/ajax',array('data' => $data))->render()]);
 		return json_encode($data);
 	}
 	

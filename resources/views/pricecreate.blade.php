@@ -138,104 +138,12 @@ if($type == 'save')
                           <div class="col-md-12 mt-10">
                             <label for="inputStarPoints" class="form-label">Product Image
                             </label>
-                           <p ><img src="{{asset('img/')}}"></p>
+                           <div class="imgs" ></div>
                           </div>
                         </div> 
                       </div>
                     </div>
-                    <div class="col-lg-7">
-                      <div class="border border-3 p-4 rounded">
-                        <div class="form-check form-switch">
-                           <input class="form-check-input checktrigger" id="checktrigger_1" data-id="1" data-status="1" type="checkbox" checked="">
-                           <label class="form-check-label" id="check_label_1" <?php if(@$obj->type == 1) { echo 'checked'; } ?>>THB</label>
-                           <label class="form-check-label" id="check_label_1" <?php if(@$obj->type == 2) { echo 'checked'; } ?>>Original Currency</label>
-			               </div>
-                        <div class="row supp_type">
-							<div class="col-md-6">	
-								
-									<label class="form-label">Manufacturer</label><br>
-									<select class="multiple-select1 multiple_select_1" name="multiple_select_1[]" data-placeholder="Choose anything" multiple="multiple">
-										<option>Select</option>
-										
-									</select>
-								
-							</div>
-							
-                          <div class="col-md-6">	
-                          
-								<label class="form-label">Agent</label><br>
-								<select class="multiple-select2 multiple_select_2" name="multiple_select_2[]" data-placeholder="Choose anything" multiple="multiple">
-									<option>Select</option>
-								</select>
-							
-                          </div>
-						  
-                          <div class="col-md-6">	
-                          
-										<label class="form-label">Shipping</label><br>
-										<select class="multiple-select3 multiple_select_3" name="multiple_select_3[]" data-placeholder="Choose anything" multiple="multiple">
-											<option>Select</option>
-										</select>
-									
-                          </div>
-						  
-                          <div class="col-md-6">	
-                          
-								<label class="form-label">Transport</label><br>
-								<select class="multiple-select4 multiple_select_4"  name="multiple_select_4[]" data-placeholder="Choose anything" multiple="multiple">
-									<option>Select</option>
-								</select>
-							
-                          </div>
-						  
-                          <div class="col-md-6">	
-                          
-								<label class="form-label">W/H Lessor</label><br>
-								<select class="multiple-select5 multiple_select_5" name="multiple_select_5[]" data-placeholder="Choose anything" multiple="multiple">
-									<option>Select</option>
-								</select>
-							
-                          </div>
-						  
-                          <div class="col-md-6">	
-                         
-								<label class="form-label">Packaging & Advertise </label><br>
-								<select class="multiple-select6 multiple_select_6" name="multiple_select_6[]" data-placeholder="Choose anything" multiple="multiple">
-									<option>Select</option>
-								</select>
-							
-                          </div>
-						  
-                        </div>
-                        <div class="row">
-                           <h6>Retail Price</h6>
-                          <table class="table table-bordered">
-                           <tr>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                           </tr>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                    <div class="col-lg-7 ajaxlist"></div>
                   </div>
                   <!--end row-->
                   <button class="btn sw-btn-prev" type="submit">Save</button>
@@ -293,6 +201,14 @@ if($type == 'save')
 			data : {'id': id, 'type': type, "_token": "{{ csrf_token() }}"},
 			success : function(response) {
 				if(response.status == 'success') {
+					
+					$('.ajaxlist').removeClass('d-none');
+					$('.ajaxlist').html(response.data);
+					var html = '';
+					$.each(response.images, function(index, itemimg) {
+						html += '<img src="'+itemimg.name+'" height="50"/>';
+					});
+					$('.imgs').html(html);
 					$('.product_detail').removeClass('d-none');
 					$('.product_color').html(response.product.color);
 					$('.product_color');
@@ -349,6 +265,8 @@ if($type == 'save')
 					$('.multiple_select_4').append(multiple_select_4_option);
 					$('.multiple_select_5').append(multiple_select_5_option);
 					$('.multiple_select_6').append(multiple_select_6_option);
+					
+					
 					
 					 if(response.type == 'code') {
 						$('.product_id').val(response.product.id).select2();
@@ -440,38 +358,38 @@ if($type == 'save')
 	
 	function total() {
 		var sum = 0;
-		$('.multiple_select_1 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_1').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});
 		
-		$('.multiple_select_2 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_2').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});
 		
-		$('.multiple_select_3 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_3').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});
 		
-		$('.multiple_select_4 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_4').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});
 		
-		$('.multiple_select_5 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_5').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});
 		
-		$('.multiple_select_6 option').each(function() {
-			if (this.selected) {
+		$('.multiple_select_6').each(function() {
+			if (this.checked) {
 				sum += parseInt($(this).attr('data-price'));
 			}
 		});

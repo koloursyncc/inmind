@@ -333,7 +333,7 @@ $stateslist = $obj->getStateByCountryId($obj->head_office_country_id);
                       <div class="col-sm-4">
                         <label for="inputEmailAddress" class="form-label">  Zip Code <span style="color:red">*</span>
                         </label>
-                        <input name="head_office_zipcode" type="text" class="form-control zipcode head_office_zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }}>
+                        <input name="head_office_zipcode" type="text" class="form-control zipcode head_office_zipcode" value="{{ @$obj->head_office_zipcode }}" {{ $disabledfield }} maxlength="7">
                       </div>
                     </div>
                     <div class="row g-3 delivery_check_content">
@@ -1252,6 +1252,10 @@ $payment_account_number = '';
 		});
 		
 		$(document).on("input", ".delivery_zipcode", function() {
+			this.value = this.value.replace(/\D/g,'');
+		});
+		
+		$(document).on("input", ".head_office_zipcode", function() {
 			this.value = this.value.replace(/\D/g,'');
 		});
 		  

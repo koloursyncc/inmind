@@ -30,6 +30,13 @@
 					<div class="card-body">
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
 							<div class="position-relative">
+								<select class="status form-control">
+									<option value="">Select Status</option>
+									<option value="1">Active</option>
+									<option value="2">InActive</option>
+								</select>
+							</div>
+							<div class="position-relative">
 								<input type="text" class="form-control ps-5 radius-30 d-none" placeholder="Search Order"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search d-none"></i></span>
 							</div>
 						  <div class="ms-auto"><a href="{{asset('productadd')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New Product</a></div>
@@ -89,7 +96,15 @@ $(document).ready(function() {
 var table = $('#dataTable').DataTable({
 				processing: true,
 				serverSide: true,
-				ajax: "{{url('productlistajax')}}",
+				//ajax: "{{url('productlistajax')}}",
+				"ajax": {
+					"url": "{{url('productlistajax')}}",
+					"type": "GET",
+					"datatype": "json",
+					"data": function(d){
+						d.status = $('.status').val();
+					}
+				},
 				columns: [
 					{ data: 'id', orderable: false},
 					{ data: 'main_img', orderable: false},
@@ -101,7 +116,13 @@ var table = $('#dataTable').DataTable({
 				],
 
 			});
+			
+			$('body').on('change', '.status', function() {
+				table.ajax.reload();
+			});
 		});
+		
+		
 		</script>
 </body>
 

@@ -121,7 +121,7 @@
 			 </div>
 			 <div class="col-sm-4">
 				<label for="inputEmailAddress" class="form-label">Mobile</label>
-				<input type="text" class="form-control store_contact_mobile" id="" {{ $disabledfield }}>
+				<input type="text" class="form-control store_contact_mobile"  maxlength="10" {{ $disabledfield }}>
 			 </div>
 			 
 			  

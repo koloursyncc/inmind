@@ -90,8 +90,8 @@ $(document).ready(function() {
 		serverSide: true,
 		ajax: "{{url('ajaxcallPoList')}}",
 		columns: [
-			{ data: 'id', orderable: false}, 
-			{ data: 'supplier', orderable: false},
+			{ data: 'id'}, 
+			{ data: 'supplier'},
 			{ data: 'detail', orderable: false},
 			{ data: 'action', orderable: false} 
 			  

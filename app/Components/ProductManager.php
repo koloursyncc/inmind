@@ -118,7 +118,7 @@ class ProductManager
 		foreach($suppliertype as $suppliek => $suppliev)
 		{
 			$data = DB::table('supplier_products')
-			->select('supplier_products.id', 'supplier_products.unit_price', 'supplier_products.supplier_type', 'suppliers.supplier_name')
+			->select('supplier_products.id', 'supplier_products.unit_price', 'supplier_products.supplier_type', 'suppliers.supplier_name', 'supplier_products.currency_id')
 			->join('suppliers', function($join) {
 				$join->on('supplier_products.supplier_id', '=', 'suppliers.id');
 			})
@@ -134,6 +134,7 @@ class ProductManager
 			'status' => 'success',
 			'code' => $productObj->code,
 			'supp' => $supplieProducts,
+			'product_image' => DB::table('images')->where('product_id', $productObj->id)->get(),
 			'product' => $productObj,
 			'type' => $type
 		];

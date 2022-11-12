@@ -232,10 +232,19 @@ if($type == 'view')
 																			<input type="hidden" {{ $disabledfield }} class="form-control " value="<?php echo $supplierProductObj->product_id; ?>" name="product_id[<?php echo $supplierProductObj->id; ?>]">
 																		</div>
 																		
-																		<div class="col-sm-3">
+																		 <div class="col-sm-3">
 																			<label for="inputEmailAddress" class="form-label "></label>
 																			<input type="text" {{ $disabledfield }} class="form-control " value="<?php echo $supplierProductObj->unit_price; ?>" name="unit_price[<?php echo $supplierProductObj->id; ?>]" placeholder="unit price">
 																		</div>
+																		
+																		<div class="col-sm-3">
+																		<label for="inputFirstName" class="form-label">Currency</label>
+																		<select class="form-select currency_id" name="currency_id[<?php echo $supplierProductObj->id; ?>]" {{ $disabledfield }}>
+																			<?php foreach($countries as $countryObj) { ?>
+																				 <option value="{{ $countryObj->id }}" <?php if($supplierProductObj->currency_id == $countryObj->id) { echo 'selected'; } ?>>{{ $countryObj->currency }}</option>
+																			<?php } ?>
+																		</select>
+																	</div>
 																	</div>
 																<?php } ?>
 															</div>
@@ -424,6 +433,15 @@ if($type == 'view')
 			<label for="inputEmailAddress" class="form-label "></label>
 			<input type="text" {{ $disabledfield }} class="form-control product_unit_price" placeholder="unit price">
 		</div>
+		
+		<div class="col-sm-3">
+			<label for="inputFirstName" class="form-label">Currency</label>
+			<select class="form-select currency_id" {{ $disabledfield }}>
+				<?php foreach($countries as $countryObj) { ?>
+					 <option value="{{ $countryObj->id }}">{{ $countryObj->currency }}</option>
+				<?php } ?>
+			</select>
+		</div>
 	</div>
 </div>
 
@@ -602,6 +620,7 @@ $(document).ready(function() {
 		});
 		let msg = 'Your Total percent is '+sum+'%';
 		if(sum > 100) {
+			$(this).val(0);
 			$('.submit').attr('disabled', 'disabled');
 			msg = '<span style="color:red">Your have crossed the 100%</span>';
 		}
@@ -672,6 +691,7 @@ $(document).ready(function() {
 			$('.product_unit_lavel', clone).html($(".product_id option[value=" + v +"]").text());
 			$('.product_n', clone).attr('name', 'product_id['+srno+']')
 			$('.product_unit_price', clone).attr('name', 'unit_price['+srno+']')
+			$('.currency_id', clone).attr('name', 'currency_id['+srno+']')
 			
 			$('.product_n', clone).val(v);
 			

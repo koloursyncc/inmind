@@ -470,6 +470,9 @@ class ProductController extends Controller
 			$countData->where('name', 'like', '%' .$searchValue . '%');
 			//$countData->where('supplier', 'like', '%' .$searchValue . '%');
 		}
+		if($request->status > 0) {
+			$countData->where('status', $request->status);
+		}
 		$totalRecordswithFilter = $countData->count();
 		 // Fetch records
 
@@ -488,7 +491,9 @@ class ProductController extends Controller
 			} else {
 				$records->orderBy('id', 'Desc');
 			}
-		
+		if($request->status > 0) {
+			$records->where('status', $request->status);
+		}
 		$list = $records->get();
 
 		 $data_arr = array();

@@ -352,9 +352,14 @@ class SupplierController extends Controller
 		foreach($request->product_id as $key => $productid)
 		{
 			$unit_price = 0;
+			$currency_id = null;
 			if(isset($request->unit_price[$key]))
 			{
 				$unit_price = $request->unit_price[$key];
+			}
+			if(isset($request->currency_id[$key]))
+			{
+				$currency_id = $request->currency_id[$key];
 			}
 			
 			$supplierManager->saveProductSupplier([
@@ -362,6 +367,7 @@ class SupplierController extends Controller
 				'unit_price' => $unit_price,
 				'supplier_id' => $lastInsertId,
 				'supplier_type' => $request->supplier_type,
+				'currency_id' => $currency_id
 			]);
 			
 			/* if($key > 0)
@@ -888,6 +894,8 @@ class SupplierController extends Controller
 		   ->take($rowperpage);
 			if($columnName == 'id') {
 			   $records->orderBy($columnName,$columnSortOrder);
+			} else if($columnName == 'supplier') {
+				$records->orderBy('suppliers.name',$columnSortOrder);
 			}
 			if($searchValue != null) {
 				$records->where('suppliers.name', 'like', '%' .$searchValue . '%');
