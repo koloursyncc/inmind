@@ -96,7 +96,13 @@ class PriceController extends Controller
 			];
 		}
 		
-		return response()->json(['status' => 'success', 'images' => $images, 'product' => $data['product'], 'data' => view('price/ajax',array('data' => $data))->render()]);
+		$productCustomer = DB::table('customer_products')
+							->select('customer_products.*', 'customers.name')
+							->join('customers', 'customers.id', '=', 'customer_products.customer_id')
+							->where('product_id', $request->id)
+							->get();
+		
+		return response()->json(['status' => 'success', 'images' => $images, 'product' => $data['product'], 'data' => view('price/ajax',array('data' => $data, 'productCustomer' => $productCustomer))->render()]);
 		return json_encode($data);
 	}
 	
