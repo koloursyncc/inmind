@@ -240,26 +240,13 @@
                            <h6>Retail Price</h6>
                           <table class="table table-bordered">
                            <tr>
+							<?php foreach($productCustomer as $productCustomerObj) { ?>
                               <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
+                                 <p><?php echo $productCustomerObj->name; ?></p>
+                                 <p>Price Ex. VAT: <?php echo $productCustomerObj->price_thb_ex_vat; ?></p>
+                                 <p>Price inc. VAT: <?php echo $productCustomerObj->price_thb_inc_vat; ?></p>
                               </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
-                              <td>
-                                 <p>Dohome</p>
-                                 <p>Price Ex. VAT: 1211</p>
-                                 <p>Price inc. VAT: 121332</p>
-                              </td>
+							<?php } ?>
                            </tr>
                           </table>
                         </div>
