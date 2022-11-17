@@ -313,9 +313,9 @@
 						  <div class="menu-title">Invoice</div>
 						</a>
 						<ul class="dropdown-menu">
-							<li> <a class="dropdown-item" href="form-elements.html"><i class="bx bx-right-arrow-alt"></i>Create Invoice</a>
+							<li> <a class="dropdown-item" href="{{asset('invoicecreate')}}"><i class="bx bx-right-arrow-alt"></i>Create Invoice</a>
 							</li>
-							<li> <a class="dropdown-item" href="form-input-group.html"><i class="bx bx-right-arrow-alt"></i>Invoice List</a>
+							<li> <a class="dropdown-item" href="{{asset('invoicecreate')}}"><i class="bx bx-right-arrow-alt"></i>Invoice List</a>
 							</li>
 						</ul>
 					  </li>
