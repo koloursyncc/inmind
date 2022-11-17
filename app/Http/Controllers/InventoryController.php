@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Warehouse;
+use DB;
 
 class InventoryController extends Controller
 {
@@ -13,7 +15,10 @@ class InventoryController extends Controller
     }
     public function inventoryin()
     {
-        return view('inventoryin');
+        $warehouse = Warehouse::all();
+        return view('inventoryin', [
+            'warehouse' => $warehouse,
+        ]);
     }
     public function inventoryout()
     {

@@ -404,7 +404,7 @@
                $.ajaxSetup({
     
           
-               $('warehouseform').submit();
+             
           });
      </script>
 
