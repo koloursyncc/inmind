@@ -92,6 +92,13 @@ Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 
 Route::get('/inventory', [InventoryController::class, 'inventory']);
 Route::get('/inventoryin', [InventoryController::class, 'inventoryin']);
+Route::get('/get-supplier-by-po-code',[
+    InventoryController::class,
+    'getSupplierDetail'
+]);
+
+
+
 Route::get('/inventoryout', [InventoryController::class, 'inventoryout']);
 Route::get('/inventorymodify', [InventoryController::class, 'inventorymodify']);
 

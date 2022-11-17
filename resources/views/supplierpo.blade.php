@@ -68,7 +68,8 @@ foreach($supplierProductPo as $supplierProductPoObj) {
 								</div>
                                  <div class="col-sm-4">
                                     <label for="inputFirstName" class="form-label">Supplier Name</label>
-                                    <select {{ $disabled_field }} class="form-select mb-3 supplier_id" name="supplier_id" aria-label="Default select example">
+                                    <select {{ $disabled_field }} class="form-select mb-3 supplier_id" 
+									name="supplier_id" aria-label="Default select example">
 										<option value="">Select Supplier </option>
 										<?php foreach($suppliers as $supplierObj) { ?>
 											<option data-address="{{ $supplierObj->address }} {{ $supplierObj->building }} {{ $supplierObj->sub_district }}  {{ $supplierObj->district }}  {{ $supplierObj->road }} " <?php if(@$obj->supplier_id == $supplierObj->id) { echo 'selected'; } ?> value="{{ $supplierObj->id }}">{{ $supplierObj->supplier_name }}</option>

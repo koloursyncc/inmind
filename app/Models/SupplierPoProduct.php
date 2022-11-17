@@ -24,5 +24,7 @@ class SupplierPoProduct extends Model
 		//return $product_id;
 		$productManagerObj = ProductManager::getInstance();
 		return $productManagerObj->getProductDataById($product_id);
+
+		
 	}
 }

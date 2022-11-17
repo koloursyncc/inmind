@@ -66,8 +66,7 @@ class SupplierManager
 	
 	public function saveSupplierPoProduct($params, $lastInsertId = false)
 	{
-		$obj = SupplierPoProduct::create($params);
-		
+		$obj = SupplierPoProduct::create($params);		
 		if($lastInsertId === true)
 		{
 			return $obj->id;

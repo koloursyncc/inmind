@@ -76,15 +76,18 @@
                                                     <label class="form-check-label" for="inlineRadio1">Supplier PO </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <label class="form-check-label" for="inlineRadio1">Supplier Name: Fong</label>
+                                                    <label class="form-check-label" for="inlineRadio1">Supplier Name: <span class="supplier_name"></span></label>
+                                                    <input type="hidden" id="supplier_id" name="supplier_id">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="inlineRadio1">No.</label>
-                                                    <select class="form-select mb-3" name="brand_id" aria-label="Default select example">
+                                                    <select class="form-select mb-3" name="supplier_po_no" id="supplier_po_no" aria-label="Default select example">
                                                         <option value="">Select Supplier PO No. </option>
-                                                        <option value="1">0001/2565 </option>
+                                                        @foreach($supplierpo as $row)
+                                                        <option value="{{ $row->code }}">{{ $row->code }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -257,5 +260,33 @@
                 </div>
                 <!--end page wrapper --> @include('layout.footer')
                 <!-- Bootstrap JS --> @include('layout.pofile')
+                <script>
+                    $(document).on('change','#supplier_po_no',function(){
+                        if($('#supplier_po_no').val()=="")
+                        {
+                            $('.supplier_name').html("");
+                            return
+                        }
+                    
+                        var data={
+                            '_token' : '{{ csrf_token() }}',
+                            'pocode' : $('#supplier_po_no').val(),
+                            
+                        }
+                        $.ajax({
+                            type: "get",
+                            url: "{{ url('/get-supplier-by-po-code') }}",
+                            data: data,
+                            dataType: "json",
+                            success: function (response) {
+                               
+                                $('.supplier_name').html(response.data.Supplier_name);
+                                $('#supplier_id').val(response.data.supplier_id)
+                            }
+
+                        });
+
+                    })
+                </script>
     </body>
 </html>
