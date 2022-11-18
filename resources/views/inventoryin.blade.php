@@ -46,7 +46,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="">Inventory In Ticket ID: </label>
-                                                    <input type="text" class="form-control" id="inventory_in_tickect-id" name="inventory_in_tickect" value="MVI 200/2565">
+                                                    <input type="text" class="form-control" id="inventory_in_tickect-id" name="inventory_in_tickect" value="{{ $max_ticket_no }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -107,22 +107,25 @@
                                             <div class="col-sm-3">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="inlineRadio1">Product Name / Code</label>
-                                                    <select class="form-select mb-3" name="product_name" aria-label="Default select example">
-                                                        <option value="">C133-546 </option>
-                                                        <option value="1">Meha </option>
-                                                        <option value="2">Inmind</option>
-                                                    </select>
+                                                    <input type="text" class="form-control" name="product_code"
+                                                     id="product_code">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <label for="inputFirstName" class="form-label">Quantity</label>
-                                                <input type="text" class="form-control" id="delivery_address" name="delivery_address" value="">
+                                                <div class="input-group ">
+                                                    <input type="text" class="form-control" placeholder="Quantity" 
+                                                    aria-label="Quantity" aria-describedby="basic-addon2" id="qty" name="qty">
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-danger" type="button" id="btnreceived">Received</button>
+                                                    </div>
+                                                  </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label label for="inputFirstName" class="form-label">Delivery Basket</label>
-                                                <table class="table table-responsive table-bordered">
+                                                <table class="table table-responsive table-bordered tbl_deliverybasket_tbl">
                                                     <thead>
                                                         <th></th>
                                                         <th>Product name</th>
@@ -131,55 +134,13 @@
                                                         <th>Total</th>
                                                         <th>From</th>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="col-md-12">
-                                                                    <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                                                </div>
-                                                            </td>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>Fong</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="col-md-12">
-                                                                    <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                                                </div>
-                                                            </td>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>Fong</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="col-md-12">
-                                                                    <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                                                </div>
-                                                            </td>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>Fong</td>
-                                                        </tr>
+                                                    <tbody class="deliverybasket_row">
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label label for="inputFirstName" class="form-label">All Product Available in W/H</label>
-                                                <table class="table table-responsive table-bordered">
+                                                <table class="table table-responsive table-bordered tbl_all_products_wh">
                                                     <thead>
                                                         <th>Product name</th>
                                                         <th>Product Code</th>
@@ -188,37 +149,8 @@
                                                         <th>Ready to Sale</th>
                                                         <th>Repair</th>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>2</td>
-                                                            <td>0</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>2</td>
-                                                            <td>0</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Siri cabinet</td>
-                                                            <td>
-                                                                <img src="">
-                                                            </td>
-                                                            <td>C133-546</td>
-                                                            <td>50</td>
-                                                            <td>2</td>
-                                                            <td>0</td>
-                                                        </tr>
+                                                    <tbody class="tbl_body_all_products_wh">
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -226,18 +158,15 @@
                                         <div class="row g-3">
                                             <div class="col-sm-4">
                                                 <label for="inputFirstName" class="form-label">Delivery Ticket No. </label>
-                                                <input type="text" class="form-control" id="delivery_address" name="delivery_address" value="
-																									<?php echo @$obj->delivery_address; ?>">
+                                                <input type="text" class="form-control" id="delivery_address" name="delivery_address" value="">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputLastName" class="form-label">Deliver Person </label>
-                                                <input type="text" class="form-control" id="delivery_building" name="delivery_building" value="
-																										<?php echo @$obj->delivery_building; ?>">
+                                                <input type="text" class="form-control" id="delivery_building" name="delivery_building" value="">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmailAddress" class="form-label">Telephone </label>
-                                                <input type="text" class="form-control" id="delivery_sub_district" name="delivery_sub_district" value="
-																											<?php echo @$obj->delivery_sub_district; ?>">
+                                                <input type="text" class="form-control" id="delivery_sub_district" name="delivery_sub_district" value="">
                                             </div>
                                             <div class="col-4">
                                                 <label for="inputEmailAddress" class="form-label"> Delivery Date Expected</label>
@@ -245,9 +174,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmailAddress" class="form-label">Reamrk </label>
-                                                <textarea type="text" class="form-control" id="delivery_road" name="delivery_road" value="
-																													<?php echo @$obj->delivery_road; ?>">
-																												</textarea>
+                                                <textarea type="text" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <input type="button" value="Save" class="btn btn-primary submit mt-10">
@@ -261,6 +188,7 @@
                 <!--end page wrapper --> @include('layout.footer')
                 <!-- Bootstrap JS --> @include('layout.pofile')
                 <script>
+                    $curr_activerow =null;
                     $(document).on('change','#supplier_po_no',function(){
                         if($('#supplier_po_no').val()=="")
                         {
@@ -274,19 +202,106 @@
                             
                         }
                         $.ajax({
+
                             type: "get",
                             url: "{{ url('/get-supplier-by-po-code') }}",
                             data: data,
                             dataType: "json",
                             success: function (response) {
                                
-                                $('.supplier_name').html(response.data.Supplier_name);
-                                $('#supplier_id').val(response.data.supplier_id)
+                                $('.supplier_name').html(response.Supplier_name);
+                                $('#supplier_id').val(response.supplier_id)
+                                $('.tbl_deliverybasket_tbl tbody').empty();
+                                var tblrow ='';
+
+                                var txtjson = JSON.stringify(response.supplier_po_pdt);
+                                var coll = JSON.parse(txtjson);
+                                $.each(coll, function (index, itemval) { 
+
+                                    tblrow =`<tr><td>
+                                        <div class="col-md-12">
+                                            <input type="checkbox" class="form- product_checked" name="product_checked[]">
+                                        </div>
+                                    </td>
+                                    <td>`+itemval.product_name+`</td>
+                                    <td>
+                                        <img src="">
+                                    </td>
+                                    <td>`+itemval.product_code+`</td>
+                                    <td>`+itemval.qty+`</td>
+                                    <td>`+response.Supplier_name+`</td></tr>`;
+
+                                    $('.tbl_deliverybasket_tbl tbody').append(tblrow);
+                                     
+                                });
+                                
                             }
 
-                        });
+                        });//ajaxend                        
 
+                    })//changeend
+
+
+                    $(document).on('click','.tbl_deliverybasket_tbl tbody tr',function(){
+                        curr_activerow=null;
+                        var row = $(this);
+                      
+                        var is_checked = row.find('input.product_checked').is(":checked");
+                        if(is_checked){
+
+                            curr_activerow = row;
+                            var code=row.find("td").eq(3).html();
+                            //console.log(code);
+                            $('#product_code').val(code);
+                            //$('#qty).val();
+                        }
+                    })
+
+                    $(document).on('click','#btnreceived',function(){
+                        if($('#qty').val()=="" ||
+                            $('#product_code').val()==""){
+
+                             alert('Product Code Or Qty. can not be empty!');
+                             return;
+
+                        }
+                        
+                        if(curr_activerow!==null){
+                            var content = `
+                                <tr>
+                                    <td>`+curr_activerow.find("td").eq(1).html()+`</td>
+                                    
+                                    <td>`+curr_activerow.find("td").eq(3).html()+`</td>
+                                    <td>
+                                        <img src="">
+                                    </td>
+                                    <td>`+curr_activerow.find("td").eq(4).html()+`</td>
+                                    <td>`+$('#qty').val()+`</td>
+                                    <td>0</td>
+                                </tr>
+                            `;
+                            $('.tbl_all_products_wh tbody').append(content);
+                            $('#qty').val("");
+                            $('#product_code').val("");
+                            curr_activerow=null;
+                        }
+                       
                     })
                 </script>
+            <script>
+
+                function store(){
+
+                    var data ={
+
+                        '_token' : '{{ csrf_token() }}',
+
+                    }
+
+
+
+
+                }
+            </script>
     </body>
 </html>

@@ -160,3 +160,6 @@ Route::post('/update/customer', [DealerController::class, 'update']);
 
 Route::get('/passwordreset', [ResetPasswordController::class, 'resetform']);
 Route::get('searchcolor', [ProductController::class, 'searchcolor']);
+
+
+Route::get('getmaxlid', [InventoryController::class, 'getMaxTicketNo']);
