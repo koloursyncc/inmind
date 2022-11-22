@@ -44,7 +44,8 @@
 										<th>Contact Person</th>
 										<th>Phone No.</th>
                                         <th>Ladda Cabinet</th>
-										<th>Action</th>
+										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -62,8 +63,15 @@
 									</td>
 									<td>{{ $item->contact_person }}</td>
 									<td>{{ $item->tel_number }}</td>
-									<td></td>
-									<td>Action</td>
+									<td>
+
+									</td>
+									<td>
+										<a href="{{ route('InventoryDetail',['wh_id' => $item->id ]) }}" class="btn btn-sm btn-success radius-30 mt-2 mt-lg-0"><i class="bx bxs-cylinder"></i> Inventory Detail</a>
+									</td>
+									<td>
+										<a href="{{ route('modifyInventory',['wh_id' => $item->id ]) }}" class="btn btn-sm btn-warning radius-30 mt-2 mt-lg-0"><i class="bx bxs-pencil"></i> Modify Inventory</a>
+									</td>
 									@endforeach
 								</tbody>
 							</table>

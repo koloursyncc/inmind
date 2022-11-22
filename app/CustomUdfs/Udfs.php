@@ -21,6 +21,7 @@ class Udfs
             ->select($getValue)
             ->where($whereCol, $whereVal)
             ->first();
+          
         return $result->$getValue;
     }
     public static function getTableRowCountByColValue(

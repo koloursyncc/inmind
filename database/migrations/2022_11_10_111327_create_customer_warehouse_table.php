@@ -11,7 +11,7 @@ class CreateCustomerWarehouseTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up()  
     {
         Schema::create('customer_warehouse', function (Blueprint $table) {
             $table->id();

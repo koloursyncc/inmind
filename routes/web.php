@@ -88,10 +88,30 @@ Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail
 Route::post('/pricesave', [PriceController::class, 'pricesave']);
 Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 
+/*************************************************************
+ *  WAREHOUSE :Inventory
+ *********************************************************/
+//inventory detail
+Route::get('/warehouse-inventory-detail/{wh_id}',[
+    InventoryController::class, 
+    'warehouse_inventory_detail'
+])->name('InventoryDetail');
 
+Route::get('/inventoryin', [
+    InventoryController::class, 
+    'inventoryin'
+]);
 
-Route::get('/inventory', [InventoryController::class, 'inventory']);
-Route::get('/inventoryin', [InventoryController::class, 'inventoryin']);
+Route::post('/inventoryin-store', [
+    InventoryController::class, 
+    'store'
+])->name('inventryInStore');
+
+Route::get('/ajax-get-status-wise-quantity',[
+    InventoryController::class,
+    'getStatusWisePdtQty'
+])->name('getStatusWisePdtQty');
+
 Route::get('/get-supplier-by-po-code',[
     InventoryController::class,
     'getSupplierDetail'
@@ -99,8 +119,13 @@ Route::get('/get-supplier-by-po-code',[
 
 
 
+
+
 Route::get('/inventoryout', [InventoryController::class, 'inventoryout']);
-Route::get('/inventorymodify', [InventoryController::class, 'inventorymodify']);
+Route::get('/inventorymodify/{wh_id}', [
+    InventoryController::class, 
+    'inventorymodify'
+])->name('modifyInventory');
 
 Route::get('/deliverycreate', [DeliveryController::class, 'deliverycreate']);
 Route::get('/deliveryreceived', [DeliveryController::class, 'deliveryreceived']);

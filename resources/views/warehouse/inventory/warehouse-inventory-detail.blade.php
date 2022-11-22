@@ -28,24 +28,40 @@
 			  
 				<div class="card">
 					<div class="card-body">
-								<div class="row g-3">
-                                                      <div class="col-sm-4">
-                                                        <label for="formFile" class="form-label">Warehouse Name </label>
-                                                        <input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Test" disabled >
-                                                        </div>
-														<div class="col-sm-4">
-                                                        <label for="formFile" class="form-label">Warehouse Type </label>
-                                                        <input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Test" disabled>
-                                                        </div>
-														<div class="col-sm-4">
-                                                        <label for="formFile" class="form-label">Customer  Name </label>
-                                                        <input class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Inmind" disabled>
-                                                        </div>
-														<div class="col-sm-4">
-                                                        <label for="formFile" class="form-label">Address</label>
-                                                        <textarea class="form-control mb-3 supplier_name" name="supplier_name" type="text" placeholder="Enter Warehouse name" aria-label="default input example" value="Test" disabled>Testing</textarea>
-                                                        </div>
+						<div class="row g-3">
+							<div class="col-sm-4">
+								<label for="formFile" class="form-label">Warehouse Name </label>
+								<input class="form-control mb-3 supplier_name" name="supplier_name" 
+								type="text" placeholder="Enter Warehouse name" 
+								aria-label="default input example" value="{{ $warehousedetail->wh_name  }}" disabled >
 							</div>
+							<div class="col-sm-4">
+								<label for="formFile" class="form-label">Warehouse Type </label>
+								<input class="form-control mb-3 supplier_name" 
+								name="supplier_name" type="text" placeholder="Enter Warehouse name" 
+								aria-label="default input example" 
+								value="@if($warehousedetail->wh_type == '1' ) Own Warehouse @elseif( $warehousedetail->wh_type == '2' ) Own Showroom @elseif( $warehousedetail->wh_type == '3' ) Wholeseller Store/ Warehouse @elseif( $warehousedetail->wh_type == '4' ) Retailer Resident	@endif " disabled>
+							</div>
+							<div class="col-sm-4">
+								<label for="formFile" class="form-label">Customer  Name </label>
+								<input class="form-control mb-3 supplier_name" name="supplier_name" type="text"
+								 placeholder="Enter Warehouse name" aria-label="default input example"
+								  value="{{ App\CustomUdfs\Udfs::SingleColValue(
+									'customers',
+									'name',
+									'id',
+									$warehousedetail->customer_id
+								) }}" disabled>
+							</div>
+							<div class="col-sm-12">
+								<label for="formFile" class="form-label">Address</label>
+								<textarea class="form-control mb-3 supplier_name"
+								 name="supplier_name" type="text"
+								  placeholder="Enter Warehouse name" 
+								  aria-label="default input example" 
+								  disabled>{{ $warehousedetail->address .','.$warehousedetail->building.','.$warehousedetail->buildingsub_district.','.$warehousedetail->district.','.$warehousedetail->city.','.( App\CustomUdfs\Udfs::SingleColValue('states','name','id',$warehousedetail->state_id)).','.( App\CustomUdfs\Udfs::SingleColValue('countries','name','id',$warehousedetail->country_id)).','.$warehousedetail->zipcode }}</textarea>
+							</div>
+						</div>
 
 						<div class="d-lg-flex align-items-center mb-4 gap-3">
 							<div class="position-relative">
@@ -70,6 +86,21 @@
 									</tr>
 								</thead>
 								<tbody>
+									@foreach ($inventory as $item)								
+									
+									<tr>
+										<td>{{ $loop->count  }}</td>
+										<td>{{ $item->pdt_name  }}</td>
+										<td>{{ $item->pdt_brand }}</td>
+										<td>{{ $item->product_code  }}</td>
+										<td>{{ $item->total_qty  }}</td>
+										<td>{{ $item->ready_to_sale  }}</td>
+										<td>{{ $item->repair  }}</td>
+										<td>{{ $item->wrecked  }}</td>
+										<td>{{ $item->lost  }}</td>
+										<td></td>
+									</tr>
+									@endforeach
 									
 								</tbody>
 							</table>
@@ -109,23 +140,7 @@ $(document).ready(function() {
 		//return false;
 	});
 
-var table = $('#dataTable').DataTable({
-				processing: true,
-				serverSide: true,
-				ajax: "{{url('warehouselistajax')}}",
-				columns: [
-					{ data: 'id', orderable: false},
-					{ data: 'main_img', orderable: false},
-					{ data: 'product_name', orderable: true},
-                    { data: 'product_name', orderable: true},
-					{ data: 'product_code', orderable: true},
-					{ data: 'detail', orderable: false},
-					{ data: 'action', orderable: false}
-					
-				],
 
-			});
-		});
 		</script>
 </body>
 

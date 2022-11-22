@@ -35,18 +35,19 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- SmartWizard html -->
-                                    <form id="po-form" data-url="" enctype="multipart/form-data">
+                                    {{-- <form id="po-form" data-url="" enctype="multipart/form-data"> --}}
                                         <div class="row g-3">
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="">Receiving Date:</label>
-                                                    <input type="date" class="form-control" id="receiving_date" name="receiving_date" value="{{ date('Y-m-d') }}">
+                                                    <input type="date" class="form-control" 
+                                                    id="receiving_date" name="receiving_date" value="{{ date('Y-m-d') }}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="">Inventory In Ticket ID: </label>
-                                                    <input type="text" class="form-control" id="inventory_in_tickect-id" name="inventory_in_tickect" value="{{ $max_ticket_no }}">
+                                                    <input type="text" class="form-control" id="inventory_in_tickect_id" name="inventory_in_tickect_id" value="{{ $max_ticket_no }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -56,7 +57,7 @@
                                             <div class="col-sm-2">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" id="is_inernal_moving"
-                                                     name="is_inernal_moving" type="radio" value="1">
+                                                     name="is_inernal_moving" type="radio" value="1" checked>
                                                     <label class="form-check-label" for="inlineRadio1">Internal Moving </label>
                                                 </div>
                                             </div>
@@ -94,7 +95,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline">
                                                     <label class="form-check-label" for="inlineRadio1">To W/H </label>
-                                                    <select class="form-select mb-3" name="to_warehouse" aria-label="Default select example">
+                                                    <select class="form-select mb-3" name="to_warehouse" id="to_warehouse" aria-label="Default select example">
                                                         <option value="">Select Warehouse </option>
                                                         @foreach ($warehouse as $item)
                                                         <option value="{{ $item->id }}">{{ $item->wh_name }}</option>                                                            
@@ -158,27 +159,27 @@
                                         <div class="row g-3">
                                             <div class="col-sm-4">
                                                 <label for="inputFirstName" class="form-label">Delivery Ticket No. </label>
-                                                <input type="text" class="form-control" id="delivery_address" name="delivery_address" value="">
+                                                <input type="text" class="form-control" id="delivery_ticket_no" name="delivery_ticket_no" value="">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputLastName" class="form-label">Deliver Person </label>
-                                                <input type="text" class="form-control" id="delivery_building" name="delivery_building" value="">
+                                                <input type="text" class="form-control" id="delivery_person" name="delivery_person" value="">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmailAddress" class="form-label">Telephone </label>
-                                                <input type="text" class="form-control" id="delivery_sub_district" name="delivery_sub_district" value="">
+                                                <input type="text" class="form-control" id="delivery_person_contact_no" name="delivery_person_contact_no" value="">
                                             </div>
                                             <div class="col-4">
                                                 <label for="inputEmailAddress" class="form-label"> Delivery Date Expected</label>
-                                                <input type="date" class="form-control store_contact_birth_date" id="">
+                                                <input type="date" class="form-control store_contact_birth_date" id="expected_delivery_date" name="expected_delivery_date">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmailAddress" class="form-label">Reamrk </label>
-                                                <textarea type="text" class="form-control"></textarea>
+                                                <textarea type="text" class="form-control" name="remarks" id="remarks"></textarea>
                                             </div>
                                         </div>
-                                        <input type="button" value="Save" class="btn btn-primary submit mt-10">
-                                    </form>
+                                        <button type="button" id="buttonsave"  class="btn btn-primary submit mt-10">Save</button>
+                                    {{-- </form> --}}
                                 </div>
                             </div>
                         </div>
@@ -187,121 +188,163 @@
                 </div>
                 <!--end page wrapper --> @include('layout.footer')
                 <!-- Bootstrap JS --> @include('layout.pofile')
-                <script>
-                    $curr_activerow =null;
-                    $(document).on('change','#supplier_po_no',function(){
-                        if($('#supplier_po_no').val()=="")
-                        {
-                            $('.supplier_name').html("");
-                            return
-                        }
+    <script>
+        $curr_activerow =null;
+        $(document).on('change','#supplier_po_no',function(){
+            if($('#supplier_po_no').val()=="")
+            {
+                $('.supplier_name').html("");
+                return
+            }
+        
+            var data={
+                '_token' : '{{ csrf_token() }}',
+                'pocode' : $('#supplier_po_no').val(),
+                
+            }
+            $.ajax({
+
+                type: "get",
+                url: "{{ url('/get-supplier-by-po-code') }}",
+                data: data,
+                dataType: "json",
+                success: function (response) {
                     
-                        var data={
-                            '_token' : '{{ csrf_token() }}',
-                            'pocode' : $('#supplier_po_no').val(),
+                    $('.supplier_name').html(response.Supplier_name);
+                    $('#supplier_id').val(response.supplier_id)
+                    $('.tbl_deliverybasket_tbl tbody').empty();
+                    var tblrow ='';
+
+                    var txtjson = JSON.stringify(response.supplier_po_pdt);
+                    var coll = JSON.parse(txtjson);
+                    $.each(coll, function (index, itemval) { 
+
+                        tblrow =`<tr><td>
+                            <div class="col-md-12">
+                                <input type="checkbox" class="form- product_checked" name="product_checked[]">
+                            </div>
+                        </td>
+                        <td>`+itemval.product_name+`</td>
+                        <td>
+                            <img src="">
+                        </td>
+                        <td>`+itemval.product_code+`</td>
+                        <td>`+itemval.qty+`</td>
+                        <td>`+response.Supplier_name+`</td></tr>`;
+
+                        $('.tbl_deliverybasket_tbl tbody').append(tblrow);
                             
-                        }
-                        $.ajax({
+                    });
+                    
+                }
 
-                            type: "get",
-                            url: "{{ url('/get-supplier-by-po-code') }}",
-                            data: data,
-                            dataType: "json",
-                            success: function (response) {
-                               
-                                $('.supplier_name').html(response.Supplier_name);
-                                $('#supplier_id').val(response.supplier_id)
-                                $('.tbl_deliverybasket_tbl tbody').empty();
-                                var tblrow ='';
+            });//ajaxend                        
 
-                                var txtjson = JSON.stringify(response.supplier_po_pdt);
-                                var coll = JSON.parse(txtjson);
-                                $.each(coll, function (index, itemval) { 
-
-                                    tblrow =`<tr><td>
-                                        <div class="col-md-12">
-                                            <input type="checkbox" class="form- product_checked" name="product_checked[]">
-                                        </div>
-                                    </td>
-                                    <td>`+itemval.product_name+`</td>
-                                    <td>
-                                        <img src="">
-                                    </td>
-                                    <td>`+itemval.product_code+`</td>
-                                    <td>`+itemval.qty+`</td>
-                                    <td>`+response.Supplier_name+`</td></tr>`;
-
-                                    $('.tbl_deliverybasket_tbl tbody').append(tblrow);
-                                     
-                                });
-                                
-                            }
-
-                        });//ajaxend                        
-
-                    })//changeend
+        })//changeend
 
 
-                    $(document).on('click','.tbl_deliverybasket_tbl tbody tr',function(){
-                        curr_activerow=null;
-                        var row = $(this);
-                      
-                        var is_checked = row.find('input.product_checked').is(":checked");
-                        if(is_checked){
+        $(document).on('click','.tbl_deliverybasket_tbl tbody tr',function(){
+            curr_activerow=null;
+            var row = $(this);
+            
+            var is_checked = row.find('input.product_checked').is(":checked");
+            if(is_checked){
 
-                            curr_activerow = row;
-                            var code=row.find("td").eq(3).html();
-                            //console.log(code);
-                            $('#product_code').val(code);
-                            //$('#qty).val();
-                        }
-                    })
+                curr_activerow = row;
+                var code=row.find("td").eq(3).html();
+                //console.log(code);
+                $('#product_code').val(code);
+                //$('#qty).val();
+            }
+        })
 
-                    $(document).on('click','#btnreceived',function(){
-                        if($('#qty').val()=="" ||
-                            $('#product_code').val()==""){
+        $(document).on('click','#btnreceived',function(){
+            if($('#qty').val()=="" ||
+                $('#product_code').val()==""){
 
-                             alert('Product Code Or Qty. can not be empty!');
-                             return;
+                    alert('Product Code Or Qty. can not be empty!');
+                    return;
 
-                        }
+            }
+            
+            if(curr_activerow!==null){
+                var content = `
+                    <tr>
+                        <td>`+curr_activerow.find("td").eq(1).html()+`</td>
                         
-                        if(curr_activerow!==null){
-                            var content = `
-                                <tr>
-                                    <td>`+curr_activerow.find("td").eq(1).html()+`</td>
-                                    
-                                    <td>`+curr_activerow.find("td").eq(3).html()+`</td>
-                                    <td>
-                                        <img src="">
-                                    </td>
-                                    <td>`+curr_activerow.find("td").eq(4).html()+`</td>
-                                    <td>`+$('#qty').val()+`</td>
-                                    <td>0</td>
-                                </tr>
-                            `;
-                            $('.tbl_all_products_wh tbody').append(content);
-                            $('#qty').val("");
-                            $('#product_code').val("");
-                            curr_activerow=null;
-                        }
-                       
-                    })
-                </script>
-            <script>
+                        <td>`+curr_activerow.find("td").eq(3).html()+`</td>
+                        <td>
+                            <img src="">
+                        </td>
+                        <td>`+curr_activerow.find("td").eq(4).html()+`</td>
+                        <td>`+$('#qty').val()+`</td>
+                        <td>0</td>
+                    </tr>
+                `;
+                $('.tbl_all_products_wh tbody').append(content);
+                $('#qty').val("");
+                $('#product_code').val("");
+                curr_activerow=null;
+            }
+            
+        })
+    </script>
+    <script>
+        
+       $('#buttonsave').click( function (e) { 
+         
+            e.preventDefault();
+            var inv_in_pdt = new Array();
+            var pdt_row_count=0;
+            $(".tbl_all_products_wh tbody tr").each(function () {
+                pdt_row_count++;
+                var item = {};
+                var row = $(this);
+                item.product_code = row.find("td").eq(1).html();
+                item.total_qty = row.find("td").eq(3).html();
+                item.ready_to_sale = row.find("td").eq(4).html();
+                item.repair = row.find("td").eq(5).html();
+                inv_in_pdt.push( item );
 
-                function store(){
+            });
+            var data ={
+                '_token' : '{{ csrf_token() }}',
+                'receiving_date' : $('#receiving_date').val(), 
+                'inventory_in_tickect_id' : $('#inventory_in_tickect_id').val(), 
+                'is_inernal_moving' : $('#is_inernal_moving').val(),
+                'supplier_id' : $('#supplier_id').val(),
+                'supplier_po_no' : $('#supplier_po_no').val(),
+                'to_warehouse' : $('#to_warehouse').val(),
+                'delivery_ticket_no' : $('#delivery_ticket_no').val(),
+                'delivery_person' : $('#delivery_person').val(),
+                'delivery_person_contact_no' : $('#delivery_person_contact_no').val(),
+                'expected_delivery_date' : $('#expected_delivery_date').val(),
+                'remarks' : $('#remarks').val(),
+                'inv_in_pdt' : inv_in_pdt,
+                'pdt_row_count' : pdt_row_count
+                
+            };
+            //console.log(data);
+            $.ajax({
+                type: "post",
+                url: "{{ route('inventryInStore') }}",
+                data: data,
+                dataType: "json",
+                success: function (response) {
 
-                    var data ={
+                    if(response.is_saved == 1 ){
+                        alert('Detail has been saved successfully!');
+                    }else{
 
-                        '_token' : '{{ csrf_token() }}',
+                        alert('Failed to save! Please retry!');
 
                     }
-
-
-
-
+                    
                 }
-            </script>
+            });
+
+
+        })
+    </script>
     </body>
 </html>
