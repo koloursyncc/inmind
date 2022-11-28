@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,6 +88,12 @@ Route::get('/priceedit/{id}', [PriceController::class, 'edit']);
 Route::get('/price/getproductdetail', [PriceController::class, 'getproductdetail']);
 Route::post('/pricesave', [PriceController::class, 'pricesave']);
 Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
+
+
+
+/* Invoice */
+
+Route::get('/invoicecreate', [InvoiceController::class, 'index']);
 
 /*************************************************************
  *  WAREHOUSE :Inventory
