@@ -200,16 +200,26 @@
         }
         var tostatus = $('#to_status').val();
         if(tostatus ==''){ 
-
           alert('Please choose To Status');
           return;
+        }
+        var qty_to_repalce = $('#qty').val();
+        var from_qty = $('#selected_status_qty').val();
+        if(from_qty <= qty_to_repalce){
+
+          alert('repalcement Allowed');
+
+        }else{
+          
+          alert('repalcement no allowed);
 
         }
+        
 
       });
       function getQtyByStatus(status_code, product_code, wh_code){
        
-
+        $('#selected_status_qty').val(0);
 
         var data={
 
@@ -227,7 +237,17 @@
           dataType: "json",
           success: function (response) {
 
+
+            if(status_code == '1')
             $('#selected_status_qty').val( response.ready_to_sale );
+            if(status_code == '2')
+            $('#selected_status_qty').val( response.repair );
+            if(status_code == '3')
+            $('#selected_status_qty').val( response.wrecked );
+            if(status_code == '4')
+            $('#selected_status_qty').val( response.lost );
+
+            
 
           }
         });

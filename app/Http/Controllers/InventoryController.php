@@ -213,12 +213,14 @@ class InventoryController extends Controller
             ])
             ->select('inventory_in_products.*')
             ->get();
+
+        //dd($inventory);
         if (count($inventory) > 0) {
-            $total_qty = $inventory->total_qty;
-            $ready_to_sale = $inventory->ready_to_sale;
-            $repair = $inventory->repair;
-            $wrecked = $inventory->wrecked;
-            $lost = $inventory->lost;
+            $total_qty = $inventory[0]->total_qty;
+            $ready_to_sale = $inventory[0]->ready_to_sale;
+            $repair = $inventory[0]->repair;
+            $wrecked = $inventory[0]->wrecked;
+            $lost = $inventory[0]->lost;
         }
 
         return response()->json([
