@@ -76,20 +76,17 @@
                     <div class="col-sm-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Customer PO 
-                            </label>
+                            <label class="form-check-label" for="inlineRadio1">Customer PO</label>
                         </div>
                         <div class="form-check form-check-inline">
                            <label class="form-check-label" for="inlineRadio1">Customer Name: Dohome</label>
-                             
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">No.</label>
                             <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
-                                <option value="">Select Customer PO No.
-                                </option>
+                                <option value="">Select Customer PO No.</option>
                                 <option value="1">0001/2565 </option>
                             </select>
                         </div>
@@ -234,7 +231,7 @@
                     <label for="inputEmailAddress" class="form-label">Remark </label>
                     <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
                                 <option value="">MV 200/2565</option>
-                            </select>
+                    </select>
                     <textarea  type="text" class="form-control" id="delivery_road" name="delivery_road" value="<?php echo @$obj->delivery_road; ?>"></textarea>
                   </div>
                 </div>
