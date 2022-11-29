@@ -89,7 +89,7 @@
 									@foreach ($inventory as $item)								
 									
 									<tr>
-										<td>{{ $loop->count  }}</td>
+										<td>{{ $loop->iteration  }}</td>
 										<td>{{ $item->pdt_name  }}</td>
 										<td>{{ $item->pdt_brand }}</td>
 										<td>{{ $item->product_code  }}</td>

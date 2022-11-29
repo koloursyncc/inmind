@@ -24,7 +24,14 @@ use App\Http\Controllers\DeliveryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    //Artisan::call('route:cache');
+    //Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    return '<h1>Successfully cleared !</h1>';
+});
 
 Route::get('/', [UserController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -126,6 +133,11 @@ Route::get('/inventorymodify/{wh_id}', [
     InventoryController::class, 
     'inventorymodify'
 ])->name('modifyInventory');
+
+Route::post('/inventorymodify/', [
+    InventoryController::class, 
+    'modifyinventory'
+])->name('updateInventory');
 
 Route::get('/deliverycreate', [DeliveryController::class, 'deliverycreate']);
 Route::get('/deliveryreceived', [DeliveryController::class, 'deliveryreceived']);

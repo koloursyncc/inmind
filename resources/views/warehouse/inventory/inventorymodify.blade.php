@@ -130,7 +130,7 @@
 
                     <div class="col-sm-8">
                          <label   label for="inputFirstName" class="form-label">Status</label>
-                       <table class="table table-responsive table-bordered">
+                       <table class="table table-responsive table-bordered productindetail">
                             <thead>
                                 <tr>
                                   <th>Product Code</th>
@@ -156,7 +156,8 @@
                        </table>
                     </div>
                 </div>
-                <input type="button" value="Save" class="btn btn-primary submit mt-10">
+                <button type="button" id="btnsaveChanges" class="btn btn-primary mt-10">Save Changes</button>
+                
                 </form>
             </div>
           </div>
@@ -205,24 +206,112 @@
         }
         var qty_to_repalce = $('#qty').val();
         var from_qty = $('#selected_status_qty').val();
-        if(from_qty <= qty_to_repalce){
+        if(from_qty >= qty_to_repalce){
+         
+          $(".productindetail tbody tr").each(function () {
 
-          alert('repalcement Allowed');
+              var row = $(this);              
+              if( row.find('td').eq(0).html() == product_code )
+              {
+                
+                 switch(fromstatus){
+                  case '1' :
+                    row.find('td').eq(2).html( from_qty - qty_to_repalce );
+                    switch(tostatus){
+                      case '1' :
+                        row.find('td').eq(2).html( (parseInt(row.find('td').eq(2).html()) + parseInt(qty_to_repalce) ));
+                        break;
+
+                      case '2' :
+                        row.find('td').eq(3).html( (parseInt(row.find('td').eq(3).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '3' :
+                        row.find('td').eq(4).html( (parseInt(row.find('td').eq(4).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '4' :
+                        row.find('td').eq(5).html( (parseInt(row.find('td').eq(5).html()) + parseInt(qty_to_repalce)) );
+                        break;
+                    }
+                  break;
+                  case '2' :
+                  row.find('td').eq(3).html( from_qty - qty_to_repalce );
+                    switch(tostatus){
+                      case '1' :
+                        row.find('td').eq(2).html( (parseInt(row.find('td').eq(2).html()) + parseInt(qty_to_repalce) ));
+                        break;
+
+                      case '2' :
+                        row.find('td').eq(3).html( (parseInt(row.find('td').eq(3).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '3' :
+                        row.find('td').eq(4).html( (parseInt(row.find('td').eq(4).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '4' :
+                        row.find('td').eq(5).html( (parseInt(row.find('td').eq(5).html()) + parseInt(qty_to_repalce)) );
+                        break;
+                    }
+                  break;
+                  case '3' :
+                  row.find('td').eq(4).html( from_qty - qty_to_repalce );
+                    switch(tostatus){
+                      case '1' :
+                        row.find('td').eq(2).html( (parseInt(row.find('td').eq(2).html()) + parseInt(qty_to_repalce) ));
+                        break;
+
+                      case '2' :
+                        row.find('td').eq(3).html( (parseInt(row.find('td').eq(3).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '3' :
+                        row.find('td').eq(4).html( (parseInt(row.find('td').eq(4).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '4' :
+                        row.find('td').eq(5).html( (parseInt(row.find('td').eq(5).html()) + parseInt(qty_to_repalce)) );
+                        break;
+                    }
+                  break;
+                  case '4' :
+                  row.find('td').eq(5).html( from_qty - qty_to_repalce );
+                    switch(tostatus){
+                      case '1' :
+                        row.find('td').eq(2).html( (parseInt(row.find('td').eq(2).html()) + parseInt(qty_to_repalce) ));
+                        break;
+
+                      case '2' :
+                        row.find('td').eq(3).html( (parseInt(row.find('td').eq(3).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '3' :
+                        row.find('td').eq(4).html( (parseInt(row.find('td').eq(4).html()) + parseInt(qty_to_repalce)) );
+                        break;
+
+                      case '4' :
+                        row.find('td').eq(5).html( (parseInt(row.find('td').eq(5).html()) + parseInt(qty_to_repalce)) );
+                        break;
+                    }
+                  break;
+                 }
+              }
+
+          })        
 
         }else{
           
-          alert('repalcement no allowed);
+          alert('Quantities aren\'t enough to be change');
 
         }
         
 
       });
-      function getQtyByStatus(status_code, product_code, wh_code){
+      function getQtyByStatus(status_code, product_code, wh_code){       
        
         $('#selected_status_qty').val(0);
-
         var data={
-
           '_token' : '{{ csrf_token() }}',
           'status_code' : status_code,
           'product_code' : product_code,
@@ -253,6 +342,32 @@
         });
 
       }
+    </script>
+    <script>
+      $('#btnsaveChanges').click(function (e) { 
+        e.preventDefault();
+        var products = new Array();
+        $(".productindetail tbody tr").each(function () {
+            var item = {};
+            var row = $(this);
+            item.product_code = row.find("td").eq(0).html();
+            item.ready_to_sale = row.find("td").eq(2).html();
+            item.repair=row.find("td").eq(3).html();
+            item.wrecked=row.find("td").eq(4).html();
+            item.lost=row.find("td").eq(5).html();
+            products.push( item );
+        })
+        var data = {
+
+          '_token' : '{{ csrf_token() }}',
+          'products' : products,
+          'wh_id' : $('#wh_id').val(),
+        }
+
+        console.log(data);
+
+        
+      });
     </script>
   </body>
 </html>

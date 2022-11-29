@@ -231,4 +231,11 @@ class InventoryController extends Controller
             'lost' => $lost,
         ]);
     }
+
+    public function modifyinventory(Request $req){
+
+        dd( $req);
+    }
 }
+
+
