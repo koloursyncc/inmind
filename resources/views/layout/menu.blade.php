@@ -275,8 +275,7 @@
 					  </ul>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
-						 
+						<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">						 
 						  <div class="menu-title">Warehouse</div>
 						</a>
 						<ul class="dropdown-menu">
@@ -288,7 +287,7 @@
 							</li>
 							<li> <a class="dropdown-item" href="{{asset('inventoryout')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Out</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('inventorymodify')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Modify</a>
+							<li> <a class="dropdown-item" href="{{asset('warehouselist')}}"><i class="bx bx-right-arrow-alt"></i>Inventory Modify</a>
 							</li>
 							
 						</ul>

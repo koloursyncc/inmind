@@ -189,7 +189,7 @@
                 <!--end page wrapper --> @include('layout.footer')
                 <!-- Bootstrap JS --> @include('layout.pofile')
     <script>
-        $curr_activerow =null;
+        var curr_activerow =null;
         $(document).on('change','#supplier_po_no',function(){
             if($('#supplier_po_no').val()=="")
             {

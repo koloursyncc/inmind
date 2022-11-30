@@ -11,7 +11,7 @@ class AlterSupplierpoTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up()  
     {
         DB::statement("ALTER TABLE `supplier_po` ADD `code` VARCHAR(255) NULL DEFAULT NULL AFTER `supplier_id`;");
     }
