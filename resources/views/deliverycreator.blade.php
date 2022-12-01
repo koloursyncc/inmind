@@ -1,15 +1,8 @@
 <!doctype html>
 <html lang="en">
   @include('layout.header')
-  <style>
-    .flexbox{
-      display:flex;
-      justify-content:center;
-      align-items: end;
-    }
-  </style>
+  <style>.flexbox{display:flex;justify-content:center;align-items: end;}</style>
   <body>
-
     <!--wrapper-->
     <div class="wrapper">
       <!--start header -->
@@ -24,12 +17,7 @@
             <div class="ps-3">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
-                  <li class="breadcrumb-item">
-                    <a href="javascript:;">
-                      <i class="bx bx-home-alt">
-                      </i>
-                    </a>
-                  </li>
+                  <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
                   <li class="breadcrumb-item active" aria-current="page">Delivery Creator
                   </li>
                 </ol>
@@ -45,37 +33,34 @@
                   <form id="po-form" data-url="" enctype="multipart/form-data">
                   <div class="row g-3">
                   <div class="col-sm-4">
-                   <p>Pickup  Date: 04/11/2022</p>
+                   <p>Pickup  Date: <?php echo $pickupdate;?></p>
                   </div>
                   <div class="col-sm-4">
-                   <p>Delivery Ticket no: DL 200/2565</p>
+                   <p>Delivery Ticket no: <?php echo $delivery_ticket_no;?></p>
                   </div>
                 </div>
-                <label for="formFile" class="form-label">Order Type
-                </label>
+                <label for="formFile" class="form-label">Order Type</label>
                 <div style="clear:both"> </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Internal Moving
-                            </label>
+                            <input class="form-check-input" type="radio" name="deleivery_order_type"  type="radio" value="1">
+                            <label class="form-check-label" for="inlineRadio1">Internal Moving</label>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">By </label>
-                            <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
-                                <option value="">Inventory Out  Ticket ID 
-                                </option>
+                            <select class="form-select mb-3" name="deleivery_by_inventory_out_ticket" aria-label="Default select example" >
+                                <option value="">Inventory Out  Ticket ID </option>
                                 <option value="1">MV 200/2565 </option>
-                                <option value="2" >Inmind</option>
+                                <option value="2">Inmind</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"   name="type_of_customer"  type="radio" value="1">
+                            <input class="form-check-input" type="radio" name="deleivery_customer_po"  type="radio" value="1">
                             <label class="form-check-label" for="inlineRadio1">Customer PO</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -85,7 +70,7 @@
                     <div class="col-sm-4">
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">No.</label>
-                            <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
+                            <select class="form-select mb-3" name="deleivery_customer_po_no" aria-label="Default select example" >
                                 <option value="">Select Customer PO No.</option>
                                 <option value="1">0001/2565 </option>
                             </select>
@@ -94,7 +79,7 @@
                     <div class="col-sm-4">
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">From W/H </label>
-                            <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
+                            <select class="form-select mb-3" name="deleivery_warehouse" aria-label="Default select example" >
                                 <option value="">Select Warehouse
                                 </option>
                                 <option value="1">Meha </option>
@@ -105,7 +90,7 @@
                     <div class="col-sm-6">
                         <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">To</label>
-                            <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
+                            <select class="form-select mb-3" name="deleivery_warehouse_to" aria-label="Default select example" >
                                 <option value="">366 M 4, Saima, Nonthaburi, Thailand</option>
                                 <option value="1">Meha </option>
                                 <option value="2" >Inmind</option>
@@ -209,30 +194,28 @@
                             </tbody>
                        </table>
                     </div>
-
-                    
                 </div>
                 <div class="row g-3">
                   <div class="col-sm-4">
                     <label for="inputLastName" class="form-label">Deliver Person
                     </label>
-                    <input  type="text" class="form-control" id="delivery_building" name="delivery_building" value="<?php echo @$obj->delivery_building; ?>">
+                    <input  type="text" class="form-control" id="delivery_person" name="delivery_person" value="">
                   </div>
                   <div class="col-sm-4">
                     <label for="inputEmailAddress" class="form-label">Telephone
                     </label>
-                    <input  type="text" class="form-control" id="delivery_sub_district" name="delivery_sub_district" value="<?php echo @$obj->delivery_sub_district; ?>">
+                    <input  type="text" class="form-control" id="delivery_telephone" name="delivery_telephone" value="">
                   </div>
                     <div class="col-4">
                         <label for="inputEmailAddress" class="form-label"> Delivery Date Expected</label>
-                        <input type="date" class="form-control store_contact_birth_date" id="">
+                        <input type="date" class="form-control store_contact_birth_date" id="delivery_date_expected">
                     </div>
                   <div class="col-sm-4">
                     <label for="inputEmailAddress" class="form-label">Remark </label>
-                    <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
-                                <option value="">MV 200/2565</option>
+                    <select class="form-select mb-3" name="deleivery_remark" aria-label="Default select example" >
+						<option value="">MV 200/2565</option>
                     </select>
-                    <textarea  type="text" class="form-control" id="delivery_road" name="delivery_road" value="<?php echo @$obj->delivery_road; ?>"></textarea>
+                    <textarea  type="text" class="form-control" id="delivery_remark_text" name="delivery_remark_text" value=""></textarea>
                   </div>
                 </div>
                 <input type="button" value="Save" class="btn btn-primary submit mt-10">
