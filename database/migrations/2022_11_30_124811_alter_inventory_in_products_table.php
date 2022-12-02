@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterSupplierpoTable extends Migration
+class AlterInventoryInProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AlterSupplierpoTable extends Migration
      */
     public function up()  
     {
-        DB::statement("ALTER TABLE `supplier_po` ADD `code` VARCHAR(255) NULL DEFAULT NULL AFTER `supplier_id`;");
+        DB::statement("ALTER TABLE `inventory_in_products` ADD `wh_id` VARCHAR(255) NULL DEFAULT NULL AFTER `id`;");
     }
 
     /**
@@ -23,6 +23,6 @@ class AlterSupplierpoTable extends Migration
      */
     public function down()
     {
-        //
+        
     }
 }

@@ -74,31 +74,29 @@
 								<thead class="table-light">
 									<tr>
 										<th>No.</th>
-										<th>Product Name</th>
-										<th>Brand</th>
+										<th>Product Name</th>										
 										<th>Product Code</th>
 										<th>Total</th>
                                         <th>Ready To Sale</th>
                                         <th>Repair</th>
                                         <th>Wrecked</th>
                                         <th>Lost</th>
-										<th>Action</th>
+										
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($inventory as $item)								
+									@foreach ($inventory as $item)							
 									
 									<tr>
 										<td>{{ $loop->iteration  }}</td>
-										<td>{{ $item->pdt_name  }}</td>
-										<td>{{ $item->pdt_brand }}</td>
+										<td>{{ $item->pdt_name  }}</td>										
 										<td>{{ $item->product_code  }}</td>
-										<td>{{ $item->total_qty  }}</td>
+										<td>{{ $item->ready_to_sale + $item->repair }}</td>
 										<td>{{ $item->ready_to_sale  }}</td>
 										<td>{{ $item->repair  }}</td>
 										<td>{{ $item->wrecked  }}</td>
 										<td>{{ $item->lost  }}</td>
-										<td></td>
+										
 									</tr>
 									@endforeach
 									
@@ -115,7 +113,11 @@
 	@include('layout.jsfile')
 
 
-
+	<script>
+		$(document).ready(function() {
+		  $('#dataTable').DataTable();
+		})
+		</script>
 
 <script>
 $(document).ready(function() {

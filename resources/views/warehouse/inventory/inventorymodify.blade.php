@@ -99,7 +99,7 @@
                                     <option value="3">Wrecked</option>
                                     <option value="4">Lost</option>
                                 </select>
-                                <input type="text" id="selected_status_qty" name="selected_status_qty">
+                                <input type="text" id="selected_status_qty" name="selected_status_qty" readonly>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -169,17 +169,20 @@
     @include('layout.footer')
     <!-- Bootstrap JS -->
     @include('layout.pofile')
+   
     <script>
       $(document).on('change','#from_status',function(){
 
         var product_code = $('#product_code').val();
         if(product_code ==''){
           alert('Please choose product');
+          $('#product_code').val("");
           return;
         }
         var fromstatus = $('#from_status').val();
         if(fromstatus == ''){
           alert('Please choose From Status');
+          $('#from_status').val("");
           return;
         }
         getQtyByStatus(fromstatus, product_code, $('#wh_id').val());
@@ -191,17 +194,20 @@
         if(product_code ==''){
 
           alert('Please choose product');
+          $('#product_code').val("");
           return;
         }
         var fromstatus = $('#from_status').val();
         if(fromstatus == ''){
 
           alert('Please choose From Status');
+          $('#from_status').val("");
           return;
         }
         var tostatus = $('#to_status').val();
         if(tostatus ==''){ 
           alert('Please choose To Status');
+          $('#to_status').val("");
           return;
         }
         var qty_to_repalce = $('#qty').val();
@@ -347,6 +353,7 @@
       $('#btnsaveChanges').click(function (e) { 
         e.preventDefault();
         var products = new Array();
+        var totalpdt_count =0;
         $(".productindetail tbody tr").each(function () {
             var item = {};
             var row = $(this);
@@ -356,15 +363,37 @@
             item.wrecked=row.find("td").eq(4).html();
             item.lost=row.find("td").eq(5).html();
             products.push( item );
+            totalpdt_count++;
         })
         var data = {
 
           '_token' : '{{ csrf_token() }}',
           'products' : products,
           'wh_id' : $('#wh_id').val(),
+          'pdt_count' : totalpdt_count,
         }
 
-        console.log(data);
+        $.ajax({
+          type: "post",
+          url: "{{ url('/inventorymodify/') }}",
+          data: data,
+          dataType: "json",
+          success: function (response) {
+
+            if(response.status== '1'){
+
+              alert('Changes has been Saved Successfully!');
+              location.reload();
+
+            }else{
+
+              alert('Failed to Save. Please Retry!');
+
+
+            }
+            
+          }
+        });
 
         
       });

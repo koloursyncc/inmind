@@ -138,7 +138,19 @@ Route::get('/get-supplier-by-po-code',[
 
 
 
-Route::get('/inventoryout', [InventoryController::class, 'inventoryout']);
+Route::get('/inventoryout', [
+    InventoryController::class, 'inventoryout'
+]);
+
+Route::get('/get-transporter-by-id/',[
+    InventoryController::class, 'get_transporters'
+])->name('AjaxGetTransporterById');
+
+Route::get('/warehouse-inventory-products/',[
+    InventoryController::class, 
+    'GetAllWarehouseProducts'
+])->name('GetAllWarehouseProducts');
+
 Route::get('/inventorymodify/{wh_id}', [
     InventoryController::class, 
     'inventorymodify'
@@ -146,7 +158,7 @@ Route::get('/inventorymodify/{wh_id}', [
 
 Route::post('/inventorymodify/', [
     InventoryController::class, 
-    'modifyinventory'
+    'inventoryUpdate'
 ])->name('updateInventory');
 
 Route::get('/deliverycreate', [DeliveryController::class, 'deliverycreate']);
