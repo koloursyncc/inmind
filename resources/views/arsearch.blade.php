@@ -18,7 +18,7 @@
         <div class="page-content">
           <!--breadcrumb-->
           <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Ar Receiver
+            <div class="breadcrumb-title pe-3">Invoice Creator
             </div>
             <div class="ps-3">
               <nav aria-label="breadcrumb">
@@ -29,7 +29,7 @@
                       </i>
                     </a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page">Ar Receiver
+                  <li class="breadcrumb-item active" aria-current="page">Invoice Creator
                   </li>
                 </ol>
               </nav>
@@ -42,33 +42,97 @@
                 <div class="card-body">
                   <!-- SmartWizard html -->
                   <form id="po-form" data-url="" enctype="multipart/form-data">
+                    <div class="row g-3">
+                      <div class="col-sm-4">
+                        <p>Invoice No: INV 1005/2566
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <p>Issue Date.: 10 Nov 2022
+                        </p>
+                      </div>
+                    </div>
+                    <div style="clear:both"> 
+                    </div>
                     <div class="row">
                       <div class="col-sm-7">
                         <div class="mb-3">
-                          <label class="form-label">Invoice No.
+                          <label class="form-label">Customer P.O No.
                           </label>
                           <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">001/2565
+                            <option value="">Inmind
                             </option>
-                            <option value="">001/2566
+                            <option value="">Metha
                             </option>
-                            <option value="">001/2567
+                            <option value="">Other
                             </option>
                           </select>
                         </div>
                       </div>
+                      <div style="clear:both">
+                      </div>
+                      <div style="clear:both">
+                      </div>
+                      <div class="col-sm-4" style="margin-top:20px">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="inlineRadio1">Customer Name
+                          </label>
+                          <select class="form-select mb-3" name="brand_id" aria-label="Default select example" >
+                            <option value="">Select Customer Name
+                            </option>
+                            <option value="1">Dohome
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div style="clear:both">
+                      </div>
+                      <div style="clear:both">
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="inlineRadio1">Between P.O Place Date 
+                          </label>
+                          <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="inlineRadio1">To Date
+                          </label>
+                          <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group-append mt-10">
+                          <button class="btn btn-danger" type="button" id="btnreceived">Find
+                          </button>
+                        </div>
+                      </div>
+                      <div style="clear:both">
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-12">
-                        <p for="inputFirstName" class="form-label">Invoice Issue date : 29/12/2022
+                        <label for="inputFirstName" class="form-label">
+                          <b>Result Found 2 transactions
+                          </b>
+                        </label>
+                        <p for="inputFirstName" class="form-label">Customer Name :Dohome PLC
                         </p>
-                        <p for="inputFirstName" class="form-label">Customer name : Inmind</p>
+                        <p for="inputFirstName" class="form-label">Customer Address :80 Vibhavadi Rd, Dindaeng District, bangkok 10400 Thailand
+                        </p>
+                        <p for="inputFirstName" class="form-label">Credit Terms :90 Days
+                        </p>
+                        <p for="inputFirstName" class="form-label">From: goods Received 
+                        </p>
                         <table class="table table-responsive table-bordered">
                           <thead> 
-                            
+                            <th>Select
+                            </th>
                             <th>P.O No.
                             </th>
-                            <th>Inventory In Ticket No.
+                            <th>P.O / Ticket
                             </th>
                             <th>Inventory In Ticket No.
                             </th>
