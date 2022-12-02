@@ -18,7 +18,7 @@
         <div class="page-content">
           <!--breadcrumb-->
           <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Invoice Creator
+            <div class="breadcrumb-title pe-3">AR Received Search
             </div>
             <div class="ps-3">
               <nav aria-label="breadcrumb">
@@ -29,7 +29,7 @@
                       </i>
                     </a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page">Invoice Creator
+                  <li class="breadcrumb-item active" aria-current="page">AR Received Search
                   </li>
                 </ol>
               </nav>
@@ -42,22 +42,10 @@
                 <div class="card-body">
                   <!-- SmartWizard html -->
                   <form id="po-form" data-url="" enctype="multipart/form-data">
-                    <div class="row g-3">
-                      <div class="col-sm-4">
-                        <p>Invoice No: INV 1005/2566
-                        </p>
-                      </div>
-                      <div class="col-sm-4">
-                        <p>Issue Date.: 10 Nov 2022
-                        </p>
-                      </div>
-                    </div>
-                    <div style="clear:both"> 
-                    </div>
                     <div class="row">
-                      <div class="col-sm-7">
+                      <div class="col-sm-4">
                         <div class="mb-3">
-                          <label class="form-label">Customer P.O No.
+                          <label class="form-label">Invoice No.
                           </label>
                           <select class="single-select brand_id" id="" name="brand_id" >
                             <option value="">Inmind
@@ -67,6 +55,26 @@
                             <option value="">Other
                             </option>
                           </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label class="form-label">P.O No.
+                          </label>
+                          <select class="single-select brand_id" id="" name="brand_id" >
+                            <option value="">Inmind
+                            </option>
+                            <option value="">Metha
+                            </option>
+                            <option value="">Other
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3" style="margin-top:20px;">
+                        <div class="input-group-append mt-10" >
+                          <button class="btn btn-danger" type="button" id="btnreceived">Find
+                          </button>
                         </div>
                       </div>
                       <div style="clear:both">
@@ -91,7 +99,7 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="form-check form-check-inline">
-                          <label class="form-check-label" for="inlineRadio1">Between P.O Place Date 
+                          <label class="form-check-label" for="inlineRadio1">Between Date 
                           </label>
                           <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
                         </div>
@@ -103,118 +111,69 @@
                           <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="input-group-append mt-10">
-                          <button class="btn btn-danger" type="button" id="btnreceived">Find
-                          </button>
-                        </div>
-                      </div>
                       <div style="clear:both">
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-sm-12">
+                      <div class="col-sm-12" style="margin-top:30px;">
                         <label for="inputFirstName" class="form-label">
                           <b>Result Found 2 transactions
                           </b>
                         </label>
-                        <p for="inputFirstName" class="form-label">Customer Name :Dohome PLC
-                        </p>
-                        <p for="inputFirstName" class="form-label">Customer Address :80 Vibhavadi Rd, Dindaeng District, bangkok 10400 Thailand
-                        </p>
-                        <p for="inputFirstName" class="form-label">Credit Terms :90 Days
-                        </p>
-                        <p for="inputFirstName" class="form-label">From: goods Received 
+                        <p for="inputFirstName" class="form-label">Total Rest balance :110,000 THB
                         </p>
                         <table class="table table-responsive table-bordered">
                           <thead> 
-                            <th>Select
+                            <th>Invoice No.
                             </th>
-                            <th>P.O No.
-                            </th>
-                            <th>P.O / Ticket
-                            </th>
-                            <th>Inventory In Ticket No.
-                            </th>
-                            <th>Delivery Date 
+                            <th>P.O  No.
                             </th>
                             <th>P.O Amount
                             </th>
-                            <th>Delivered Amount 
+                            <th>Delivered amount
+                            </th>
+                            <th>Received
+                            </th>
+                            <th>Received date
                             </th> 
-                            <th>Rest Balance
+                            <th>Status
                             </th> 
                           </thead>
                           <tbody>
                             <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
+                              <td>INV 1005/2565
                               </td>
-                              <td>28 Oct 2022
+                              <td>0003/2565
                               </td>
-                              <td>0001/2565
+                              <td>12,500
                               </td>
-                              <td>Siri Cabinet
+                              <td>5,000
                               </td>
-                              <td>C133-546
+                              <td>7,500
                               </td>
-                              <td>2
+                              <td>15 Nov 2022
                               </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
+                              <td><span style="color:green">Received</span>
                               </td>
                             </tr>
                             <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
+                              <td>INV 1005/2565
                               </td>
-                              <td>28 Oct 2022
+                              <td>0003/2565
                               </td>
-                              <td>0001/2565
+                              <td>12,500
                               </td>
-                              <td>Siri Cabinet
+                              <td>5,000
                               </td>
-                              <td>C133-546
+                              <td>7,500
                               </td>
-                              <td>2
+                              <td>15 Nov 2022
                               </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
-                              </td>
-                              <td>28 Oct 2022
-                              </td>
-                              <td>0001/2565
-                              </td>
-                              <td>Siri Cabinet
-                              </td>
-                              <td>C133-546
-                              </td>
-                              <td>2
-                              </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
+                              <td><span style="color:green">Commission Paid</span>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                        <p style="float:right">Total Amount: 160,500 THB
-                        </p>
-                        <p>Amount in Words: One Hundered Sixty thosand, Five Hundered Thai Bahts Only
-                        </p>
                       </div>
                     </div>
                     <input type="button" value="Save" class="btn btn-primary submit mt-10">

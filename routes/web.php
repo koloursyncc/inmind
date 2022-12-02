@@ -16,6 +16,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ArController;
+use App\Http\Controllers\ApController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +101,11 @@ Route::post('/priceupdate', [PriceController::class, 'priceupdate']);
 Route::get('/arreceive', [ArController::class, 'index']);
 Route::get('/arbalancechecker', [ArController::class, 'arbalancechecker']);
 Route::get('/arsearch', [ArController::class, 'arsearch']);
+
+
+
+Route::get('/apexpenses', [ApController::class, 'index']);
+Route::get('/apexpensessearch', [ApController::class, 'apexpensessearch']);
 
 /* Invoice */
 

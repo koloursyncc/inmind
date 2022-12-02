@@ -677,22 +677,22 @@ $payment_account_number = '';
         <option value="Bangkok Bank" 
                 <?php if($payment_bank_name == 'Bangkok Bank') { echo 'selected'; } ?>>Bangkok Bank
         </option>
-      <option value="Kasikom Bank" 
-              <?php if($payment_bank_name == 'Kasikom Bank') { echo 'selected'; } ?>>Kasikom Bank
-      </option>
-    <option value="Krungsri Bank" 
-            <?php if($payment_bank_name == 'Krungsri Bank') { echo 'selected'; } ?>>Krungsri Bank
-    </option>
-  </select>
-</div>
-<div class="col-sm-4 branch_name_container {{ $payment_branch_dnone }}">
-  <label for="inputFirstName" class="form-label">Branch
-  </label>
-  <span class="branch_name">{{ @$obj->payment_branch }}
-  </span>
-  <input type="hidden" class="payment_branch" name="payment_branch" value="{{ @$obj->payment_branch }}" />
-</div>
-</div>
+        <option value="Kasikom Bank" 
+                <?php if($payment_bank_name == 'Kasikom Bank') { echo 'selected'; } ?>>Kasikom Bank
+        </option>
+        <option value="Krungsri Bank" 
+                <?php if($payment_bank_name == 'Krungsri Bank') { echo 'selected'; } ?>>Krungsri Bank
+        </option>
+      </select>
+    </div>
+    <div class="col-sm-4 branch_name_container {{ $payment_branch_dnone }}">
+      <label for="inputFirstName" class="form-label">Branch
+      </label>
+      <span class="branch_name">{{ @$obj->payment_branch }}
+      </span>
+      <input type="hidden" class="payment_branch" name="payment_branch" value="{{ @$obj->payment_branch }}" />
+    </div>
+  </div>
 <div class="row g-3 ">
   <div class="col-sm-4 bankac">	
     <label for="inputFirstName" class="form-label">A/C Number

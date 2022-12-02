@@ -70,8 +70,6 @@
                             </th>
                             <th>Inventory In Ticket No.
                             </th>
-                            <th>Inventory In Ticket No.
-                            </th>
                             <th>Delivery Date 
                             </th>
                             <th>P.O Amount
@@ -83,68 +81,50 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
+                             
+                              <td>001/2565
                               </td>
-                              <td>28 Oct 2022
+                              <td>DL 105/2565
                               </td>
-                              <td>0001/2565
+                              <td>29 Oct 2022
                               </td>
-                              <td>Siri Cabinet
+                              <td>90,500
                               </td>
-                              <td>C133-546
+                              <td>90,500
                               </td>
-                              <td>2
-                              </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
+                              <td>0
                               </td>
                             </tr>
                             <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
-                              </td>
-                              <td>28 Oct 2022
-                              </td>
-                              <td>0001/2565
-                              </td>
-                              <td>Siri Cabinet
-                              </td>
-                              <td>C133-546
-                              </td>
-                              <td>2
-                              </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="col-md-12">	
-                                  <input type="checkbox" class="form- store_checked" value="1" checked="" name="store_checked[-2]">
-                                </div>
-                              </td>
-                              <td>28 Oct 2022
-                              </td>
-                              <td>0001/2565
-                              </td>
-                              <td>Siri Cabinet
-                              </td>
-                              <td>C133-546
-                              </td>
-                              <td>2
-                              </td>
-                              <td>W/H 34
-                              </td>
-                              <td>Suchart / Nonthaburi
-                              </td>
-                            </tr>
+                             
+                             <td>001/2565
+                             </td>
+                             <td>DL 105/2565
+                             </td>
+                             <td>29 Oct 2022
+                             </td>
+                             <td>90,500
+                             </td>
+                             <td>90,500
+                             </td>
+                             <td>0
+                             </td>
+                           </tr>
+                           <tr>
+                             
+                             <td>001/2565
+                             </td>
+                             <td>DL 105/2565
+                             </td>
+                             <td>29 Oct 2022
+                             </td>
+                             <td>90,500
+                             </td>
+                             <td>90,500
+                             </td>
+                             <td>0
+                             </td>
+                           </tr>
                           </tbody>
                         </table>
                         <p style="float:right">Total Amount: 160,500 THB
@@ -152,6 +132,56 @@
                         <p>Amount in Words: One Hundered Sixty thosand, Five Hundered Thai Bahts Only
                         </p>
                       </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3 mt-10 ">
+                          <label for="inputProductDescription" class="form-label">Transaction Slip</label>
+                          <input id="image-uploadify" type="file" name="images[]" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple="">
+                        </div>
+                      </div>
+                      <div class="row g-3">
+                      <div class="col-sm-4">
+                        <label for="inputFirstName" class="form-label">Payment Bank Name
+                        </label>
+                        <select class="form-control payment_bank_name" name="payment_bank_name">
+                          <option value="">Select
+                          </option>
+                          <option value="Bangkok Bank">Bangkok Bank </option>
+                          <option value="Kasikom Bank">Kasikom Bank</option>
+                          <option value="Krungsri Bank">Krungsri Bank </option>
+                        </select>
+                      </div>
+                      <div class="col-sm-4">
+                       <p>Branch : Rattanatibet Rd.</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <label for="inputFirstName" class="form-label">Transaction Date </label>
+                        <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
+                      </div>
+                      <div style="clear:both"></div>
+                      <div class="col-sm-4">
+                        <div class="payment_bank_none">
+                          <div class="payment_bank_pc_1">	
+                            <label for="inputFirstName" class="form-label">A/C Number
+                            </label>
+                            <select class="form-control payment_account_number" name="payment_account_number">
+                              <option value="">Select
+                              </option>
+                              <option value="058-301795-9" >058-301795-9
+                              </option>
+                              <option value="058-057010-9" >058-057010-9
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                       <p>Beneficiary Name : inmind co. ltd</p>
+                      </div>
+                      <div class="col-sm-4">
+                        <label for="inputFirstName" class="form-label">Transaction time </label>
+                        <input class="result form-control" type="text" id="time" placeholder="Date Picker...">
+                      </div>
+                    </div>
                     </div>
                     <input type="button" value="Save" class="btn btn-primary submit mt-10">
                   </form>
@@ -165,5 +195,19 @@
         @include('layout.footer')
         <!-- Bootstrap JS -->
         @include('layout.pofile')
+        <script>
+		$(function () {
+			$('#date-time').bootstrapMaterialDatePicker({
+				format: 'YYYY-MM-DD HH:mm'
+			});
+			$('#date').bootstrapMaterialDatePicker({
+				time: false
+			});
+			$('#time').bootstrapMaterialDatePicker({
+				date: false,
+				format: 'HH:mm'
+			});
+		});
+	</script>
         </body>
       </html>

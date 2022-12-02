@@ -324,10 +324,10 @@
 						  <div class="menu-title">A.R</div>
 						</a>
 						<ul class="dropdown-menu">
-							<li> <a class="dropdown-item" href="{{asset('arreceive')}}"><i class="bx bx-right-arrow-alt"></i>Add Payment Received</a>
+							<li> <a class="dropdown-item" href="{{asset('arreceive')}}"><i class="bx bx-right-arrow-alt"></i>Payment Received Creator</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('arbalancechecker')}}"><i class="bx bx-right-arrow-alt"></i>Payment Received List</a>
-							</li><li> <a class="dropdown-item" href="{{asset('arsearch')}}"><i class="bx bx-right-arrow-alt"></i>Payment Received List</a>
+							<li> <a class="dropdown-item" href="{{asset('arbalancechecker')}}"><i class="bx bx-right-arrow-alt"></i>Rest Balance in PO Delivered</a>
+							</li><li> <a class="dropdown-item" href="{{asset('arsearch')}}"><i class="bx bx-right-arrow-alt"></i>Search Payment Received by criterias</a>
 							</li>
 						</ul>
 					  </li>
@@ -337,9 +337,9 @@
 						  <div class="menu-title">A.P</div>
 						</a>
 						<ul class="dropdown-menu">
-							<li> <a class="dropdown-item" href="{{asset('invoicecreate')}}"><i class="bx bx-right-arrow-alt"></i>Add Expense Record</a>
+							<li> <a class="dropdown-item" href="{{asset('apexpenses')}}"><i class="bx bx-right-arrow-alt"></i>Expenses Record Form</a>
 							</li>
-							<li> <a class="dropdown-item" href="{{asset('invoicecreate')}}"><i class="bx bx-right-arrow-alt"></i>Expense Record List</a>
+							<li> <a class="dropdown-item" href="{{asset('apexpensessearch')}}"><i class="bx bx-right-arrow-alt"></i>Search Expenses recorded by criterias</a>
 							</li>
 						</ul>
 					  </li>
