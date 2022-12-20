@@ -44,31 +44,37 @@
                   <form id="po-form" data-url="" enctype="multipart/form-data">
                     <div class="row">
                       <div class="col-sm-7">
-                        <div class="mb-3">
+                        <div class="col-sm-4">
                           <label class="form-label">Invoice No.
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">001/2565
-                            </option>
-                            <option value="">001/2566
-                            </option>
-                            <option value="">001/2567
-                            </option>
+                          <select class="single-select brand_id" id="invoice_id" name="invoice_id" onchange="getreports()">
+                           <option value="">Select Invoice No.</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                                    <option value="{{ $po->po_id }}">{{ $po->po_id }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
-                        </div>
+                        </div><p style=" color: red;">*Please Select Invoice Number</p>
                       </div>
                     </div>
+                    <br>
                     <div class="row">
                       <div class="col-sm-12">
-                        <p for="inputFirstName" class="form-label">Invoice Issue date : 29/12/2022
+                        <p for="inputFirstName" class="form-label">Invoice Issue date : 
+                          <input type="text" id="invoice_date" name="invoice_date" value="{{ $date }}" disabled>
                         </p>
-                        <p for="inputFirstName" class="form-label">Customer name : Inmind</p>
+                        <p for="inputFirstName" class="form-label">Customer Name : 
+
+                         <input type="text" id="invoice_date" name="invoice_date" value="{{ $name }}" disabled> 
+                        </p>
+                        
                         <table class="table table-responsive table-bordered">
                           <thead> 
-                            
                             <th>P.O No.
-                            </th>
-                            <th>Inventory In Ticket No.
                             </th>
                             <th>Delivery Date 
                             </th>
@@ -80,56 +86,27 @@
                             </th> 
                           </thead>
                           <tbody>
-                            <tr>
-                             
-                              <td>001/2565
-                              </td>
-                              <td>DL 105/2565
-                              </td>
-                              <td>29 Oct 2022
-                              </td>
-                              <td>90,500
-                              </td>
-                              <td>90,500
-                              </td>
-                              <td>0
-                              </td>
-                            </tr>
-                            <tr>
-                             
-                             <td>001/2565
-                             </td>
-                             <td>DL 105/2565
-                             </td>
-                             <td>29 Oct 2022
-                             </td>
-                             <td>90,500
-                             </td>
-                             <td>90,500
-                             </td>
-                             <td>0
-                             </td>
-                           </tr>
-                           <tr>
-                             
-                             <td>001/2565
-                             </td>
-                             <td>DL 105/2565
-                             </td>
-                             <td>29 Oct 2022
-                             </td>
-                             <td>90,500
-                             </td>
-                             <td>90,500
-                             </td>
-                             <td>0
-                             </td>
-                           </tr>
+                            @if($users->count() > 0)
+                           @foreach ($users as $user)
+                                <tr>
+                                <td>{{ $user->po_id }}</td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->total_amount }}</td>
+                                <td>{{ $user->pay_this_time }}</td>
+                                <td>{{ $user->total_amount - $user->pay_this_time }}</td>
+                                </tr>
+                             @endForeach
+                            @else
+                            
+                            <td colspan="6" >No Records Found</td>
+                            
+                              @endif   
+                    
                           </tbody>
                         </table>
-                        <p style="float:right">Total Amount: 160,500 THB
+                        <p style="float:right">Total Amount: <input type="text" name="total_amount" value="{{ $total_amt }}" disabled>
                         </p>
-                        <p>Amount in Words: One Hundered Sixty thosand, Five Hundered Thai Bahts Only
+                        <p>Amount in Words: {{ $total_amount }}
                         </p>
                       </div>
                       <div class="col-sm-4">
@@ -208,6 +185,34 @@
 				format: 'HH:mm'
 			});
 		});
-	</script>
+    function getreports(){
+      var inv_id = $("#invoice_id").val();
+      window.location.href = "/arreceive?po_id="+inv_id;
+    }
+    </script>
+    <script>
+    
+      $(document).ready(function(){
+          $(".brand_id").change(function () {
+            var inv_id= $("#invoice_id").val();
+            var name= $("#cust_name").val();
+           
+            $.ajax({
+                method:"get",
+                url: "{{ ('/arreceive') }}",
+                 data: {
+                            id:inv_id,
+                            name:name}, 
+                success:function (data) {
+                     $('#name').val(data);
+                },
+                error:function () {
+
+                }
+            })
+
+        });
+ });
+</script>
         </body>
       </html>
