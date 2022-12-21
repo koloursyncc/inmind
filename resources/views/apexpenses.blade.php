@@ -54,18 +54,34 @@
                         <div class="mb-3">
                           <label class="form-label">Bank payer
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Bankok Bank - Inmind
-                            </option>
-                          </select>
-                          <p>A/C No. 058-301795-9/ Beneficiary Name: inmind Co. Ltd</p>
+                          <select class="single-select brand_id" id="bank_payer" name="bank_payer" >
+                             <option value="">Select Bank Payer</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->bank_name }}">{{ $po->bank_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
+                         </select>
                         </div>
+
+
+
                         <div class="mb-3">
                           <label class="form-label">Pay for Brand
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Bankok Bank - Inmind
-                            </option>
+                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()">
+                             <option value="">Select Pay for Brand</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->supplier_name }}">{{ $po->supplier_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
                         </div>
                         <div class="mb-3">
@@ -166,9 +182,16 @@
                         <div class="mb-3">
                           <label class="form-label">Supplier Type
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Kun Upholstery Co. Ltd.
-                            </option>
+                          <select class="single-select brand_id" id="supplier_type" name="supplier_type" >
+                            <option value="">Select Supplier Type</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->supplier_type }}">{{ $po->supplier_type }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
                         </div>
                         <div class="row">

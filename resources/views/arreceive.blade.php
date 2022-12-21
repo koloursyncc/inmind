@@ -51,7 +51,7 @@
                            <option value="">Select Invoice No.</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
-                                    <option value="{{ $po->po_id }}">{{ $po->po_id }}
+                                    <option value="{{ $po->po_invoice_id }}">{{ $po->po_invoice_id }}
                                     </option>    
                             @endForeach
                             @else
@@ -187,7 +187,7 @@
 		});
     function getreports(){
       var inv_id = $("#invoice_id").val();
-      window.location.href = "/arreceive?po_id="+inv_id;
+      window.location.href = "/arreceive?po_invoice_id="+inv_id;
     }
     </script>
     <script>

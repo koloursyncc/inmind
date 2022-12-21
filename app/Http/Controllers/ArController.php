@@ -16,13 +16,20 @@ class ArController extends Controller
     public function index()
     {   
         $po_id = (isset($_GET['po_id']))?$_GET["po_id"]:'';
+        $po_invoice_id = (isset($_GET['po_invoice_id']))?$_GET["po_invoice_id"]:'';
         
-        $data = PoInvoice::get();
-        $users = PoInvoice::select('c.name as name','c.brand_id as invoice_id','po_invoice.po_id','po_invoice.total_amount','po_invoice.pay_this_time','po_invoice.created_at')->join('customers as c','c.brand_id','=','po_invoice.id')->where('po_id',$po_id)->get();
-        $name = isset($_GET['po_id'])?$users->toArray()[0]['name']:'';
-        $date = isset($_GET['po_id'])?$users->toArray()[0]['created_at']:'';
+        $data = PoItems::get();
+        $users = PoItems::select('c.name as name','po_items.po_invoice_id as invoice_id','pv.po_id','pv.total_amount','pv.pay_this_time','pv.created_at',
+        DB::raw('(CASE WHEN pv.status = 1 THEN "Overdue" ELSE "Normal" END) AS status'))
+        ->join('po_invoice as pv','pv.po_id','=','po_items.po_id')
+        ->join('customers as c','c.id','=','pv.cust_id')
+        ->where('po_items.po_invoice_id',$po_invoice_id)->get();
+
+
+        $name = isset($_GET['po_invoice_id'])?$users->toArray()[0]['name']:'';
+        $date = isset($_GET['po_invoice_id'])?$users->toArray()[0]['created_at']:'';
         $date = date("Y-m-d", strtotime($date));
-        $total_amt = isset($_GET['po_id'])?$users->toArray()[0]['total_amount']:'';
+        $total_amt = isset($_GET['po_invoice_id'])?$users->toArray()[0]['total_amount']:'';
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         $total_amount =  $digit->format(round((int)$total_amt));
          $total_amount = ucwords($total_amount);
