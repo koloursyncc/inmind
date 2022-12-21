@@ -46,7 +46,7 @@
                         <div class="mb-3">
                           <label class="form-label">Transaction Date
                           </label>
-                          <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
+                          <input type="date" class="form-control contact_dob" id="trans_date" name="trans_date" required>
                         </div>
                       </div>
                     <div class="row">
@@ -54,7 +54,7 @@
                         <div class="mb-3">
                           <label class="form-label">Bank payer
                           </label>
-                          <select class="single-select brand_id" id="bank_payer" name="bank_payer" >
+                          <select class="single-select brand_id" id="bank_payer" name="bank_payer" required>
                              <option value="">Select Bank Payer</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
@@ -72,7 +72,7 @@
                         <div class="mb-3">
                           <label class="form-label">Pay for Brand
                           </label>
-                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()">
+                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()" required>
                              <option value="">Select Pay for Brand</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
@@ -87,7 +87,7 @@
                         <div class="mb-3">
                           <label class="form-label">Expense Category
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
+                          <select class="single-select brand_id" id="" name="brand_id">
                             <option value="">Supplier Inter</option>
                             <option>Supplier TH</option>
                             <option>Office Expense</option>
@@ -120,26 +120,29 @@
                               <div class="mb-3">
                                 <label class="form-label">Pay Amount (THB)
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                <input class="form-control mb-3" value="" type="number" placeholder="" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="amount" maxlength="8" id="amount" aria-label="default input example" required>
                             </div>
                           </div>
                           <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label">Equal in foreign currency
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example" required>
                             </div>
                           </div>
                           <div class="col-md-4" style="margin-top:50px;">
                               <div class="mb-3">
-                              <select class="single-select brand_id" id="" name="brand_id" >
-                                <option value="">USD </option>
-                                <option value="">RMB </option>
-                                <option value="">INR </option>
-                                <option value="">THB </option>
-                                <option value="">Euro </option>
-                                <option value="">JPY </option>
-                              </select>
+                              <select class="single-select brand_id" id="currency" name="currency" required>
+                                <option value="">Select Currency</option>
+                                @if($data->count() > 0)
+                                    @foreach($data as $po)
+                                  <option value="{{ $po->currency }}">{{ $po->currency }}
+                                        </option>    
+                                @endForeach
+                                @else
+                                 No Record Found
+                                  @endif 
+                                </select>
                             </div>
                           </div>
                         </div>
@@ -157,16 +160,16 @@
                               <div class="mb-3">
                                 <label class="form-label">Date of Payment
                                 </label>
-                                <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
+                                <input type="date" class="form-control contact_dob" id="payment_date" name="payment_date" required>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <!-- <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Time
                                 </label>
                                 <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
                             </div>
-                          </div>
+                          </div> -->
                         </div>
 
                       </div>
@@ -174,18 +177,26 @@
                         <div class="mb-3">
                           <label class="form-label">To Payee
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Kun Upholstery Co. Ltd.
-                            </option>
+                          <select class="single-select brand_id" id="to_payee" name="to_payee" required>
+                            
+                            <option value="">Select To Payee</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->beneficiary_name }}">{{ $po->beneficiary_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif 
                           </select>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Supplier Type
                           </label>
-                          <select class="single-select brand_id" id="supplier_type" name="supplier_type" >
+                          <select class="single-select brand_id" id="supplier_type" name="supplier_type" required>
                             <option value="">Select Supplier Type</option>
-                            @if($data->count() > 0)
-                                @foreach($data as $po)
+                            @if($supplier_type_data->count() > 0)
+                                @foreach($supplier_type_data as $po)
                               <option value="{{ $po->supplier_type }}">{{ $po->supplier_type }}
                                     </option>    
                             @endForeach
@@ -199,21 +210,55 @@
                               <div class="mb-3">
                                 <label class="form-label">Contact person name
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                <select class="single-select brand_id" id="name" name="name" required>
+                            
+                            <option value="">Select Name</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->name }}">{{ $po->name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif 
+                          </select>
+
                             </div>
                           </div>
                           <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label">Family Name
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                <select class="single-select brand_id" id="family_name" name="family_name" required>
+                            
+                                <option value="">Select Family Name</option>
+                                @if($data->count() > 0)
+                                    @foreach($data as $po)
+                                  <option value="{{ $po->family_name }}">{{ $po->family_name }}
+                                        </option>    
+                                @endForeach
+                                @else
+                                 No Record Found
+                                  @endif 
+                              </select>
                             </div>
                           </div>
                           <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label">Mobile
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                 <select class="single-select brand_id" id="mobile" name="mobile" required>
+                            
+                                <option value="">Select Mobile</option>
+                                @if($data->count() > 0)
+                                    @foreach($data as $po)
+                                  <option value="{{ $po->mobile }}">{{ $po->mobile }}
+                                        </option>    
+                                @endForeach
+                                @else
+                                 No Record Found
+                                  @endif 
+                              </select>
                             </div>
                           </div>
 

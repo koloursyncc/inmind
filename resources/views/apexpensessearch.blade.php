@@ -42,30 +42,44 @@
                 <div class="card-body">
                   <!-- SmartWizard html -->
                   <form id="po-form" data-url="" enctype="multipart/form-data">
-                      <div class="col-sm-3 offset-md-9">
+<!--                       <div class="col-sm-3 offset-md-9">
                         <div class="mb-3">
                           <label class="form-label">Transaction Date
                           </label>
                           <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
                         </div>
-                      </div>
+                      </div> -->
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="mb-3">
                           <label class="form-label">Bank payer
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Bankok Bank - Inmind
-                            </option>
-                          </select>
-                          <p>A/C No. 058-301795-9/ Beneficiary Name: inmind Co. Ltd</p>
+                           <select class="single-select brand_id" id="bank_payer" name="bank_payer" required>
+                             <option value="">Select Bank Payer</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->bank_name }}">{{ $po->bank_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
+                         </select>
+                          <!-- <p>A/C No. 058-301795-9/ Beneficiary Name: inmind Co. Ltd</p> -->
                         </div>
                         <div class="mb-3">
-                          <label class="form-label">Paid for Brand
+                          <label class="form-label">Pay for Brand
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Bankok Bank - Inmind
-                            </option>
+                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()" required>
+                             <option value="">Select Pay for Brand</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->supplier_name }}">{{ $po->supplier_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
                         </div>
                         <div class="mb-3">
@@ -91,27 +105,27 @@
                             <option>Water</option>
                           </select>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                           <label class="form-label">Expenses Detail
                           </label>
                           <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
-                        </div>
+                        </div> -->
                         <div class="row">
                      
-                          <div class="col-md-6">
+                        <!--   <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Date of Payment
                                 </label>
                                 <input type="date" class="form-control contact_dob" name="contact_dob[-1]">
                             </div>
-                          </div>
-                          <div class="col-md-6">
+                          </div> -->
+                          <!-- <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Time
                                 </label>
                                 <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
                             </div>
-                          </div>
+                          </div> -->
                         </div>
 
                       </div>
@@ -119,17 +133,32 @@
                         <div class="mb-3">
                           <label class="form-label">To Payee
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Kun Upholstery Co. Ltd.
-                            </option>
+                           <select class="single-select brand_id" id="to_payee" name="to_payee" required>
+                            
+                            <option value="">Select To Payee</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->beneficiary_name }}">{{ $po->beneficiary_name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif 
                           </select>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Supplier Type
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Kun Upholstery Co. Ltd.
-                            </option>
+                        <select class="single-select brand_id" id="supplier_type" name="supplier_type" required>
+                            <option value="">Select Supplier Type</option>
+                            @if($supplier_type_data->count() > 0)
+                                @foreach($supplier_type_data as $po)
+                              <option value="{{ $po->supplier_type }}">{{ $po->supplier_type }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
                         </div>
                         <div class="row">
@@ -137,13 +166,24 @@
                               <div class="mb-3">
                                 <label class="form-label">Contact person name
                                 </label>
-                                <input class="form-control mb-3" value="" type="text" placeholder="" name="name" aria-label="default input example">
+                                 <select class="single-select brand_id" id="name" name="name" required>
+                            
+                            <option value="">Select Name</option>
+                            @if($data->count() > 0)
+                                @foreach($data as $po)
+                              <option value="{{ $po->name }}">{{ $po->name }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif 
+                          </select>
                             </div>
                           </div>
                         </div>
                         </div>
                       </div>
-                      <input type="button" value="Save" class="btn btn-primary submit mt-10 col-md-2">
+                      <!-- <input type="button" value="Save" class="btn btn-primary submit mt-10 col-md-2"> -->
                     </div>
                     <div class="row">
                       <div class="col-sm-12" style="margin-top:30px; padding:30px;">
