@@ -21,8 +21,6 @@ class CreatePoInvoiceTable extends Migration
 			$table->double('discount')->nullable();
 			$table->double('vat')->nullable();
 			$table->double('pay_this_time')->nullable();
-            $table->integer('cust_id');
-            $table->integer('status')->default(0)->comment('1=Overdue, 0=Normal');
 			$table->timestamps();
         });
     }
