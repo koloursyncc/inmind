@@ -13,10 +13,16 @@ class PoInvoice extends Model
 	
     protected $fillable = [
 		'po_id',
+		'cust_id',
 		'total_amount',
 		'discount',
 		'vat',
-		'pay_this_time'
+		'pay_this_time',
+		'status'
 	];
 	
 }
+
+
+
+

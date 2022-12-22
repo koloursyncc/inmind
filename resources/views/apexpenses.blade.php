@@ -41,7 +41,9 @@
               <div class="card">
                 <div class="card-body">
                   <!-- SmartWizard html -->
-                  <form id="po-form" data-url="" enctype="multipart/form-data">
+                 <!--  <form action="/create" method="POST" id="po-form" data-url="" enctype="multipart/form-data"> -->
+                   <form action="/create" method="POST" >
+                    <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                       <div class="col-sm-3 offset-md-9">
                         <div class="mb-3">
                           <label class="form-label">Transaction Date
@@ -72,7 +74,7 @@
                         <div class="mb-3">
                           <label class="form-label">Pay for Brand
                           </label>
-                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()" required>
+                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" required>
                              <option value="">Select Pay for Brand</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
@@ -148,13 +150,13 @@
                         </div>
 
                         <div class="row">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label">Transaction Slip
                                 </label>
                                 <input id="image-uploadify" type="file" name="images[]" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple="">
                             </div>
-                        </div>
+                        </div> -->
                             <div style="clear:both"></div>
                           <div class="col-md-6">
                               <div class="mb-3">
