@@ -95,11 +95,11 @@ class ArController extends Controller
         $total_amt = isset($_GET['po_id'])?$product->toArray()[0]['total_amount']:'';
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         $total_amount =  $digit->format(round((int)$total_amt));
-         $total_amount = ucwords($total_amount);
+        $total_amount = ucwords($total_amount);
 
-         $bal_amt1 = isset($_GET['po_id'])?$product->toArray()[0]['total_amount']:'';
-          $bal_amt2 = isset($_GET['po_id'])?$product->toArray()[0]['pay_this_time']:'';
-          $bal_amt = (round((int)$bal_amt1))-(round((int)$bal_amt2));
+        $bal_amt1 = isset($_GET['po_id'])?$product->toArray()[0]['total_amount']:'';
+        $bal_amt2 = isset($_GET['po_id'])?$product->toArray()[0]['pay_this_time']:'';
+        $bal_amt = (round((int)$bal_amt1))-(round((int)$bal_amt2));
         // Fetch all records
          $response['data'] = $product;
 

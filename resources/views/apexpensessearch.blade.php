@@ -54,7 +54,7 @@
                         <div class="mb-3">
                           <label class="form-label">Bank payer
                           </label>
-                           <select class="single-select brand_id" id="bank_payer" name="bank_payer" required>
+                           <select class="single-select brand_id" id="bank_payer" name="bank_payer" onchange="getreports()">
                              <option value="">Select Bank Payer</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
@@ -70,7 +70,7 @@
                         <div class="mb-3">
                           <label class="form-label">Pay for Brand
                           </label>
-                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getbrandreports()" required>
+                          <select class="single-select brand_id" id="pay_brand" name="pay_brand" onchange="getPayBrandreports()">
                              <option value="">Select Pay for Brand</option>
                             @if($data->count() > 0)
                                 @foreach($data as $po)
@@ -85,24 +85,16 @@
                         <div class="mb-3">
                           <label class="form-label">Expense Category
                           </label>
-                          <select class="single-select brand_id" id="" name="brand_id" >
-                            <option value="">Supplier Inter</option>
-                            <option>Supplier TH</option>
-                            <option>Office Expense</option>
-                            <option>Rental</option>
-                            <option>Loan</option>
-                            <option>Credit Card</option>
-                            <option>Transportation/ Fuel/ Courier</option>
-                            <option>Travelling </option>
-                            <option>Shipping</option>
-                            <option>Tax / VAT Social Fund</option>
-                            <option>R&D</option>
-                            <option>Advertisemnet</option>
-                            <option>Salary</option>
-                            <option>Commision</option>
-                            <option>Mobile/Internet</option>
-                            <option>Electricity</option>
-                            <option>Water</option>
+                         <select class="single-select brand_id" id="expense_category"  name="expense_category" onchange="getExpnseCategoryreports()">
+                            <option value="">Select Expense Category</option>
+                            @if($expense_data->count() > 0)
+                                @foreach($expense_data as $po)
+                              <option value="{{ $po->expense_category }}">{{ $po->expense_category }}
+                                    </option>    
+                            @endForeach
+                            @else
+                             No Record Found
+                              @endif   
                           </select>
                         </div>
                         <!-- <div class="mb-3">
@@ -133,7 +125,7 @@
                         <div class="mb-3">
                           <label class="form-label">To Payee
                           </label>
-                           <select class="single-select brand_id" id="to_payee" name="to_payee" required>
+                           <select class="single-select brand_id" id="to_payee" name="to_payee" onchange="getToPayeeReports()">
                             
                             <option value="">Select To Payee</option>
                             @if($data->count() > 0)
@@ -149,7 +141,7 @@
                         <div class="mb-3">
                           <label class="form-label">Supplier Type
                           </label>
-                        <select class="single-select brand_id" id="supplier_type" name="supplier_type" required>
+                        <select class="single-select brand_id" id="supplier_type" name="supplier_type" onchange="getSuppTypereports()">
                             <option value="">Select Supplier Type</option>
                             @if($supplier_type_data->count() > 0)
                                 @foreach($supplier_type_data as $po)
@@ -166,7 +158,7 @@
                               <div class="mb-3">
                                 <label class="form-label">Contact person name
                                 </label>
-                                 <select class="single-select brand_id" id="name" name="name" required>
+                                 <select class="single-select brand_id" id="name" name="name" onchange="getNamereports()">
                             
                             <option value="">Select Name</option>
                             @if($data->count() > 0)
@@ -188,61 +180,41 @@
                     <div class="row">
                       <div class="col-sm-12" style="margin-top:30px; padding:30px;">
                         <label for="inputFirstName" class="form-label">
-                          <b>Result Found 2 transactions
+                          <b>Result Found {{$expense->count()}} transactions
                           </b>
                         </label>
-                        <p for="inputFirstName" class="form-label">Total Rest balance :110,000 THB
+                        <p for="inputFirstName" class="form-label">Total Rest balance :{{$bal_amt}}
                         </p>
                         <table class="table table-responsive table-bordered">
                           <thead> 
-                            <th>Payment Date
-                            </th>
-                            <th>Payee name
-                            </th>
-                            <th>Supplier Type
-                            </th>
-                            <th>Expense category
-                            </th>
-                            <th>Paid Amount 
-                            </th>
-                            <th>Expense detail
-                            </th> 
-                            <th>Payment slip
-                            </th> 
+                            <th>Payment Date</th>
+                            <th>Payee name</th>
+                            <th>Supplier Type</th>
+                            <th>Expense category</th>
+                            <th>Paid Amount</th>
+                            <th>Expense detail</th> 
+                            <!-- <th>Payment slip
+                            </th>  -->
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>15 Nov 2022
-                              </td>
-                              <td>John Smith
-                              </td>
-                              <td>Work Force
-                              </td>
-                              <td>Salary
-                              </td>
-                              <td>7,500
-                              </td>
-                              <td>Inmind salary 10/65
-                              </td>
-                              <td>Detail</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>15 Nov 2022
-                              </td>
-                              <td>John Smith
-                              </td>
-                              <td>Work Force
-                              </td>
-                              <td>Salary
-                              </td>
-                              <td>7,500
-                              </td>
-                              <td>Inmind salary 10/65
-                              </td>
-                              <td>Detail</span>
-                              </td>
-                            </tr>
+                            
+                             @if($expense->count() > 0)
+                           @foreach ($expense as $expnsdata)
+                                <tr>
+                                <td>{{ $expnsdata->created_at }}</td>
+                                <td>{{ $expnsdata->bank_payer }}</td>
+                                <td>{{ $expnsdata->supplier_name }}</td>
+                                <td>{{ $expnsdata->expense_category }}</td>
+                                <td>{{ $expnsdata->amount }}</td>
+                                <td>{{ $expnsdata->expense_description}}</td>
+                                </tr>
+                             @endForeach
+                            @else
+                            
+                            <td colspan="6" >No Records Found</td>
+                            
+                              @endif   
+                    
                           </tbody>
                         </table>
                       </div>
@@ -258,5 +230,37 @@
         @include('layout.footer')
         <!-- Bootstrap JS -->
         @include('layout.pofile')
+        <script type="text/javascript">
+          function getreports()
+          {
+            var bn_pay = $("#bank_payer").val();
+            window.location.href = "/apexpensessearch?bank_payer="+bn_pay;
+          }
+          function getToPayeeReports()
+          {
+            var to_payee = $("#to_payee").val();
+            window.location.href = "/apexpensessearch?to_payee="+to_payee;
+          }
+           function getPayBrandreports()
+          {
+            var p_brand = $("#pay_brand").val();
+            window.location.href = "/apexpensessearch?pay_brand="+p_brand;
+          }
+           function getExpnseCategoryreports()
+          {
+            var exp_cat = $("#expense_category").val();
+            window.location.href = "/apexpensessearch?expense_category="+exp_cat;
+          }
+          function getSuppTypereports()
+          {
+            var sp_type = $("#supplier_type").val();
+            window.location.href = "/apexpensessearch?supplier_type="+sp_type;
+          }
+          function getNamereports()
+          {
+            var name = $("#name").val();
+            window.location.href = "/apexpensessearch?name="+name;
+          }
+        </script>
         </body>
       </html>

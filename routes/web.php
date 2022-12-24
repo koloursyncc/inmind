@@ -105,9 +105,9 @@ Route::get('/arsearch', [ArController::class, 'arsearch']);
 
 
 Route::get('/apexpenses', [ApController::class, 'index']);
-
-Route::post('/create', [ApController::class, 'create']);
+Route::post('/save/expense', [ApController::class, 'save']);
 Route::get('/apexpensessearch', [ApController::class, 'apexpensessearch']);
+Route::post('/get/categoryData', [ApController::class, 'getCategoryData']);
 
 /* Invoice */
 
