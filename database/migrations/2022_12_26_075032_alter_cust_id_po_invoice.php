@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterPoInvoice extends Migration
+class AlterCustIdPoInvoice extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterPoInvoice extends Migration
     public function up()
     {
         Schema::table('po_invoice', function (Blueprint $table) {
-            $table->integer('cust_id');
+            $table->integer('cust_id')->nullable();
         });
 
         Schema::table('po_invoice', function (Blueprint $table) {
@@ -29,6 +29,8 @@ class AlterPoInvoice extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('po_invoice', function (Blueprint $table) {
+            //
+        });
     }
 }
